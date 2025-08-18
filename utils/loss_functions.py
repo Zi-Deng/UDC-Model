@@ -343,6 +343,7 @@ class LossFunctions():
         return loss
 
     def seesaw_loss(
+        self,
         logits: torch.Tensor,
         targets: torch.Tensor,
         alpha: float = 2.0,
@@ -362,6 +363,14 @@ class LossFunctions():
         Returns:
             torch.Tensor: Computed scalar loss value.
         """
+        # Error checking for debugging
+        if logits is None:
+            raise ValueError("seesaw_loss: logits is None")
+        if not isinstance(logits, torch.Tensor):
+            raise ValueError(f"seesaw_loss: logits must be a torch.Tensor, got {type(logits)}")
+        if logits.dim() < 2:
+            raise ValueError(f"seesaw_loss: logits must have at least 2 dimensions, got shape {logits.shape}")
+        
         num_classes = logits.size(-1)
         batch_size = logits.size(0)
 

@@ -19,8 +19,6 @@ from sklearn.model_selection import train_test_split
 from collections import Counter
 from datasets import Dataset
 import random
-
-# Import our custom image processor
 from utils.image_processor import CustomImageProcessor
 
 # Try to import visualization libraries (they might not be installed)
@@ -131,6 +129,10 @@ class ScriptTrainingArguments:
     model: str = field(
         default=None,
         metadata={"help": "Name of model from HG hub"}
+    )
+    model_type: str = field(
+        default="resnet",
+        metadata={"help": "Type of model to use: 'resnet' or 'convnext'"}
     )
     weights: str = field(
         default=None,
@@ -294,16 +296,30 @@ class ImagePreprocessor():
         self.test_transforms = image_processor.get_transform_for_test()
 
     def preprocess_train(self, image_batch):
-        """Preprocess training images with data augmentation - loads images from paths on-demand."""
+        """Preprocess training images with data augmentation - handles both image paths and loaded images."""
         images = []
-        for img_path in image_batch["image_path"]:
-            try:
-                image = Image.open(img_path).convert("RGB")
-                images.append(image)
-            except Exception as e:
-                print(f"Warning: Could not load image {img_path}: {e}")
-                # Create a dummy image to maintain batch consistency
-                images.append(Image.new('RGB', (224, 224), color='black'))
+        
+        # Check if we have image_path (local datasets) or image (HuggingFace datasets)
+        if "image_path" in image_batch:
+            # Load images from paths
+            for img_path in image_batch["image_path"]:
+                try:
+                    image = Image.open(img_path).convert("RGB")
+                    images.append(image)
+                except Exception as e:
+                    print(f"Warning: Could not load image {img_path}: {e}")
+                    # Create a dummy image to maintain batch consistency
+                    images.append(Image.new('RGB', (224, 224), color='black'))
+        elif "image" in image_batch:
+            # Use already loaded images
+            for image in image_batch["image"]:
+                if isinstance(image, Image.Image):
+                    images.append(image.convert("RGB"))
+                else:
+                    # Handle case where image might be in a different format
+                    images.append(Image.new('RGB', (224, 224), color='black'))
+        else:
+            raise ValueError("Image batch must contain either 'image_path' or 'image' column")
         
         image_batch["pixel_values"] = [
             self.train_transforms(image) for image in images
@@ -311,16 +327,30 @@ class ImagePreprocessor():
         return image_batch
     
     def preprocess_val(self, image_batch):
-        """Preprocess validation images - loads images from paths on-demand."""
+        """Preprocess validation images - handles both image paths and loaded images."""
         images = []
-        for img_path in image_batch["image_path"]:
-            try:
-                image = Image.open(img_path).convert("RGB")
-                images.append(image)
-            except Exception as e:
-                print(f"Warning: Could not load image {img_path}: {e}")
-                # Create a dummy image to maintain batch consistency
-                images.append(Image.new('RGB', (224, 224), color='black'))
+        
+        # Check if we have image_path (local datasets) or image (HuggingFace datasets)
+        if "image_path" in image_batch:
+            # Load images from paths
+            for img_path in image_batch["image_path"]:
+                try:
+                    image = Image.open(img_path).convert("RGB")
+                    images.append(image)
+                except Exception as e:
+                    print(f"Warning: Could not load image {img_path}: {e}")
+                    # Create a dummy image to maintain batch consistency
+                    images.append(Image.new('RGB', (224, 224), color='black'))
+        elif "image" in image_batch:
+            # Use already loaded images
+            for image in image_batch["image"]:
+                if isinstance(image, Image.Image):
+                    images.append(image.convert("RGB"))
+                else:
+                    # Handle case where image might be in a different format
+                    images.append(Image.new('RGB', (224, 224), color='black'))
+        else:
+            raise ValueError("Image batch must contain either 'image_path' or 'image' column")
         
         image_batch["pixel_values"] = [
             self.val_transforms(image) for image in images
@@ -328,16 +358,30 @@ class ImagePreprocessor():
         return image_batch
     
     def preprocess_test(self, image_batch):
-        """Preprocess test images - loads images from paths on-demand."""
+        """Preprocess test images - handles both image paths and loaded images."""
         images = []
-        for img_path in image_batch["image_path"]:
-            try:
-                image = Image.open(img_path).convert("RGB")
-                images.append(image)
-            except Exception as e:
-                print(f"Warning: Could not load image {img_path}: {e}")
-                # Create a dummy image to maintain batch consistency
-                images.append(Image.new('RGB', (224, 224), color='black'))
+        
+        # Check if we have image_path (local datasets) or image (HuggingFace datasets)
+        if "image_path" in image_batch:
+            # Load images from paths
+            for img_path in image_batch["image_path"]:
+                try:
+                    image = Image.open(img_path).convert("RGB")
+                    images.append(image)
+                except Exception as e:
+                    print(f"Warning: Could not load image {img_path}: {e}")
+                    # Create a dummy image to maintain batch consistency
+                    images.append(Image.new('RGB', (224, 224), color='black'))
+        elif "image" in image_batch:
+            # Use already loaded images
+            for image in image_batch["image"]:
+                if isinstance(image, Image.Image):
+                    images.append(image.convert("RGB"))
+                else:
+                    # Handle case where image might be in a different format
+                    images.append(Image.new('RGB', (224, 224), color='black'))
+        else:
+            raise ValueError("Image batch must contain either 'image_path' or 'image' column")
         
         image_batch["pixel_values"] = [
             self.test_transforms(image) for image in images
@@ -1011,9 +1055,9 @@ def preprocess_local_csv_dataset(folder_path, model_name, test_size=0.1, val_siz
     image_preprocessor = ImagePreprocessor(dummy_dataset, image_processor)
     
     # Apply transforms
-    train_dataset.set_transform(image_preprocessor.preprocess_train)
-    val_dataset.set_transform(image_preprocessor.preprocess_val)
-    test_dataset.set_transform(image_preprocessor.preprocess_test)
+    # train_dataset.set_transform(image_preprocessor.preprocess_train)
+    # val_dataset.set_transform(image_preprocessor.preprocess_val)
+    # test_dataset.set_transform(image_preprocessor.preprocess_test)
     
     # Print dataset info
     print(f"CSV-based dataset created successfully!")

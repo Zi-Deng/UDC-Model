@@ -92,8 +92,8 @@ class CustomTrainer(Trainer):
 def main(script_args):
 
     if script_args.wandb == "True":
-        wandb.login(key="e68d14a1a7b3aed71e0455589cde53c783018f5a")
         wandb.init(
+            wandb.login(key="e68d14a1a7b3aed71e0455589cde53c783018f5a"),
             project="convnext",
             name=script_args.output_dir,
         )
