@@ -8,3 +8,4 @@ utils/__pycache__/
 config/
 weights/
 CLAUDE.md
+model/__pycache__/
