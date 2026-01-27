@@ -7,3 +7,4 @@ config
 utils/__pycache__/
 config/
 weights/
+CLAUDE.md
