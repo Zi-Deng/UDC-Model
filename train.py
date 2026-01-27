@@ -18,9 +18,10 @@ import torch.nn as nn
 from datasets import load_dataset
 from evaluate import load
 from transformers import (
-    set_seed, 
-    TrainingArguments, 
-    Trainer
+    set_seed,
+    TrainingArguments,
+    Trainer,
+    EarlyStoppingCallback
     )
 from transformers.utils import logging
 from PIL import Image
@@ -200,6 +201,19 @@ def main(script_args):
 
     print("Pretrained weights loaded successfully!")
 
+    ### Freeze early ResNet stages if configured
+    if script_args.model_type.lower() == "resnet" and script_args.num_frozen_stages > 0:
+        if script_args.num_frozen_stages >= 1:
+            for param in model.resnet.embedder.parameters():
+                param.requires_grad = False
+        if script_args.num_frozen_stages >= 2:
+            for param in model.resnet.encoder.stages[0].parameters():
+                param.requires_grad = False
+        if script_args.num_frozen_stages >= 3:
+            for param in model.resnet.encoder.stages[1].parameters():
+                param.requires_grad = False
+        print(f"Froze {script_args.num_frozen_stages} early ResNet stage(s)")
+
     if script_args.wandb == "True":
         training_args = TrainingArguments(
             output_dir=f"checkpoints/{script_args.output_dir}",
@@ -207,11 +221,13 @@ def main(script_args):
             eval_strategy="epoch",
             save_strategy="epoch",
             learning_rate=script_args.learning_rate,
+            weight_decay=script_args.weight_decay,
             per_device_train_batch_size=script_args.batch_size,
             gradient_accumulation_steps=4,
             per_device_eval_batch_size=script_args.batch_size,
             num_train_epochs=script_args.num_train_epochs,
-            warmup_ratio=0.1,
+            warmup_ratio=script_args.warmup_ratio,
+            lr_scheduler_type=script_args.lr_scheduler_type,
             logging_steps=10,
             load_best_model_at_end=True,
             metric_for_best_model="accuracy",
@@ -225,16 +241,23 @@ def main(script_args):
             eval_strategy="epoch",
             save_strategy="epoch",
             learning_rate=script_args.learning_rate,
+            weight_decay=script_args.weight_decay,
             per_device_train_batch_size=script_args.batch_size,
             gradient_accumulation_steps=4,
             per_device_eval_batch_size=script_args.batch_size,
             num_train_epochs=script_args.num_train_epochs,
-            warmup_ratio=0.1,
+            warmup_ratio=script_args.warmup_ratio,
+            lr_scheduler_type=script_args.lr_scheduler_type,
             logging_steps=10,
             load_best_model_at_end=True,
             metric_for_best_model="accuracy",
             push_to_hub=(script_args.push_to_hub=="True"),
         )
+
+    callbacks = []
+    if script_args.early_stopping_patience > 0:
+        callbacks.append(EarlyStoppingCallback(early_stopping_patience=script_args.early_stopping_patience))
+        print(f"Early stopping enabled with patience={script_args.early_stopping_patience}")
 
     trainer = CustomTrainer(
         model=model,
@@ -245,7 +268,8 @@ def main(script_args):
         compute_metrics=compute_metrics,
         data_collator=collate_fn,
         loss_fxn=script_args.loss_function,
-        cost_matrix=script_args.cost_matrix
+        cost_matrix=script_args.cost_matrix,
+        callbacks=callbacks,
     )
 
     train_results = trainer.train()

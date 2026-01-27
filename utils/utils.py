@@ -206,6 +206,26 @@ class ScriptTrainingArguments:
         default="folder",
         metadata={"help": "Format of local dataset: 'folder' for class subfolders or 'csv' for CSV files with image paths and labels"}
     )
+    weight_decay: float = field(
+        default=0.0,
+        metadata={"help": "Weight decay for AdamW optimizer"}
+    )
+    warmup_ratio: float = field(
+        default=0.1,
+        metadata={"help": "Warmup ratio for learning rate scheduler"}
+    )
+    lr_scheduler_type: str = field(
+        default="linear",
+        metadata={"help": "LR scheduler type: 'linear', 'cosine', etc."}
+    )
+    num_frozen_stages: int = field(
+        default=0,
+        metadata={"help": "Number of early ResNet stages to freeze (0-3). 0=none, 1=embedder, 2=+stage0, 3=+stage1"}
+    )
+    early_stopping_patience: int = field(
+        default=0,
+        metadata={"help": "Early stopping patience (epochs without improvement). 0 = disabled."}
+    )
 
 def preprocess_hf_dataset(dataset_name, model_name):
     """

@@ -9,3 +9,5 @@ config/
 weights/
 CLAUDE.md
 model/__pycache__/
+__pycache__/
+docs/
