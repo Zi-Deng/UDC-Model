@@ -10,7 +10,7 @@
     "wandb": "False",
     "push_to_hub": "False",
     "output_dir": "test_resnet1",
-    "loss_function": "test",
+    "loss_function": "logit_adjustment",
     "cost_matrix": [
         [0.0, 0.0, 0.0, 10.0, 0.0],
         [0.0, 0.0, 0.0, 0.0, 0.0],

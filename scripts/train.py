@@ -1,79 +1,88 @@
-import os
+"""Main training entry point for cost-sensitive image classification.
+
+Usage:
+    micromamba activate ml
+    python scripts/train.py --config config/modelConfig.json
+
+Loads a JSON config, instantiates a ResNet or ConvNeXt model with pretrained
+weights, trains with a configurable loss function (including cost-matrix-aware
+variants), and saves comprehensive evaluation metrics and confusion matrix
+visualizations to results/.
+"""
+
 import sys
-import json
-import datetime
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
 from pathlib import Path
 
-### Add the parent directory of 'models' to sys.path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.abspath(os.path.join(current_dir, "../"))
-sys.path.insert(0, parent_dir)
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+import os
 
 import torch
 import wandb
-import torch.nn as nn
-from datasets import load_dataset
-from evaluate import load
 from transformers import (
-    set_seed, 
-    TrainingArguments, 
-    Trainer
-    )
+    EarlyStoppingCallback,
+    Trainer,
+    TrainingArguments,
+    set_seed,
+)
 from transformers.utils import logging
-from PIL import Image
 
-### Import from models
-from model.ResNet import ResNetConfig, ResNetForImageClassification
 from model.convnext import ConvNextConfig, ConvNextForImageClassification
-from utils.loss_functions import LossFunctions
+from model.ResNet import ResNetConfig, ResNetForImageClassification
 from utils.image_processor import CustomImageProcessor
+from utils.loss_functions import LossFunctions
 from utils.utils import (
     collate_fn,
     compute_metrics,
     compute_metrics_test_no_confusion,
+    get_device,
     parse_HF_args,
+    perform_comprehensive_evaluation,
     preprocess_hf_dataset,
     preprocess_kg_dataset,
-    preprocess_local_folder_dataset,
     preprocess_local_csv_dataset,
-    perform_comprehensive_evaluation
+    preprocess_local_folder_dataset,
 )
 
+
 class CustomTrainer(Trainer):
+    """HuggingFace Trainer subclass that injects a custom loss function.
+
+    Instead of using the model's built-in loss, this trainer dispatches to
+    a LossFunctions instance that supports cost-matrix-aware loss variants.
+
+    Args:
+        loss_fxn: String name of the loss function (e.g. "cross_entropy",
+            "logit_adjustment"). Passed to LossFunctions.loss_function().
+        cost_matrix: Optional 2D list defining per-class misclassification costs.
+            Dimensions must match num_labels x num_labels.
+    """
+
     def __init__(self, loss_fxn, cost_matrix=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.lossClass = LossFunctions(cost_matrix=cost_matrix)
         self.loss_fxn = loss_fxn
 
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
-        ### Unpack inputs dictionary and send to device
+        """Forward pass through the model and compute loss via the configured loss function."""
         pixel_values = inputs["pixel_values"].to(self.args.device)
         labels = inputs["labels"].to(self.args.device)
 
-        ### Forward pass through the model
         outputs = model(pixel_values)
-
-        ### Compute loss
         logits = outputs.logits
-        
-        # Debug: Check if logits are valid
+
         if logits is None:
             raise ValueError("Model outputs.logits is None. Check model forward method.")
         if not isinstance(logits, torch.Tensor):
             raise ValueError(f"Model outputs.logits is not a tensor. Got type: {type(logits)}")
-        
+
         loss_fxn = self.lossClass.loss_function(self.loss_fxn)
         loss = loss_fxn(logits, labels)
 
         return (loss, outputs) if return_outputs else loss
 
     def prediction_step(self, model, inputs, prediction_loss_only, ignore_keys=None):
-        """
-        Override the prediction_step to properly handle evaluation (unpacking dict).
-        """
+        """Override prediction_step to properly handle dict-based image inputs during evaluation."""
         pixel_values = inputs["pixel_values"].to(self.args.device)
         labels = inputs["labels"].to(self.args.device) if "labels" in inputs else None
 
@@ -83,96 +92,79 @@ class CustomTrainer(Trainer):
         logits = outputs.logits
         loss = None
         if labels is not None:
-            #loss = seesaw_loss(logits, labels)
             loss_fxn = self.lossClass.loss_function(self.loss_fxn)
             loss = loss_fxn(logits, labels)
         return (loss, logits, labels)
 
-### Main function
-def main(script_args):
 
+def main(script_args):
+    """Run the full training and evaluation pipeline.
+
+    Args:
+        script_args: A ScriptTrainingArguments instance containing all
+            training configuration (model, dataset, hyperparameters, etc.).
+
+    Returns:
+        str: Path to the results directory containing metrics and visualizations.
+    """
     if script_args.wandb == "True":
+        wandb.login()  # Uses WANDB_API_KEY environment variable or interactive prompt
         wandb.init(
-            wandb.login(key="e68d14a1a7b3aed71e0455589cde53c783018f5a"),
             project="convnext",
             name=script_args.output_dir,
         )
+        wandb.config.update(
+            {
+                "model_checkpoint": script_args.output_dir,
+                "batch_size": script_args.batch_size,
+                "learning_rate": script_args.learning_rate,
+                "num_train_epochs": script_args.num_train_epochs,
+            }
+        )
 
-        wandb.config.update({
-            "model_checkpoint": script_args.output_dir,
-            "batch_size": script_args.batch_size,
-            "learning_rate": script_args.learning_rate,  # **Updated to use value from JSON**
-            "num_train_epochs": script_args.num_train_epochs,  # **Updated to use value from JSON**
-        })
-    ### Load dataset
-
+    # Load dataset
     image_processor = CustomImageProcessor.from_pretrained(script_args.model)
-
-    # Initialize class_names variable
     class_names = None
-    
+
     if script_args.dataset_host == "huggingface":
         train_ds, val_ds, test_ds = preprocess_hf_dataset(script_args.dataset, script_args.model)
     elif script_args.dataset_host == "kaggle":
         train_ds, val_ds, test_ds = preprocess_kg_dataset(
             script_args.dataset,
             script_args.local_dataset_name,
-            script_args.model
+            script_args.model,
         )
     elif script_args.dataset_host == "local_folder":
         if script_args.local_folder_path is None:
             raise ValueError("local_folder_path must be specified when dataset_host is 'local_folder'")
-        
+
         if script_args.local_dataset_format == "csv":
             train_ds, val_ds, test_ds, class_names = preprocess_local_csv_dataset(
                 script_args.local_folder_path,
-                script_args.model
+                script_args.model,
             )
         elif script_args.local_dataset_format == "folder":
             train_ds, val_ds, test_ds, class_names = preprocess_local_folder_dataset(
                 script_args.local_folder_path,
-                script_args.model
+                script_args.model,
             )
         else:
-            raise ValueError(f"Unknown local_dataset_format: {script_args.local_dataset_format}. Must be 'folder' or 'csv'")
+            raise ValueError(
+                f"Unknown local_dataset_format: {script_args.local_dataset_format}. Must be 'folder' or 'csv'"
+            )
     else:
         raise ValueError(f"Unknown dataset_host: {script_args.dataset_host}")
 
-    ### Pretrained weights
+    # Load pretrained weights
     print(script_args.weights)
     pretrained_weights_path = os.path.abspath(script_args.weights)
-
     pretrained_weights = torch.load(pretrained_weights_path, map_location="cpu")
 
-    ### Device setup
-    if torch.backends.mps.is_available():
-        device = torch.device("mps")
-    elif torch.cuda.is_available():
-        device = torch.device("cuda")
-    else:
-        device = torch.device("cpu")
+    # Device setup
+    device = get_device()
     print(device)
 
-    ## Specify the model name or path from the Hugging Face Hub
-
-    #dataset = load_dataset(script_args.dataset)
-
-    # labels = dataset["train"].features["label"].names
-    # label2id, id2label = dict(), dict()
-    # for i, label in enumerate(labels):
-    #     label2id[label] = i
-    #     id2label[i] = label
-    # model_name = "microsoft/resnet-50"
-
-    # Load the pretrained model
-    # model = AutoModelForImageClassification.from_pretrained(
-    #     model_name,
-    #     label2id=label2id,
-    #     id2label=id2label,
-    #     ignore_mismatched_sizes=True,
-    # )
-    
-    ### Model configuration and creation based on model_type
+    # Model configuration and creation
     if script_args.model_type.lower() == "resnet":
         config = ResNetConfig(num_labels=script_args.num_labels, depths=[3, 4, 6, 3])
         model = ResNetForImageClassification(config)
@@ -183,16 +175,13 @@ def main(script_args):
         print(f"Using ConvNext model with {script_args.num_labels} labels")
     else:
         raise ValueError(f"Unsupported model_type: {script_args.model_type}. Supported types: 'resnet', 'convnext'")
-    
+
     model.to(device)
 
-    #print(model)
-    ### Load pretrained weights
+    # Load pretrained weights (excluding classifier head)
     filtered_weights = {k: v for k, v in pretrained_weights.items() if "classifier" not in k}
-    #print(f"Filtered weights: {filtered_weights.keys()}")
     missing_keys, unexpected_keys = model.load_state_dict(filtered_weights, strict=False)
 
-    # Check for any missing or unexpected keys
     if missing_keys:
         print(f"Missing keys: {missing_keys}")
     if unexpected_keys:
@@ -200,59 +189,62 @@ def main(script_args):
 
     print("Pretrained weights loaded successfully!")
 
-    if script_args.wandb == "True":
-        training_args = TrainingArguments(
-            output_dir=f"checkpoints/{script_args.output_dir}",
-            remove_unused_columns=False,
-            eval_strategy="epoch",
-            save_strategy="epoch",
-            learning_rate=script_args.learning_rate,
-            per_device_train_batch_size=script_args.batch_size,
-            gradient_accumulation_steps=4,
-            per_device_eval_batch_size=script_args.batch_size,
-            num_train_epochs=script_args.num_train_epochs,
-            warmup_ratio=0.1,
-            logging_steps=10,
-            load_best_model_at_end=True,
-            metric_for_best_model="accuracy",
-            push_to_hub=(script_args.push_to_hub=="True"),
-            report_to="wandb",
-        )
-    else:
-        training_args = TrainingArguments(
-            output_dir=f"checkpoints/{script_args.output_dir}",
-            remove_unused_columns=False,
-            eval_strategy="epoch",
-            save_strategy="epoch",
-            learning_rate=script_args.learning_rate,
-            per_device_train_batch_size=script_args.batch_size,
-            gradient_accumulation_steps=4,
-            per_device_eval_batch_size=script_args.batch_size,
-            num_train_epochs=script_args.num_train_epochs,
-            warmup_ratio=0.1,
-            logging_steps=10,
-            load_best_model_at_end=True,
-            metric_for_best_model="accuracy",
-            push_to_hub=(script_args.push_to_hub=="True"),
-        )
+    # Freeze early ResNet stages if configured
+    if script_args.model_type.lower() == "resnet" and script_args.num_frozen_stages > 0:
+        if script_args.num_frozen_stages >= 1:
+            for param in model.resnet.embedder.parameters():
+                param.requires_grad = False
+        if script_args.num_frozen_stages >= 2:
+            for param in model.resnet.encoder.stages[0].parameters():
+                param.requires_grad = False
+        if script_args.num_frozen_stages >= 3:
+            for param in model.resnet.encoder.stages[1].parameters():
+                param.requires_grad = False
+        print(f"Froze {script_args.num_frozen_stages} early ResNet stage(s)")
+
+    # Training arguments
+    report_to = "wandb" if script_args.wandb == "True" else "none"
+
+    training_args = TrainingArguments(
+        output_dir=f"checkpoints/{script_args.output_dir}",
+        remove_unused_columns=False,
+        eval_strategy="epoch",
+        save_strategy="epoch",
+        learning_rate=script_args.learning_rate,
+        weight_decay=script_args.weight_decay,
+        per_device_train_batch_size=script_args.batch_size,
+        gradient_accumulation_steps=4,
+        per_device_eval_batch_size=script_args.batch_size,
+        num_train_epochs=script_args.num_train_epochs,
+        warmup_ratio=script_args.warmup_ratio,
+        lr_scheduler_type=script_args.lr_scheduler_type,
+        logging_steps=10,
+        load_best_model_at_end=True,
+        metric_for_best_model="accuracy",
+        push_to_hub=(script_args.push_to_hub == "True"),
+        report_to=report_to,
+    )
+
+    callbacks = []
+    if script_args.early_stopping_patience > 0:
+        callbacks.append(EarlyStoppingCallback(early_stopping_patience=script_args.early_stopping_patience))
+        print(f"Early stopping enabled with patience={script_args.early_stopping_patience}")
 
     trainer = CustomTrainer(
         model=model,
         args=training_args,
         train_dataset=train_ds,
         eval_dataset=val_ds,
-        processing_class=image_processor,  # CustomImageProcessor works as a tokenizer here for image tasks
+        processing_class=image_processor,
         compute_metrics=compute_metrics,
         data_collator=collate_fn,
         loss_fxn=script_args.loss_function,
-        cost_matrix=script_args.cost_matrix
+        cost_matrix=script_args.cost_matrix,
+        callbacks=callbacks,
     )
 
     train_results = trainer.train()
-    # trainer.save_model()
     trainer.log_metrics("train", train_results.metrics)
-    # trainer.save_metrics("train", train_results.metrics)
-    # trainer.save_state()
 
     trainer = CustomTrainer(
         model=model,
@@ -263,22 +255,22 @@ def main(script_args):
         compute_metrics=compute_metrics_test_no_confusion,
         data_collator=collate_fn,
         loss_fxn=script_args.loss_function,
-        cost_matrix=script_args.cost_matrix
+        cost_matrix=script_args.cost_matrix,
     )
 
-    ### Use the comprehensive evaluation function from utils
     results_dir = perform_comprehensive_evaluation(
         trainer=trainer,
         test_ds=test_ds,
         script_args=script_args,
         dataset_name=script_args.dataset,
-        class_names=class_names
+        class_names=class_names,
     )
-    
+
     return results_dir
+
 
 if __name__ == "__main__":
     set_seed(42)
     logger = logging.get_logger(__name__)
-    args = parse_HF_args()  # **Updated to use JSON-based arguments**
+    args = parse_HF_args()
     main(args)

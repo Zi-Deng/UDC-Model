@@ -1,210 +1,39 @@
+"""ResNet architecture for image classification.
+
+Implements ResNet-50/101/152 with bottleneck and basic block variants.
+Custom implementation decoupled from HuggingFace transformers, using shared
+base classes from model/__init__.py.
+
+Classes:
+    ResNetConfig: Configuration for ResNet models.
+    ResNetForImageClassification: ResNet with classification head.
+"""
+
 import math
+
 import torch
 import torch.nn as nn
-import json
-from typing import Optional, Tuple, Union
 from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
 
-
-# Custom base classes to replace HuggingFace transformer base classes
-class CustomConfig:
-    """
-    Custom configuration base class to replace transformers.PretrainedConfig
-    """
-    def __init__(self, **kwargs):
-        # Standard configuration attributes that HuggingFace models expect
-        self.output_hidden_states = kwargs.pop("output_hidden_states", False)
-        self.use_return_dict = kwargs.pop("use_return_dict", True)
-        self.problem_type = kwargs.pop("problem_type", None)
-        
-        # Store any additional kwargs as attributes
-        for key, value in kwargs.items():
-            setattr(self, key, value)
-
-    def to_dict(self):
-        """
-        Serializes this instance to a Python dictionary.
-        """
-        output = {}
-        for key, value in self.__dict__.items():
-            # Skip private attributes and methods
-            if not key.startswith('_'):
-                if isinstance(value, (list, tuple)):
-                    output[key] = list(value)
-                elif hasattr(value, 'to_dict'):
-                    output[key] = value.to_dict()
-                else:
-                    output[key] = value
-        return output
-
-    def to_json_string(self, use_diff=True):
-        """
-        Serializes this instance to a JSON string.
-        """
-        config_dict = self.to_dict()
-        return json.dumps(config_dict, indent=2, sort_keys=True) + "\n"
-
-    def to_json_file(self, json_file_path, use_diff=True):
-        """
-        Save this instance to a JSON file.
-        """
-        with open(json_file_path, "w", encoding="utf-8") as writer:
-            writer.write(self.to_json_string(use_diff=use_diff))
-
-    @classmethod
-    def from_dict(cls, config_dict, **kwargs):
-        """
-        Instantiates a config from a Python dictionary of parameters.
-        """
-        return cls(**config_dict, **kwargs)
-
-    @classmethod
-    def from_json_file(cls, json_file):
-        """
-        Instantiates a config from the path to a JSON file of parameters.
-        """
-        with open(json_file, "r", encoding="utf-8") as reader:
-            text = reader.read()
-        return cls.from_json_string(text)
-
-    @classmethod
-    def from_json_string(cls, json_string):
-        """
-        Instantiates a config from a JSON string of parameters.
-        """
-        config_dict = json.loads(json_string)
-        return cls(**config_dict)
-
-
-class CustomPreTrainedModel(nn.Module):
-    """
-    Custom base model class to replace transformers.PreTrainedModel
-    """
-    config_class = None
-    base_model_prefix = "model"
-    main_input_name = "input_ids"
-    _no_split_modules = []
-
-    def __init__(self, config):
-        super().__init__()
-        self.config = config
-
-    def post_init(self):
-        """
-        Initialize weights and apply final processing.
-        This is equivalent to the HuggingFace PreTrainedModel.post_init() method.
-        """
-        self.apply(self._init_weights)
-
-    def _init_weights(self, module):
-        """
-        Initialize the weights. This should be overridden in subclasses.
-        """
-        pass
-
-
-# Custom output classes to replace HuggingFace transformer output classes
-class BaseModelOutputWithNoAttention:
-    """
-    Custom output class to replace transformers.modeling_outputs.BaseModelOutputWithNoAttention
-    """
-    def __init__(self, last_hidden_state=None, hidden_states=None):
-        self.last_hidden_state = last_hidden_state
-        self.hidden_states = hidden_states
-    
-    def __getitem__(self, index):
-        """Allow tuple-like indexing for backward compatibility"""
-        if index == 0:
-            return self.last_hidden_state
-        elif index == 1:
-            return self.hidden_states
-        else:
-            raise IndexError(f"Index {index} out of range")
-
-
-class BaseModelOutputWithPoolingAndNoAttention:
-    """
-    Custom output class to replace transformers.modeling_outputs.BaseModelOutputWithPoolingAndNoAttention
-    """
-    def __init__(self, last_hidden_state=None, pooler_output=None, hidden_states=None):
-        self.last_hidden_state = last_hidden_state
-        self.pooler_output = pooler_output
-        self.hidden_states = hidden_states
-    
-    def __getitem__(self, index):
-        """Allow tuple-like indexing for backward compatibility"""
-        if index == 0:
-            return self.last_hidden_state
-        elif index == 1:
-            return self.pooler_output
-        elif index == 2:
-            return self.hidden_states
-        else:
-            raise IndexError(f"Index {index} out of range")
-
-
-class ImageClassifierOutputWithNoAttention:
-    """
-    Custom output class to replace transformers.modeling_outputs.ImageClassifierOutputWithNoAttention
-    """
-    def __init__(self, loss=None, logits=None, hidden_states=None):
-        self.loss = loss
-        self.logits = logits
-        self.hidden_states = hidden_states
-    
-    def __getitem__(self, index):
-        """Allow tuple-like indexing for backward compatibility"""
-        if index == 0:
-            return self.logits
-        elif index == 1:
-            return self.hidden_states
-        else:
-            raise IndexError(f"Index {index} out of range")
-
-
-class ResNetConfigNew(CustomConfig):
-    model_type = "resnet"
-
-    def __init__(
-        self,
-        num_channels=3,
-        num_stages=4,
-        hidden_sizes=None,
-        depths=None,
-        hidden_act="gelu",
-        initializer_range=0.02,
-        layer_norm_eps=1e-12,
-        layer_scale_init_value=1e-6,
-        drop_path_rate=0.0,
-        image_size=224,
-        downsample_in_first_stage=False,
-        **kwargs,
-    ):
-        super().__init__(**kwargs)
-        self.num_channels = num_channels
-        self.num_stages = num_stages
-        self.hidden_sizes = [256, 512, 1024, 2048] if hidden_sizes is None else hidden_sizes
-        self.depths = [3, 4, 6, 3] if depths is None else depths
-        self.hidden_act = hidden_act
-        self.initializer_range = initializer_range
-        self.layer_norm_eps = layer_norm_eps
-        self.layer_scale_init_value = layer_scale_init_value
-        self.drop_path_rate = drop_path_rate
-        self.image_size = image_size
-        self.stage_names = ["stem"] + [f"stage{i}" for i in range(1, len(self.depths) + 1)]
-        self.downsample_in_first_stage = downsample_in_first_stage
+from model import (
+    BaseModelOutputWithNoAttention,
+    BaseModelOutputWithPoolingAndNoAttention,
+    CustomConfig,
+    CustomPreTrainedModel,
+    ImageClassifierOutputWithNoAttention,
+)
 
 
 class ResNetConfig(CustomConfig):
     model_type = "resnet"
     layer_types = ["basic", "bottleneck"]
-    
+
     def __init__(
         self,
         num_channels=3,
         embedding_size=64,
-        hidden_sizes=[256, 512, 1024, 2048],
-        depths=[3, 4, 6, 3],
+        hidden_sizes=None,
+        depths=None,
         layer_type="bottleneck",
         hidden_act="relu",
         downsample_in_first_stage=False,
@@ -218,8 +47,8 @@ class ResNetConfig(CustomConfig):
             raise ValueError(f"layer_type={layer_type} is not one of {','.join(self.layer_types)}")
         self.num_channels = num_channels
         self.embedding_size = embedding_size
-        self.hidden_sizes = hidden_sizes
-        self.depths = depths
+        self.hidden_sizes = hidden_sizes if hidden_sizes is not None else [256, 512, 1024, 2048]
+        self.depths = depths if depths is not None else [3, 4, 6, 3]
         self.layer_type = layer_type
         self.hidden_act = hidden_act
         self.downsample_in_first_stage = downsample_in_first_stage
@@ -405,8 +234,8 @@ class ResNetEncoder(nn.Module):
                 depth=config.depths[0],
             )
         )
-        in_out_channels = zip(config.hidden_sizes, config.hidden_sizes[1:])
-        for (in_channels, out_channels), depth in zip(in_out_channels, config.depths[1:]):
+        in_out_channels = zip(config.hidden_sizes, config.hidden_sizes[1:], strict=False)
+        for (in_channels, out_channels), depth in zip(in_out_channels, config.depths[1:], strict=False):
             self.stages.append(ResNetStage(config, in_channels, out_channels, depth=depth))
 
     def forward(
@@ -464,7 +293,7 @@ class ResNetModel(ResNetPreTrainedModel):
         self.post_init()
 
     def forward(
-        self, pixel_values: torch.Tensor, output_hidden_states: Optional[bool] = None, return_dict: Optional[bool] = None
+        self, pixel_values: torch.Tensor, output_hidden_states: bool | None = None, return_dict: bool | None = None
     ) -> BaseModelOutputWithPoolingAndNoAttention:
         output_hidden_states = (
             output_hidden_states if output_hidden_states is not None else self.config.output_hidden_states
@@ -506,10 +335,10 @@ class ResNetForImageClassification(ResNetPreTrainedModel):
 
     def forward(
         self,
-        pixel_values: Optional[torch.FloatTensor] = None,
-        labels: Optional[torch.LongTensor] = None,
-        output_hidden_states: Optional[bool] = None,
-        return_dict: Optional[bool] = None,
+        pixel_values: torch.FloatTensor | None = None,
+        labels: torch.LongTensor | None = None,
+        output_hidden_states: bool | None = None,
+        return_dict: bool | None = None,
     ) -> ImageClassifierOutputWithNoAttention:
         r"""
         labels (`torch.LongTensor` of shape `(batch_size,)`, *optional*):
@@ -551,4 +380,4 @@ class ResNetForImageClassification(ResNetPreTrainedModel):
             output = (logits,) + outputs[2:]
             return (loss,) + output if loss is not None else output
 
-        return ImageClassifierOutputWithNoAttention(loss=loss, logits=logits, hidden_states=outputs.hidden_states) 
+        return ImageClassifierOutputWithNoAttention(loss=loss, logits=logits, hidden_states=outputs.hidden_states)

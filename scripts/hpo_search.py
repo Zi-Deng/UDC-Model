@@ -1,24 +1,40 @@
-import os
+"""Hyperparameter search using Optuna via the HuggingFace Trainer API.
+
+Loads the same JSON config as ``train.py``, then runs an Optuna search over
+learning rate, weight decay, batch size, warmup ratio, LR scheduler type,
+and number of frozen stages.  Results are saved to ``results/hpo_results/``.
+
+Usage::
+
+    micromamba activate ml
+    python scripts/hpo_search.py --config config/2classSpiders.json
+"""
+
 import sys
-import json
-import torch
 from pathlib import Path
 
-from transformers import TrainingArguments, set_seed, EarlyStoppingCallback
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import json
+import os
+
+import torch
+from train import CustomTrainer
+from transformers import EarlyStoppingCallback, TrainingArguments, set_seed
+
+from model.convnext import ConvNextConfig, ConvNextForImageClassification
 from model.ResNet import ResNetConfig, ResNetForImageClassification
-from utils.loss_functions import LossFunctions
 from utils.image_processor import CustomImageProcessor
 from utils.utils import (
     collate_fn,
     compute_metrics,
+    get_device,
     parse_HF_args,
-    preprocess_local_folder_dataset,
-    preprocess_local_csv_dataset,
     preprocess_hf_dataset,
     preprocess_kg_dataset,
+    preprocess_local_csv_dataset,
+    preprocess_local_folder_dataset,
 )
-from train import CustomTrainer
 
 
 def main():
@@ -53,37 +69,37 @@ def main():
     filtered_weights = {k: v for k, v in pretrained_weights.items() if "classifier" not in k}
 
     # --- Device ---
-    if torch.cuda.is_available():
-        device = torch.device("cuda")
-    elif torch.backends.mps.is_available():
-        device = torch.device("mps")
-    else:
-        device = torch.device("cpu")
+    device = get_device()
     print(f"Device: {device}")
 
     # --- model_init: fresh model per trial ---
     def model_init(trial):
-        config = ResNetConfig(num_labels=script_args.num_labels, depths=[3, 4, 6, 3])
-        model = ResNetForImageClassification(config)
+        """Create a fresh model with optionally frozen early stages."""
+        model_type = getattr(script_args, "model_type", "resnet").lower()
+
+        if model_type == "convnext":
+            config = ConvNextConfig(num_labels=script_args.num_labels)
+            model = ConvNextForImageClassification(config)
+        else:
+            config = ResNetConfig(num_labels=script_args.num_labels, depths=[3, 4, 6, 3])
+            model = ResNetForImageClassification(config)
+
         missing, unexpected = model.load_state_dict(filtered_weights, strict=False)
         if missing:
             print(f"Missing keys: {missing}")
 
-        # Freeze early stages when requested by the trial
-        if trial is not None:
-            num_frozen = trial.suggest_int("num_frozen_stages", 0, 3)
-        else:
-            num_frozen = 0
-
-        if num_frozen >= 1:
-            for param in model.resnet.embedder.parameters():
-                param.requires_grad = False
-        if num_frozen >= 2:
-            for param in model.resnet.encoder.stages[0].parameters():
-                param.requires_grad = False
-        if num_frozen >= 3:
-            for param in model.resnet.encoder.stages[1].parameters():
-                param.requires_grad = False
+        # Freeze early stages when requested by the trial (ResNet only)
+        if model_type == "resnet":
+            num_frozen = trial.suggest_int("num_frozen_stages", 0, 3) if trial is not None else 0
+            if num_frozen >= 1:
+                for param in model.resnet.embedder.parameters():
+                    param.requires_grad = False
+            if num_frozen >= 2:
+                for param in model.resnet.encoder.stages[0].parameters():
+                    param.requires_grad = False
+            if num_frozen >= 3:
+                for param in model.resnet.encoder.stages[1].parameters():
+                    param.requires_grad = False
 
         model.to(device)
         return model
@@ -93,13 +109,9 @@ def main():
         return {
             "learning_rate": trial.suggest_float("learning_rate", 1e-5, 1e-3, log=True),
             "weight_decay": trial.suggest_float("weight_decay", 0.0, 0.01),
-            "per_device_train_batch_size": trial.suggest_categorical(
-                "per_device_train_batch_size", [8, 16, 32]
-            ),
+            "per_device_train_batch_size": trial.suggest_categorical("per_device_train_batch_size", [8, 16, 32]),
             "warmup_ratio": trial.suggest_float("warmup_ratio", 0.0, 0.2),
-            "lr_scheduler_type": trial.suggest_categorical(
-                "lr_scheduler_type", ["linear", "cosine"]
-            ),
+            "lr_scheduler_type": trial.suggest_categorical("lr_scheduler_type", ["linear", "cosine"]),
         }
 
     # --- Objective ---
@@ -170,7 +182,7 @@ def main():
     print("=" * 60)
     print(f"Best trial: #{best_trial.run_id}")
     print(f"Best eval accuracy: {best_trial.objective:.4f}")
-    print(f"Best hyperparameters:")
+    print("Best hyperparameters:")
     for k, v in best_trial.hyperparameters.items():
         print(f"  {k}: {v}")
     print(f"\nResults saved to: {output_path}")

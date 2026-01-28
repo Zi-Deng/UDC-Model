@@ -15,13 +15,16 @@ dependencies:
     - --extra-index-url https://download.pytorch.org/whl/cu124
     - torch
     - torchvision
-    - opencv-python-headless
-    - plotly
-    - albumentations
     - transformers
     - datasets
-    - wandb
     - accelerate
     - evaluate
+    - wandb
     - polars
     - duckdb
+    - plotly
+    - kaleido
+    - optuna
+    - kagglehub
+    - albumentations
+    - opencv-python-headless
