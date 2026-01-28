@@ -5,10 +5,11 @@ Provides a dispatch-based :class:`LossFunctions` class used by
 
 Dispatch table (``loss_function()`` method)::
 
-    "cross_entropy"              → cross_entropy()
-    "seesaw"                     → seesaw_loss()
-    "cost_matrix_cross_entropy"  → CELossLTV1()
-    "logit_adjustment" / "test"  → CELogitAdjustmentV2()
+    "cross_entropy"                   → cross_entropy()
+    "seesaw"                          → seesaw_loss()
+    "cost_matrix_cross_entropy"       → CELossLTV1()
+    "logit_adjustment" / "test"       → CELogitAdjustmentV2()
+    "logit_adjustment_regularized"    → CELogitAdjustmentRegularized()
 
 Additional methods (CELossLT_LossMult, CELogitAdjustment, CELogitAdjustmentV3)
 are kept as reference implementations but are **not** in the dispatch table.
@@ -31,7 +32,7 @@ class LossFunctions:
             cost-matrix-aware losses will fall back to uniform (ones) weighting.
     """
 
-    def __init__(self, epsilon=1e-9, cost_matrix=None):
+    def __init__(self, epsilon=1e-9, cost_matrix=None, cs_lambda=0.0, cs_warmup_epochs=0):
         self.epsilon = epsilon
         self.device = get_device()
         print(f"Using device: {self.device}")
@@ -40,6 +41,10 @@ class LossFunctions:
             self.cost_matrix = torch.tensor(cost_matrix, dtype=torch.float32, device=self.device)
         else:
             self.cost_matrix = None
+
+        self.cs_lambda = cs_lambda
+        self.cs_warmup_epochs = cs_warmup_epochs
+        self.current_epoch = 0.0
 
     def calculate_dynamic_alpha(self, logits: torch.Tensor) -> torch.Tensor:
         """
@@ -206,6 +211,78 @@ class LossFunctions:
         log_probs = -torch.log(target_probs + 1e-9)
         return log_probs.mean()
 
+    def CELogitAdjustmentRegularized(
+        self,
+        logits: torch.Tensor,
+        targets: torch.Tensor,
+    ) -> torch.Tensor:
+        """CE with logit adjustment on the predicted class + CS regularization.
+
+        Combines two cost-sensitive mechanisms:
+
+        1. **Logit adjustment** (same as V2): for misclassified samples,
+           increases the max-class logit by ``cost * |max_logit - target_logit|``,
+           amplifying the CE loss gradient for costly misclassifications.
+        2. **Cost-sensitive regularization**: adds
+           ``lambda_eff * mean(M_norm[target, :] · softmax(logits))`` using a
+           normalized cost matrix and optional warmup schedule.
+
+        The regularization uses the **original** (non-adjusted) logits so that
+        the two gradient paths are independent.  The cost matrix is normalized
+        to [0, 1] for the regularization term to prevent unbounded penalties.
+
+        This is the dispatched method for ``"logit_adjustment_regularized"``.
+
+        Args:
+            logits: Model logits ``(batch_size, num_classes)``.
+            targets: Ground-truth labels ``(batch_size,)``.
+
+        Returns:
+            Scalar loss tensor.
+        """
+        # --- Part 1: Logit-adjusted CE (identical to CELogitAdjustmentV2) ---
+        modified_logits = logits.clone()
+        batch_size, num_classes = logits.shape
+
+        pred_classes = torch.argmax(modified_logits, dim=1)
+        max_logits = modified_logits[range(batch_size), pred_classes]
+        target_logits = modified_logits[range(batch_size), targets]
+        misclassified = pred_classes != targets
+        diff = torch.abs(max_logits - target_logits)
+
+        if self.cost_matrix is not None:
+            cost_values = self.cost_matrix[targets, pred_classes]
+        else:
+            cost_values = torch.ones_like(targets, dtype=torch.float32)
+
+        corrected_max_logits = max_logits + cost_values * diff
+
+        modified_logits[range(batch_size), pred_classes] = torch.where(misclassified, corrected_max_logits, max_logits)
+
+        probs_adj = torch.softmax(modified_logits, dim=-1)
+        target_probs = probs_adj[range(batch_size), targets]
+        ce_loss = (-torch.log(target_probs + self.epsilon)).mean()
+
+        # --- Part 2: CS regularization with normalization + warmup ---
+        if self.cs_lambda > 0 and self.cost_matrix is not None:
+            # Warmup: ramp from 0 to cs_lambda over cs_warmup_epochs
+            if self.cs_warmup_epochs > 0 and self.current_epoch < self.cs_warmup_epochs:
+                effective_lambda = self.cs_lambda * (self.current_epoch / self.cs_warmup_epochs)
+            else:
+                effective_lambda = self.cs_lambda
+
+            # Normalize cost matrix to [0, 1] for bounded regularization
+            m_max = self.cost_matrix.max()
+            m_norm = self.cost_matrix / (m_max + self.epsilon) if m_max > 0 else self.cost_matrix
+
+            # CS penalty on ORIGINAL logits (independent gradient path)
+            probs_orig = torch.softmax(logits, dim=-1)
+            cs_penalty = (m_norm[targets, :] * probs_orig).sum(dim=-1).mean()
+
+            return ce_loss + effective_lambda * cs_penalty
+
+        return ce_loss
+
     # NOTE: Not in dispatch — kept as reference implementation.
     def CELogitAdjustmentV3(
         self,
@@ -360,10 +437,11 @@ class LossFunctions:
 
         Supported names::
 
-            "cross_entropy"              → cross_entropy()
-            "seesaw"                     → seesaw_loss()
-            "cost_matrix_cross_entropy"  → CELossLTV1()
-            "logit_adjustment" / "test"  → CELogitAdjustmentV2()
+            "cross_entropy"                   → cross_entropy()
+            "seesaw"                          → seesaw_loss()
+            "cost_matrix_cross_entropy"       → CELossLTV1()
+            "logit_adjustment" / "test"       → CELogitAdjustmentV2()
+            "logit_adjustment_regularized"    → CELogitAdjustmentRegularized()
 
         Raises:
             ValueError: If *loss_name* is not recognised.
@@ -376,5 +454,7 @@ class LossFunctions:
             return self.CELossLTV1
         elif loss_name in ("logit_adjustment", "test"):
             return self.CELogitAdjustmentV2
+        elif loss_name == "logit_adjustment_regularized":
+            return self.CELogitAdjustmentRegularized
         else:
             raise ValueError(f"Invalid loss function: {loss_name}")

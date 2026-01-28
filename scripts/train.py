@@ -56,17 +56,22 @@ class CustomTrainer(Trainer):
             "logit_adjustment"). Passed to LossFunctions.loss_function().
         cost_matrix: Optional 2D list defining per-class misclassification costs.
             Dimensions must match num_labels x num_labels.
+        cs_lambda: Cost-sensitive regularization weight. Only used by
+            "logit_adjustment_regularized" loss. Default 0.0 (disabled).
+        cs_warmup_epochs: Number of epochs to linearly ramp cs_lambda from
+            0 to its full value. Default 0 (no warmup).
     """
 
-    def __init__(self, loss_fxn, cost_matrix=None, *args, **kwargs):
+    def __init__(self, loss_fxn, cost_matrix=None, cs_lambda=0.0, cs_warmup_epochs=0, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.lossClass = LossFunctions(cost_matrix=cost_matrix)
+        self.lossClass = LossFunctions(cost_matrix=cost_matrix, cs_lambda=cs_lambda, cs_warmup_epochs=cs_warmup_epochs)
         self.loss_fxn = loss_fxn
 
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         """Forward pass through the model and compute loss via the configured loss function."""
         pixel_values = inputs["pixel_values"].to(self.args.device)
         labels = inputs["labels"].to(self.args.device)
+        self.lossClass.current_epoch = getattr(self.state, "epoch", None) or 0.0
 
         outputs = model(pixel_values)
         logits = outputs.logits
@@ -85,6 +90,7 @@ class CustomTrainer(Trainer):
         """Override prediction_step to properly handle dict-based image inputs during evaluation."""
         pixel_values = inputs["pixel_values"].to(self.args.device)
         labels = inputs["labels"].to(self.args.device) if "labels" in inputs else None
+        self.lossClass.current_epoch = getattr(self.state, "epoch", None) or 0.0
 
         with torch.no_grad():
             outputs = model(pixel_values)
@@ -240,6 +246,8 @@ def main(script_args):
         data_collator=collate_fn,
         loss_fxn=script_args.loss_function,
         cost_matrix=script_args.cost_matrix,
+        cs_lambda=getattr(script_args, "cs_lambda", 0.0),
+        cs_warmup_epochs=getattr(script_args, "cs_warmup_epochs", 0),
         callbacks=callbacks,
     )
 
@@ -256,6 +264,8 @@ def main(script_args):
         data_collator=collate_fn,
         loss_fxn=script_args.loss_function,
         cost_matrix=script_args.cost_matrix,
+        cs_lambda=getattr(script_args, "cs_lambda", 0.0),
+        cs_warmup_epochs=getattr(script_args, "cs_warmup_epochs", 0),
     )
 
     results_dir = perform_comprehensive_evaluation(

@@ -20,6 +20,8 @@ import torch
 from datasets import Dataset, load_dataset
 from evaluate import load
 from PIL import Image
+from scipy.special import softmax as scipy_softmax
+from sklearn.metrics import balanced_accuracy_score, cohen_kappa_score, roc_auc_score
 from sklearn.model_selection import train_test_split
 from transformers import HfArgumentParser
 
@@ -177,6 +179,10 @@ class ScriptTrainingArguments:
     )
     early_stopping_patience: int = field(
         default=0, metadata={"help": "Early stopping patience (epochs without improvement). 0 = disabled."}
+    )
+    cs_lambda: float = field(default=0.0, metadata={"help": "Cost-sensitive regularization weight (0 = disabled)"})
+    cs_warmup_epochs: int = field(
+        default=0, metadata={"help": "Epochs to warmup CS lambda from 0 to full value (0 = no warmup)"}
     )
 
 
@@ -348,6 +354,12 @@ def save_metrics_to_file(metrics, class_metrics, class_counts, output_dir, filen
             "accuracy": float(metrics.get("eval_accuracy", 0.0)),
             "f1_score": float(metrics.get("eval_f1", 0.0)),
             "loss": float(metrics.get("eval_loss", 0.0)),
+            "balanced_accuracy": float(metrics.get("eval_balanced_accuracy", 0.0)),
+            "kappa": float(metrics.get("eval_kappa", 0.0)),
+            "auc": float(metrics.get("eval_auc", 0.0)),
+            "recall_class0": float(metrics.get("eval_recall_class0", 0.0)),
+            "expected_cost": float(metrics.get("eval_expected_cost", 0.0)),
+            "prevalence_class0": float(metrics.get("eval_prevalence_class0", 0.0)),
         },
         "class_counts": convert_numpy_types(class_counts),
         "per_class_metrics": convert_numpy_types(class_metrics),
@@ -368,8 +380,14 @@ def save_metrics_to_file(metrics, class_metrics, class_counts, output_dir, filen
         f.write("OVERALL METRICS:\n")
         f.write("-" * 20 + "\n")
         f.write(f"Accuracy: {comprehensive_metrics['overall_metrics']['accuracy']:.4f}\n")
+        f.write(f"Balanced Accuracy: {comprehensive_metrics['overall_metrics']['balanced_accuracy']:.4f}\n")
         f.write(f"F1 Score: {comprehensive_metrics['overall_metrics']['f1_score']:.4f}\n")
-        f.write(f"Loss: {comprehensive_metrics['overall_metrics']['loss']:.4f}\n\n")
+        f.write(f"Kappa: {comprehensive_metrics['overall_metrics']['kappa']:.4f}\n")
+        f.write(f"AUC: {comprehensive_metrics['overall_metrics']['auc']:.4f}\n")
+        f.write(f"Loss: {comprehensive_metrics['overall_metrics']['loss']:.4f}\n")
+        f.write(f"Recall Class 0: {comprehensive_metrics['overall_metrics']['recall_class0']:.4f}\n")
+        f.write(f"Expected Cost: {comprehensive_metrics['overall_metrics']['expected_cost']:.4f}\n")
+        f.write(f"Prevalence Class 0: {comprehensive_metrics['overall_metrics']['prevalence_class0']:.4f}\n\n")
 
         f.write("CLASS SAMPLE COUNTS:\n")
         f.write("-" * 20 + "\n")
@@ -651,6 +669,7 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
         "precision": {},
         "recall": {},
         "f1_score": {},
+        "support": {},
     }
 
     # Calculate metrics for each class
@@ -687,6 +706,52 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
         class_metrics["false_negative_rate"][i] = (
             false_negatives / total_samples_per_class[i] if total_samples_per_class[i] > 0 else 0.0
         )
+
+        # Support (number of true samples for this class)
+        class_metrics["support"][i] = int(total_samples_per_class[i])
+
+    # -- New overall metrics --
+    balanced_acc = balanced_accuracy_score(y_true, y_pred)
+    kappa_val = cohen_kappa_score(y_true, y_pred)
+
+    # AUC from softmax probabilities
+    y_proba = scipy_softmax(predictions.predictions, axis=-1)
+    try:
+        if num_classes == 2:
+            auc_val = roc_auc_score(y_true, y_proba[:, 1])
+        else:
+            auc_val = roc_auc_score(y_true, y_proba, multi_class="ovo", average="weighted")
+    except ValueError:
+        auc_val = 0.0
+
+    recall_class0 = class_metrics["recall"].get(0, 0.0)
+    prevalence_class0 = float(np.mean(y_true == 0))
+
+    # Expected cost using cost matrix
+    cost_matrix_cfg = None
+    if hasattr(script_args, "cost_matrix") and script_args.cost_matrix is not None:
+        cost_matrix_cfg = script_args.cost_matrix
+    if cost_matrix_cfg is not None:
+        total_cm = int(np.sum(confusion_matrix))
+        expected_cost = (
+            sum(
+                cost_matrix_cfg[i][j] * confusion_matrix[i][j] / total_cm
+                for i in range(num_classes)
+                for j in range(num_classes)
+            )
+            if total_cm > 0
+            else 0.0
+        )
+    else:
+        expected_cost = 0.0
+
+    # Add new metrics to the metrics dict (with eval_ prefix for HF Trainer convention)
+    metrics["eval_balanced_accuracy"] = balanced_acc
+    metrics["eval_kappa"] = kappa_val
+    metrics["eval_auc"] = auc_val
+    metrics["eval_recall_class0"] = recall_class0
+    metrics["eval_expected_cost"] = expected_cost
+    metrics["eval_prevalence_class0"] = prevalence_class0
 
     # Save all metrics to files
     print("Saving metrics to files...")
@@ -728,7 +793,11 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
     print(f"{'=' * 60}")
     print(f"Output Directory: {results_dir}")
     print(f"Overall Accuracy: {metrics.get('eval_accuracy', 0.0):.4f}")
+    print(f"Balanced Accuracy: {balanced_acc:.4f}")
     print(f"Overall F1 Score: {metrics.get('eval_f1', 0.0):.4f}")
+    print(f"Kappa: {kappa_val:.4f}")
+    print(f"AUC: {auc_val:.4f}")
+    print(f"Expected Cost: {expected_cost:.4f}")
     print(f"Loss Function Used: {script_args.loss_function}")
     print(f"Total Test Samples: {total_samples}")
     if class_names:
@@ -1018,6 +1087,8 @@ def save_run_configuration(script_args, output_dir, dataset_name=None):
             "learning_rate": script_args.learning_rate,
             "num_train_epochs": script_args.num_train_epochs,
             "loss_function": script_args.loss_function,
+            "cs_lambda": getattr(script_args, "cs_lambda", 0.0),
+            "cs_warmup_epochs": getattr(script_args, "cs_warmup_epochs", 0),
         },
         "cost_matrix_configuration": {
             "cost_matrix": script_args.cost_matrix,

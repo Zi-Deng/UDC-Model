@@ -60,6 +60,7 @@ def parse_sweep_args():
     parser.add_argument(
         "--output-dir", type=str, default=None, help="Output directory (default: results/sweep_cost_{row}_{col})"
     )
+    parser.add_argument("--seed", type=int, default=42, help="Random seed (reset per trial)")
     return parser.parse_args()
 
 
@@ -118,7 +119,7 @@ def read_trial_metrics(results_dir: str) -> dict:
 # ---------------------------------------------------------------------------
 
 
-def make_objective(base_config: dict, row: int, col: int, grid_values: list[float] | None = None):
+def make_objective(base_config: dict, row: int, col: int, grid_values: list[float] | None = None, seed: int = 42):
     """Return an Optuna objective function closed over the base config."""
     lo = min(grid_values) if grid_values else 0.0
     hi = max(grid_values) if grid_values else 100.0
@@ -134,7 +135,7 @@ def make_objective(base_config: dict, row: int, col: int, grid_values: list[floa
         script_args = build_script_args(config)
 
         # Run full training + evaluation pipeline
-        set_seed(42)
+        set_seed(seed)
         results_dir = train_main(script_args)
 
         # Read metrics
@@ -147,8 +148,14 @@ def make_objective(base_config: dict, row: int, col: int, grid_values: list[floa
         # Store all metrics as user attributes for later export
         trial.set_user_attr("results_dir", str(results_dir))
         trial.set_user_attr("accuracy", overall.get("accuracy", 0.0))
+        trial.set_user_attr("balanced_accuracy", overall.get("balanced_accuracy", 0.0))
         trial.set_user_attr("f1_score", overall.get("f1_score", 0.0))
+        trial.set_user_attr("kappa", overall.get("kappa", 0.0))
+        trial.set_user_attr("auc", overall.get("auc", 0.0))
         trial.set_user_attr("loss", overall.get("loss", 0.0))
+        trial.set_user_attr("recall_class0", overall.get("recall_class0", 0.0))
+        trial.set_user_attr("expected_cost", overall.get("expected_cost", 0.0))
+        trial.set_user_attr("prevalence_class0", overall.get("prevalence_class0", 0.0))
 
         # Per-class metrics (keyed by class index as string in the JSON)
         num_classes = len(confusion) if confusion else 0
@@ -161,6 +168,7 @@ def make_objective(base_config: dict, row: int, col: int, grid_values: list[floa
                 "f1_score",
                 "false_positive_rate",
                 "false_negative_rate",
+                "support",
             ):
                 val = per_class.get(metric_name, {}).get(cls_key, 0.0)
                 trial.set_user_attr(f"class_{cls_idx}_{metric_name}", val)
@@ -177,6 +185,7 @@ def make_objective(base_config: dict, row: int, col: int, grid_values: list[floa
         print(
             f"\n[Trial {trial.number}] cost_value={cost_value:.2f}  "
             f"accuracy={overall.get('accuracy', 0):.4f}  "
+            f"balanced_accuracy={overall.get('balanced_accuracy', 0):.4f}  "
             f"class_0_recall={class_0_recall:.4f}\n"
         )
 
@@ -235,11 +244,14 @@ def export_results(study: optuna.Study, output_dir: str, row: int, col: int):
     summary_cols = [
         "cost_value",
         "accuracy",
+        "balanced_accuracy",
         "f1_score",
+        "kappa",
+        "auc",
+        "recall_class0",
+        "expected_cost",
         "class_0_recall",
         "class_1_recall",
-        "class_0_false_negative_rate",
-        "class_1_false_negative_rate",
     ]
     available = [c for c in summary_cols if c in df.columns]
     print(df.select(available))
@@ -286,18 +298,19 @@ def generate_visualizations(study: optuna.Study, df: pl.DataFrame, output_dir: s
     except Exception as e:
         print(f"WARNING: Could not generate Optuna built-in plots: {e}")
 
-    # ---- 2. Overall accuracy & F1 vs cost value ----
+    # ---- 2. Overall metrics vs cost value ----
     cost_vals = df["cost_value"].to_list()
 
     fig_overall = go.Figure()
-    if "accuracy" in df.columns:
-        fig_overall.add_trace(
-            go.Scatter(x=cost_vals, y=df["accuracy"].to_list(), mode="lines+markers", name="Accuracy")
-        )
-    if "f1_score" in df.columns:
-        fig_overall.add_trace(
-            go.Scatter(x=cost_vals, y=df["f1_score"].to_list(), mode="lines+markers", name="F1 Score")
-        )
+    for col_name, label in [
+        ("auc", "AUC"),
+        ("balanced_accuracy", "Balanced Accuracy"),
+        ("kappa", "Kappa"),
+        ("accuracy", "Accuracy"),
+        ("f1_score", "F1 Score"),
+    ]:
+        if col_name in df.columns:
+            fig_overall.add_trace(go.Scatter(x=cost_vals, y=df[col_name].to_list(), mode="lines+markers", name=label))
     fig_overall.update_layout(
         title=f"Overall Metrics vs Cost Matrix [{row}][{col}]",
         xaxis_title="Cost Value",
@@ -324,7 +337,24 @@ def generate_visualizations(study: optuna.Study, df: pl.DataFrame, output_dir: s
     fig_recall.write_html(os.path.join(graphs_dir, "per_class_recall.html"))
     fig_recall.write_image(os.path.join(graphs_dir, "per_class_recall.png"))
 
-    # ---- 4. Per-class FNR vs cost value ----
+    # ---- 4. Per-class F1 vs cost value ----
+    fig_f1 = go.Figure()
+    for cls_idx in range(num_classes):
+        col_name = f"class_{cls_idx}_f1_score"
+        if col_name in df.columns:
+            fig_f1.add_trace(
+                go.Scatter(x=cost_vals, y=df[col_name].to_list(), mode="lines+markers", name=f"Class {cls_idx} F1")
+            )
+    fig_f1.update_layout(
+        title=f"Per-Class F1 vs Cost Matrix [{row}][{col}]",
+        xaxis_title="Cost Value",
+        yaxis_title="F1 Score",
+        template="plotly_white",
+    )
+    fig_f1.write_html(os.path.join(graphs_dir, "per_class_f1.html"))
+    fig_f1.write_image(os.path.join(graphs_dir, "per_class_f1.png"))
+
+    # ---- 5. Per-class FNR vs cost value ----
     fig_fnr = go.Figure()
     for cls_idx in range(num_classes):
         col_name = f"class_{cls_idx}_false_negative_rate"
@@ -341,13 +371,28 @@ def generate_visualizations(study: optuna.Study, df: pl.DataFrame, output_dir: s
     fig_fnr.write_html(os.path.join(graphs_dir, "per_class_fnr.html"))
     fig_fnr.write_image(os.path.join(graphs_dir, "per_class_fnr.png"))
 
-    # ---- 5. Confusion matrix cell counts vs cost value ----
+    # ---- 6. Expected cost vs cost value ----
+    fig_ecost = go.Figure()
+    if "expected_cost" in df.columns:
+        fig_ecost.add_trace(
+            go.Scatter(x=cost_vals, y=df["expected_cost"].to_list(), mode="lines+markers", name="Expected Cost")
+        )
+    fig_ecost.update_layout(
+        title=f"Expected Cost vs Cost Matrix [{row}][{col}]",
+        xaxis_title="Cost Value",
+        yaxis_title="Expected Cost",
+        template="plotly_white",
+    )
+    fig_ecost.write_html(os.path.join(graphs_dir, "expected_cost.html"))
+    fig_ecost.write_image(os.path.join(graphs_dir, "expected_cost.png"))
+
+    # ---- 7. Confusion matrix cell counts vs cost value ----
     fig_cm = go.Figure()
     for i in range(num_classes):
         for j in range(num_classes):
             cm_col = f"cm_{i}_{j}"
             if cm_col in df.columns:
-                label = f"True {i} → Pred {j}"
+                label = f"True {i} -> Pred {j}"
                 fig_cm.add_trace(go.Scatter(x=cost_vals, y=df[cm_col].to_list(), mode="lines+markers", name=label))
     fig_cm.update_layout(
         title=f"Confusion Matrix Cells vs Cost Matrix [{row}][{col}]",
@@ -358,29 +403,56 @@ def generate_visualizations(study: optuna.Study, df: pl.DataFrame, output_dir: s
     fig_cm.write_html(os.path.join(graphs_dir, "confusion_matrix_cells.html"))
     fig_cm.write_image(os.path.join(graphs_dir, "confusion_matrix_cells.png"))
 
-    # ---- 6. Comprehensive dashboard (subplots) ----
+    # ---- 8. Precision-Recall tradeoff (class 0, parametric by cost_value) ----
+    fig_pr = go.Figure()
+    if "class_0_precision" in df.columns and "class_0_recall" in df.columns:
+        fig_pr.add_trace(
+            go.Scatter(
+                x=df["class_0_recall"].to_list(),
+                y=df["class_0_precision"].to_list(),
+                mode="lines+markers+text",
+                text=[f"{v:.1f}" for v in cost_vals],
+                textposition="top center",
+                name="Class 0",
+            )
+        )
+    fig_pr.update_layout(
+        title=f"Class 0 Precision vs Recall (parametric by cost_value) [{row}][{col}]",
+        xaxis_title="Class 0 Recall",
+        yaxis_title="Class 0 Precision",
+        template="plotly_white",
+    )
+    fig_pr.write_html(os.path.join(graphs_dir, "precision_recall_tradeoff.html"))
+    fig_pr.write_image(os.path.join(graphs_dir, "precision_recall_tradeoff.png"))
+
+    # ---- 9. Comprehensive dashboard (2x3 subplots) ----
     fig_dash = make_subplots(
         rows=2,
-        cols=2,
+        cols=3,
         subplot_titles=(
-            "Overall Accuracy & F1",
+            "Overall Metrics",
             "Per-Class Recall",
-            "Per-Class FNR",
+            "Per-Class F1",
+            "Expected Cost",
             "Confusion Matrix Cells",
+            "Precision-Recall Tradeoff",
         ),
     )
 
-    # Overall
-    if "accuracy" in df.columns:
-        fig_dash.add_trace(
-            go.Scatter(x=cost_vals, y=df["accuracy"].to_list(), mode="lines+markers", name="Accuracy"), row=1, col=1
-        )
-    if "f1_score" in df.columns:
-        fig_dash.add_trace(
-            go.Scatter(x=cost_vals, y=df["f1_score"].to_list(), mode="lines+markers", name="F1"), row=1, col=1
-        )
+    # Row 1, Col 1: Overall metrics
+    for col_name, label in [
+        ("auc", "AUC"),
+        ("balanced_accuracy", "Bal. Acc."),
+        ("kappa", "Kappa"),
+        ("accuracy", "Accuracy"),
+        ("f1_score", "F1"),
+    ]:
+        if col_name in df.columns:
+            fig_dash.add_trace(
+                go.Scatter(x=cost_vals, y=df[col_name].to_list(), mode="lines+markers", name=label), row=1, col=1
+            )
 
-    # Recall
+    # Row 1, Col 2: Per-class recall
     for cls_idx in range(num_classes):
         col_name = f"class_{cls_idx}_recall"
         if col_name in df.columns:
@@ -390,29 +462,54 @@ def generate_visualizations(study: optuna.Study, df: pl.DataFrame, output_dir: s
                 col=2,
             )
 
-    # FNR
+    # Row 1, Col 3: Per-class F1
     for cls_idx in range(num_classes):
-        col_name = f"class_{cls_idx}_false_negative_rate"
+        col_name = f"class_{cls_idx}_f1_score"
         if col_name in df.columns:
             fig_dash.add_trace(
-                go.Scatter(x=cost_vals, y=df[col_name].to_list(), mode="lines+markers", name=f"Cls {cls_idx} FNR"),
-                row=2,
-                col=1,
+                go.Scatter(x=cost_vals, y=df[col_name].to_list(), mode="lines+markers", name=f"Cls {cls_idx} F1"),
+                row=1,
+                col=3,
             )
 
-    # CM cells
+    # Row 2, Col 1: Expected cost
+    if "expected_cost" in df.columns:
+        fig_dash.add_trace(
+            go.Scatter(x=cost_vals, y=df["expected_cost"].to_list(), mode="lines+markers", name="E[Cost]"),
+            row=2,
+            col=1,
+        )
+
+    # Row 2, Col 2: CM cells
     for i in range(num_classes):
         for j in range(num_classes):
             cm_col = f"cm_{i}_{j}"
             if cm_col in df.columns:
                 fig_dash.add_trace(
-                    go.Scatter(x=cost_vals, y=df[cm_col].to_list(), mode="lines+markers", name=f"T{i}→P{j}"),
+                    go.Scatter(x=cost_vals, y=df[cm_col].to_list(), mode="lines+markers", name=f"T{i}->P{j}"),
                     row=2,
                     col=2,
                 )
 
+    # Row 2, Col 3: Precision-Recall tradeoff
+    if "class_0_precision" in df.columns and "class_0_recall" in df.columns:
+        fig_dash.add_trace(
+            go.Scatter(
+                x=df["class_0_recall"].to_list(),
+                y=df["class_0_precision"].to_list(),
+                mode="lines+markers",
+                name="Cls 0 P-R",
+            ),
+            row=2,
+            col=3,
+        )
+
     fig_dash.update_layout(
-        title_text=f"Cost Matrix [{row}][{col}] Sweep Dashboard", height=800, template="plotly_white", showlegend=True
+        title_text=f"Cost Matrix [{row}][{col}] Sweep Dashboard",
+        height=900,
+        width=1500,
+        template="plotly_white",
+        showlegend=True,
     )
     fig_dash.write_html(os.path.join(graphs_dir, "dashboard.html"))
     fig_dash.write_image(os.path.join(graphs_dir, "dashboard.png"))
@@ -464,6 +561,7 @@ def main():
         print(f"Range:         {args.cost_min} to {args.cost_max}, step {args.step}")
     print(f"Grid values:   {grid_values}")
     print(f"Total trials:  {n_trials}")
+    print(f"Seed:          {args.seed}")
     print(f"Output:        {output_dir}")
     print("=" * 60)
 
@@ -473,6 +571,7 @@ def main():
         "row": row,
         "col": col,
         "grid_values": grid_values,
+        "seed": args.seed,
         "output_dir": output_dir,
     }
     if args.values:
@@ -492,7 +591,7 @@ def main():
         study_name=f"cost_matrix_{row}_{col}_sweep",
     )
 
-    objective = make_objective(base_config, row, col, grid_values)
+    objective = make_objective(base_config, row, col, grid_values, seed=args.seed)
     study.optimize(objective, n_trials=n_trials)
 
     # Export results
@@ -515,7 +614,11 @@ def main():
     print(f"Cost value:      {best.params['cost_value']:.4f}")
     print(f"Class 0 Recall:  {best.value:.4f}")
     print(f"Accuracy:        {best.user_attrs.get('accuracy', 'N/A')}")
+    print(f"Balanced Acc:    {best.user_attrs.get('balanced_accuracy', 'N/A')}")
     print(f"F1 Score:        {best.user_attrs.get('f1_score', 'N/A')}")
+    print(f"Kappa:           {best.user_attrs.get('kappa', 'N/A')}")
+    print(f"AUC:             {best.user_attrs.get('auc', 'N/A')}")
+    print(f"Expected Cost:   {best.user_attrs.get('expected_cost', 'N/A')}")
     print(f"Results dir:     {best.user_attrs.get('results_dir', 'N/A')}")
     print("=" * 60)
     print(f"\nAll outputs saved to: {output_dir}")

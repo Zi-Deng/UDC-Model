@@ -1,0 +1,25 @@
+{
+    "dataset": "local_black_widows",
+    "dataset_host": "local_folder",
+    "local_folder_path": "data/2_class_black_widows",
+    "local_dataset_format": "folder",
+    "model": "microsoft/resnet-50",
+    "weights": "weights/pytorch_model.bin",
+    "learning_rate": 0.0003,
+    "num_train_epochs": 30,
+    "early_stopping_patience": 5,
+    "batch_size": 32,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.09,
+    "lr_scheduler_type": "linear",
+    "num_frozen_stages": 3,
+    "num_labels": 2,
+    "wandb": "False",
+    "push_to_hub": "False",
+    "output_dir": "resnet_run",
+    "loss_function": "logit_adjustment",
+    "cost_matrix": [
+        [0.0, 0.0],
+        [0.0, 0.0]
+    ]
+}

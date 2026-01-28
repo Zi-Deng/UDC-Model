@@ -3,10 +3,10 @@ wandb/
 checkpoints/
 results/
 examples/
-config/
 weights/
 CLAUDE.md
 docs/
+playground/
 
 # Python
 __pycache__/
