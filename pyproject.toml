@@ -1,12 +1,27 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "udc-model"
+name = "nicme"
 version = "0.1.0"
-description = "Cost-sensitive image classification with ResNet and ConvNeXt"
+description = "NICME: Non-identical Cost Matrix Embeddings for cost-sensitive image classification"
 requires-python = ">=3.12"
+
+[project.scripts]
+nicme-train = "nicme.cli:train"
+nicme-train-reg = "nicme.cli:train_reg"
+nicme-sweep = "nicme.cli:sweep"
+nicme-hpo = "nicme.cli:hpo"
+nicme-compare-sweeps = "nicme.cli:compare_sweeps"
 
 [tool.ruff]
 line-length = 120
 target-version = "py312"
+extend-exclude = [
+    "examples/ImgDownloadToken.py",
+    "examples/imageProcessorTest.ipynb",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B"]
@@ -16,4 +31,7 @@ ignore = ["E501"]
 quote-style = "double"
 
 [tool.ruff.lint.isort]
-known-first-party = ["model", "utils", "scripts"]
+known-first-party = ["nicme", "model", "utils", "scripts"]
+
+[tool.setuptools.packages.find]
+include = ["nicme*", "model*", "utils*", "scripts*"]

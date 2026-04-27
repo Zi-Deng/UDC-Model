@@ -35,6 +35,7 @@ from utils.utils import (
     collate_fn,
     compute_metrics,
     compute_metrics_test_no_confusion,
+    config_flag_enabled,
     get_device,
     parse_HF_args,
     perform_comprehensive_evaluation,
@@ -113,7 +114,7 @@ def main(script_args):
     Returns:
         str: Path to the results directory containing metrics and visualizations.
     """
-    if script_args.wandb == "True":
+    if config_flag_enabled(script_args.wandb):
         wandb.login()  # Uses WANDB_API_KEY environment variable or interactive prompt
         wandb.init(
             project="convnext",
@@ -209,7 +210,7 @@ def main(script_args):
         print(f"Froze {script_args.num_frozen_stages} early ResNet stage(s)")
 
     # Training arguments
-    report_to = "wandb" if script_args.wandb == "True" else "none"
+    report_to = "wandb" if config_flag_enabled(script_args.wandb) else "none"
 
     training_args = TrainingArguments(
         output_dir=f"checkpoints/{script_args.output_dir}",
@@ -227,7 +228,7 @@ def main(script_args):
         logging_steps=10,
         load_best_model_at_end=True,
         metric_for_best_model="accuracy",
-        push_to_hub=(script_args.push_to_hub == "True"),
+        push_to_hub=config_flag_enabled(script_args.push_to_hub),
         report_to=report_to,
     )
 

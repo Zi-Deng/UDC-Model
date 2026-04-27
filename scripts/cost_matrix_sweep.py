@@ -28,10 +28,10 @@ import numpy as np
 import optuna
 import polars as pl
 from optuna.samplers import GridSampler
-from train import main as train_main
 from transformers import set_seed
 
-from utils.utils import ScriptTrainingArguments
+from scripts.train import main as train_main
+from utils.utils import ScriptTrainingArguments, _normalize_bool_string, validate_training_config
 
 # ---------------------------------------------------------------------------
 # CLI
@@ -77,6 +77,9 @@ def build_script_args(config_dict: dict) -> ScriptTrainingArguments:
     filtered = {}
     for k, v in config_dict.items():
         if k in field_names:
+            if k in {"wandb", "push_to_hub"}:
+                filtered[k] = _normalize_bool_string(v)
+                continue
             # cost_matrix needs to stay as a Python list (not JSON string)
             if k == "cost_matrix" and isinstance(v, list):
                 filtered[k] = json.dumps(v)
@@ -91,6 +94,7 @@ def build_script_args(config_dict: dict) -> ScriptTrainingArguments:
     if parsed.cost_matrix is not None:
         parsed.cost_matrix = json.loads(parsed.cost_matrix)
 
+    validate_training_config(parsed)
     return parsed
 
 
@@ -535,6 +539,7 @@ def main():
     cm = base_config.get("cost_matrix")
     if cm is None:
         raise ValueError("Config must include a cost_matrix field")
+    validate_training_config(base_config)
     if row >= len(cm) or col >= len(cm[0]):
         raise ValueError(f"Cell [{row}][{col}] out of bounds for {len(cm)}x{len(cm[0])} cost matrix")
 

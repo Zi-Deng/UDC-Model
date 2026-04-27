@@ -1,4 +1,4 @@
-"""Utility package for UDC-Model.
+"""Utility package for NICME.
 
 Submodules:
     utils           – Core training helpers: arg parsing, dataset loading, metrics, evaluation.

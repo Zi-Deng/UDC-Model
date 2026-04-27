@@ -94,6 +94,63 @@ def split_to_train_val_test(dataset):
     return train_ds, val_ds, test_ds
 
 
+def _normalize_bool_string(value):
+    """Normalize legacy string booleans and canonical JSON booleans.
+
+    The original configs used "True"/"False" strings for wandb and push_to_hub.
+    NICME configs may use real JSON booleans; the training code still accepts
+    both representations for backward compatibility.
+    """
+    if isinstance(value, bool):
+        return "True" if value else "False"
+    if isinstance(value, str):
+        lowered = value.strip().lower()
+        if lowered in {"true", "1", "yes", "y"}:
+            return "True"
+        if lowered in {"false", "0", "no", "n"}:
+            return "False"
+    return value
+
+
+def config_flag_enabled(value) -> bool:
+    """Return True for either canonical booleans or legacy truthy strings."""
+    return _normalize_bool_string(value) == "True"
+
+
+def validate_training_config(config):
+    """Validate high-impact training config invariants before running.
+
+    Args:
+        config: A ScriptTrainingArguments instance or dict-like config.
+
+    Raises:
+        ValueError: If fields that commonly produce confusing runtime failures
+            are invalid.
+    """
+    if isinstance(config, dict):
+        num_labels = config.get("num_labels")
+        cost_matrix = config.get("cost_matrix")
+        model_type = str(config.get("model_type", "resnet")).lower()
+    else:
+        num_labels = config.num_labels
+        cost_matrix = config.cost_matrix
+        model_type = str(config.model_type).lower()
+
+    if model_type not in {"resnet", "convnext"}:
+        raise ValueError(f"Unsupported model_type: {model_type}. Supported types are 'resnet' and 'convnext'.")
+
+    if cost_matrix is not None:
+        if isinstance(cost_matrix, str):
+            cost_matrix = json.loads(cost_matrix)
+        if not isinstance(cost_matrix, list) or len(cost_matrix) != num_labels:
+            raise ValueError(f"cost_matrix must have {num_labels} rows to match num_labels={num_labels}.")
+        for idx, row in enumerate(cost_matrix):
+            if not isinstance(row, list) or len(row) != num_labels:
+                raise ValueError(
+                    f"cost_matrix row {idx} must have {num_labels} columns to match num_labels={num_labels}."
+                )
+
+
 def parse_HF_args():
     """Parse a ``--config`` JSON file into a :class:`ScriptTrainingArguments` instance.
 
@@ -111,6 +168,12 @@ def parse_HF_args():
     with open(args.config) as f:
         json_args = json.load(f)
 
+    for bool_key in ("wandb", "push_to_hub"):
+        if bool_key in json_args:
+            json_args[bool_key] = _normalize_bool_string(json_args[bool_key])
+
+    validate_training_config(json_args)
+
     # HfArgumentParser requires cost_matrix as a JSON string, not a list
     if "cost_matrix" in json_args and json_args["cost_matrix"] is not None:
         if isinstance(json_args["cost_matrix"], list):
@@ -123,6 +186,7 @@ def parse_HF_args():
     if parsed_args.cost_matrix is not None:
         parsed_args.cost_matrix = json.loads(parsed_args.cost_matrix)
 
+    validate_training_config(parsed_args)
     return parsed_args
 
 
@@ -130,8 +194,8 @@ def parse_HF_args():
 class ScriptTrainingArguments:
     """All configuration fields parsed from a training JSON config file.
 
-    String fields ``wandb`` and ``push_to_hub`` use ``"True"``/``"False"``
-    strings (not Python booleans) for compatibility with HfArgumentParser.
+    ``wandb`` and ``push_to_hub`` accept canonical JSON booleans in NICME
+    configs and legacy ``"True"``/``"False"`` strings in older configs.
     """
 
     dataset: str = field(default=None, metadata={"help": "Name of dataset from HG hub"})
@@ -620,7 +684,8 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
         # Normal mode: {output_dir}_{date}_{time}
         dir_name = f"{script_args.output_dir}_{date_str}_{time_str}"
 
-    results_dir = f"results/resnet_test/{dir_name}"
+    model_family = getattr(script_args, "model_type", "model").lower()
+    results_dir = f"results/{model_family}_test/{dir_name}"
     Path(results_dir).mkdir(parents=True, exist_ok=True)
 
     print(f"Results will be saved to: {results_dir}")
@@ -1097,7 +1162,10 @@ def save_run_configuration(script_args, output_dir, dataset_name=None):
             "sweep_matrix_row": script_args.sweep_matrix_row,
             "sweep_matrix_col": script_args.sweep_matrix_col,
         },
-        "other_settings": {"wandb_enabled": script_args.wandb, "push_to_hub": script_args.push_to_hub},
+        "other_settings": {
+            "wandb_enabled": config_flag_enabled(script_args.wandb),
+            "push_to_hub": config_flag_enabled(script_args.push_to_hub),
+        },
     }
 
     # Save configuration to JSON file

@@ -6,7 +6,7 @@ the ``logit_adjustment_regularized`` loss function.
 
 Usage:
     micromamba activate ml
-    python scripts/train_reg.py --config config/2classSpiders_reg.json
+    nicme-train-reg --config config/nicme_2class_spiders_regularized.json
 """
 
 import sys
@@ -16,9 +16,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import logging
 
-from train import main as train_main
 from transformers import set_seed
 
+from scripts.train import main as train_main
 from utils.utils import parse_HF_args
 
 

@@ -1,181 +1,153 @@
-# UDC-Model
+# NICME
 
-Cost-sensitive image classification framework built on PyTorch and HuggingFace Transformers. Trains ResNet-50 and ConvNeXt models with configurable cost matrices that penalize specific misclassification pairs differently.
+**NICME (Non-identical Cost Matrix Embeddings)** is a PyTorch research codebase for cost-sensitive image classification. The project studies how non-identical, asymmetric cost matrices can steer image classifiers toward safer operating points when different error types have different consequences.
+
+The current experiments focus on binary spider classification:
+
+- Class 0: `Latrodectus_hesperus` / Black Widow
+- Class 1: `Steatoda_grossa` / False Widow
+
+The main implementation trains custom ResNet-50-style and ConvNeXt image classifiers with HuggingFace `Trainer`, then evaluates cost-sensitive metrics, confusion matrices, and sweep behavior across cost-matrix values.
 
 ## Quick Start
 
-```bash
-# Set up the environment
-micromamba activate ml
-pip install -r requirements.txt
-
-# Run training
-python scripts/train.py --config config/modelConfig.json
-```
-
-## Features
-
-- **Cost-sensitive loss functions**: Cross-entropy, cost-matrix cross-entropy, seesaw loss, and logit-adjusted loss
-- **Multiple architectures**: ResNet-50 and ConvNeXt with custom base classes (no HuggingFace model dependency)
-- **Flexible data sources**: HuggingFace Hub, Kaggle, local folder, or local CSV datasets
-- **Automated sweeps**: Iterate over cost matrix values and collect metrics automatically (bash or Python/Optuna)
-- **Hyperparameter optimization**: Optuna-based HPO with grid search
-- **Comprehensive evaluation**: Confusion matrices, per-class metrics, JSON/text reports, and visualizations
-
-## Architecture
-
-### Training Pipeline
-
-1. **Config loading**: `parse_HF_args()` reads `--config <path>` and parses JSON into a `ScriptTrainingArguments` dataclass.
-2. **Dataset loading**: Dispatches by `dataset_host` (`"huggingface"`, `"kaggle"`, or `"local_folder"` with `local_dataset_format` of `"folder"` or `"csv"`).
-3. **Model instantiation**: Creates a ResNet or ConvNeXt model based on `model_type` and loads pretrained weights.
-4. **Training**: `CustomTrainer` (extends HuggingFace `Trainer`) injects a custom loss function via `LossFunctions.loss_function(name)`.
-5. **Evaluation**: `perform_comprehensive_evaluation()` generates metrics JSON, text reports, and confusion matrix visualizations.
-
-### Loss Function Dispatch
-
-Configure via the `loss_function` field in your JSON config:
-
-| Config Value | Loss Function | Description |
-|---|---|---|
-| `"cross_entropy"` | Standard CE | Standard cross-entropy loss |
-| `"cost_matrix_cross_entropy"` | Cost-matrix CE | Cross-entropy weighted by a per-class cost matrix |
-| `"seesaw"` | Seesaw loss | Re-balancing loss for long-tailed distributions |
-| `"logit_adjustment"` | Logit-adjusted CE | Label-frequency-aware logit adjustment (V2) |
-
-### Model Implementations
-
-Both architectures use shared base classes defined in `model/__init__.py`:
-- `CustomConfig` — configuration dataclass (replaces HuggingFace `PretrainedConfig`)
-- `CustomPreTrainedModel` — weight initialization base (replaces HuggingFace `PreTrainedModel`)
-- `ImageClassifierOutputWithNoAttention` — output container with `.logits` and `.loss`
-
-## Usage
-
-### Training
+Run from the repository root:
 
 ```bash
 micromamba activate ml
-python scripts/train.py --config config/modelConfig.json
+
+# Standard logit-adjustment training
+python scripts/train.py --config config/nicme_2class_spiders.json
+
+# Hybrid NICME regularized training
+python scripts/train_reg.py --config config/nicme_2class_spiders_regularized.json
 ```
 
-Results are saved to `results/<output_dir>/<timestamped_run>/` and include:
-- `metrics_*.json` — full metrics in JSON format
-- `metrics_*.txt` — human-readable report
-- `confusion_matrix_*.png` — side-by-side confusion matrices
-- `confusion_matrix_detailed_*.png` — detailed matrix with statistics
-
-### Cost Matrix Sweep (Bash)
-
-Iterates over cost values for a specific matrix cell, runs training for each, and generates analysis graphs:
+If installed as a package, the equivalent CLI commands are:
 
 ```bash
+nicme-train --config config/nicme_2class_spiders.json
+nicme-train-reg --config config/nicme_2class_spiders_regularized.json
+```
+
+The legacy configs remain supported:
+
+```bash
+python scripts/train.py --config config/2classSpiders.json
+python scripts/train_reg.py --config config/2classSpiders_reg.json
+```
+
+## Environment
+
+The primary environment specification is [environment.yml](environment.yml).
+
+```bash
+micromamba env update -n ml -f environment.yml
 micromamba activate ml
-bash run_cost_matrix_sweep.sh                                    # default config
-bash run_cost_matrix_sweep.sh config/sweep_2class_bw_cost.json   # custom config
 ```
 
-Run multiple sweep configs sequentially:
+`examples/requirements.txt` is retained as a pip-style dependency reference, but the micromamba environment is the source of truth.
+
+## Main Commands
+
+### Train
 
 ```bash
-bash matrix_sweep_loop.sh
+python scripts/train.py --config config/nicme_2class_spiders.json
+python scripts/train_reg.py --config config/nicme_2class_spiders_regularized.json
 ```
 
-See [SWEEP_README.md](SWEEP_README.md) for sweep configuration details.
+### Cost-Matrix Sweeps
 
-### Cost Matrix Sweep (Python/Optuna)
-
-Uses Optuna GridSampler with DuckDB storage and Polars for analysis:
+Python/Optuna sweep:
 
 ```bash
-micromamba activate ml
-python scripts/cost_matrix_sweep.py --config config/2classSpiders.json
-python scripts/cost_matrix_sweep.py --config config/2classSpiders.json --min 0 --max 5 --step 0.5
+python scripts/cost_matrix_sweep.py \
+  --config config/nicme_2class_spiders_regularized.json \
+  --row 0 \
+  --col 1 \
+  --values "1,2,3,4,5,6,7,8,9,10,20,30,40,50,60,70,80,90,100" \
+  --output-dir results/nicme_sweep_cost_0_1_reg
+```
+
+Legacy bash sweep:
+
+```bash
+bash examples/run_cost_matrix_sweep.sh config/nicme_sweep_2class_bw_cost.json
 ```
 
 ### Hyperparameter Optimization
 
 ```bash
-micromamba activate ml
-python scripts/hpo_search.py --config config/modelConfig.json
+python scripts/hpo_search.py --config config/nicme_2class_spiders.json
 ```
 
-Uses Optuna to search over learning rate, weight decay, and warmup ratio. Supports both ResNet and ConvNeXt models.
+### Sweep Comparison
 
-## Config JSON Reference
+```bash
+python scripts/compare_sweeps.py
+```
 
-Key fields in a training config file:
+New package entry points mirror these commands:
 
-| Field | Type | Description |
+```bash
+nicme-sweep --config config/nicme_2class_spiders_regularized.json --row 0 --col 1 --values "1,2,3"
+nicme-hpo --config config/nicme_2class_spiders.json
+nicme-compare-sweeps
+```
+
+## Key Results In This Workspace
+
+The current local result summaries are stored under [results/](results/).
+
+| Result | Source | Key finding |
 |---|---|---|
-| `dataset` | string | Dataset name or path |
-| `dataset_host` | string | `"huggingface"`, `"kaggle"`, or `"local_folder"` |
-| `model` | string | Model name (e.g., `"microsoft/resnet-50"`) |
-| `model_type` | string | `"resnet"` or `"convnext"` |
-| `weights` | string | Path to pretrained weights file |
-| `num_labels` | int | Number of classification classes |
-| `learning_rate` | float | Learning rate |
-| `num_train_epochs` | int | Number of training epochs |
-| `batch_size` | int | Training batch size |
-| `loss_function` | string | Loss function name (see dispatch table above) |
-| `cost_matrix` | 2D list | Cost matrix (`num_labels x num_labels`); required for cost-matrix losses |
-| `local_folder_path` | string | Path to local dataset (when `dataset_host` is `"local_folder"`) |
-| `local_dataset_format` | string | `"folder"` or `"csv"` |
-| `wandb` | string | `"True"` or `"False"` (string, not boolean) |
-| `push_to_hub` | string | `"True"` or `"False"` (string, not boolean) |
-| `output_dir` | string | Subdirectory under `results/` for outputs |
+| HPO best eval accuracy | `results/hpo_results/best_hyperparameters.json` | `0.9370` eval accuracy with LR `3.17e-4`, batch size `32`, weight decay `0.00966`, warmup `0.0866`, linear scheduler, 3 frozen stages |
+| `M[0][1]` hybrid sweep | `results/sweep_cost_0_1_reg/sweep_results.csv` | Best accuracy `0.8967` at cost `5`; best class-0 recall `0.9800` at cost `6` |
+| `M[1][0]` hybrid sweep | `results/sweep_cost_1_0_reg/sweep_results.csv` | Best accuracy `0.8967` and best class-0 recall `0.9000` at cost `1` |
+| 3-way comparison | `results/sweep_comparison*/comparison_summary.md` | Hybrid LogitAdj+CS avoided the high-cost collapse seen in the playground CE+CS baseline |
+
+See [docs/results_summary.md](docs/results_summary.md) for the paper-facing result table and source paths.
 
 ## Repository Layout
 
-```
-.
-├── scripts/
-│   ├── __init__.py                   # Package init
-│   ├── train.py                      # Main entry point — training + evaluation
-│   ├── cost_matrix_sweep.py          # Optuna-based cost matrix sweep
-│   └── hpo_search.py                 # Hyperparameter optimization with Optuna
-├── model/
-│   ├── __init__.py                   # Shared base classes (CustomConfig, CustomPreTrainedModel)
-│   ├── ResNet.py                     # ResNet-50 architecture
-│   └── convnext.py                   # ConvNeXt architecture
-├── utils/
-│   ├── __init__.py                   # Package init
-│   ├── utils.py                      # Core: arg parsing, dataset loading, metrics, evaluation
-│   ├── loss_functions.py             # Loss functions with dispatch
-│   ├── image_processor.py            # CustomImageProcessor (replaces HF AutoImageProcessor)
-│   ├── extract_metrics.py            # Extracts metrics from results into CSV (bash sweep)
-│   └── analyze_cost_matrix_results.py  # Generates graphs from sweep CSV results
-├── pyproject.toml                    # Project metadata and ruff configuration
-├── requirements.txt                  # Python dependencies
-├── environment.yml                   # Conda/micromamba environment spec
-├── config/                           # JSON configs (gitignored)
-├── weights/                          # Pretrained weights (gitignored)
-└── results/                          # Training outputs (gitignored)
+```text
+config/        Canonical and legacy JSON configs
+model/         Custom ResNet and ConvNeXt implementations
+nicme/         Package namespace, CLI entry points, and stable import adapters
+scripts/       Backward-compatible runnable entry points
+utils/         Training, preprocessing, loss, metrics, and analysis utilities
+docs/          Reproducibility, artifacts, results, model/data cards, release notes
+examples/      Legacy bash sweep and utility examples
+results/       Local experiment summaries and generated analysis artifacts
+checkpoints/   Local model checkpoints
+data/          Local datasets
+weights/       Local pretrained weights
+playground/    Archived comparison/baseline code
+releases/      Curated anonymous and camera-ready release views
+memory/        Agent-facing repository memory notes
 ```
 
-## Development
+## Methods
 
-### Linting and Formatting
+NICME currently compares three cost-sensitive training variants:
 
-This project uses [ruff](https://docs.astral.sh/ruff/) for linting and formatting:
+| Name | Implementation | Description |
+|---|---|---|
+| Parent LogitAdj | `CELogitAdjustmentV2` | Increases the predicted-class logit for costly misclassified samples before CE-like loss |
+| Hybrid NICME regularized | `CELogitAdjustmentRegularized` | Combines LogitAdj with normalized expected-cost regularization and warmup |
+| Playground baseline | `CE + cost-sensitive regularization` | Archived comparison implementation from the nested playground project |
+
+Cost matrices use rows as true labels and columns as predicted labels for the LogitAdj and regularized NICME losses. Check the exact loss implementation before comparing against older experimental code.
+
+## Validation
 
 ```bash
-pip install ruff
-ruff check .          # lint
-ruff check --fix .    # lint with auto-fix
-ruff format .         # format
+micromamba run -n ml ruff check .
+micromamba run -n ml python -m py_compile nicme/*.py scripts/*.py utils/*.py model/*.py
+micromamba run -n ml python scripts/validate_release_views.py
 ```
-
-Configuration is in `pyproject.toml`.
-
-### Conventions
-
-- Use **Polars** (not pandas) for new dataframe operations.
-- Use **DuckDB** for new SQL operations.
-- Run all scripts from the repository root.
-- Use `python` (not `python3`) inside the micromamba environment.
-- `wandb` and `push_to_hub` config fields are strings (`"True"` / `"False"`), not booleans.
 
 ## License
 
-See repository for license information.
+No open-source license has been selected yet. See [docs/license_pending.md](docs/license_pending.md).

@@ -7,7 +7,7 @@ and number of frozen stages.  Results are saved to ``results/hpo_results/``.
 Usage::
 
     micromamba activate ml
-    python scripts/hpo_search.py --config config/2classSpiders.json
+    nicme-hpo --config config/nicme_2class_spiders.json
 """
 
 import sys
@@ -19,11 +19,11 @@ import json
 import os
 
 import torch
-from train import CustomTrainer
 from transformers import EarlyStoppingCallback, TrainingArguments, set_seed
 
 from model.convnext import ConvNextConfig, ConvNextForImageClassification
 from model.ResNet import ResNetConfig, ResNetForImageClassification
+from scripts.train import CustomTrainer
 from utils.image_processor import CustomImageProcessor
 from utils.utils import (
     collate_fn,
