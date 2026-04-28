@@ -2,12 +2,14 @@
 # The canonical environment is environment.yml.
 
 --extra-index-url https://download.pytorch.org/whl/cu124
-torch
+torch>=2.7.1
 torchvision
-transformers
+transformers>=4.56
 datasets
 accelerate
 evaluate
+peft
+timm
 wandb
 kagglehub
 optuna
@@ -20,7 +22,7 @@ pandas
 matplotlib
 seaborn
 scikit-learn
+pytest
 pillow
 albumentations
 opencv-python-headless
-

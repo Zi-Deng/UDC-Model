@@ -47,3 +47,16 @@ def compare_sweeps() -> None:
 
     main()
 
+
+def prepare_data() -> None:
+    """Prepare NICME datasets such as BreaKHis and spider manifests."""
+    from nicme.data_prep import main
+
+    main()
+
+
+def run_binary_experiments() -> None:
+    """Create or execute binary experiment matrices."""
+    from scripts.run_binary_experiments import main
+
+    main()

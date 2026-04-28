@@ -13,12 +13,14 @@ dependencies:
   - pip
   - pip:
     - --extra-index-url https://download.pytorch.org/whl/cu124
-    - torch
+    - torch>=2.7.1
     - torchvision
-    - transformers
+    - transformers>=4.56
     - datasets
     - accelerate
     - evaluate
+    - peft
+    - timm
     - wandb
     - polars
     - duckdb
@@ -26,5 +28,6 @@ dependencies:
     - kaleido
     - optuna
     - kagglehub
+    - pytest
     - albumentations
     - opencv-python-headless

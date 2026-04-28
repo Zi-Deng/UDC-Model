@@ -18,6 +18,7 @@ are kept as reference implementations but are **not** in the dispatch table.
 from typing import Literal
 
 import torch
+import torch.nn.functional as F
 
 from utils.utils import get_device
 
@@ -32,7 +33,15 @@ class LossFunctions:
             cost-matrix-aware losses will fall back to uniform (ones) weighting.
     """
 
-    def __init__(self, epsilon=1e-9, cost_matrix=None, cs_lambda=0.0, cs_warmup_epochs=0):
+    def __init__(
+        self,
+        epsilon=1e-9,
+        cost_matrix=None,
+        cs_lambda=0.0,
+        cs_warmup_epochs=0,
+        class_priors=None,
+        logit_adjustment_tau=1.0,
+    ):
         self.epsilon = epsilon
         self.device = get_device()
         print(f"Using device: {self.device}")
@@ -45,6 +54,12 @@ class LossFunctions:
         self.cs_lambda = cs_lambda
         self.cs_warmup_epochs = cs_warmup_epochs
         self.current_epoch = 0.0
+        if class_priors is not None:
+            priors = torch.tensor(class_priors, dtype=torch.float32, device=self.device)
+            self.class_priors = priors / priors.sum().clamp_min(self.epsilon)
+        else:
+            self.class_priors = None
+        self.logit_adjustment_tau = logit_adjustment_tau
 
     def calculate_dynamic_alpha(self, logits: torch.Tensor) -> torch.Tensor:
         """
@@ -75,19 +90,21 @@ class LossFunctions:
         Returns:
             torch.Tensor: Computed scalar loss value.
         """
-        # Convert logits to probabilities using softmax
-        probs = torch.softmax(logits, dim=-1)
+        return F.cross_entropy(logits, targets)
 
-        # Select the predicted probabilities corresponding to the target class
-        batch_size = logits.shape[0]
-        target_probs = probs[range(batch_size), targets]
+    def menon_logit_adjusted(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """Class-prior logit adjustment from Menon et al. for long-tail baselines.
 
-        # Take the log of the probabilities
-        log_probs = -torch.log(target_probs + 1e-9)  # Add small value to avoid log(0)
-
-        # Compute the mean loss
-        loss = log_probs.mean()
-        return loss
+        This is not a cost-matrix loss. It is included as an imbalance-coupled
+        baseline to distinguish class-prior correction from NICME's explicit
+        user-defined cost matrix.
+        """
+        if self.class_priors is None:
+            priors = torch.ones(logits.shape[-1], dtype=logits.dtype, device=logits.device) / logits.shape[-1]
+        else:
+            priors = self.class_priors.to(device=logits.device, dtype=logits.dtype)
+        adjusted_logits = logits + self.logit_adjustment_tau * torch.log(priors.clamp_min(self.epsilon))
+        return F.cross_entropy(adjusted_logits, targets)
 
     # NOTE: Not in dispatch — kept as reference implementation.
     def CELossLT_LossMult(self, output_logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
@@ -108,7 +125,7 @@ class LossFunctions:
         cost_matrix = self.cost_matrix
 
         _, predicted_classes = torch.max(output_logits, dim=1)
-        cost_values = cost_matrix[predicted_classes, targets].view(-1, 1)
+        cost_values = cost_matrix[targets, predicted_classes].view(-1, 1)
 
         weighted_logits = output_logits * (alpha * cost_values)
         weighted_probs = torch.softmax(weighted_logits, dim=-1)
@@ -162,10 +179,7 @@ class LossFunctions:
 
         modified_logits[range(batch_size), targets] = torch.where(misclassified, corrected, target_logits)
 
-        probs = torch.softmax(modified_logits, dim=-1)
-        target_probs = probs[range(batch_size), targets]
-        log_probs = -torch.log(target_probs + 1e-9)
-        return log_probs.mean()
+        return F.cross_entropy(modified_logits, targets)
 
     def CELogitAdjustmentV2(
         self,
@@ -206,10 +220,7 @@ class LossFunctions:
 
         modified_logits[range(batch_size), pred_classes] = torch.where(misclassified, corrected_max_logits, max_logits)
 
-        probs = torch.softmax(modified_logits, dim=-1)
-        target_probs = probs[range(batch_size), targets]
-        log_probs = -torch.log(target_probs + 1e-9)
-        return log_probs.mean()
+        return F.cross_entropy(modified_logits, targets)
 
     def CELogitAdjustmentRegularized(
         self,
@@ -259,9 +270,7 @@ class LossFunctions:
 
         modified_logits[range(batch_size), pred_classes] = torch.where(misclassified, corrected_max_logits, max_logits)
 
-        probs_adj = torch.softmax(modified_logits, dim=-1)
-        target_probs = probs_adj[range(batch_size), targets]
-        ce_loss = (-torch.log(target_probs + self.epsilon)).mean()
+        ce_loss = F.cross_entropy(modified_logits, targets)
 
         # --- Part 2: CS regularization with normalization + warmup ---
         if self.cs_lambda > 0 and self.cost_matrix is not None:
@@ -281,6 +290,21 @@ class LossFunctions:
 
             return ce_loss + effective_lambda * cs_penalty
 
+        return ce_loss
+
+    def CSRegularizedCE(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """Galdran-style CE + normalized expected-cost regularization only."""
+        ce_loss = F.cross_entropy(logits, targets)
+        if self.cs_lambda > 0 and self.cost_matrix is not None:
+            if self.cs_warmup_epochs > 0 and self.current_epoch < self.cs_warmup_epochs:
+                effective_lambda = self.cs_lambda * (self.current_epoch / self.cs_warmup_epochs)
+            else:
+                effective_lambda = self.cs_lambda
+            m_max = self.cost_matrix.max()
+            m_norm = self.cost_matrix / (m_max + self.epsilon) if m_max > 0 else self.cost_matrix
+            probs_orig = torch.softmax(logits, dim=-1)
+            cs_penalty = (m_norm[targets, :] * probs_orig).sum(dim=-1).mean()
+            return ce_loss + effective_lambda * cs_penalty
         return ce_loss
 
     # NOTE: Not in dispatch — kept as reference implementation.
@@ -368,7 +392,7 @@ class LossFunctions:
         batch_size = output_logits.shape[0]
 
         _, predicted_classes = torch.max(output_logits, dim=1)
-        cost_values = self.cost_matrix[predicted_classes, targets].view(-1, 1)
+        cost_values = self.cost_matrix[targets, predicted_classes].view(-1, 1)
 
         weighted_logits = output_logits * (alpha * cost_values)
         weighted_probs = torch.softmax(weighted_logits, dim=-1)
@@ -446,15 +470,19 @@ class LossFunctions:
         Raises:
             ValueError: If *loss_name* is not recognised.
         """
-        if loss_name == "cross_entropy":
+        if loss_name in ("cross_entropy", "ce", "ce_calibrated_cost_min"):
             return self.cross_entropy
+        elif loss_name in ("menon_logit_adjusted", "prior_logit_adjusted"):
+            return self.menon_logit_adjusted
+        elif loss_name in ("cs_regularized_ce", "nuls_cs"):
+            return self.CSRegularizedCE
         elif loss_name == "seesaw":
             return self.seesaw_loss
         elif loss_name == "cost_matrix_cross_entropy":
             return self.CELossLTV1
-        elif loss_name in ("logit_adjustment", "test"):
+        elif loss_name in ("logit_adjustment", "test", "nicme_logit_adjustment"):
             return self.CELogitAdjustmentV2
-        elif loss_name == "logit_adjustment_regularized":
+        elif loss_name in ("logit_adjustment_regularized", "nicme_hybrid"):
             return self.CELogitAdjustmentRegularized
         else:
             raise ValueError(f"Invalid loss function: {loss_name}")

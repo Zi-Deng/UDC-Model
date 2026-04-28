@@ -25,6 +25,14 @@ from sklearn.metrics import balanced_accuracy_score, cohen_kappa_score, roc_auc_
 from sklearn.model_selection import train_test_split
 from transformers import HfArgumentParser
 
+from nicme.costs import (
+    CostMatrix,
+    classification_metrics,
+    cost_min_predictions,
+    resolve_class_id,
+    softmax_np,
+)
+from nicme.calibration import fit_temperature_np
 from utils.image_processor import CustomImageProcessor
 
 # Try to import visualization libraries (they might not be installed)
@@ -84,6 +92,79 @@ def compute_metrics_test_no_confusion(eval_pred):
     return {"accuracy": accuracy, "f1": f1}
 
 
+def _json_load_if_needed(value):
+    if value is None:
+        return None
+    if isinstance(value, str):
+        stripped = value.strip()
+        if stripped.startswith("[") or stripped.startswith("{"):
+            return json.loads(stripped)
+    return value
+
+
+def _get_class_names(script_args) -> list[str] | None:
+    names = getattr(script_args, "class_names", None)
+    names = _json_load_if_needed(names)
+    return list(names) if names is not None else None
+
+
+def _get_target_class_id(script_args, class_names: list[str] | None, default: int = 0) -> int:
+    explicit_id = getattr(script_args, "target_recall_class_id", None)
+    if explicit_id is not None:
+        return int(explicit_id)
+    return resolve_class_id(getattr(script_args, "target_recall_class", None), class_names, default=default)
+
+
+def make_compute_metrics(script_args, class_names: list[str] | None = None):
+    """Create a Trainer metrics callback with NICME cost-sensitive metrics."""
+    resolved_class_names = class_names or _get_class_names(script_args)
+    target_class_id = _get_target_class_id(script_args, resolved_class_names)
+    cost_matrix = getattr(script_args, "cost_matrix", None)
+    target_recall_floor = float(getattr(script_args, "target_recall_floor", 0.95))
+    accuracy_floor = float(getattr(script_args, "accuracy_floor", 0.80))
+    selection_accuracy_metric = getattr(script_args, "selection_accuracy_metric", "accuracy")
+    baseline_atc = getattr(script_args, "baseline_atc", None)
+
+    def _compute(eval_pred):
+        outputs, labels = eval_pred
+        predictions = np.argmax(outputs, axis=-1)
+        probs = scipy_softmax(outputs, axis=-1)
+        base = compute_metrics(eval_pred)
+        if cost_matrix is None:
+            return base
+        nicme_metrics = classification_metrics(
+            labels,
+            predictions,
+            probs,
+            cost_matrix,
+            target_class_id=target_class_id,
+            target_recall_floor=target_recall_floor,
+            accuracy_floor=accuracy_floor,
+            selection_accuracy_metric=selection_accuracy_metric,
+            baseline_atc=baseline_atc,
+        )
+        base.update(
+            {
+                "balanced_accuracy": nicme_metrics["balanced_accuracy"],
+                "macro_f1": nicme_metrics["macro_f1"],
+                "atc": nicme_metrics["atc"],
+                "normalized_atc": nicme_metrics["normalized_atc"],
+                "target_recall": nicme_metrics["target_recall"],
+                "target_fnr": nicme_metrics["target_fnr"],
+            "selection_score": nicme_metrics["selection_score"],
+            "selection_accuracy_value": nicme_metrics["selection_accuracy_value"],
+            "nll": nicme_metrics["nll"],
+                "brier": nicme_metrics["brier"],
+                "ece": nicme_metrics["ece"],
+                "auroc": nicme_metrics["auroc"],
+                "auprc": nicme_metrics["auprc"],
+            }
+        )
+        return base
+
+    return _compute
+
+
 def split_to_train_val_test(dataset):
     """Split a HuggingFace dataset into 80/10/10 train/validation/test splits."""
     split1 = dataset.train_test_split(test_size=0.2)
@@ -131,13 +212,24 @@ def validate_training_config(config):
         num_labels = config.get("num_labels")
         cost_matrix = config.get("cost_matrix")
         model_type = str(config.get("model_type", "resnet")).lower()
+        model_backend = str(config.get("model_backend", "custom")).lower()
+        selection_accuracy_metric = str(config.get("selection_accuracy_metric", "accuracy")).lower()
     else:
         num_labels = config.num_labels
         cost_matrix = config.cost_matrix
         model_type = str(config.model_type).lower()
+        model_backend = str(getattr(config, "model_backend", "custom")).lower()
+        selection_accuracy_metric = str(getattr(config, "selection_accuracy_metric", "accuracy")).lower()
 
-    if model_type not in {"resnet", "convnext"}:
+    if model_backend == "custom" and model_type not in {"resnet", "convnext"}:
         raise ValueError(f"Unsupported model_type: {model_type}. Supported types are 'resnet' and 'convnext'.")
+    if model_backend not in {"custom", "hf_auto", "hf_backbone", "dinov3_feature"}:
+        raise ValueError(
+            f"Unsupported model_backend: {model_backend}. "
+            "Supported backends are 'custom', 'hf_auto', 'hf_backbone', and 'dinov3_feature'."
+        )
+    if selection_accuracy_metric not in {"accuracy", "balanced_accuracy", "balanced_acc", "bacc"}:
+        raise ValueError("selection_accuracy_metric must be 'accuracy' or 'balanced_accuracy'.")
 
     if cost_matrix is not None:
         if isinstance(cost_matrix, str):
@@ -168,13 +260,42 @@ def parse_HF_args():
     with open(args.config) as f:
         json_args = json.load(f)
 
+    # Allow profile-style configs with a nested selection block.
+    if "selection" in json_args and isinstance(json_args["selection"], dict):
+        selection = json_args["selection"]
+        json_args.setdefault("target_recall_floor", selection.get("target_recall_floor"))
+        json_args.setdefault("accuracy_floor", selection.get("accuracy_floor"))
+        json_args.setdefault("selection_accuracy_metric", selection.get("accuracy_metric"))
+    if "split_dir" in json_args:
+        json_args.setdefault("dataset_host", "local_folder")
+        json_args.setdefault("local_dataset_format", "manifest")
+        json_args.setdefault("local_folder_path", json_args["split_dir"])
+    if "num_labels" not in json_args:
+        if isinstance(json_args.get("class_names"), list):
+            json_args["num_labels"] = len(json_args["class_names"])
+        elif isinstance(json_args.get("cost_matrix"), list):
+            json_args["num_labels"] = len(json_args["cost_matrix"])
+
     for bool_key in ("wandb", "push_to_hub"):
         if bool_key in json_args:
             json_args[bool_key] = _normalize_bool_string(json_args[bool_key])
 
     validate_training_config(json_args)
 
+    from dataclasses import fields as dataclass_fields
+
+    field_names = {f.name for f in dataclass_fields(ScriptTrainingArguments)}
+    json_args = {k: v for k, v in json_args.items() if k in field_names}
+
     # HfArgumentParser requires cost_matrix as a JSON string, not a list
+    for json_field in ("cost_matrix", "class_names"):
+        if json_field in json_args and json_args[json_field] is not None:
+            if isinstance(json_args[json_field], (list, dict)):
+                json_args[json_field] = json.dumps(json_args[json_field])
+
+    if "peft_enabled" in json_args:
+        json_args["peft_enabled"] = bool(json_args["peft_enabled"])
+
     if "cost_matrix" in json_args and json_args["cost_matrix"] is not None:
         if isinstance(json_args["cost_matrix"], list):
             json_args["cost_matrix"] = json.dumps(json_args["cost_matrix"])
@@ -185,6 +306,8 @@ def parse_HF_args():
     # Convert cost_matrix back to a Python list
     if parsed_args.cost_matrix is not None:
         parsed_args.cost_matrix = json.loads(parsed_args.cost_matrix)
+    if parsed_args.class_names is not None:
+        parsed_args.class_names = json.loads(parsed_args.class_names)
 
     validate_training_config(parsed_args)
     return parsed_args
@@ -200,6 +323,9 @@ class ScriptTrainingArguments:
 
     dataset: str = field(default=None, metadata={"help": "Name of dataset from HG hub"})
     model: str = field(default=None, metadata={"help": "Name of model from HG hub"})
+    model_backend: str = field(
+        default="custom", metadata={"help": "Model backend: custom, hf_auto, hf_backbone, or dinov3_feature"}
+    )
     model_type: str = field(default="resnet", metadata={"help": "Type of model to use: 'resnet' or 'convnext'"})
     weights: str = field(default=None, metadata={"help": "Weight of model from HG hub"})
     learning_rate: float = field(default=5e-5, metadata={"help": "Learning rate for training"})
@@ -248,6 +374,26 @@ class ScriptTrainingArguments:
     cs_warmup_epochs: int = field(
         default=0, metadata={"help": "Epochs to warmup CS lambda from 0 to full value (0 = no warmup)"}
     )
+    class_names: str | None = field(default=None, metadata={"help": "JSON list of class names in label-id order"})
+    target_recall_class: str | None = field(default=None, metadata={"help": "Class name/id optimized for recall"})
+    target_recall_class_id: int | None = field(default=None, metadata={"help": "Target recall class id override"})
+    target_recall_floor: float = field(default=0.95, metadata={"help": "Minimum desired target-class recall"})
+    accuracy_floor: float = field(default=0.80, metadata={"help": "Minimum desired accuracy/balanced accuracy"})
+    selection_accuracy_metric: str = field(
+        default="accuracy",
+        metadata={"help": "Metric used in selection gap: 'accuracy' or 'balanced_accuracy'"},
+    )
+    baseline_atc: float | None = field(default=None, metadata={"help": "Baseline ATC for CRR reporting"})
+    logit_adjustment_tau: float = field(default=1.0, metadata={"help": "Tau for Menon prior-logit adjustment"})
+    seed: int = field(default=42, metadata={"help": "Random seed"})
+    calibration_enabled: bool = field(default=False, metadata={"help": "Enable calibration split evaluation"})
+    decision_modes: str = field(default="argmax,calibrated_cost_min", metadata={"help": "Comma-separated modes"})
+    peft_enabled: bool = field(default=False, metadata={"help": "Enable PEFT/LoRA"})
+    peft_r: int = field(default=8, metadata={"help": "LoRA rank"})
+    peft_alpha: int = field(default=16, metadata={"help": "LoRA alpha"})
+    peft_dropout: float = field(default=0.1, metadata={"help": "LoRA dropout"})
+    peft_target_modules: str | None = field(default=None, metadata={"help": "Comma-separated LoRA target modules"})
+    peft_modules_to_save: str | None = field(default=None, metadata={"help": "Comma-separated trainable modules to save"})
 
 
 def preprocess_hf_dataset(dataset_name, model_name):
@@ -419,15 +565,31 @@ def save_metrics_to_file(metrics, class_metrics, class_counts, output_dir, filen
             "f1_score": float(metrics.get("eval_f1", 0.0)),
             "loss": float(metrics.get("eval_loss", 0.0)),
             "balanced_accuracy": float(metrics.get("eval_balanced_accuracy", 0.0)),
+            "macro_f1": float(metrics.get("eval_macro_f1", metrics.get("eval_f1", 0.0))),
             "kappa": float(metrics.get("eval_kappa", 0.0)),
             "auc": float(metrics.get("eval_auc", 0.0)),
+            "auroc": float(metrics.get("eval_auroc", metrics.get("eval_auc", 0.0))),
+            "auprc": float(metrics.get("eval_auprc", 0.0)),
             "recall_class0": float(metrics.get("eval_recall_class0", 0.0)),
             "expected_cost": float(metrics.get("eval_expected_cost", 0.0)),
+            "atc": float(metrics.get("eval_atc", metrics.get("eval_expected_cost", 0.0))),
+            "normalized_atc": float(metrics.get("eval_normalized_atc", 0.0)),
+            "selection_score": float(metrics.get("eval_selection_score", 0.0)),
+            "selection_accuracy_value": float(metrics.get("eval_selection_accuracy_value", 0.0)),
+            "selection_accuracy_metric": metrics.get(
+                "eval_decision_reports", {}
+            ).get("argmax", {}).get("selection_accuracy_metric", "accuracy"),
+            "target_recall": float(metrics.get("eval_target_recall", 0.0)),
+            "target_fnr": float(metrics.get("eval_target_fnr", 0.0)),
+            "nll": float(metrics.get("eval_nll", 0.0)),
+            "brier": float(metrics.get("eval_brier", 0.0)),
+            "ece": float(metrics.get("eval_ece", 0.0)),
             "prevalence_class0": float(metrics.get("eval_prevalence_class0", 0.0)),
         },
         "class_counts": convert_numpy_types(class_counts),
         "per_class_metrics": convert_numpy_types(class_metrics),
         "confusion_matrix": convert_numpy_types(metrics.get("eval_confusion_matrix", {}).get("confusion_matrix", [])),
+        "decision_reports": convert_numpy_types(metrics.get("eval_decision_reports", {})),
     }
 
     # Save as JSON
@@ -449,6 +611,11 @@ def save_metrics_to_file(metrics, class_metrics, class_counts, output_dir, filen
         f.write(f"Kappa: {comprehensive_metrics['overall_metrics']['kappa']:.4f}\n")
         f.write(f"AUC: {comprehensive_metrics['overall_metrics']['auc']:.4f}\n")
         f.write(f"Loss: {comprehensive_metrics['overall_metrics']['loss']:.4f}\n")
+        f.write(f"ATC: {comprehensive_metrics['overall_metrics']['atc']:.4f}\n")
+        f.write(f"Normalized ATC: {comprehensive_metrics['overall_metrics']['normalized_atc']:.4f}\n")
+        f.write(f"Selection Score: {comprehensive_metrics['overall_metrics']['selection_score']:.4f}\n")
+        f.write(f"Target Recall: {comprehensive_metrics['overall_metrics']['target_recall']:.4f}\n")
+        f.write(f"Target FNR: {comprehensive_metrics['overall_metrics']['target_fnr']:.4f}\n")
         f.write(f"Recall Class 0: {comprehensive_metrics['overall_metrics']['recall_class0']:.4f}\n")
         f.write(f"Expected Cost: {comprehensive_metrics['overall_metrics']['expected_cost']:.4f}\n")
         f.write(f"Prevalence Class 0: {comprehensive_metrics['overall_metrics']['prevalence_class0']:.4f}\n\n")
@@ -652,7 +819,7 @@ def create_detailed_confusion_matrix(cm, class_names, output_dir, filename_suffi
     return detailed_path
 
 
-def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name=None, class_names=None):
+def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name=None, class_names=None, calibration_ds=None):
     """
     Perform comprehensive evaluation including confusion matrix, per-class metrics, and visualizations.
 
@@ -792,28 +959,70 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
     recall_class0 = class_metrics["recall"].get(0, 0.0)
     prevalence_class0 = float(np.mean(y_true == 0))
 
-    # Expected cost using cost matrix
+    # Cost-sensitive reports using NICME's row=true, column=pred convention.
     cost_matrix_cfg = None
     if hasattr(script_args, "cost_matrix") and script_args.cost_matrix is not None:
         cost_matrix_cfg = script_args.cost_matrix
+    decision_reports = {}
     if cost_matrix_cfg is not None:
-        total_cm = int(np.sum(confusion_matrix))
-        expected_cost = (
-            sum(
-                cost_matrix_cfg[i][j] * confusion_matrix[i][j] / total_cm
-                for i in range(num_classes)
-                for j in range(num_classes)
-            )
-            if total_cm > 0
-            else 0.0
+        configured_class_names = class_names or _get_class_names(script_args)
+        target_class_id = _get_target_class_id(script_args, configured_class_names)
+        argmax_report = classification_metrics(
+            y_true,
+            y_pred,
+            y_proba,
+            cost_matrix_cfg,
+            target_class_id=target_class_id,
+            target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
+            accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
+            selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
         )
+        decision_reports["argmax"] = argmax_report
+        expected_cost = argmax_report["atc"]
+
+        decision_modes = {
+            mode.strip() for mode in str(getattr(script_args, "decision_modes", "argmax")).split(",") if mode.strip()
+        }
+        if calibration_ds is not None and "calibrated_cost_min" in decision_modes:
+            calibration_predictions = trainer.predict(calibration_ds)
+            calibration_result = fit_temperature_np(calibration_predictions.predictions, calibration_predictions.label_ids)
+            calibrated_probs = softmax_np(predictions.predictions, calibration_result.temperature)
+            calibrated_cost_pred = cost_min_predictions(calibrated_probs, cost_matrix_cfg)
+            calibrated_report = classification_metrics(
+                y_true,
+                calibrated_cost_pred,
+                calibrated_probs,
+                cost_matrix_cfg,
+                target_class_id=target_class_id,
+                target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
+                accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
+                selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
+            )
+            calibrated_report["temperature"] = calibration_result.temperature
+            calibrated_report["calibration_nll_before"] = calibration_result.nll_before
+            calibrated_report["calibration_nll_after"] = calibration_result.nll_after
+            decision_reports["calibrated_cost_min"] = calibrated_report
     else:
         expected_cost = 0.0
 
     # Add new metrics to the metrics dict (with eval_ prefix for HF Trainer convention)
     metrics["eval_balanced_accuracy"] = balanced_acc
+    metrics["eval_macro_f1"] = float(np.mean(list(class_metrics["f1_score"].values()))) if class_metrics["f1_score"] else 0.0
     metrics["eval_kappa"] = kappa_val
     metrics["eval_auc"] = auc_val
+    if cost_matrix_cfg is not None:
+        metrics["eval_atc"] = decision_reports["argmax"]["atc"]
+        metrics["eval_normalized_atc"] = decision_reports["argmax"]["normalized_atc"]
+        metrics["eval_selection_score"] = decision_reports["argmax"]["selection_score"]
+        metrics["eval_selection_accuracy_value"] = decision_reports["argmax"]["selection_accuracy_value"]
+        metrics["eval_target_recall"] = decision_reports["argmax"]["target_recall"]
+        metrics["eval_target_fnr"] = decision_reports["argmax"]["target_fnr"]
+        metrics["eval_nll"] = decision_reports["argmax"]["nll"]
+        metrics["eval_brier"] = decision_reports["argmax"]["brier"]
+        metrics["eval_ece"] = decision_reports["argmax"]["ece"]
+        metrics["eval_auroc"] = decision_reports["argmax"]["auroc"]
+        metrics["eval_auprc"] = decision_reports["argmax"]["auprc"]
+        metrics["eval_decision_reports"] = decision_reports
     metrics["eval_recall_class0"] = recall_class0
     metrics["eval_expected_cost"] = expected_cost
     metrics["eval_prevalence_class0"] = prevalence_class0
@@ -1103,6 +1312,72 @@ def preprocess_local_csv_dataset(folder_path, model_name, test_size=0.1, val_siz
     return train_dataset, val_dataset, test_dataset, class_names
 
 
+def preprocess_manifest_dataset(folder_path, model_name):
+    """Load prepared split CSVs produced by ``nicme-prepare-data``.
+
+    Expected files are ``train.csv``, ``validation.csv``, optional
+    ``calibration.csv``, and ``test.csv``. Each CSV must contain ``image_path``
+    and ``label`` columns; ``label_name`` is used for class names when present.
+    """
+    base = Path(folder_path)
+    required = {"train": base / "train.csv", "validation": base / "validation.csv", "test": base / "test.csv"}
+    missing = [str(path) for path in required.values() if not path.exists()]
+    if missing:
+        raise ValueError(f"Prepared manifest split is missing required files: {missing}")
+
+    frames = {name: pd.read_csv(path) for name, path in required.items()}
+    calibration_path = base / "calibration.csv"
+    if calibration_path.exists():
+        frames["calibration"] = pd.read_csv(calibration_path)
+
+    for name, frame in frames.items():
+        for column in ("image_path", "label"):
+            if column not in frame.columns:
+                raise ValueError(f"{name}.csv missing required column {column!r}")
+
+    all_labels = pd.concat([frame["label"] for frame in frames.values()]).astype(int)
+    num_classes = int(all_labels.max()) + 1
+    class_names = [f"class_{idx}" for idx in range(num_classes)]
+    if all("label_name" in frame.columns for frame in frames.values()):
+        names = (
+            pd.concat([frame[["label", "label_name"]] for frame in frames.values()])
+            .drop_duplicates()
+            .sort_values("label")
+        )
+        if len(names) == num_classes:
+            class_names = names["label_name"].tolist()
+
+    def to_dataset(frame):
+        dataset = Dataset.from_dict(
+            {
+                "image_path": frame["image_path"].astype(str).tolist(),
+                "label": frame["label"].astype(int).tolist(),
+            }
+        )
+        return dataset
+
+    image_preprocessor = _make_image_preprocessor(model_name)
+    train_dataset = to_dataset(frames["train"])
+    val_dataset = to_dataset(frames["validation"])
+    test_dataset = to_dataset(frames["test"])
+    train_dataset.set_transform(image_preprocessor.preprocess_train)
+    val_dataset.set_transform(image_preprocessor.preprocess_val)
+    test_dataset.set_transform(image_preprocessor.preprocess_test)
+
+    calibration_dataset = None
+    if "calibration" in frames:
+        calibration_dataset = to_dataset(frames["calibration"])
+        calibration_dataset.set_transform(image_preprocessor.preprocess_val)
+
+    print(
+        "Prepared manifest loaded — "
+        f"Train={len(train_dataset)}, Val={len(val_dataset)}, "
+        f"Calibration={len(calibration_dataset) if calibration_dataset is not None else 0}, "
+        f"Test={len(test_dataset)}"
+    )
+    return train_dataset, val_dataset, calibration_dataset, test_dataset, class_names
+
+
 def save_run_configuration(script_args, output_dir, dataset_name=None):
     """
     Save the input configuration for the current run to a JSON file.
@@ -1136,8 +1411,11 @@ def save_run_configuration(script_args, output_dir, dataset_name=None):
         "run_info": {"timestamp": timestamp, "output_directory": output_dir},
         "model_configuration": {
             "model": script_args.model,
+            "model_backend": getattr(script_args, "model_backend", "custom"),
+            "model_type": getattr(script_args, "model_type", None),
             "weights": script_args.weights,
             "num_labels": script_args.num_labels,
+            "peft_enabled": getattr(script_args, "peft_enabled", False),
         },
         "dataset_configuration": {
             "dataset_host": script_args.dataset_host,
@@ -1154,9 +1432,15 @@ def save_run_configuration(script_args, output_dir, dataset_name=None):
             "loss_function": script_args.loss_function,
             "cs_lambda": getattr(script_args, "cs_lambda", 0.0),
             "cs_warmup_epochs": getattr(script_args, "cs_warmup_epochs", 0),
+            "seed": getattr(script_args, "seed", None),
         },
         "cost_matrix_configuration": {
             "cost_matrix": script_args.cost_matrix,
+            "cost_matrix_convention": "C[true_label][predicted_label]",
+            "target_recall_class": getattr(script_args, "target_recall_class", None),
+            "target_recall_floor": getattr(script_args, "target_recall_floor", None),
+            "accuracy_floor": getattr(script_args, "accuracy_floor", None),
+            "selection_accuracy_metric": getattr(script_args, "selection_accuracy_metric", "accuracy"),
             "sweep_mode": script_args.sweep_mode,
             "sweep_cost_value": script_args.sweep_cost_value,
             "sweep_matrix_row": script_args.sweep_matrix_row,

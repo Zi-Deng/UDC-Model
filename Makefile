@@ -1,4 +1,4 @@
-.PHONY: setup lint compile validate-release smoke-help
+.PHONY: setup lint test compile validate-release smoke-help
 
 setup:
 	micromamba env update -n ml -f environment.yml
@@ -6,6 +6,9 @@ setup:
 
 lint:
 	micromamba run -n ml ruff check .
+
+test:
+	micromamba run -n ml pytest -q
 
 compile:
 	micromamba run -n ml python -m py_compile nicme/*.py scripts/*.py utils/*.py model/*.py
@@ -19,3 +22,5 @@ smoke-help:
 	micromamba run -n ml nicme-sweep --help
 	micromamba run -n ml nicme-hpo --help
 	micromamba run -n ml nicme-compare-sweeps --help
+	micromamba run -n ml nicme-prepare-data --help
+	micromamba run -n ml nicme-run-binary-experiments --help

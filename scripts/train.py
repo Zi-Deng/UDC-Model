@@ -27,22 +27,22 @@ from transformers import (
 )
 from transformers.utils import logging
 
-from model.convnext import ConvNextConfig, ConvNextForImageClassification
-from model.ResNet import ResNetConfig, ResNetForImageClassification
+from nicme.modeling import build_model
 from utils.image_processor import CustomImageProcessor
 from utils.loss_functions import LossFunctions
 from utils.utils import (
     collate_fn,
-    compute_metrics,
     compute_metrics_test_no_confusion,
     config_flag_enabled,
     get_device,
+    make_compute_metrics,
     parse_HF_args,
     perform_comprehensive_evaluation,
     preprocess_hf_dataset,
     preprocess_kg_dataset,
     preprocess_local_csv_dataset,
     preprocess_local_folder_dataset,
+    preprocess_manifest_dataset,
 )
 
 
@@ -63,9 +63,25 @@ class CustomTrainer(Trainer):
             0 to its full value. Default 0 (no warmup).
     """
 
-    def __init__(self, loss_fxn, cost_matrix=None, cs_lambda=0.0, cs_warmup_epochs=0, *args, **kwargs):
+    def __init__(
+        self,
+        loss_fxn,
+        cost_matrix=None,
+        cs_lambda=0.0,
+        cs_warmup_epochs=0,
+        class_priors=None,
+        logit_adjustment_tau=1.0,
+        *args,
+        **kwargs,
+    ):
         super().__init__(*args, **kwargs)
-        self.lossClass = LossFunctions(cost_matrix=cost_matrix, cs_lambda=cs_lambda, cs_warmup_epochs=cs_warmup_epochs)
+        self.lossClass = LossFunctions(
+            cost_matrix=cost_matrix,
+            cs_lambda=cs_lambda,
+            cs_warmup_epochs=cs_warmup_epochs,
+            class_priors=class_priors,
+            logit_adjustment_tau=logit_adjustment_tau,
+        )
         self.loss_fxn = loss_fxn
 
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
@@ -114,6 +130,8 @@ def main(script_args):
     Returns:
         str: Path to the results directory containing metrics and visualizations.
     """
+    set_seed(getattr(script_args, "seed", 42))
+
     if config_flag_enabled(script_args.wandb):
         wandb.login()  # Uses WANDB_API_KEY environment variable or interactive prompt
         wandb.init(
@@ -132,6 +150,7 @@ def main(script_args):
     # Load dataset
     image_processor = CustomImageProcessor.from_pretrained(script_args.model)
     class_names = None
+    calibration_ds = None
 
     if script_args.dataset_host == "huggingface":
         train_ds, val_ds, test_ds = preprocess_hf_dataset(script_args.dataset, script_args.model)
@@ -150,6 +169,11 @@ def main(script_args):
                 script_args.local_folder_path,
                 script_args.model,
             )
+        elif script_args.local_dataset_format == "manifest":
+            train_ds, val_ds, calibration_ds, test_ds, class_names = preprocess_manifest_dataset(
+                script_args.local_folder_path,
+                script_args.model,
+            )
         elif script_args.local_dataset_format == "folder":
             train_ds, val_ds, test_ds, class_names = preprocess_local_folder_dataset(
                 script_args.local_folder_path,
@@ -157,47 +181,45 @@ def main(script_args):
             )
         else:
             raise ValueError(
-                f"Unknown local_dataset_format: {script_args.local_dataset_format}. Must be 'folder' or 'csv'"
+                f"Unknown local_dataset_format: {script_args.local_dataset_format}. Must be 'folder', 'csv', or 'manifest'"
             )
     else:
         raise ValueError(f"Unknown dataset_host: {script_args.dataset_host}")
-
-    # Load pretrained weights
-    print(script_args.weights)
-    pretrained_weights_path = os.path.abspath(script_args.weights)
-    pretrained_weights = torch.load(pretrained_weights_path, map_location="cpu")
 
     # Device setup
     device = get_device()
     print(device)
 
     # Model configuration and creation
-    if script_args.model_type.lower() == "resnet":
-        config = ResNetConfig(num_labels=script_args.num_labels, depths=[3, 4, 6, 3])
-        model = ResNetForImageClassification(config)
-        print(f"Using ResNet model with {script_args.num_labels} labels")
-    elif script_args.model_type.lower() == "convnext":
-        config = ConvNextConfig(num_labels=script_args.num_labels)
-        model = ConvNextForImageClassification(config)
-        print(f"Using ConvNext model with {script_args.num_labels} labels")
-    else:
-        raise ValueError(f"Unsupported model_type: {script_args.model_type}. Supported types: 'resnet', 'convnext'")
+    model = build_model(script_args, class_names=class_names)
+    print(
+        f"Using model backend={getattr(script_args, 'model_backend', 'custom')} "
+        f"type={script_args.model_type} with {script_args.num_labels} labels"
+    )
 
     model.to(device)
 
-    # Load pretrained weights (excluding classifier head)
-    filtered_weights = {k: v for k, v in pretrained_weights.items() if "classifier" not in k}
-    missing_keys, unexpected_keys = model.load_state_dict(filtered_weights, strict=False)
+    # Load legacy custom pretrained weights (excluding classifier head)
+    if getattr(script_args, "model_backend", "custom").lower() == "custom" and script_args.weights:
+        print(script_args.weights)
+        pretrained_weights_path = os.path.abspath(script_args.weights)
+        pretrained_weights = torch.load(pretrained_weights_path, map_location="cpu")
+        filtered_weights = {k: v for k, v in pretrained_weights.items() if "classifier" not in k}
+        missing_keys, unexpected_keys = model.load_state_dict(filtered_weights, strict=False)
 
-    if missing_keys:
-        print(f"Missing keys: {missing_keys}")
-    if unexpected_keys:
-        print(f"Unexpected keys: {unexpected_keys}")
+        if missing_keys:
+            print(f"Missing keys: {missing_keys}")
+        if unexpected_keys:
+            print(f"Unexpected keys: {unexpected_keys}")
 
-    print("Pretrained weights loaded successfully!")
+        print("Pretrained weights loaded successfully!")
 
     # Freeze early ResNet stages if configured
-    if script_args.model_type.lower() == "resnet" and script_args.num_frozen_stages > 0:
+    if (
+        getattr(script_args, "model_backend", "custom").lower() == "custom"
+        and script_args.model_type.lower() == "resnet"
+        and script_args.num_frozen_stages > 0
+    ):
         if script_args.num_frozen_stages >= 1:
             for param in model.resnet.embedder.parameters():
                 param.requires_grad = False
@@ -211,6 +233,9 @@ def main(script_args):
 
     # Training arguments
     report_to = "wandb" if config_flag_enabled(script_args.wandb) else "none"
+
+    metric_for_best = "selection_score" if script_args.cost_matrix is not None else "accuracy"
+    greater_is_better = False if metric_for_best == "selection_score" else True
 
     training_args = TrainingArguments(
         output_dir=f"checkpoints/{script_args.output_dir}",
@@ -227,7 +252,8 @@ def main(script_args):
         lr_scheduler_type=script_args.lr_scheduler_type,
         logging_steps=10,
         load_best_model_at_end=True,
-        metric_for_best_model="accuracy",
+        metric_for_best_model=metric_for_best,
+        greater_is_better=greater_is_better,
         push_to_hub=config_flag_enabled(script_args.push_to_hub),
         report_to=report_to,
     )
@@ -237,18 +263,27 @@ def main(script_args):
         callbacks.append(EarlyStoppingCallback(early_stopping_patience=script_args.early_stopping_patience))
         print(f"Early stopping enabled with patience={script_args.early_stopping_patience}")
 
+    try:
+        labels_for_priors = train_ds["label"]
+        counts = torch.bincount(torch.tensor(labels_for_priors, dtype=torch.long), minlength=script_args.num_labels)
+        class_priors = (counts.float() / counts.sum().clamp_min(1)).tolist()
+    except Exception:
+        class_priors = None
+
     trainer = CustomTrainer(
         model=model,
         args=training_args,
         train_dataset=train_ds,
         eval_dataset=val_ds,
         processing_class=image_processor,
-        compute_metrics=compute_metrics,
+        compute_metrics=make_compute_metrics(script_args, class_names),
         data_collator=collate_fn,
         loss_fxn=script_args.loss_function,
         cost_matrix=script_args.cost_matrix,
         cs_lambda=getattr(script_args, "cs_lambda", 0.0),
         cs_warmup_epochs=getattr(script_args, "cs_warmup_epochs", 0),
+        class_priors=class_priors,
+        logit_adjustment_tau=getattr(script_args, "logit_adjustment_tau", 1.0),
         callbacks=callbacks,
     )
 
@@ -267,6 +302,8 @@ def main(script_args):
         cost_matrix=script_args.cost_matrix,
         cs_lambda=getattr(script_args, "cs_lambda", 0.0),
         cs_warmup_epochs=getattr(script_args, "cs_warmup_epochs", 0),
+        class_priors=class_priors,
+        logit_adjustment_tau=getattr(script_args, "logit_adjustment_tau", 1.0),
     )
 
     results_dir = perform_comprehensive_evaluation(
@@ -275,6 +312,7 @@ def main(script_args):
         script_args=script_args,
         dataset_name=script_args.dataset,
         class_names=class_names,
+        calibration_ds=calibration_ds,
     )
 
     return results_dir

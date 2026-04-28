@@ -1,0 +1,26 @@
+{
+  "dataset_profile": "spider",
+  "variant": "balanced",
+  "split_dir": "data/prepared/spider/splits/balanced",
+  "class_names": ["black_widow", "false_widow"],
+  "label2id": {
+    "black_widow": 0,
+    "false_widow": 1
+  },
+  "id2label": {
+    "0": "black_widow",
+    "1": "false_widow"
+  },
+  "target_recall_class": "black_widow",
+  "cost_matrix": [
+    [0.0, 10.0],
+    [1.0, 0.0]
+  ],
+  "selection": {
+    "target_recall_floor": 0.95,
+    "accuracy_floor": 0.8,
+    "accuracy_metric": "accuracy"
+  },
+  "selection_accuracy_metric": "accuracy",
+  "cost_matrix_convention": "C[true_label][predicted_label]"
+}

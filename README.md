@@ -9,6 +9,8 @@ The current experiments focus on binary spider classification:
 
 The main implementation trains custom ResNet-50-style and ConvNeXt image classifiers with HuggingFace `Trainer`, then evaluates cost-sensitive metrics, confusion matrices, and sweep behavior across cost-matrix values.
 
+The binary-first research extension also supports BreaKHis benign-vs-malignant tumor experiments, calibrated cost-minimum inference, balanced/controlled-imbalance split generation, and Hugging Face / DINOv3 backbones with optional LoRA.
+
 ## Quick Start
 
 Run from the repository root:
@@ -50,12 +52,24 @@ micromamba activate ml
 
 ## Main Commands
 
+### Prepare Binary Data
+
+```bash
+nicme-prepare-data --dataset spider --input-dir data/2_class_black_widows --output-dir data/prepared/spider
+nicme-prepare-data --dataset breakhis --download --extract --raw-dir data/raw/breakhis --output-dir data/prepared/breakhis
+```
+
+The BreaKHis archive is large, so the download is explicit and resumable.
+
 ### Train
 
 ```bash
 python scripts/train.py --config config/nicme_2class_spiders.json
 python scripts/train_reg.py --config config/nicme_2class_spiders_regularized.json
+python scripts/train.py --config config/nicme_spider_balanced_dinov3_vits_lora.json
 ```
+
+Cost matrices use `C[true_label][predicted_label]` everywhere.
 
 ### Cost-Matrix Sweeps
 
@@ -94,6 +108,7 @@ New package entry points mirror these commands:
 nicme-sweep --config config/nicme_2class_spiders_regularized.json --row 0 --col 1 --values "1,2,3"
 nicme-hpo --config config/nicme_2class_spiders.json
 nicme-compare-sweeps
+nicme-run-binary-experiments --base-config config/nicme_spider_balanced_dinov3_vits_lora.json --tier tier1
 ```
 
 ## Key Results In This Workspace
@@ -144,6 +159,7 @@ Cost matrices use rows as true labels and columns as predicted labels for the Lo
 
 ```bash
 micromamba run -n ml ruff check .
+micromamba run -n ml pytest -q
 micromamba run -n ml python -m py_compile nicme/*.py scripts/*.py utils/*.py model/*.py
 micromamba run -n ml python scripts/validate_release_views.py
 ```

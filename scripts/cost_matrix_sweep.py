@@ -80,8 +80,8 @@ def build_script_args(config_dict: dict) -> ScriptTrainingArguments:
             if k in {"wandb", "push_to_hub"}:
                 filtered[k] = _normalize_bool_string(v)
                 continue
-            # cost_matrix needs to stay as a Python list (not JSON string)
-            if k == "cost_matrix" and isinstance(v, list):
+            # HfArgumentParser expects structured list fields as JSON strings.
+            if k in {"cost_matrix", "class_names"} and isinstance(v, list):
                 filtered[k] = json.dumps(v)
             else:
                 filtered[k] = v
@@ -93,6 +93,8 @@ def build_script_args(config_dict: dict) -> ScriptTrainingArguments:
 
     if parsed.cost_matrix is not None:
         parsed.cost_matrix = json.loads(parsed.cost_matrix)
+    if parsed.class_names is not None:
+        parsed.class_names = json.loads(parsed.class_names)
 
     validate_training_config(parsed)
     return parsed
@@ -159,6 +161,11 @@ def make_objective(base_config: dict, row: int, col: int, grid_values: list[floa
         trial.set_user_attr("loss", overall.get("loss", 0.0))
         trial.set_user_attr("recall_class0", overall.get("recall_class0", 0.0))
         trial.set_user_attr("expected_cost", overall.get("expected_cost", 0.0))
+        trial.set_user_attr("atc", overall.get("atc", overall.get("expected_cost", 0.0)))
+        trial.set_user_attr("normalized_atc", overall.get("normalized_atc", 0.0))
+        trial.set_user_attr("selection_score", overall.get("selection_score", 0.0))
+        trial.set_user_attr("target_recall", overall.get("target_recall", overall.get("recall_class0", 0.0)))
+        trial.set_user_attr("target_fnr", overall.get("target_fnr", 0.0))
         trial.set_user_attr("prevalence_class0", overall.get("prevalence_class0", 0.0))
 
         # Per-class metrics (keyed by class index as string in the JSON)
@@ -182,18 +189,21 @@ def make_objective(base_config: dict, row: int, col: int, grid_values: list[floa
             for j, cell_val in enumerate(row_vals):
                 trial.set_user_attr(f"cm_{i}_{j}", cell_val)
 
-        # Primary objective: class 0 recall (we want to maximise detection of
-        # black widows — minimise FNR for class 0)
+        # Primary objective: NICME selection score (minimize cost while meeting
+        # target-class recall and accuracy floors). Older metric exports still
+        # include class-0 recall for spider-specific analysis.
         class_0_recall = per_class.get("recall", {}).get("0", 0.0)
+        selection_score = overall.get("selection_score", 0.0)
 
         print(
             f"\n[Trial {trial.number}] cost_value={cost_value:.2f}  "
             f"accuracy={overall.get('accuracy', 0):.4f}  "
             f"balanced_accuracy={overall.get('balanced_accuracy', 0):.4f}  "
-            f"class_0_recall={class_0_recall:.4f}\n"
+            f"class_0_recall={class_0_recall:.4f}  "
+            f"selection_score={selection_score:.4f}\n"
         )
 
-        return class_0_recall
+        return selection_score
 
     return objective
 
@@ -212,7 +222,7 @@ def export_results(study: optuna.Study, output_dir: str, row: int, col: int):
         record = {
             "trial_number": trial.number,
             "cost_value": trial.params["cost_value"],
-            "objective_class_0_recall": trial.value,
+            "objective_selection_score": trial.value,
         }
         record.update(trial.user_attrs)
         # Remove results_dir from the record (not useful in the DB)
@@ -254,6 +264,11 @@ def export_results(study: optuna.Study, output_dir: str, row: int, col: int):
         "auc",
         "recall_class0",
         "expected_cost",
+        "atc",
+        "normalized_atc",
+        "selection_score",
+        "target_recall",
+        "target_fnr",
         "class_0_recall",
         "class_1_recall",
     ]
@@ -591,7 +606,7 @@ def main():
     # Create Optuna study with GridSampler
     sampler = GridSampler({"cost_value": grid_values})
     study = optuna.create_study(
-        direction="maximize",
+        direction="minimize",
         sampler=sampler,
         study_name=f"cost_matrix_{row}_{col}_sweep",
     )
@@ -617,7 +632,8 @@ def main():
     print("=" * 60)
     print(f"Trial:           #{best.number}")
     print(f"Cost value:      {best.params['cost_value']:.4f}")
-    print(f"Class 0 Recall:  {best.value:.4f}")
+    print(f"Selection score: {best.value:.4f}")
+    print(f"Target Recall:   {best.user_attrs.get('target_recall', 'N/A')}")
     print(f"Accuracy:        {best.user_attrs.get('accuracy', 'N/A')}")
     print(f"Balanced Acc:    {best.user_attrs.get('balanced_accuracy', 'N/A')}")
     print(f"F1 Score:        {best.user_attrs.get('f1_score', 'N/A')}")

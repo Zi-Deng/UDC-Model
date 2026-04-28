@@ -21,19 +21,19 @@ import os
 import torch
 from transformers import EarlyStoppingCallback, TrainingArguments, set_seed
 
-from model.convnext import ConvNextConfig, ConvNextForImageClassification
-from model.ResNet import ResNetConfig, ResNetForImageClassification
+from nicme.modeling import build_model
 from scripts.train import CustomTrainer
 from utils.image_processor import CustomImageProcessor
 from utils.utils import (
     collate_fn,
-    compute_metrics,
     get_device,
+    make_compute_metrics,
     parse_HF_args,
     preprocess_hf_dataset,
     preprocess_kg_dataset,
     preprocess_local_csv_dataset,
     preprocess_local_folder_dataset,
+    preprocess_manifest_dataset,
 )
 
 
@@ -56,6 +56,10 @@ def main():
             train_ds, val_ds, test_ds, class_names = preprocess_local_csv_dataset(
                 script_args.local_folder_path, script_args.model
             )
+        elif script_args.local_dataset_format == "manifest":
+            train_ds, val_ds, _calibration_ds, test_ds, class_names = preprocess_manifest_dataset(
+                script_args.local_folder_path, script_args.model
+            )
         else:
             train_ds, val_ds, test_ds, class_names = preprocess_local_folder_dataset(
                 script_args.local_folder_path, script_args.model
@@ -63,10 +67,12 @@ def main():
     else:
         raise ValueError(f"Unknown dataset_host: {script_args.dataset_host}")
 
-    # --- Load pretrained weights ONCE ---
-    pretrained_weights_path = os.path.abspath(script_args.weights)
-    pretrained_weights = torch.load(pretrained_weights_path, map_location="cpu")
-    filtered_weights = {k: v for k, v in pretrained_weights.items() if "classifier" not in k}
+    # --- Load legacy custom pretrained weights ONCE ---
+    filtered_weights = None
+    if getattr(script_args, "model_backend", "custom").lower() == "custom" and script_args.weights:
+        pretrained_weights_path = os.path.abspath(script_args.weights)
+        pretrained_weights = torch.load(pretrained_weights_path, map_location="cpu")
+        filtered_weights = {k: v for k, v in pretrained_weights.items() if "classifier" not in k}
 
     # --- Device ---
     device = get_device()
@@ -76,20 +82,15 @@ def main():
     def model_init(trial):
         """Create a fresh model with optionally frozen early stages."""
         model_type = getattr(script_args, "model_type", "resnet").lower()
+        model = build_model(script_args, class_names=class_names)
 
-        if model_type == "convnext":
-            config = ConvNextConfig(num_labels=script_args.num_labels)
-            model = ConvNextForImageClassification(config)
-        else:
-            config = ResNetConfig(num_labels=script_args.num_labels, depths=[3, 4, 6, 3])
-            model = ResNetForImageClassification(config)
-
-        missing, unexpected = model.load_state_dict(filtered_weights, strict=False)
-        if missing:
-            print(f"Missing keys: {missing}")
+        if filtered_weights is not None:
+            missing, unexpected = model.load_state_dict(filtered_weights, strict=False)
+            if missing:
+                print(f"Missing keys: {missing}")
 
         # Freeze early stages when requested by the trial (ResNet only)
-        if model_type == "resnet":
+        if getattr(script_args, "model_backend", "custom").lower() == "custom" and model_type == "resnet":
             num_frozen = trial.suggest_int("num_frozen_stages", 0, 3) if trial is not None else 0
             if num_frozen >= 1:
                 for param in model.resnet.embedder.parameters():
@@ -116,7 +117,9 @@ def main():
 
     # --- Objective ---
     def compute_objective(metrics):
-        return metrics["eval_accuracy"]
+        if script_args.cost_matrix is not None and "eval_selection_score" in metrics:
+            return metrics["eval_selection_score"]
+        return metrics.get("eval_accuracy", metrics.get("eval_loss", 0.0))
 
     # --- Training arguments (high epoch ceiling; early stopping decides) ---
     training_args = TrainingArguments(
@@ -129,23 +132,32 @@ def main():
         per_device_eval_batch_size=32,
         logging_steps=10,
         load_best_model_at_end=True,
-        metric_for_best_model="accuracy",
-        greater_is_better=True,
+        metric_for_best_model="selection_score" if script_args.cost_matrix is not None else "accuracy",
+        greater_is_better=False if script_args.cost_matrix is not None else True,
         save_total_limit=2,
         report_to="none",
     )
+
+    try:
+        labels_for_priors = train_ds["label"]
+        counts = torch.bincount(torch.tensor(labels_for_priors, dtype=torch.long), minlength=script_args.num_labels)
+        class_priors = (counts.float() / counts.sum().clamp_min(1)).tolist()
+    except Exception:
+        class_priors = None
 
     # --- Build trainer with model_init (no model arg) ---
     trainer = CustomTrainer(
         loss_fxn=script_args.loss_function,
         cost_matrix=script_args.cost_matrix,
+        class_priors=class_priors,
+        logit_adjustment_tau=getattr(script_args, "logit_adjustment_tau", 1.0),
         model=None,
         model_init=model_init,
         args=training_args,
         train_dataset=train_ds,
         eval_dataset=val_ds,
         processing_class=image_processor,
-        compute_metrics=compute_metrics,
+        compute_metrics=make_compute_metrics(script_args, class_names),
         data_collator=collate_fn,
         callbacks=[EarlyStoppingCallback(early_stopping_patience=5)],
     )
@@ -156,7 +168,7 @@ def main():
     print("=" * 60)
 
     best_trial = trainer.hyperparameter_search(
-        direction="maximize",
+        direction="minimize" if script_args.cost_matrix is not None else "maximize",
         backend="optuna",
         hp_space=optuna_hp_space,
         n_trials=20,
@@ -169,7 +181,8 @@ def main():
 
     output = {
         "best_trial_number": best_trial.run_id,
-        "best_eval_accuracy": best_trial.objective,
+        "best_objective": best_trial.objective,
+        "objective_name": "eval_selection_score" if script_args.cost_matrix is not None else "eval_accuracy",
         "best_hyperparameters": best_trial.hyperparameters,
     }
 

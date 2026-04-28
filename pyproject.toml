@@ -14,6 +14,8 @@ nicme-train-reg = "nicme.cli:train_reg"
 nicme-sweep = "nicme.cli:sweep"
 nicme-hpo = "nicme.cli:hpo"
 nicme-compare-sweeps = "nicme.cli:compare_sweeps"
+nicme-prepare-data = "nicme.cli:prepare_data"
+nicme-run-binary-experiments = "nicme.cli:run_binary_experiments"
 
 [tool.ruff]
 line-length = 120

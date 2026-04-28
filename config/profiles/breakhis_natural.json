@@ -1,0 +1,26 @@
+{
+  "dataset_profile": "breakhis",
+  "variant": "natural",
+  "split_dir": "data/prepared/breakhis/splits/natural",
+  "class_names": ["benign", "malignant"],
+  "label2id": {
+    "benign": 0,
+    "malignant": 1
+  },
+  "id2label": {
+    "0": "benign",
+    "1": "malignant"
+  },
+  "target_recall_class": "malignant",
+  "cost_matrix": [
+    [0.0, 1.0],
+    [10.0, 0.0]
+  ],
+  "selection": {
+    "target_recall_floor": 0.97,
+    "accuracy_floor": 0.8,
+    "accuracy_metric": "balanced_accuracy"
+  },
+  "selection_accuracy_metric": "balanced_accuracy",
+  "cost_matrix_convention": "C[true_label][predicted_label]"
+}
