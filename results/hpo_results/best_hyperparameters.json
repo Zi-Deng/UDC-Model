@@ -1,0 +1,12 @@
+{
+  "best_trial_number": "4",
+  "best_eval_accuracy": 0.937037037037037,
+  "best_hyperparameters": {
+    "learning_rate": 0.00031675827258233213,
+    "weight_decay": 0.009658023670815849,
+    "per_device_train_batch_size": 32,
+    "warmup_ratio": 0.08656072310315271,
+    "lr_scheduler_type": "linear",
+    "num_frozen_stages": 3
+  }
+}

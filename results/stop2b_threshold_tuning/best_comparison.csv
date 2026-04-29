@@ -1,0 +1,11 @@
+dataset,candidate,phase,model_family,method,decision_mode,scale,cs_lambda,threshold,normalized_atc,target_recall,accuracy,balanced_accuracy,macro_f1,selection_score,all_floors_met,confusion_matrix
+breakhis_balanced_prototype,best_any_all_phases,stop2a_nicme_tuning,vit,nicme_hybrid,argmax,0.2,0.25,,0.01875,0.96875,0.953125,0.953125,0.9531135531135532,0.01875625,False,"[[30, 2], [1, 31]]"
+breakhis_balanced_prototype,best_nicme_all_phases,stop2a_nicme_tuning,vit,nicme_hybrid,argmax,0.2,0.25,,0.01875,0.96875,0.953125,0.953125,0.9531135531135532,0.01875625,False,"[[30, 2], [1, 31]]"
+breakhis_balanced_prototype,best_nicme_argmax,stop2a_nicme_tuning,vit,nicme_hybrid,argmax,0.2,0.25,,0.01875,0.96875,0.953125,0.953125,0.9531135531135532,0.01875625,False,"[[30, 2], [1, 31]]"
+breakhis_balanced_prototype,best_nicme_threshold,stop2b_threshold_tuning,vit,nicme_hybrid,calibrated_threshold,0.05,0.1,0.5076368822903004,0.01875,0.96875,0.953125,0.953125,0.9531135531135531,0.01875625,False,"[[30, 2], [1, 31]]"
+breakhis_balanced_prototype,best_ce_threshold,stop2b_threshold_tuning,convnext,ce,calibrated_threshold,1.0,10.0,0.2846278296621058,0.028125,0.96875,0.859375,0.859375,0.8576723498888065,0.02813125,False,"[[24, 8], [1, 31]]"
+spider_balanced_prototype,best_any_all_phases,stop2b_threshold_tuning,vit,ce,calibrated_threshold,1.0,10.0,0.3614128527683237,0.03125,0.96875,0.828125,0.828125,0.8246575342465754,0.03125,True,"[[31, 1], [10, 22]]"
+spider_balanced_prototype,best_nicme_all_phases,stop2a_nicme_tuning,vit,nicme_logit_adjustment,argmax,0.5,0.0,,0.0484375,0.9375,0.796875,0.796875,0.7927770859277707,0.0490722656249999,False,"[[30, 2], [11, 21]]"
+spider_balanced_prototype,best_nicme_argmax,stop2a_nicme_tuning,vit,nicme_logit_adjustment,argmax,0.5,0.0,,0.0484375,0.9375,0.796875,0.796875,0.7927770859277707,0.0490722656249999,False,"[[30, 2], [11, 21]]"
+spider_balanced_prototype,best_nicme_threshold,stop2b_threshold_tuning,vit,nicme_hybrid,calibrated_threshold,0.05,0.25,0.4569357766675364,0.04375,0.96875,0.703125,0.703125,0.680588389808248,0.053134765625000004,False,"[[31, 1], [18, 14]]"
+spider_balanced_prototype,best_ce_threshold,stop2b_threshold_tuning,vit,ce,calibrated_threshold,1.0,10.0,0.3614128527683237,0.03125,0.96875,0.828125,0.828125,0.8246575342465754,0.03125,True,"[[31, 1], [10, 22]]"

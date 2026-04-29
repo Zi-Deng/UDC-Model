@@ -40,8 +40,46 @@ MODEL_PRESETS = {
         "peft_r": 8,
         "peft_alpha": 16,
         "peft_dropout": 0.1,
-        "peft_target_modules": "query,value",
+        "peft_target_modules": "q_proj,v_proj",
         "peft_modules_to_save": "classifier",
+    },
+    "timm_dinov3_convnext": {
+        "model": "timm/convnext_tiny.dinov3_lvd1689m",
+        "model_backend": "timm",
+        "model_type": "timm_dinov3_convnext",
+        "peft_enabled": False,
+        "timm_pretrained": True,
+    },
+    "timm_dinov3_convnext_lora": {
+        "model": "timm/convnext_tiny.dinov3_lvd1689m",
+        "model_backend": "timm",
+        "model_type": "timm_dinov3_convnext_lora",
+        "peft_enabled": True,
+        "peft_r": 8,
+        "peft_alpha": 16,
+        "peft_dropout": 0.1,
+        "peft_target_modules": "mlp.fc1,mlp.fc2",
+        "peft_modules_to_save": "model.head",
+        "timm_pretrained": True,
+    },
+    "timm_dinov3_vit": {
+        "model": "timm/vit_small_patch16_dinov3.lvd1689m",
+        "model_backend": "timm",
+        "model_type": "timm_dinov3_vit",
+        "peft_enabled": False,
+        "timm_pretrained": True,
+    },
+    "timm_dinov3_vit_lora": {
+        "model": "timm/vit_small_patch16_dinov3.lvd1689m",
+        "model_backend": "timm",
+        "model_type": "timm_dinov3_vit_lora",
+        "peft_enabled": True,
+        "peft_r": 8,
+        "peft_alpha": 16,
+        "peft_dropout": 0.1,
+        "peft_target_modules": "qkv",
+        "peft_modules_to_save": "model.head",
+        "timm_pretrained": True,
     },
 }
 
@@ -69,10 +107,24 @@ TIERS = {
 }
 
 TIER_DEFAULT_MODELS = {
-    "tier0": ["convnext", "vit", "dinov3_vit"],
-    "tier1": ["convnext", "dinov3_vit"],
-    "tier2": ["dinov3_vit"],
-    "tier3": ["convnext", "vit", "dinov3_convnext", "dinov3_vit"],
+    "tier0": [
+        "convnext",
+        "vit",
+        "timm_dinov3_vit",
+        "timm_dinov3_vit_lora",
+        "timm_dinov3_convnext",
+        "timm_dinov3_convnext_lora",
+    ],
+    "tier1": ["convnext", "timm_dinov3_vit_lora"],
+    "tier2": ["timm_dinov3_vit_lora"],
+    "tier3": [
+        "convnext",
+        "vit",
+        "timm_dinov3_convnext",
+        "timm_dinov3_convnext_lora",
+        "timm_dinov3_vit",
+        "timm_dinov3_vit_lora",
+    ],
 }
 
 

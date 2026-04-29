@@ -1,0 +1,45 @@
+{
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "learning_rate": 0.0001,
+  "early_stopping_patience": 2,
+  "batch_size": 16,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.05,
+  "lr_scheduler_type": "cosine",
+  "num_labels": 2,
+  "wandb": false,
+  "push_to_hub": false,
+  "decision_modes": "argmax,calibrated_cost_min",
+  "calibration_enabled": true,
+  "cs_lambda": 10.0,
+  "cs_warmup_epochs": 1,
+  "seed": 42,
+  "local_folder_path": "data/prepared/stop2_prototype/spider_balanced",
+  "class_names": [
+    "black_widow",
+    "false_widow"
+  ],
+  "target_recall_class": "black_widow",
+  "target_recall_floor": 0.95,
+  "accuracy_floor": 0.8,
+  "selection_accuracy_metric": "accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      10.0
+    ],
+    [
+      1.0,
+      0.0
+    ]
+  ],
+  "num_train_epochs": 5,
+  "model": "google/vit-base-patch16-224-in21k",
+  "model_backend": "hf_auto",
+  "model_type": "vit",
+  "peft_enabled": false,
+  "dataset": "spider_balanced_prototype",
+  "loss_function": "menon_logit_adjusted",
+  "output_dir": "stop2_prototype_spider_balanced_prototype_vit_menon_logit_adjusted"
+}

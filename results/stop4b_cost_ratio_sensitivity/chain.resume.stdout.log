@@ -1,0 +1,6 @@
+[2026-04-29T00:18:26-07:00] Starting resumed Stop 4B Spider ConvNeXt queue
+Manifest rows: 45; successful: 13; missing to run: 32
+[2026-04-29T01:12:40-07:00] Spider resume exit code: 0
+[2026-04-29T01:12:40-07:00] Starting Stop 4B BreaKHis timm DINOv3 ConvNeXt LoRA queue
+Wrote 45 Stop 4B configs to results/stop4b_cost_ratio_sensitivity/breakhis_dinov3_convnext_lora
+[2026-04-29T04:08:08-07:00] BreaKHis queue exit code: 0

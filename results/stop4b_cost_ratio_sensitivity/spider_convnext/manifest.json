@@ -1,0 +1,1022 @@
+{
+  "phase": "stop4b_cost_ratio_spider_convnext",
+  "created_at": "2026-04-28 23:32:42",
+  "datasets": [
+    "spider_balanced"
+  ],
+  "models": [
+    "convnext"
+  ],
+  "methods": [
+    "ce_calibrated_cost_min",
+    "nicme_logit_adjustment",
+    "nicme_hybrid"
+  ],
+  "seeds": [
+    "42",
+    "43",
+    "44"
+  ],
+  "ratios": [
+    "1",
+    "2",
+    "5",
+    "10",
+    "20"
+  ],
+  "run_count": 45,
+  "cleanup_checkpoints": true,
+  "time_budget_hours": null,
+  "runs": [
+    {
+      "index": 1,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/001_stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_ce_calibrated_cost_min_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_ce_calibrated_cost_min_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 42,
+      "cost_ratio": 1.0,
+      "cost_matrix": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 2,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/002_stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_logit_adjustment_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_logit_adjustment_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 42,
+      "cost_ratio": 1.0,
+      "cost_matrix": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 3,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/003_stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_hybrid_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_hybrid_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 42,
+      "cost_ratio": 1.0,
+      "cost_matrix": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 4,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/004_stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_ce_calibrated_cost_min_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_ce_calibrated_cost_min_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 43,
+      "cost_ratio": 1.0,
+      "cost_matrix": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 5,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/005_stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_logit_adjustment_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_logit_adjustment_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 43,
+      "cost_ratio": 1.0,
+      "cost_matrix": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 6,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/006_stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_hybrid_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_hybrid_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 43,
+      "cost_ratio": 1.0,
+      "cost_matrix": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 7,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/007_stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_ce_calibrated_cost_min_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_ce_calibrated_cost_min_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 44,
+      "cost_ratio": 1.0,
+      "cost_matrix": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 8,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/008_stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_logit_adjustment_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_logit_adjustment_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 44,
+      "cost_ratio": 1.0,
+      "cost_matrix": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 9,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/009_stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_hybrid_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr1_convnext_nicme_hybrid_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 44,
+      "cost_ratio": 1.0,
+      "cost_matrix": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 10,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/010_stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_ce_calibrated_cost_min_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_ce_calibrated_cost_min_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 42,
+      "cost_ratio": 2.0,
+      "cost_matrix": [
+        [
+          0.0,
+          2.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 11,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/011_stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_logit_adjustment_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_logit_adjustment_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 42,
+      "cost_ratio": 2.0,
+      "cost_matrix": [
+        [
+          0.0,
+          2.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 12,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/012_stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_hybrid_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_hybrid_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 42,
+      "cost_ratio": 2.0,
+      "cost_matrix": [
+        [
+          0.0,
+          2.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 13,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/013_stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_ce_calibrated_cost_min_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_ce_calibrated_cost_min_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 43,
+      "cost_ratio": 2.0,
+      "cost_matrix": [
+        [
+          0.0,
+          2.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 14,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/014_stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_logit_adjustment_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_logit_adjustment_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 43,
+      "cost_ratio": 2.0,
+      "cost_matrix": [
+        [
+          0.0,
+          2.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 15,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/015_stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_hybrid_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_hybrid_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 43,
+      "cost_ratio": 2.0,
+      "cost_matrix": [
+        [
+          0.0,
+          2.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 16,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/016_stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_ce_calibrated_cost_min_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_ce_calibrated_cost_min_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 44,
+      "cost_ratio": 2.0,
+      "cost_matrix": [
+        [
+          0.0,
+          2.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 17,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/017_stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_logit_adjustment_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_logit_adjustment_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 44,
+      "cost_ratio": 2.0,
+      "cost_matrix": [
+        [
+          0.0,
+          2.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 18,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/018_stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_hybrid_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_nicme_hybrid_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 44,
+      "cost_ratio": 2.0,
+      "cost_matrix": [
+        [
+          0.0,
+          2.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 19,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/019_stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_ce_calibrated_cost_min_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_ce_calibrated_cost_min_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 42,
+      "cost_ratio": 5.0,
+      "cost_matrix": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 20,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/020_stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_logit_adjustment_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_logit_adjustment_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 42,
+      "cost_ratio": 5.0,
+      "cost_matrix": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 21,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/021_stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_hybrid_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_hybrid_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 42,
+      "cost_ratio": 5.0,
+      "cost_matrix": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 22,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/022_stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_ce_calibrated_cost_min_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_ce_calibrated_cost_min_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 43,
+      "cost_ratio": 5.0,
+      "cost_matrix": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 23,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/023_stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_logit_adjustment_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_logit_adjustment_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 43,
+      "cost_ratio": 5.0,
+      "cost_matrix": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 24,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/024_stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_hybrid_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_hybrid_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 43,
+      "cost_ratio": 5.0,
+      "cost_matrix": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 25,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/025_stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_ce_calibrated_cost_min_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_ce_calibrated_cost_min_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 44,
+      "cost_ratio": 5.0,
+      "cost_matrix": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 26,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/026_stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_logit_adjustment_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_logit_adjustment_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 44,
+      "cost_ratio": 5.0,
+      "cost_matrix": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 27,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/027_stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_hybrid_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr5_convnext_nicme_hybrid_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 44,
+      "cost_ratio": 5.0,
+      "cost_matrix": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 28,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/028_stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_ce_calibrated_cost_min_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_ce_calibrated_cost_min_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 42,
+      "cost_ratio": 10.0,
+      "cost_matrix": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 29,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/029_stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_logit_adjustment_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_logit_adjustment_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 42,
+      "cost_ratio": 10.0,
+      "cost_matrix": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 30,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/030_stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_hybrid_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_hybrid_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 42,
+      "cost_ratio": 10.0,
+      "cost_matrix": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 31,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/031_stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_ce_calibrated_cost_min_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_ce_calibrated_cost_min_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 43,
+      "cost_ratio": 10.0,
+      "cost_matrix": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 32,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/032_stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_logit_adjustment_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_logit_adjustment_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 43,
+      "cost_ratio": 10.0,
+      "cost_matrix": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 33,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/033_stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_hybrid_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_hybrid_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 43,
+      "cost_ratio": 10.0,
+      "cost_matrix": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 34,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/034_stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_ce_calibrated_cost_min_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_ce_calibrated_cost_min_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 44,
+      "cost_ratio": 10.0,
+      "cost_matrix": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 35,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/035_stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_logit_adjustment_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_logit_adjustment_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 44,
+      "cost_ratio": 10.0,
+      "cost_matrix": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 36,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/036_stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_hybrid_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr10_convnext_nicme_hybrid_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 44,
+      "cost_ratio": 10.0,
+      "cost_matrix": [
+        [
+          0.0,
+          10.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 37,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/037_stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 42,
+      "cost_ratio": 20.0,
+      "cost_matrix": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 38,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/038_stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_logit_adjustment_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_logit_adjustment_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 42,
+      "cost_ratio": 20.0,
+      "cost_matrix": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 39,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/039_stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_hybrid_seed42.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_hybrid_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 42,
+      "cost_ratio": 20.0,
+      "cost_matrix": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 40,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/040_stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 43,
+      "cost_ratio": 20.0,
+      "cost_matrix": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 41,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/041_stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_logit_adjustment_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_logit_adjustment_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 43,
+      "cost_ratio": 20.0,
+      "cost_matrix": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 42,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/042_stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_hybrid_seed43.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_hybrid_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 43,
+      "cost_ratio": 20.0,
+      "cost_matrix": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 43,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/043_stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 44,
+      "cost_ratio": 20.0,
+      "cost_matrix": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 44,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/044_stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_logit_adjustment_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_logit_adjustment_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 44,
+      "cost_ratio": 20.0,
+      "cost_matrix": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 45,
+      "config": "results/stop4b_cost_ratio_sensitivity/spider_convnext/configs/045_stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_hybrid_seed44.json",
+      "output_dir": "stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_nicme_hybrid_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 44,
+      "cost_ratio": 20.0,
+      "cost_matrix": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          1.0,
+          0.0
+        ]
+      ],
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    }
+  ]
+}

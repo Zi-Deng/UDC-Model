@@ -247,7 +247,7 @@ Implemented model-family presets in `scripts/run_binary_experiments.py`:
 Default 5090-oriented target:
 
 - `facebook/dinov3-vits16-pretrain-lvd1689m`
-- LoRA enabled with `r=8`, `alpha=16`, `dropout=0.1`, targets `query,value`, and classifier saved.
+- LoRA enabled with `r=8`, `alpha=16`, `dropout=0.1`; official HF DINOv3 ViT targets `q_proj,v_proj`, timm DINOv3 ViT targets fused `qkv`, timm DINOv3 ConvNeXt targets MLP layers `mlp.fc1,mlp.fc2`, and classifier heads are saved.
 
 Dependencies updated:
 
@@ -408,4 +408,3 @@ Docs and memory:
 - `docs/nicme_binary_extension_implementation.md`
 - `docs/2026-04-28_nicme_binary_first_extension_plan_and_implementation.md`
 - `memory/nicme_binary_extension_2026.md`
-

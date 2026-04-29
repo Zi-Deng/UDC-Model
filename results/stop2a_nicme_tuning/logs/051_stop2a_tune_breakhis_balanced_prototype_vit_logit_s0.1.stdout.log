@@ -1,0 +1,58 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=hf_auto type=vit with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.6228', 'eval_accuracy': '0.7812', 'eval_f1': '0.7703', 'eval_balanced_accuracy': '0.7812', 'eval_macro_f1': '0.7703', 'eval_atc': '0.2188', 'eval_normalized_atc': '0.02187', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.0266', 'eval_selection_accuracy_value': '0.7812', 'eval_nll': '0.6203', 'eval_brier': '0.4283', 'eval_ece': '0.218', 'eval_auroc': '0.9209', 'eval_auprc': '0.9134', 'eval_runtime': '1.882', 'eval_samples_per_second': '34.01', 'eval_steps_per_second': '2.125', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.5022', 'eval_accuracy': '0.8438', 'eval_f1': '0.8398', 'eval_balanced_accuracy': '0.8438', 'eval_macro_f1': '0.8398', 'eval_atc': '0.1562', 'eval_normalized_atc': '0.01562', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.01566', 'eval_selection_accuracy_value': '0.8438', 'eval_nll': '0.4942', 'eval_brier': '0.3122', 'eval_ece': '0.1751', 'eval_auroc': '0.9414', 'eval_auprc': '0.9363', 'eval_runtime': '2.172', 'eval_samples_per_second': '29.47', 'eval_steps_per_second': '1.842', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1/checkpoint-8/preprocessor_config.json
+{'loss': '2.491', 'grad_norm': '6.486', 'learning_rate': '8.716e-05', 'epoch': '2.5'}
+{'eval_loss': '0.4597', 'eval_accuracy': '0.8594', 'eval_f1': '0.8565', 'eval_balanced_accuracy': '0.8594', 'eval_macro_f1': '0.8565', 'eval_atc': '0.1406', 'eval_normalized_atc': '0.01406', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.01406', 'eval_selection_accuracy_value': '0.8594', 'eval_nll': '0.4454', 'eval_brier': '0.269', 'eval_ece': '0.1522', 'eval_auroc': '0.8887', 'eval_auprc': '0.8693', 'eval_runtime': '2.193', 'eval_samples_per_second': '29.18', 'eval_steps_per_second': '1.824', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1/checkpoint-12/preprocessor_config.json
+{'eval_loss': '0.48', 'eval_accuracy': '0.8281', 'eval_f1': '0.826', 'eval_balanced_accuracy': '0.8281', 'eval_macro_f1': '0.826', 'eval_atc': '0.4531', 'eval_normalized_atc': '0.04531', 'eval_target_recall': '0.9375', 'eval_target_fnr': '0.0625', 'eval_selection_score': '0.05002', 'eval_selection_accuracy_value': '0.8281', 'eval_nll': '0.4593', 'eval_brier': '0.2818', 'eval_ece': '0.1175', 'eval_auroc': '0.8574', 'eval_auprc': '0.8224', 'eval_runtime': '2.107', 'eval_samples_per_second': '30.37', 'eval_steps_per_second': '1.898', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1/checkpoint-16/preprocessor_config.json
+{'loss': '1.344', 'grad_norm': '6.498', 'learning_rate': '3.96e-05', 'epoch': '5'}
+{'eval_loss': '0.5318', 'eval_accuracy': '0.7969', 'eval_f1': '0.7928', 'eval_balanced_accuracy': '0.7969', 'eval_macro_f1': '0.7928', 'eval_atc': '0.4844', 'eval_normalized_atc': '0.04844', 'eval_target_recall': '0.9375', 'eval_target_fnr': '0.0625', 'eval_selection_score': '0.05548', 'eval_selection_accuracy_value': '0.7969', 'eval_nll': '0.4996', 'eval_brier': '0.3116', 'eval_ece': '0.08416', 'eval_auroc': '0.832', 'eval_auprc': '0.7925', 'eval_runtime': '2.165', 'eval_samples_per_second': '29.56', 'eval_steps_per_second': '1.847', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1/checkpoint-20/preprocessor_config.json
+{'train_runtime': '23.92', 'train_samples_per_second': '85.62', 'train_steps_per_second': '1.338', 'train_loss': '1.918', 'epoch': '5'}
+***** train metrics *****
+  epoch                    =        5.0
+  total_flos               = 92377650GF
+  train_loss               =     1.9177
+  train_runtime            = 0:00:23.91
+  train_samples_per_second =      85.62
+  train_steps_per_second   =      1.338
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/vit_test/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1_04-28_06-54
+Saving run configuration...
+Run configuration saved to: results/vit_test/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1_04-28_06-54/run_configuration_20260428_065402.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/vit_test/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1_04-28_06-54/metrics_20260428_065408_nicme_logit_adjustment.json and results/vit_test/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1_04-28_06-54/metrics_20260428_065408_nicme_logit_adjustment.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/vit_test/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1_04-28_06-54/confusion_matrix_20260428_065408_nicme_logit_adjustment.png and results/vit_test/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1_04-28_06-54/confusion_matrix_20260428_065408_nicme_logit_adjustment.pdf
+Detailed confusion matrix saved to: results/vit_test/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1_04-28_06-54/confusion_matrix_detailed_20260428_065408_nicme_logit_adjustment.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/vit_test/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1_04-28_06-54
+Overall Accuracy: 0.9531
+Balanced Accuracy: 0.9531
+Overall F1 Score: 0.9531
+Kappa: 0.9062
+AUC: 0.9756
+Expected Cost: 0.3281
+Loss Function Used: nicme_logit_adjustment
+Total Test Samples: 64
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/vit_test/stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1_04-28_06-54
+============================================================

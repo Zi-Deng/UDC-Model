@@ -71,6 +71,7 @@ class CustomTrainer(Trainer):
         cs_warmup_epochs=0,
         class_priors=None,
         logit_adjustment_tau=1.0,
+        nicme_logit_cost_scale=1.0,
         *args,
         **kwargs,
     ):
@@ -81,6 +82,7 @@ class CustomTrainer(Trainer):
             cs_warmup_epochs=cs_warmup_epochs,
             class_priors=class_priors,
             logit_adjustment_tau=logit_adjustment_tau,
+            nicme_logit_cost_scale=nicme_logit_cost_scale,
         )
         self.loss_fxn = loss_fxn
 
@@ -242,6 +244,7 @@ def main(script_args):
         remove_unused_columns=False,
         eval_strategy="epoch",
         save_strategy="epoch",
+        save_total_limit=script_args.save_total_limit,
         learning_rate=script_args.learning_rate,
         weight_decay=script_args.weight_decay,
         per_device_train_batch_size=script_args.batch_size,
@@ -284,6 +287,7 @@ def main(script_args):
         cs_warmup_epochs=getattr(script_args, "cs_warmup_epochs", 0),
         class_priors=class_priors,
         logit_adjustment_tau=getattr(script_args, "logit_adjustment_tau", 1.0),
+        nicme_logit_cost_scale=getattr(script_args, "nicme_logit_cost_scale", 1.0),
         callbacks=callbacks,
     )
 
@@ -304,6 +308,7 @@ def main(script_args):
         cs_warmup_epochs=getattr(script_args, "cs_warmup_epochs", 0),
         class_priors=class_priors,
         logit_adjustment_tau=getattr(script_args, "logit_adjustment_tau", 1.0),
+        nicme_logit_cost_scale=getattr(script_args, "nicme_logit_cost_scale", 1.0),
     )
 
     results_dir = perform_comprehensive_evaluation(

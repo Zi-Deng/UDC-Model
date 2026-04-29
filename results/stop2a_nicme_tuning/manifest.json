@@ -1,0 +1,951 @@
+{
+  "phase": "stop2a_nicme_tuning",
+  "purpose": "Tune NICME logit cost scale and CS regularization after Stop 2 without advancing to Stop 3.",
+  "selection_warning": "Use validation/calibration behavior for choosing next configs; test metrics are exploratory prototype evidence only.",
+  "combos": [
+    [
+      "spider_balanced_prototype",
+      "vit"
+    ],
+    [
+      "spider_balanced_prototype",
+      "timm_dinov3_vit_lora"
+    ],
+    [
+      "spider_balanced_prototype",
+      "timm_dinov3_convnext_lora"
+    ],
+    [
+      "breakhis_balanced_prototype",
+      "convnext"
+    ],
+    [
+      "breakhis_balanced_prototype",
+      "vit"
+    ],
+    [
+      "breakhis_balanced_prototype",
+      "timm_dinov3_vit_lora"
+    ],
+    [
+      "breakhis_balanced_prototype",
+      "timm_dinov3_convnext_lora"
+    ]
+  ],
+  "variants": [
+    {
+      "method": "nicme_logit_adjustment",
+      "scale": 0.025,
+      "cs_lambda": 0.0,
+      "tag": "logit_s0.025"
+    },
+    {
+      "method": "nicme_logit_adjustment",
+      "scale": 0.05,
+      "cs_lambda": 0.0,
+      "tag": "logit_s0.05"
+    },
+    {
+      "method": "nicme_logit_adjustment",
+      "scale": 0.1,
+      "cs_lambda": 0.0,
+      "tag": "logit_s0.1"
+    },
+    {
+      "method": "nicme_logit_adjustment",
+      "scale": 0.2,
+      "cs_lambda": 0.0,
+      "tag": "logit_s0.2"
+    },
+    {
+      "method": "nicme_logit_adjustment",
+      "scale": 0.35,
+      "cs_lambda": 0.0,
+      "tag": "logit_s0.35"
+    },
+    {
+      "method": "nicme_logit_adjustment",
+      "scale": 0.5,
+      "cs_lambda": 0.0,
+      "tag": "logit_s0.5"
+    },
+    {
+      "method": "nicme_hybrid",
+      "scale": 0.025,
+      "cs_lambda": 0.1,
+      "tag": "hybrid_s0.025_l0.1"
+    },
+    {
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.1,
+      "tag": "hybrid_s0.05_l0.1"
+    },
+    {
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.25,
+      "tag": "hybrid_s0.05_l0.25"
+    },
+    {
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.1,
+      "tag": "hybrid_s0.1_l0.1"
+    },
+    {
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.25,
+      "tag": "hybrid_s0.1_l0.25"
+    },
+    {
+      "method": "nicme_hybrid",
+      "scale": 0.2,
+      "cs_lambda": 0.25,
+      "tag": "hybrid_s0.2_l0.25"
+    }
+  ],
+  "runs": [
+    {
+      "index": 1,
+      "config": "results/stop2a_nicme_tuning/configs/001_stop2a_tune_spider_balanced_prototype_vit_logit_s0.025.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_logit_s0.025",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.025,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 2,
+      "config": "results/stop2a_nicme_tuning/configs/002_stop2a_tune_spider_balanced_prototype_vit_logit_s0.05.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_logit_s0.05",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.05,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 3,
+      "config": "results/stop2a_nicme_tuning/configs/003_stop2a_tune_spider_balanced_prototype_vit_logit_s0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_logit_s0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.1,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 4,
+      "config": "results/stop2a_nicme_tuning/configs/004_stop2a_tune_spider_balanced_prototype_vit_logit_s0.2.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_logit_s0.2",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.2,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 5,
+      "config": "results/stop2a_nicme_tuning/configs/005_stop2a_tune_spider_balanced_prototype_vit_logit_s0.35.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_logit_s0.35",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.35,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 6,
+      "config": "results/stop2a_nicme_tuning/configs/006_stop2a_tune_spider_balanced_prototype_vit_logit_s0.5.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_logit_s0.5",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 7,
+      "config": "results/stop2a_nicme_tuning/configs/007_stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.025_l0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.025_l0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.025,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 8,
+      "config": "results/stop2a_nicme_tuning/configs/008_stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.05_l0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.05_l0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 9,
+      "config": "results/stop2a_nicme_tuning/configs/009_stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.05_l0.25.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.05_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 10,
+      "config": "results/stop2a_nicme_tuning/configs/010_stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.1_l0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.1_l0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 11,
+      "config": "results/stop2a_nicme_tuning/configs/011_stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.1_l0.25.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.1_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 12,
+      "config": "results/stop2a_nicme_tuning/configs/012_stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.2_l0.25.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_vit_hybrid_s0.2_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.2,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 13,
+      "config": "results/stop2a_nicme_tuning/configs/013_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.025.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.025",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.025,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 14,
+      "config": "results/stop2a_nicme_tuning/configs/014_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.05.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.05",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.05,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 15,
+      "config": "results/stop2a_nicme_tuning/configs/015_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.1,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 16,
+      "config": "results/stop2a_nicme_tuning/configs/016_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.2.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.2",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.2,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 17,
+      "config": "results/stop2a_nicme_tuning/configs/017_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.35.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.35",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.35,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 18,
+      "config": "results/stop2a_nicme_tuning/configs/018_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.5.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_logit_s0.5",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 19,
+      "config": "results/stop2a_nicme_tuning/configs/019_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.025_l0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.025_l0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.025,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 20,
+      "config": "results/stop2a_nicme_tuning/configs/020_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 21,
+      "config": "results/stop2a_nicme_tuning/configs/021_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.25.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 22,
+      "config": "results/stop2a_nicme_tuning/configs/022_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.1_l0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.1_l0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 23,
+      "config": "results/stop2a_nicme_tuning/configs/023_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.1_l0.25.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.1_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 24,
+      "config": "results/stop2a_nicme_tuning/configs/024_stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.2_l0.25.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.2_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.2,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 25,
+      "config": "results/stop2a_nicme_tuning/configs/025_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.025.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.025",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.025,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 26,
+      "config": "results/stop2a_nicme_tuning/configs/026_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.05.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.05",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.05,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 27,
+      "config": "results/stop2a_nicme_tuning/configs/027_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.1,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 28,
+      "config": "results/stop2a_nicme_tuning/configs/028_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.2.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.2",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.2,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 29,
+      "config": "results/stop2a_nicme_tuning/configs/029_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.35.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.35",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.35,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 30,
+      "config": "results/stop2a_nicme_tuning/configs/030_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.5.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.5",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 31,
+      "config": "results/stop2a_nicme_tuning/configs/031_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.025_l0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.025_l0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.025,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 32,
+      "config": "results/stop2a_nicme_tuning/configs/032_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.05_l0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.05_l0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 33,
+      "config": "results/stop2a_nicme_tuning/configs/033_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.05_l0.25.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.05_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 34,
+      "config": "results/stop2a_nicme_tuning/configs/034_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.1_l0.1.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.1_l0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 35,
+      "config": "results/stop2a_nicme_tuning/configs/035_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.1_l0.25.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.1_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 36,
+      "config": "results/stop2a_nicme_tuning/configs/036_stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.2_l0.25.json",
+      "output_dir": "stop2a_tune_spider_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.2_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.2,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 37,
+      "config": "results/stop2a_nicme_tuning/configs/037_stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.025,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 38,
+      "config": "results/stop2a_nicme_tuning/configs/038_stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.05.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.05",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.05,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 39,
+      "config": "results/stop2a_nicme_tuning/configs/039_stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.1,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 40,
+      "config": "results/stop2a_nicme_tuning/configs/040_stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.2.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.2",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.2,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 41,
+      "config": "results/stop2a_nicme_tuning/configs/041_stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.35.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.35",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.35,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 42,
+      "config": "results/stop2a_nicme_tuning/configs/042_stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.5.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.5",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 43,
+      "config": "results/stop2a_nicme_tuning/configs/043_stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.025_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.025_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "scale": 0.025,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 44,
+      "config": "results/stop2a_nicme_tuning/configs/044_stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.05_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.05_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 45,
+      "config": "results/stop2a_nicme_tuning/configs/045_stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.05_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.05_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 46,
+      "config": "results/stop2a_nicme_tuning/configs/046_stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.1_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.1_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 47,
+      "config": "results/stop2a_nicme_tuning/configs/047_stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.1_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.1_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 48,
+      "config": "results/stop2a_nicme_tuning/configs/048_stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.2_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_hybrid_s0.2_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "scale": 0.2,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 49,
+      "config": "results/stop2a_nicme_tuning/configs/049_stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.025.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.025",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.025,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 50,
+      "config": "results/stop2a_nicme_tuning/configs/050_stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.05.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.05",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.05,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 51,
+      "config": "results/stop2a_nicme_tuning/configs/051_stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.1,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 52,
+      "config": "results/stop2a_nicme_tuning/configs/052_stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.2.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.2",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.2,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 53,
+      "config": "results/stop2a_nicme_tuning/configs/053_stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.35.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.35",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.35,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 54,
+      "config": "results/stop2a_nicme_tuning/configs/054_stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.5.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_logit_s0.5",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 55,
+      "config": "results/stop2a_nicme_tuning/configs/055_stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.025_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.025_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.025,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 56,
+      "config": "results/stop2a_nicme_tuning/configs/056_stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.05_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.05_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 57,
+      "config": "results/stop2a_nicme_tuning/configs/057_stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.05_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.05_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 58,
+      "config": "results/stop2a_nicme_tuning/configs/058_stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.1_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.1_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 59,
+      "config": "results/stop2a_nicme_tuning/configs/059_stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.1_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.1_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 60,
+      "config": "results/stop2a_nicme_tuning/configs/060_stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.2_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_vit_hybrid_s0.2_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.2,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 61,
+      "config": "results/stop2a_nicme_tuning/configs/061_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.025.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.025",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.025,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 62,
+      "config": "results/stop2a_nicme_tuning/configs/062_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.05.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.05",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.05,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 63,
+      "config": "results/stop2a_nicme_tuning/configs/063_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.1,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 64,
+      "config": "results/stop2a_nicme_tuning/configs/064_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.2.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.2",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.2,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 65,
+      "config": "results/stop2a_nicme_tuning/configs/065_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.35.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.35",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.35,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 66,
+      "config": "results/stop2a_nicme_tuning/configs/066_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.5.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.5",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 67,
+      "config": "results/stop2a_nicme_tuning/configs/067_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.025_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.025_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.025,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 68,
+      "config": "results/stop2a_nicme_tuning/configs/068_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 69,
+      "config": "results/stop2a_nicme_tuning/configs/069_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 70,
+      "config": "results/stop2a_nicme_tuning/configs/070_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.1_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.1_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 71,
+      "config": "results/stop2a_nicme_tuning/configs/071_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.1_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.1_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 72,
+      "config": "results/stop2a_nicme_tuning/configs/072_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.2_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.2_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_vit_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.2,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 73,
+      "config": "results/stop2a_nicme_tuning/configs/073_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.025.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.025",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.025,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 74,
+      "config": "results/stop2a_nicme_tuning/configs/074_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.05.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.05",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.05,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 75,
+      "config": "results/stop2a_nicme_tuning/configs/075_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.1,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 76,
+      "config": "results/stop2a_nicme_tuning/configs/076_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.2.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.2",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.2,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 77,
+      "config": "results/stop2a_nicme_tuning/configs/077_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.35.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.35",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.35,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 78,
+      "config": "results/stop2a_nicme_tuning/configs/078_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.5.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.5",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 79,
+      "config": "results/stop2a_nicme_tuning/configs/079_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.025_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.025_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.025,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 80,
+      "config": "results/stop2a_nicme_tuning/configs/080_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.05_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.05_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 81,
+      "config": "results/stop2a_nicme_tuning/configs/081_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.05_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.05_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.05,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 82,
+      "config": "results/stop2a_nicme_tuning/configs/082_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.1_l0.1.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.1_l0.1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 83,
+      "config": "results/stop2a_nicme_tuning/configs/083_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.1_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.1_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 84,
+      "config": "results/stop2a_nicme_tuning/configs/084_stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.2_l0.25.json",
+      "output_dir": "stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_hybrid_s0.2_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "scale": 0.2,
+      "cs_lambda": 0.25
+    }
+  ]
+}

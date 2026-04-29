@@ -1,0 +1,58 @@
+{
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "local_folder_path": "data/prepared/breakhis/splits/balanced",
+  "dataset": "breakhis_balanced",
+  "class_names": [
+    "benign",
+    "malignant"
+  ],
+  "target_recall_class": "malignant",
+  "target_recall_floor": 0.97,
+  "accuracy_floor": 0.85,
+  "selection_accuracy_metric": "accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      1.0
+    ],
+    [
+      10.0,
+      0.0
+    ]
+  ],
+  "num_labels": 2,
+  "num_train_epochs": 20,
+  "early_stopping_patience": 3,
+  "batch_size": 16,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.05,
+  "lr_scheduler_type": "cosine",
+  "wandb": false,
+  "push_to_hub": false,
+  "calibration_enabled": true,
+  "decision_modes": "argmax,calibrated_cost_min,calibrated_threshold",
+  "save_total_limit": 1,
+  "seed": 42,
+  "model": "timm/convnext_tiny.dinov3_lvd1689m",
+  "model_backend": "timm",
+  "model_type": "timm_dinov3_convnext_lora",
+  "timm_pretrained": true,
+  "peft_enabled": true,
+  "peft_r": 8,
+  "peft_alpha": 16,
+  "peft_dropout": 0.1,
+  "peft_target_modules": "mlp.fc1,mlp.fc2",
+  "peft_modules_to_save": "model.head",
+  "learning_rate": 0.0001,
+  "loss_function": "nicme_hybrid",
+  "cs_lambda": 0.25,
+  "cs_warmup_epochs": 1,
+  "nicme_logit_cost_scale": 0.3,
+  "logit_adjustment_tau": 1.0,
+  "output_dir": "stop4b_cost_ratio_breakhis_dinov3_convnext_lora_breakhis_balanced_costr10_timm_dinov3_convnext_lora_nicme_hybrid_seed42",
+  "stop3_phase": "stop4b_cost_ratio_breakhis_dinov3_convnext_lora",
+  "stop3_note": "Adjusted after Stop 2A-2C tuning; checkpoints deleted after metrics export.",
+  "cost_ratio": 10.0,
+  "stop4b_note": "Cost-ratio sensitivity: target-class false-negative cost is ratio and reverse error is 1."
+}

@@ -1,0 +1,114 @@
+[
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "convnext",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_spider_balanced_smoke_convnext_ce.json",
+    "name": "stop1_smoke_timm_spider_balanced_smoke_convnext_ce"
+  },
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "convnext",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_spider_balanced_smoke_convnext_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_spider_balanced_smoke_convnext_nicme_hybrid"
+  },
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "vit",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_spider_balanced_smoke_vit_ce.json",
+    "name": "stop1_smoke_timm_spider_balanced_smoke_vit_ce"
+  },
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "vit",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_spider_balanced_smoke_vit_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_spider_balanced_smoke_vit_nicme_hybrid"
+  },
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "timm_dinov3_vit",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_spider_balanced_smoke_timm_dinov3_vit_ce.json",
+    "name": "stop1_smoke_timm_spider_balanced_smoke_timm_dinov3_vit_ce"
+  },
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "timm_dinov3_vit",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_spider_balanced_smoke_timm_dinov3_vit_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_spider_balanced_smoke_timm_dinov3_vit_nicme_hybrid"
+  },
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "timm_dinov3_convnext",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_spider_balanced_smoke_timm_dinov3_convnext_ce.json",
+    "name": "stop1_smoke_timm_spider_balanced_smoke_timm_dinov3_convnext_ce"
+  },
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "timm_dinov3_convnext",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_spider_balanced_smoke_timm_dinov3_convnext_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_spider_balanced_smoke_timm_dinov3_convnext_nicme_hybrid"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "convnext",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_breakhis_balanced_smoke_convnext_ce.json",
+    "name": "stop1_smoke_timm_breakhis_balanced_smoke_convnext_ce"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "convnext",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_breakhis_balanced_smoke_convnext_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_breakhis_balanced_smoke_convnext_nicme_hybrid"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "vit",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_breakhis_balanced_smoke_vit_ce.json",
+    "name": "stop1_smoke_timm_breakhis_balanced_smoke_vit_ce"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "vit",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_breakhis_balanced_smoke_vit_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_breakhis_balanced_smoke_vit_nicme_hybrid"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "timm_dinov3_vit",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_breakhis_balanced_smoke_timm_dinov3_vit_ce.json",
+    "name": "stop1_smoke_timm_breakhis_balanced_smoke_timm_dinov3_vit_ce"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "timm_dinov3_vit",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_breakhis_balanced_smoke_timm_dinov3_vit_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_breakhis_balanced_smoke_timm_dinov3_vit_nicme_hybrid"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "timm_dinov3_convnext",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_breakhis_balanced_smoke_timm_dinov3_convnext_ce.json",
+    "name": "stop1_smoke_timm_breakhis_balanced_smoke_timm_dinov3_convnext_ce"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "timm_dinov3_convnext",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm/configs/stop1_smoke_timm_breakhis_balanced_smoke_timm_dinov3_convnext_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_breakhis_balanced_smoke_timm_dinov3_convnext_nicme_hybrid"
+  }
+]

@@ -41,6 +41,7 @@ class LossFunctions:
         cs_warmup_epochs=0,
         class_priors=None,
         logit_adjustment_tau=1.0,
+        nicme_logit_cost_scale=1.0,
     ):
         self.epsilon = epsilon
         self.device = get_device()
@@ -60,6 +61,7 @@ class LossFunctions:
         else:
             self.class_priors = None
         self.logit_adjustment_tau = logit_adjustment_tau
+        self.nicme_logit_cost_scale = nicme_logit_cost_scale
 
     def calculate_dynamic_alpha(self, logits: torch.Tensor) -> torch.Tensor:
         """
@@ -166,7 +168,7 @@ class LossFunctions:
         diff = torch.abs(max_logits - target_logits)
 
         if self.cost_matrix is not None:
-            cost_values = self.cost_matrix[targets, pred_classes]
+            cost_values = self.cost_matrix[targets, pred_classes] * self.nicme_logit_cost_scale
         else:
             cost_values = torch.ones_like(targets, dtype=torch.float32)
 
@@ -212,7 +214,7 @@ class LossFunctions:
         diff = torch.abs(max_logits - target_logits)
 
         if self.cost_matrix is not None:
-            cost_values = self.cost_matrix[targets, pred_classes]
+            cost_values = self.cost_matrix[targets, pred_classes] * self.nicme_logit_cost_scale
         else:
             cost_values = torch.ones_like(targets, dtype=torch.float32)
 

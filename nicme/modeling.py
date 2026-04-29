@@ -35,6 +35,26 @@ class AutoBackboneForImageClassification(nn.Module):
         return ImageClassifierOutput(loss=loss, logits=logits, hidden_states=getattr(outputs, "hidden_states", None))
 
 
+class TimmForImageClassification(nn.Module):
+    """Hugging Face Trainer-compatible wrapper for timm image classifiers."""
+
+    def __init__(self, model: nn.Module, num_labels: int):
+        super().__init__()
+        self.model = model
+        self.num_labels = num_labels
+
+    def forward(self, pixel_values=None, labels=None, **kwargs):
+        if pixel_values is None:
+            raise ValueError("pixel_values must be provided for timm image classification models")
+        logits = self.model(pixel_values)
+        if isinstance(logits, tuple):
+            logits = logits[0]
+        loss = None
+        if labels is not None:
+            loss = nn.functional.cross_entropy(logits, labels)
+        return ImageClassifierOutput(loss=loss, logits=logits)
+
+
 def _parse_csv_list(value: str | list[str] | None, default: list[str]) -> list[str]:
     if value is None:
         return default
@@ -108,5 +128,19 @@ def build_model(script_args: Any, class_names: list[str] | None = None) -> nn.Mo
         hidden_size = int(getattr(backbone.config, "hidden_size", getattr(backbone.config, "hidden_sizes", [768])[-1]))
         model = AutoBackboneForImageClassification(backbone, hidden_size, num_labels)
         return apply_lora_if_requested(model, script_args)
+
+    if backend == "timm":
+        import timm
+
+        model_name = str(script_args.model)
+        if model_name.startswith("timm/"):
+            model_name = model_name.split("/", 1)[1]
+        model = timm.create_model(
+            model_name,
+            pretrained=bool(getattr(script_args, "timm_pretrained", True)),
+            num_classes=num_labels,
+        )
+        wrapped = TimmForImageClassification(model, num_labels)
+        return apply_lora_if_requested(wrapped, script_args)
 
     raise ValueError(f"Unsupported model_backend: {backend}")

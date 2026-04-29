@@ -109,6 +109,7 @@ nicme-sweep --config config/nicme_2class_spiders_regularized.json --row 0 --col 
 nicme-hpo --config config/nicme_2class_spiders.json
 nicme-compare-sweeps
 nicme-run-binary-experiments --base-config config/nicme_spider_balanced_dinov3_vits_lora.json --tier tier1
+nicme-experiment-stop --stop 0 --archived-plan docs/experiment_plans/STOP_GATED_MASTER_PLAN.md --split-dir spider_balanced=data/prepared/spider/splits/balanced
 ```
 
 ## Key Results In This Workspace

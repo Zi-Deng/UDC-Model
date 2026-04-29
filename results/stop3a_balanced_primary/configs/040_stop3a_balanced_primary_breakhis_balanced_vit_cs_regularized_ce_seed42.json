@@ -1,0 +1,50 @@
+{
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "local_folder_path": "data/prepared/breakhis/splits/balanced",
+  "dataset": "breakhis_balanced",
+  "class_names": [
+    "benign",
+    "malignant"
+  ],
+  "target_recall_class": "malignant",
+  "target_recall_floor": 0.97,
+  "accuracy_floor": 0.85,
+  "selection_accuracy_metric": "accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      1.0
+    ],
+    [
+      10.0,
+      0.0
+    ]
+  ],
+  "num_labels": 2,
+  "num_train_epochs": 20,
+  "early_stopping_patience": 3,
+  "batch_size": 16,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.05,
+  "lr_scheduler_type": "cosine",
+  "wandb": false,
+  "push_to_hub": false,
+  "calibration_enabled": true,
+  "decision_modes": "argmax,calibrated_cost_min,calibrated_threshold",
+  "save_total_limit": 1,
+  "seed": 42,
+  "model": "google/vit-base-patch16-224-in21k",
+  "model_backend": "hf_auto",
+  "model_type": "vit",
+  "peft_enabled": false,
+  "learning_rate": 0.0001,
+  "loss_function": "cs_regularized_ce",
+  "cs_lambda": 0.25,
+  "cs_warmup_epochs": 1,
+  "nicme_logit_cost_scale": 1.0,
+  "logit_adjustment_tau": 1.0,
+  "output_dir": "stop3a_balanced_primary_breakhis_balanced_vit_cs_regularized_ce_seed42",
+  "stop3_phase": "stop3a_balanced_primary",
+  "stop3_note": "Adjusted after Stop 2A-2C tuning; checkpoints deleted after metrics export."
+}

@@ -24,3 +24,4 @@ smoke-help:
 	micromamba run -n ml nicme-compare-sweeps --help
 	micromamba run -n ml nicme-prepare-data --help
 	micromamba run -n ml nicme-run-binary-experiments --help
+	micromamba run -n ml nicme-experiment-stop --help

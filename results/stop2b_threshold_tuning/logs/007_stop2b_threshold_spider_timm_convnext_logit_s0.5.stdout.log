@@ -1,0 +1,58 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=timm type=timm_dinov3_convnext_lora with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.9463', 'eval_accuracy': '0.5938', 'eval_f1': '0.5498', 'eval_balanced_accuracy': '0.5938', 'eval_macro_f1': '0.5498', 'eval_atc': '0.8281', 'eval_normalized_atc': '0.08281', 'eval_target_recall': '0.9062', 'eval_target_fnr': '0.09375', 'eval_selection_score': '0.133', 'eval_selection_accuracy_value': '0.5938', 'eval_nll': '0.6942', 'eval_brier': '0.4964', 'eval_ece': '0.1391', 'eval_auroc': '0.6797', 'eval_auprc': '0.6788', 'eval_runtime': '1.575', 'eval_samples_per_second': '40.62', 'eval_steps_per_second': '2.539', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2b_threshold_spider_timm_convnext_logit_s0.5/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.8598', 'eval_accuracy': '0.625', 'eval_f1': '0.5844', 'eval_balanced_accuracy': '0.625', 'eval_macro_f1': '0.5844', 'eval_atc': '0.6562', 'eval_normalized_atc': '0.06563', 'eval_target_recall': '0.9375', 'eval_target_fnr': '0.0625', 'eval_selection_score': '0.09688', 'eval_selection_accuracy_value': '0.625', 'eval_nll': '0.6715', 'eval_brier': '0.4796', 'eval_ece': '0.1496', 'eval_auroc': '0.7217', 'eval_auprc': '0.7269', 'eval_runtime': '1.708', 'eval_samples_per_second': '37.48', 'eval_steps_per_second': '2.343', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2b_threshold_spider_timm_convnext_logit_s0.5/checkpoint-8/preprocessor_config.json
+{'loss': '3.896', 'grad_norm': '69.47', 'learning_rate': '6.227e-05', 'epoch': '2.5'}
+{'eval_loss': '0.7564', 'eval_accuracy': '0.6719', 'eval_f1': '0.647', 'eval_balanced_accuracy': '0.6719', 'eval_macro_f1': '0.647', 'eval_atc': '0.6094', 'eval_normalized_atc': '0.06094', 'eval_target_recall': '0.9375', 'eval_target_fnr': '0.0625', 'eval_selection_score': '0.07798', 'eval_selection_accuracy_value': '0.6719', 'eval_nll': '0.5958', 'eval_brier': '0.4141', 'eval_ece': '0.07383', 'eval_auroc': '0.7793', 'eval_auprc': '0.7793', 'eval_runtime': '1.878', 'eval_samples_per_second': '34.08', 'eval_steps_per_second': '2.13', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2b_threshold_spider_timm_convnext_logit_s0.5/checkpoint-12/preprocessor_config.json
+{'eval_loss': '0.7202', 'eval_accuracy': '0.7188', 'eval_f1': '0.7046', 'eval_balanced_accuracy': '0.7188', 'eval_macro_f1': '0.7046', 'eval_atc': '0.5625', 'eval_normalized_atc': '0.05625', 'eval_target_recall': '0.9375', 'eval_target_fnr': '0.0625', 'eval_selection_score': '0.06348', 'eval_selection_accuracy_value': '0.7188', 'eval_nll': '0.5678', 'eval_brier': '0.3879', 'eval_ece': '0.0558', 'eval_auroc': '0.8086', 'eval_auprc': '0.8059', 'eval_runtime': '2.012', 'eval_samples_per_second': '31.81', 'eval_steps_per_second': '1.988', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop2b_threshold_spider_timm_convnext_logit_s0.5/checkpoint-16/preprocessor_config.json
+{'loss': '2.92', 'grad_norm': '73.98', 'learning_rate': '6.819e-07', 'epoch': '5'}
+{'eval_loss': '0.715', 'eval_accuracy': '0.7188', 'eval_f1': '0.7046', 'eval_balanced_accuracy': '0.7188', 'eval_macro_f1': '0.7046', 'eval_atc': '0.5625', 'eval_normalized_atc': '0.05625', 'eval_target_recall': '0.9375', 'eval_target_fnr': '0.0625', 'eval_selection_score': '0.06348', 'eval_selection_accuracy_value': '0.7188', 'eval_nll': '0.5644', 'eval_brier': '0.3848', 'eval_ece': '0.05561', 'eval_auroc': '0.8096', 'eval_auprc': '0.8068', 'eval_runtime': '1.622', 'eval_samples_per_second': '39.45', 'eval_steps_per_second': '2.466', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop2b_threshold_spider_timm_convnext_logit_s0.5/checkpoint-20/preprocessor_config.json
+{'train_runtime': '14.42', 'train_samples_per_second': '88.77', 'train_steps_per_second': '1.387', 'train_loss': '3.408', 'epoch': '5'}
+***** train metrics *****
+  epoch                    =        5.0
+  total_flos               =        0GF
+  train_loss               =      3.408
+  train_runtime            = 0:00:14.41
+  train_samples_per_second =     88.773
+  train_steps_per_second   =      1.387
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_convnext_lora_test/stop2b_threshold_spider_timm_convnext_logit_s0.5_04-28_07-21
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_convnext_lora_test/stop2b_threshold_spider_timm_convnext_logit_s0.5_04-28_07-21/run_configuration_20260428_072157.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_convnext_lora_test/stop2b_threshold_spider_timm_convnext_logit_s0.5_04-28_07-21/metrics_20260428_072203_nicme_logit_adjustment.json and results/timm_dinov3_convnext_lora_test/stop2b_threshold_spider_timm_convnext_logit_s0.5_04-28_07-21/metrics_20260428_072203_nicme_logit_adjustment.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/timm_dinov3_convnext_lora_test/stop2b_threshold_spider_timm_convnext_logit_s0.5_04-28_07-21/confusion_matrix_20260428_072203_nicme_logit_adjustment.png and results/timm_dinov3_convnext_lora_test/stop2b_threshold_spider_timm_convnext_logit_s0.5_04-28_07-21/confusion_matrix_20260428_072203_nicme_logit_adjustment.pdf
+Detailed confusion matrix saved to: results/timm_dinov3_convnext_lora_test/stop2b_threshold_spider_timm_convnext_logit_s0.5_04-28_07-21/confusion_matrix_detailed_20260428_072203_nicme_logit_adjustment.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_convnext_lora_test/stop2b_threshold_spider_timm_convnext_logit_s0.5_04-28_07-21
+Overall Accuracy: 0.6406
+Balanced Accuracy: 0.6406
+Overall F1 Score: 0.6334
+Kappa: 0.2812
+AUC: 0.7324
+Expected Cost: 1.3438
+Loss Function Used: nicme_logit_adjustment
+Total Test Samples: 64
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/timm_dinov3_convnext_lora_test/stop2b_threshold_spider_timm_convnext_logit_s0.5_04-28_07-21
+============================================================

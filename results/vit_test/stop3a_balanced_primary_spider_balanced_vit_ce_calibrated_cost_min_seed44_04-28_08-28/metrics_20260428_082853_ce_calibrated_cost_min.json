@@ -1,0 +1,225 @@
+{
+  "timestamp": "20260428_082853",
+  "overall_metrics": {
+    "accuracy": 0.8433333333333334,
+    "f1_score": 0.8414144481560212,
+    "loss": 0.39868423342704773,
+    "balanced_accuracy": 0.8433333333333333,
+    "macro_f1": 0.8414144481560212,
+    "kappa": 0.6866666666666666,
+    "auc": 0.9422666666666667,
+    "auroc": 0.9422666666666667,
+    "auprc": 0.9464562255109686,
+    "recall_class0": 0.9533333333333334,
+    "expected_cost": 0.36666666666666664,
+    "atc": 0.36666666666666664,
+    "normalized_atc": 0.03666666666666667,
+    "selection_score": 0.03666666666666667,
+    "selection_accuracy_value": 0.8433333333333334,
+    "selection_accuracy_metric": "accuracy",
+    "target_recall": 0.9533333333333334,
+    "target_fnr": 0.04666666666666667,
+    "nll": 0.3986842247985998,
+    "brier": 0.24248541093535436,
+    "ece": 0.06875864247481028,
+    "prevalence_class0": 0.5
+  },
+  "class_counts": {
+    "0": 150,
+    "1": 150
+  },
+  "per_class_metrics": {
+    "accuracy": {
+      "0": 0.9533333333333334,
+      "1": 0.7333333333333333
+    },
+    "false_positive_rate": {
+      "0": 0.26666666666666666,
+      "1": 0.04666666666666667
+    },
+    "false_negative_rate": {
+      "0": 0.04666666666666667,
+      "1": 0.26666666666666666
+    },
+    "precision": {
+      "0": 0.7814207650273224,
+      "1": 0.9401709401709402
+    },
+    "recall": {
+      "0": 0.9533333333333334,
+      "1": 0.7333333333333333
+    },
+    "f1_score": {
+      "0": 0.8588588588588588,
+      "1": 0.8239700374531835
+    },
+    "support": {
+      "0": 150,
+      "1": 150
+    }
+  },
+  "confusion_matrix": [
+    [
+      143,
+      7
+    ],
+    [
+      40,
+      110
+    ]
+  ],
+  "decision_reports": {
+    "argmax": {
+      "accuracy": 0.8433333333333334,
+      "balanced_accuracy": 0.8433333333333333,
+      "macro_f1": 0.8414144481560212,
+      "atc": 0.36666666666666664,
+      "normalized_atc": 0.03666666666666667,
+      "crr": null,
+      "selection_score": 0.03666666666666667,
+      "selection_accuracy_metric": "accuracy",
+      "selection_accuracy_value": 0.8433333333333334,
+      "target_class_id": 0,
+      "target_recall": 0.9533333333333334,
+      "target_precision": 0.7814207650273224,
+      "target_fnr": 0.04666666666666667,
+      "target_fpr": 0.26666666666666666,
+      "nll": 0.3986842247985998,
+      "brier": 0.24248541093535436,
+      "ece": 0.06875864247481028,
+      "class_prevalence": {
+        "0": 0.5,
+        "1": 0.5
+      },
+      "confusion_matrix": [
+        [
+          143,
+          7
+        ],
+        [
+          40,
+          110
+        ]
+      ],
+      "per_class_recall": {
+        "0": 0.9533333333333334,
+        "1": 0.7333333333333333
+      },
+      "per_class_precision": {
+        "0": 0.7814207650273224,
+        "1": 0.9401709401709402
+      },
+      "per_class_f1": {
+        "0": 0.8588588588588588,
+        "1": 0.8239700374531835
+      },
+      "auroc": 0.9422666666666667,
+      "auprc": 0.9464562255109686
+    },
+    "calibrated_cost_min": {
+      "accuracy": 0.6466666666666666,
+      "balanced_accuracy": 0.6466666666666667,
+      "macro_f1": 0.5962622517901579,
+      "atc": 0.35333333333333333,
+      "normalized_atc": 0.035333333333333335,
+      "crr": null,
+      "selection_score": 0.05884444444444448,
+      "selection_accuracy_metric": "accuracy",
+      "selection_accuracy_value": 0.6466666666666666,
+      "target_class_id": 0,
+      "target_recall": 1.0,
+      "target_precision": 0.5859375,
+      "target_fnr": 0.0,
+      "target_fpr": 0.7066666666666667,
+      "nll": 0.3786509021172649,
+      "brier": 0.23692054383984654,
+      "ece": 0.05883682224596977,
+      "class_prevalence": {
+        "0": 0.5,
+        "1": 0.5
+      },
+      "confusion_matrix": [
+        [
+          150,
+          0
+        ],
+        [
+          106,
+          44
+        ]
+      ],
+      "per_class_recall": {
+        "0": 1.0,
+        "1": 0.29333333333333333
+      },
+      "per_class_precision": {
+        "0": 0.5859375,
+        "1": 1.0
+      },
+      "per_class_f1": {
+        "0": 0.7389162561576355,
+        "1": 0.45360824742268036
+      },
+      "auroc": 0.9422666666666667,
+      "auprc": 0.9464562255109686,
+      "temperature": 0.65,
+      "calibration_nll_before": 0.3832118616119305,
+      "calibration_nll_after": 0.3566221864807151
+    },
+    "calibrated_threshold": {
+      "accuracy": 0.7566666666666667,
+      "balanced_accuracy": 0.7566666666666666,
+      "macro_f1": 0.7430753528314503,
+      "atc": 0.30333333333333334,
+      "normalized_atc": 0.030333333333333334,
+      "crr": null,
+      "selection_score": 0.032211111111111114,
+      "selection_accuracy_metric": "accuracy",
+      "selection_accuracy_value": 0.7566666666666667,
+      "target_class_id": 0,
+      "target_recall": 0.9866666666666667,
+      "target_precision": 0.6757990867579908,
+      "target_fnr": 0.013333333333333334,
+      "target_fpr": 0.47333333333333333,
+      "nll": 0.3786509021172649,
+      "brier": 0.23692054383984654,
+      "ece": 0.05883682224596977,
+      "class_prevalence": {
+        "0": 0.5,
+        "1": 0.5
+      },
+      "confusion_matrix": [
+        [
+          148,
+          2
+        ],
+        [
+          71,
+          79
+        ]
+      ],
+      "per_class_recall": {
+        "0": 0.9866666666666667,
+        "1": 0.5266666666666666
+      },
+      "per_class_precision": {
+        "0": 0.6757990867579908,
+        "1": 0.9753086419753086
+      },
+      "per_class_f1": {
+        "0": 0.8021680216802168,
+        "1": 0.6839826839826838
+      },
+      "auroc": 0.9422666666666667,
+      "auprc": 0.9464562255109686,
+      "temperature": 0.65,
+      "threshold": 0.20125198643244763,
+      "calibration_selection_score": 0.0241,
+      "calibration_target_recall": 0.9933333333333333,
+      "calibration_accuracy": 0.79,
+      "calibration_normalized_atc": 0.024,
+      "calibration_nll_before": 0.3832118616119305,
+      "calibration_nll_after": 0.3566221864807151
+    }
+  }
+}

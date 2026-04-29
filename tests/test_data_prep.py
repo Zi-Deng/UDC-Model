@@ -8,6 +8,7 @@ pytest.importorskip("sklearn")
 from nicme.data_prep import (  # noqa: E402
     _group_split,
     _stratified_split,
+    balance_split,
     controlled_prevalence_split,
     parse_breakhis_filename,
 )
@@ -40,6 +41,21 @@ def test_controlled_prevalence_split_downsamples_to_target_prevalence():
 
     assert abs((minority["label"] == 0).mean() - 0.25) <= 0.03
     assert abs((majority["label"] == 0).mean() - 0.75) <= 0.03
+
+
+def test_balance_split_preserves_numeric_label_column():
+    df = pandas.DataFrame(
+        {
+            "image_path": [f"img_{idx}.png" for idx in range(7)],
+            "label": [0, 0, 0, 0, 1, 1, 1],
+            "label_name": ["a"] * 4 + ["b"] * 3,
+        }
+    )
+
+    balanced = balance_split(df, seed=3)
+
+    assert "label" in balanced.columns
+    assert balanced["label"].value_counts().to_dict() == {0: 3, 1: 3}
 
 
 def test_prepared_splits_are_70_10_10_10_and_patient_disjoint():

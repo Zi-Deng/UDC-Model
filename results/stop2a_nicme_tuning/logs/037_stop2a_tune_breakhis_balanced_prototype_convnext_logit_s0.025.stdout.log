@@ -1,0 +1,58 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=hf_auto type=convnext with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.655', 'eval_accuracy': '0.6562', 'eval_f1': '0.6267', 'eval_balanced_accuracy': '0.6562', 'eval_macro_f1': '0.6267', 'eval_atc': '0.625', 'eval_normalized_atc': '0.0625', 'eval_target_recall': '0.9375', 'eval_target_fnr': '0.0625', 'eval_selection_score': '0.1043', 'eval_selection_accuracy_value': '0.6562', 'eval_nll': '0.654', 'eval_brier': '0.4612', 'eval_ece': '0.1292', 'eval_auroc': '0.7549', 'eval_auprc': '0.7205', 'eval_runtime': '2.152', 'eval_samples_per_second': '29.75', 'eval_steps_per_second': '1.859', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.5971', 'eval_accuracy': '0.8281', 'eval_f1': '0.826', 'eval_balanced_accuracy': '0.8281', 'eval_macro_f1': '0.826', 'eval_atc': '0.4531', 'eval_normalized_atc': '0.04531', 'eval_target_recall': '0.9375', 'eval_target_fnr': '0.0625', 'eval_selection_score': '0.05002', 'eval_selection_accuracy_value': '0.8281', 'eval_nll': '0.5952', 'eval_brier': '0.404', 'eval_ece': '0.2235', 'eval_auroc': '0.8018', 'eval_auprc': '0.7285', 'eval_runtime': '2.163', 'eval_samples_per_second': '29.59', 'eval_steps_per_second': '1.849', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025/checkpoint-8/preprocessor_config.json
+{'loss': '0.6373', 'grad_norm': '1.871', 'learning_rate': '8.716e-05', 'epoch': '2.5'}
+{'eval_loss': '0.5354', 'eval_accuracy': '0.8438', 'eval_f1': '0.8413', 'eval_balanced_accuracy': '0.8438', 'eval_macro_f1': '0.8413', 'eval_atc': '0.2969', 'eval_normalized_atc': '0.02969', 'eval_target_recall': '0.9688', 'eval_target_fnr': '0.03125', 'eval_selection_score': '0.02973', 'eval_selection_accuracy_value': '0.8438', 'eval_nll': '0.5328', 'eval_brier': '0.345', 'eval_ece': '0.2197', 'eval_auroc': '0.8125', 'eval_auprc': '0.7355', 'eval_runtime': '1.849', 'eval_samples_per_second': '34.61', 'eval_steps_per_second': '2.163', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025/checkpoint-12/preprocessor_config.json
+{'eval_loss': '0.489', 'eval_accuracy': '0.8438', 'eval_f1': '0.8413', 'eval_balanced_accuracy': '0.8438', 'eval_macro_f1': '0.8413', 'eval_atc': '0.2969', 'eval_normalized_atc': '0.02969', 'eval_target_recall': '0.9688', 'eval_target_fnr': '0.03125', 'eval_selection_score': '0.02973', 'eval_selection_accuracy_value': '0.8438', 'eval_nll': '0.4856', 'eval_brier': '0.3035', 'eval_ece': '0.1577', 'eval_auroc': '0.8252', 'eval_auprc': '0.7609', 'eval_runtime': '1.999', 'eval_samples_per_second': '32.02', 'eval_steps_per_second': '2.001', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025/checkpoint-16/preprocessor_config.json
+{'loss': '0.4606', 'grad_norm': '4.785', 'learning_rate': '3.96e-05', 'epoch': '5'}
+{'eval_loss': '0.4713', 'eval_accuracy': '0.8438', 'eval_f1': '0.8413', 'eval_balanced_accuracy': '0.8438', 'eval_macro_f1': '0.8413', 'eval_atc': '0.2969', 'eval_normalized_atc': '0.02969', 'eval_target_recall': '0.9688', 'eval_target_fnr': '0.03125', 'eval_selection_score': '0.02973', 'eval_selection_accuracy_value': '0.8438', 'eval_nll': '0.4672', 'eval_brier': '0.2913', 'eval_ece': '0.1361', 'eval_auroc': '0.8398', 'eval_auprc': '0.8079', 'eval_runtime': '1.589', 'eval_samples_per_second': '40.28', 'eval_steps_per_second': '2.518', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025/checkpoint-20/preprocessor_config.json
+{'train_runtime': '22.02', 'train_samples_per_second': '93.02', 'train_steps_per_second': '1.453', 'train_loss': '0.549', 'epoch': '5'}
+***** train metrics *****
+  epoch                    =        5.0
+  total_flos               = 29954479GF
+  train_loss               =      0.549
+  train_runtime            = 0:00:22.01
+  train_samples_per_second =     93.018
+  train_steps_per_second   =      1.453
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/convnext_test/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025_04-28_06-44
+Saving run configuration...
+Run configuration saved to: results/convnext_test/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025_04-28_06-44/run_configuration_20260428_064403.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/convnext_test/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025_04-28_06-44/metrics_20260428_064410_nicme_logit_adjustment.json and results/convnext_test/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025_04-28_06-44/metrics_20260428_064410_nicme_logit_adjustment.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/convnext_test/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025_04-28_06-44/confusion_matrix_20260428_064410_nicme_logit_adjustment.png and results/convnext_test/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025_04-28_06-44/confusion_matrix_20260428_064410_nicme_logit_adjustment.pdf
+Detailed confusion matrix saved to: results/convnext_test/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025_04-28_06-44/confusion_matrix_detailed_20260428_064410_nicme_logit_adjustment.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/convnext_test/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025_04-28_06-44
+Overall Accuracy: 0.9219
+Balanced Accuracy: 0.9219
+Overall F1 Score: 0.9217
+Kappa: 0.8438
+AUC: 0.9434
+Expected Cost: 0.2188
+Loss Function Used: nicme_logit_adjustment
+Total Test Samples: 64
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/convnext_test/stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.025_04-28_06-44
+============================================================

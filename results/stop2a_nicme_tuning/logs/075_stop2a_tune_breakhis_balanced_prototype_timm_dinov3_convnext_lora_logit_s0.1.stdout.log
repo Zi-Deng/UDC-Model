@@ -1,0 +1,65 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=timm type=timm_dinov3_convnext_lora with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.6871', 'eval_accuracy': '0.6875', 'eval_f1': '0.6847', 'eval_balanced_accuracy': '0.6875', 'eval_macro_f1': '0.6847', 'eval_atc': '1.297', 'eval_normalized_atc': '0.1297', 'eval_target_recall': '0.7812', 'eval_target_fnr': '0.2188', 'eval_selection_score': '0.2986', 'eval_selection_accuracy_value': '0.6875', 'eval_nll': '0.6618', 'eval_brier': '0.4674', 'eval_ece': '0.1567', 'eval_auroc': '0.6943', 'eval_auprc': '0.6507', 'eval_runtime': '2.005', 'eval_samples_per_second': '31.92', 'eval_steps_per_second': '1.995', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.6516', 'eval_accuracy': '0.7188', 'eval_f1': '0.7143', 'eval_balanced_accuracy': '0.7188', 'eval_macro_f1': '0.7143', 'eval_atc': '0.9844', 'eval_normalized_atc': '0.09844', 'eval_target_recall': '0.8438', 'eval_target_fnr': '0.1562', 'eval_selection_score': '0.1794', 'eval_selection_accuracy_value': '0.7188', 'eval_nll': '0.6334', 'eval_brier': '0.441', 'eval_ece': '0.1752', 'eval_auroc': '0.7373', 'eval_auprc': '0.7161', 'eval_runtime': '1.747', 'eval_samples_per_second': '36.63', 'eval_steps_per_second': '2.29', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1/checkpoint-8/preprocessor_config.json
+{'loss': '3.014', 'grad_norm': '39.26', 'learning_rate': '8.716e-05', 'epoch': '2.5'}
+{'eval_loss': '0.66', 'eval_accuracy': '0.5312', 'eval_f1': '0.3992', 'eval_balanced_accuracy': '0.5312', 'eval_macro_f1': '0.3992', 'eval_atc': '0.4688', 'eval_normalized_atc': '0.04688', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.1485', 'eval_selection_accuracy_value': '0.5312', 'eval_nll': '0.646', 'eval_brier': '0.4585', 'eval_ece': '0.2697', 'eval_auroc': '0.8115', 'eval_auprc': '0.8014', 'eval_runtime': '1.91', 'eval_samples_per_second': '33.51', 'eval_steps_per_second': '2.094', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1/checkpoint-12/preprocessor_config.json
+{'eval_loss': '0.6017', 'eval_accuracy': '0.625', 'eval_f1': '0.5928', 'eval_balanced_accuracy': '0.625', 'eval_macro_f1': '0.5928', 'eval_atc': '0.7969', 'eval_normalized_atc': '0.07969', 'eval_target_recall': '0.9062', 'eval_target_fnr': '0.09375', 'eval_selection_score': '0.1466', 'eval_selection_accuracy_value': '0.625', 'eval_nll': '0.592', 'eval_brier': '0.4084', 'eval_ece': '0.1341', 'eval_auroc': '0.8584', 'eval_auprc': '0.8707', 'eval_runtime': '1.897', 'eval_samples_per_second': '33.73', 'eval_steps_per_second': '2.108', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1/checkpoint-16/preprocessor_config.json
+{'loss': '2.487', 'grad_norm': '41.5', 'learning_rate': '3.96e-05', 'epoch': '5'}
+{'eval_loss': '0.5526', 'eval_accuracy': '0.75', 'eval_f1': '0.746', 'eval_balanced_accuracy': '0.75', 'eval_macro_f1': '0.746', 'eval_atc': '0.8125', 'eval_normalized_atc': '0.08125', 'eval_target_recall': '0.875', 'eval_target_fnr': '0.125', 'eval_selection_score': '0.1273', 'eval_selection_accuracy_value': '0.75', 'eval_nll': '0.5423', 'eval_brier': '0.3597', 'eval_ece': '0.1169', 'eval_auroc': '0.8838', 'eval_auprc': '0.8967', 'eval_runtime': '1.764', 'eval_samples_per_second': '36.28', 'eval_steps_per_second': '2.268', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1/checkpoint-20/preprocessor_config.json
+{'eval_loss': '0.5395', 'eval_accuracy': '0.7188', 'eval_f1': '0.7085', 'eval_balanced_accuracy': '0.7188', 'eval_macro_f1': '0.7085', 'eval_atc': '0.7031', 'eval_normalized_atc': '0.07031', 'eval_target_recall': '0.9062', 'eval_target_fnr': '0.09375', 'eval_selection_score': '0.1038', 'eval_selection_accuracy_value': '0.7188', 'eval_nll': '0.5309', 'eval_brier': '0.353', 'eval_ece': '0.1142', 'eval_auroc': '0.8965', 'eval_auprc': '0.9121', 'eval_runtime': '2.179', 'eval_samples_per_second': '29.37', 'eval_steps_per_second': '1.836', 'epoch': '6'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1/checkpoint-24/preprocessor_config.json
+{'eval_loss': '0.5403', 'eval_accuracy': '0.7031', 'eval_f1': '0.6859', 'eval_balanced_accuracy': '0.7031', 'eval_macro_f1': '0.6859', 'eval_atc': '0.5781', 'eval_normalized_atc': '0.05781', 'eval_target_recall': '0.9375', 'eval_target_fnr': '0.0625', 'eval_selection_score': '0.08361', 'eval_selection_accuracy_value': '0.7031', 'eval_nll': '0.5316', 'eval_brier': '0.3562', 'eval_ece': '0.09571', 'eval_auroc': '0.9014', 'eval_auprc': '0.9146', 'eval_runtime': '2.013', 'eval_samples_per_second': '31.8', 'eval_steps_per_second': '1.987', 'epoch': '7'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1/checkpoint-28/preprocessor_config.json
+{'loss': '2.246', 'grad_norm': '34.24', 'learning_rate': '2.447e-06', 'epoch': '7.5'}
+{'eval_loss': '0.5405', 'eval_accuracy': '0.7188', 'eval_f1': '0.7', 'eval_balanced_accuracy': '0.7188', 'eval_macro_f1': '0.7', 'eval_atc': '0.4219', 'eval_normalized_atc': '0.04219', 'eval_target_recall': '0.9688', 'eval_target_fnr': '0.03125', 'eval_selection_score': '0.05942', 'eval_selection_accuracy_value': '0.7188', 'eval_nll': '0.5316', 'eval_brier': '0.3566', 'eval_ece': '0.08524', 'eval_auroc': '0.9014', 'eval_auprc': '0.9133', 'eval_runtime': '1.827', 'eval_samples_per_second': '35.02', 'eval_steps_per_second': '2.189', 'epoch': '8'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1/checkpoint-32/preprocessor_config.json
+{'train_runtime': '31.44', 'train_samples_per_second': '65.14', 'train_steps_per_second': '1.018', 'train_loss': '2.553', 'epoch': '8'}
+***** train metrics *****
+  epoch                    =        8.0
+  total_flos               =        0GF
+  train_loss               =     2.5534
+  train_runtime            = 0:00:31.44
+  train_samples_per_second =     65.138
+  train_steps_per_second   =      1.018
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_convnext_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1_04-28_07-08
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_convnext_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1_04-28_07-08/run_configuration_20260428_070819.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_convnext_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1_04-28_07-08/metrics_20260428_070825_nicme_logit_adjustment.json and results/timm_dinov3_convnext_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1_04-28_07-08/metrics_20260428_070825_nicme_logit_adjustment.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/timm_dinov3_convnext_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1_04-28_07-08/confusion_matrix_20260428_070825_nicme_logit_adjustment.png and results/timm_dinov3_convnext_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1_04-28_07-08/confusion_matrix_20260428_070825_nicme_logit_adjustment.pdf
+Detailed confusion matrix saved to: results/timm_dinov3_convnext_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1_04-28_07-08/confusion_matrix_detailed_20260428_070825_nicme_logit_adjustment.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_convnext_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1_04-28_07-08
+Overall Accuracy: 0.7812
+Balanced Accuracy: 0.7812
+Overall F1 Score: 0.7778
+Kappa: 0.5625
+AUC: 0.7998
+Expected Cost: 0.6406
+Loss Function Used: nicme_logit_adjustment
+Total Test Samples: 64
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/timm_dinov3_convnext_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_convnext_lora_logit_s0.1_04-28_07-08
+============================================================

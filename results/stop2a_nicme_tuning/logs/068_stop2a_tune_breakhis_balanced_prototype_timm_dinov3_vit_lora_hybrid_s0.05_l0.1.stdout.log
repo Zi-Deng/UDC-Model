@@ -1,0 +1,62 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=timm type=timm_dinov3_vit_lora with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.7224', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.1725', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.6925', 'eval_brier': '0.4993', 'eval_ece': '0.002886', 'eval_auroc': '0.8379', 'eval_auprc': '0.8186', 'eval_runtime': '2.057', 'eval_samples_per_second': '31.12', 'eval_steps_per_second': '1.945', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.7194', 'eval_accuracy': '0.875', 'eval_f1': '0.8745', 'eval_balanced_accuracy': '0.875', 'eval_macro_f1': '0.8745', 'eval_atc': '0.4062', 'eval_normalized_atc': '0.04063', 'eval_target_recall': '0.9375', 'eval_target_fnr': '0.0625', 'eval_selection_score': '0.04485', 'eval_selection_accuracy_value': '0.875', 'eval_nll': '0.6915', 'eval_brier': '0.4984', 'eval_ece': '0.374', 'eval_auroc': '0.9189', 'eval_auprc': '0.898', 'eval_runtime': '2.119', 'eval_samples_per_second': '30.21', 'eval_steps_per_second': '1.888', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1/checkpoint-8/preprocessor_config.json
+{'loss': '2.86', 'grad_norm': '12.31', 'learning_rate': '8.716e-05', 'epoch': '2.5'}
+{'eval_loss': '0.7194', 'eval_accuracy': '0.6094', 'eval_f1': '0.539', 'eval_balanced_accuracy': '0.6094', 'eval_macro_f1': '0.539', 'eval_atc': '0.3906', 'eval_normalized_atc': '0.03906', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.09696', 'eval_selection_accuracy_value': '0.6094', 'eval_nll': '0.6908', 'eval_brier': '0.4977', 'eval_ece': '0.1069', 'eval_auroc': '0.9219', 'eval_auprc': '0.9086', 'eval_runtime': '1.878', 'eval_samples_per_second': '34.08', 'eval_steps_per_second': '2.13', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1/checkpoint-12/preprocessor_config.json
+{'eval_loss': '0.7182', 'eval_accuracy': '0.7344', 'eval_f1': '0.7142', 'eval_balanced_accuracy': '0.7344', 'eval_macro_f1': '0.7142', 'eval_atc': '0.2656', 'eval_normalized_atc': '0.02656', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.03993', 'eval_selection_accuracy_value': '0.7344', 'eval_nll': '0.6902', 'eval_brier': '0.4971', 'eval_ece': '0.2322', 'eval_auroc': '0.9404', 'eval_auprc': '0.9381', 'eval_runtime': '1.959', 'eval_samples_per_second': '32.67', 'eval_steps_per_second': '2.042', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1/checkpoint-16/preprocessor_config.json
+{'loss': '2.877', 'grad_norm': '11.52', 'learning_rate': '3.96e-05', 'epoch': '5'}
+{'eval_loss': '0.7179', 'eval_accuracy': '0.7656', 'eval_f1': '0.752', 'eval_balanced_accuracy': '0.7656', 'eval_macro_f1': '0.752', 'eval_atc': '0.2344', 'eval_normalized_atc': '0.02344', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.03056', 'eval_selection_accuracy_value': '0.7656', 'eval_nll': '0.6898', 'eval_brier': '0.4967', 'eval_ece': '0.2632', 'eval_auroc': '0.9424', 'eval_auprc': '0.9412', 'eval_runtime': '1.898', 'eval_samples_per_second': '33.71', 'eval_steps_per_second': '2.107', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1/checkpoint-20/preprocessor_config.json
+{'eval_loss': '0.7182', 'eval_accuracy': '0.6875', 'eval_f1': '0.6537', 'eval_balanced_accuracy': '0.6875', 'eval_macro_f1': '0.6537', 'eval_atc': '0.3125', 'eval_normalized_atc': '0.03125', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.05766', 'eval_selection_accuracy_value': '0.6875', 'eval_nll': '0.6896', 'eval_brier': '0.4965', 'eval_ece': '0.1845', 'eval_auroc': '0.9414', 'eval_auprc': '0.9372', 'eval_runtime': '2.112', 'eval_samples_per_second': '30.3', 'eval_steps_per_second': '1.894', 'epoch': '6'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1/checkpoint-24/preprocessor_config.json
+{'eval_loss': '0.7181', 'eval_accuracy': '0.6875', 'eval_f1': '0.6537', 'eval_balanced_accuracy': '0.6875', 'eval_macro_f1': '0.6537', 'eval_atc': '0.3125', 'eval_normalized_atc': '0.03125', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.05766', 'eval_selection_accuracy_value': '0.6875', 'eval_nll': '0.6895', 'eval_brier': '0.4964', 'eval_ece': '0.1844', 'eval_auroc': '0.9424', 'eval_auprc': '0.9384', 'eval_runtime': '2.12', 'eval_samples_per_second': '30.19', 'eval_steps_per_second': '1.887', 'epoch': '7'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1/checkpoint-28/preprocessor_config.json
+{'train_runtime': '26.81', 'train_samples_per_second': '76.39', 'train_steps_per_second': '1.194', 'train_loss': '2.87', 'epoch': '7'}
+***** train metrics *****
+  epoch                    =        7.0
+  total_flos               =        0GF
+  train_loss               =     2.8703
+  train_runtime            = 0:00:26.80
+  train_samples_per_second =      76.39
+  train_steps_per_second   =      1.194
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1_04-28_07-04
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1_04-28_07-04/run_configuration_20260428_070405.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1_04-28_07-04/metrics_20260428_070411_nicme_hybrid.json and results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1_04-28_07-04/metrics_20260428_070411_nicme_hybrid.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1_04-28_07-04/confusion_matrix_20260428_070411_nicme_hybrid.png and results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1_04-28_07-04/confusion_matrix_20260428_070411_nicme_hybrid.pdf
+Detailed confusion matrix saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1_04-28_07-04/confusion_matrix_detailed_20260428_070411_nicme_hybrid.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1_04-28_07-04
+Overall Accuracy: 0.7500
+Balanced Accuracy: 0.7500
+Overall F1 Score: 0.7437
+Kappa: 0.5000
+AUC: 0.8506
+Expected Cost: 0.6719
+Loss Function Used: nicme_hybrid
+Total Test Samples: 64
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_hybrid_s0.05_l0.1_04-28_07-04
+============================================================

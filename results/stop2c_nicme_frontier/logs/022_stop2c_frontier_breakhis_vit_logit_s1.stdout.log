@@ -1,0 +1,58 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=hf_auto type=vit with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.7214', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.1725', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.6748', 'eval_brier': '0.4819', 'eval_ece': '0.1131', 'eval_auroc': '0.876', 'eval_auprc': '0.8837', 'eval_runtime': '1.821', 'eval_samples_per_second': '35.15', 'eval_steps_per_second': '2.197', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2c_frontier_breakhis_vit_logit_s1/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.6744', 'eval_accuracy': '0.7344', 'eval_f1': '0.7142', 'eval_balanced_accuracy': '0.7344', 'eval_macro_f1': '0.7142', 'eval_atc': '0.2656', 'eval_normalized_atc': '0.02656', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.03993', 'eval_selection_accuracy_value': '0.7344', 'eval_nll': '0.6589', 'eval_brier': '0.4658', 'eval_ece': '0.2021', 'eval_auroc': '0.8857', 'eval_auprc': '0.8447', 'eval_runtime': '1.933', 'eval_samples_per_second': '33.1', 'eval_steps_per_second': '2.069', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2c_frontier_breakhis_vit_logit_s1/checkpoint-8/preprocessor_config.json
+{'loss': '2.959', 'grad_norm': '5.413', 'learning_rate': '8.716e-05', 'epoch': '2.5'}
+{'eval_loss': '0.6303', 'eval_accuracy': '0.8594', 'eval_f1': '0.8565', 'eval_balanced_accuracy': '0.8594', 'eval_macro_f1': '0.8565', 'eval_atc': '0.1406', 'eval_normalized_atc': '0.01406', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.01406', 'eval_selection_accuracy_value': '0.8594', 'eval_nll': '0.6037', 'eval_brier': '0.4115', 'eval_ece': '0.2886', 'eval_auroc': '0.8721', 'eval_auprc': '0.8195', 'eval_runtime': '2.168', 'eval_samples_per_second': '29.52', 'eval_steps_per_second': '1.845', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2c_frontier_breakhis_vit_logit_s1/checkpoint-12/preprocessor_config.json
+{'eval_loss': '0.6243', 'eval_accuracy': '0.8594', 'eval_f1': '0.8565', 'eval_balanced_accuracy': '0.8594', 'eval_macro_f1': '0.8565', 'eval_atc': '0.1406', 'eval_normalized_atc': '0.01406', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.01406', 'eval_selection_accuracy_value': '0.8594', 'eval_nll': '0.5522', 'eval_brier': '0.363', 'eval_ece': '0.2287', 'eval_auroc': '0.8711', 'eval_auprc': '0.8236', 'eval_runtime': '2.188', 'eval_samples_per_second': '29.25', 'eval_steps_per_second': '1.828', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop2c_frontier_breakhis_vit_logit_s1/checkpoint-16/preprocessor_config.json
+{'loss': '2.391', 'grad_norm': '7.812', 'learning_rate': '3.96e-05', 'epoch': '5'}
+{'eval_loss': '0.6161', 'eval_accuracy': '0.8594', 'eval_f1': '0.8565', 'eval_balanced_accuracy': '0.8594', 'eval_macro_f1': '0.8565', 'eval_atc': '0.1406', 'eval_normalized_atc': '0.01406', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.01406', 'eval_selection_accuracy_value': '0.8594', 'eval_nll': '0.5287', 'eval_brier': '0.343', 'eval_ece': '0.2187', 'eval_auroc': '0.8877', 'eval_auprc': '0.8608', 'eval_runtime': '1.737', 'eval_samples_per_second': '36.85', 'eval_steps_per_second': '2.303', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop2c_frontier_breakhis_vit_logit_s1/checkpoint-20/preprocessor_config.json
+{'train_runtime': '23.31', 'train_samples_per_second': '87.86', 'train_steps_per_second': '1.373', 'train_loss': '2.675', 'epoch': '5'}
+***** train metrics *****
+  epoch                    =        5.0
+  total_flos               = 92377650GF
+  train_loss               =     2.6753
+  train_runtime            = 0:00:23.31
+  train_samples_per_second =     87.859
+  train_steps_per_second   =      1.373
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/vit_test/stop2c_frontier_breakhis_vit_logit_s1_04-28_07-38
+Saving run configuration...
+Run configuration saved to: results/vit_test/stop2c_frontier_breakhis_vit_logit_s1_04-28_07-38/run_configuration_20260428_073820.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/vit_test/stop2c_frontier_breakhis_vit_logit_s1_04-28_07-38/metrics_20260428_073826_nicme_logit_adjustment.json and results/vit_test/stop2c_frontier_breakhis_vit_logit_s1_04-28_07-38/metrics_20260428_073826_nicme_logit_adjustment.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/vit_test/stop2c_frontier_breakhis_vit_logit_s1_04-28_07-38/confusion_matrix_20260428_073826_nicme_logit_adjustment.png and results/vit_test/stop2c_frontier_breakhis_vit_logit_s1_04-28_07-38/confusion_matrix_20260428_073826_nicme_logit_adjustment.pdf
+Detailed confusion matrix saved to: results/vit_test/stop2c_frontier_breakhis_vit_logit_s1_04-28_07-38/confusion_matrix_detailed_20260428_073826_nicme_logit_adjustment.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/vit_test/stop2c_frontier_breakhis_vit_logit_s1_04-28_07-38
+Overall Accuracy: 0.9375
+Balanced Accuracy: 0.9375
+Overall F1 Score: 0.9375
+Kappa: 0.8750
+AUC: 0.9668
+Expected Cost: 0.3438
+Loss Function Used: nicme_logit_adjustment
+Total Test Samples: 64
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/vit_test/stop2c_frontier_breakhis_vit_logit_s1_04-28_07-38
+============================================================

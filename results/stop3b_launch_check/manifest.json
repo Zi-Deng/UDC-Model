@@ -1,0 +1,32 @@
+{
+  "phase": "stop3b_launch_check",
+  "created_at": "2026-04-28 16:04:17",
+  "datasets": [
+    "spider_target_minority"
+  ],
+  "models": [
+    "vit"
+  ],
+  "methods": [
+    "ce"
+  ],
+  "seeds": [
+    "42"
+  ],
+  "run_count": 1,
+  "cleanup_checkpoints": true,
+  "time_budget_hours": null,
+  "runs": [
+    {
+      "index": 1,
+      "config": "results/stop3b_launch_check/configs/001_stop3b_launch_check_spider_target_minority_vit_ce_seed42.json",
+      "output_dir": "stop3b_launch_check_spider_target_minority_vit_ce_seed42",
+      "dataset": "spider_target_minority",
+      "model_type": "vit",
+      "method": "ce",
+      "seed": 42,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    }
+  ]
+}

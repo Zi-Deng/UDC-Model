@@ -1,0 +1,67 @@
+Prepared manifest loaded — Train=1400, Val=200, Calibration=200, Test=200
+cuda
+Using model backend=hf_auto type=vit with 2 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '2.965', 'grad_norm': '3.325', 'learning_rate': '4.091e-05', 'epoch': '0.4545'}
+{'loss': '2.595', 'grad_norm': '6.315', 'learning_rate': '8.636e-05', 'epoch': '0.9091'}
+{'eval_loss': '0.5284', 'eval_accuracy': '0.82', 'eval_f1': '0.6734', 'eval_balanced_accuracy': '0.6467', 'eval_macro_f1': '0.6734', 'eval_atc': '0.225', 'eval_normalized_atc': '0.0225', 'eval_target_recall': '0.9933', 'eval_target_fnr': '0.006667', 'eval_selection_score': '0.03318', 'eval_selection_accuracy_value': '0.6467', 'eval_nll': '0.4573', 'eval_brier': '0.284', 'eval_ece': '0.1418', 'eval_auroc': '0.9116', 'eval_auprc': '0.7858', 'eval_runtime': '1.98', 'eval_samples_per_second': '101', 'eval_steps_per_second': '6.566', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43/checkpoint-22/preprocessor_config.json
+{'loss': '2.068', 'grad_norm': '10.85', 'learning_rate': '9.993e-05', 'epoch': '1.364'}
+{'loss': '1.723', 'grad_norm': '11.04', 'learning_rate': '9.959e-05', 'epoch': '1.818'}
+{'eval_loss': '0.3858', 'eval_accuracy': '0.87', 'eval_f1': '0.7844', 'eval_balanced_accuracy': '0.74', 'eval_macro_f1': '0.7844', 'eval_atc': '0.13', 'eval_normalized_atc': '0.013', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.0131', 'eval_selection_accuracy_value': '0.74', 'eval_nll': '0.3115', 'eval_brier': '0.1884', 'eval_ece': '0.08901', 'eval_auroc': '0.9597', 'eval_auprc': '0.9158', 'eval_runtime': '1.947', 'eval_samples_per_second': '102.7', 'eval_steps_per_second': '6.678', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43/checkpoint-44/preprocessor_config.json
+{'loss': '1.466', 'grad_norm': '13.19', 'learning_rate': '9.897e-05', 'epoch': '2.273'}
+{'loss': '1.422', 'grad_norm': '10.23', 'learning_rate': '9.808e-05', 'epoch': '2.727'}
+{'eval_loss': '0.4036', 'eval_accuracy': '0.925', 'eval_f1': '0.8949', 'eval_balanced_accuracy': '0.8767', 'eval_macro_f1': '0.8949', 'eval_atc': '0.255', 'eval_normalized_atc': '0.0255', 'eval_target_recall': '0.9733', 'eval_target_fnr': '0.02667', 'eval_selection_score': '0.0255', 'eval_selection_accuracy_value': '0.8767', 'eval_nll': '0.2435', 'eval_brier': '0.14', 'eval_ece': '0.07638', 'eval_auroc': '0.9595', 'eval_auprc': '0.916', 'eval_runtime': '2.489', 'eval_samples_per_second': '80.34', 'eval_steps_per_second': '5.222', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43/checkpoint-66/preprocessor_config.json
+{'loss': '1.201', 'grad_norm': '11.5', 'learning_rate': '9.691e-05', 'epoch': '3.182'}
+{'loss': '1.119', 'grad_norm': '25.85', 'learning_rate': '9.548e-05', 'epoch': '3.636'}
+{'eval_loss': '0.3532', 'eval_accuracy': '0.94', 'eval_f1': '0.9166', 'eval_balanced_accuracy': '0.9', 'eval_macro_f1': '0.9166', 'eval_atc': '0.195', 'eval_normalized_atc': '0.0195', 'eval_target_recall': '0.98', 'eval_target_fnr': '0.02', 'eval_selection_score': '0.0195', 'eval_selection_accuracy_value': '0.9', 'eval_nll': '0.1892', 'eval_brier': '0.09955', 'eval_ece': '0.06986', 'eval_auroc': '0.9708', 'eval_auprc': '0.9502', 'eval_runtime': '2.278', 'eval_samples_per_second': '87.81', 'eval_steps_per_second': '5.708', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43/checkpoint-88/preprocessor_config.json
+{'loss': '1.08', 'grad_norm': '30.8', 'learning_rate': '9.379e-05', 'epoch': '4.091'}
+{'loss': '1.312', 'grad_norm': '4.92', 'learning_rate': '9.186e-05', 'epoch': '4.545'}
+{'loss': '1.043', 'grad_norm': '14.09', 'learning_rate': '8.969e-05', 'epoch': '5'}
+{'eval_loss': '0.5174', 'eval_accuracy': '0.905', 'eval_f1': '0.8707', 'eval_balanced_accuracy': '0.8633', 'eval_macro_f1': '0.8707', 'eval_atc': '0.455', 'eval_normalized_atc': '0.0455', 'eval_target_recall': '0.9467', 'eval_target_fnr': '0.05333', 'eval_selection_score': '0.04554', 'eval_selection_accuracy_value': '0.8633', 'eval_nll': '0.2363', 'eval_brier': '0.1368', 'eval_ece': '0.0488', 'eval_auroc': '0.9521', 'eval_auprc': '0.8993', 'eval_runtime': '2.354', 'eval_samples_per_second': '84.94', 'eval_steps_per_second': '5.521', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43/checkpoint-110/preprocessor_config.json
+{'train_runtime': '47.13', 'train_samples_per_second': '594', 'train_steps_per_second': '9.335', 'train_loss': '1.636', 'epoch': '5'}
+***** train metrics *****
+  epoch                    =         5.0
+  total_flos               = 505190274GF
+  train_loss               =      1.6358
+  train_runtime            =  0:00:47.13
+  train_samples_per_second =     594.045
+  train_steps_per_second   =       9.335
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/vit_test/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43_04-28_17-05
+Saving run configuration...
+Run configuration saved to: results/vit_test/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43_04-28_17-05/run_configuration_20260428_170544.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/vit_test/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43_04-28_17-05/metrics_20260428_170551_nicme_hybrid.json and results/vit_test/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43_04-28_17-05/metrics_20260428_170551_nicme_hybrid.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/vit_test/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43_04-28_17-05/confusion_matrix_20260428_170551_nicme_hybrid.png and results/vit_test/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43_04-28_17-05/confusion_matrix_20260428_170551_nicme_hybrid.pdf
+Detailed confusion matrix saved to: results/vit_test/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43_04-28_17-05/confusion_matrix_detailed_20260428_170551_nicme_hybrid.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/vit_test/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43_04-28_17-05
+Overall Accuracy: 0.8550
+Balanced Accuracy: 0.7100
+Overall F1 Score: 0.7517
+Kappa: 0.5207
+AUC: 0.9321
+Expected Cost: 0.1450
+Loss Function Used: nicme_hybrid
+Total Test Samples: 200
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/vit_test/stop3b_imbalance_decoupling_spider_target_majority_vit_nicme_hybrid_seed43_04-28_17-05
+============================================================

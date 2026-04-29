@@ -1,0 +1,58 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=hf_auto type=vit with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.7459', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.1725', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.6744', 'eval_brier': '0.4815', 'eval_ece': '0.1126', 'eval_auroc': '0.8789', 'eval_auprc': '0.8889', 'eval_runtime': '2.071', 'eval_samples_per_second': '30.91', 'eval_steps_per_second': '1.932', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.6966', 'eval_accuracy': '0.7656', 'eval_f1': '0.752', 'eval_balanced_accuracy': '0.7656', 'eval_macro_f1': '0.752', 'eval_atc': '0.2344', 'eval_normalized_atc': '0.02344', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.03056', 'eval_selection_accuracy_value': '0.7656', 'eval_nll': '0.6565', 'eval_brier': '0.4635', 'eval_ece': '0.2328', 'eval_auroc': '0.875', 'eval_auprc': '0.8201', 'eval_runtime': '1.921', 'eval_samples_per_second': '33.32', 'eval_steps_per_second': '2.083', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1/checkpoint-8/preprocessor_config.json
+{'loss': '3.037', 'grad_norm': '4.859', 'learning_rate': '8.716e-05', 'epoch': '2.5'}
+{'eval_loss': '0.645', 'eval_accuracy': '0.8594', 'eval_f1': '0.8565', 'eval_balanced_accuracy': '0.8594', 'eval_macro_f1': '0.8565', 'eval_atc': '0.1406', 'eval_normalized_atc': '0.01406', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.01406', 'eval_selection_accuracy_value': '0.8594', 'eval_nll': '0.5886', 'eval_brier': '0.3969', 'eval_ece': '0.2734', 'eval_auroc': '0.8809', 'eval_auprc': '0.8274', 'eval_runtime': '1.939', 'eval_samples_per_second': '33.01', 'eval_steps_per_second': '2.063', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1/checkpoint-12/preprocessor_config.json
+{'eval_loss': '0.6315', 'eval_accuracy': '0.8594', 'eval_f1': '0.8565', 'eval_balanced_accuracy': '0.8594', 'eval_macro_f1': '0.8565', 'eval_atc': '0.1406', 'eval_normalized_atc': '0.01406', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.01406', 'eval_selection_accuracy_value': '0.8594', 'eval_nll': '0.5424', 'eval_brier': '0.3543', 'eval_ece': '0.241', 'eval_auroc': '0.8857', 'eval_auprc': '0.8591', 'eval_runtime': '1.994', 'eval_samples_per_second': '32.09', 'eval_steps_per_second': '2.005', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1/checkpoint-16/preprocessor_config.json
+{'loss': '2.406', 'grad_norm': '6.816', 'learning_rate': '3.96e-05', 'epoch': '5'}
+{'eval_loss': '0.6634', 'eval_accuracy': '0.8438', 'eval_f1': '0.8398', 'eval_balanced_accuracy': '0.8438', 'eval_macro_f1': '0.8398', 'eval_atc': '0.1562', 'eval_normalized_atc': '0.01562', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.01566', 'eval_selection_accuracy_value': '0.8438', 'eval_nll': '0.5324', 'eval_brier': '0.3474', 'eval_ece': '0.1668', 'eval_auroc': '0.8867', 'eval_auprc': '0.8559', 'eval_runtime': '1.967', 'eval_samples_per_second': '32.54', 'eval_steps_per_second': '2.034', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1/checkpoint-20/preprocessor_config.json
+{'train_runtime': '23.26', 'train_samples_per_second': '88.06', 'train_steps_per_second': '1.376', 'train_loss': '2.722', 'epoch': '5'}
+***** train metrics *****
+  epoch                    =        5.0
+  total_flos               = 92377650GF
+  train_loss               =     2.7215
+  train_runtime            = 0:00:23.25
+  train_samples_per_second =     88.055
+  train_steps_per_second   =      1.376
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/vit_test/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1_04-28_07-24
+Saving run configuration...
+Run configuration saved to: results/vit_test/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1_04-28_07-24/run_configuration_20260428_072420.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/vit_test/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1_04-28_07-24/metrics_20260428_072426_nicme_hybrid.json and results/vit_test/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1_04-28_07-24/metrics_20260428_072426_nicme_hybrid.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/vit_test/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1_04-28_07-24/confusion_matrix_20260428_072426_nicme_hybrid.png and results/vit_test/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1_04-28_07-24/confusion_matrix_20260428_072426_nicme_hybrid.pdf
+Detailed confusion matrix saved to: results/vit_test/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1_04-28_07-24/confusion_matrix_detailed_20260428_072426_nicme_hybrid.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/vit_test/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1_04-28_07-24
+Overall Accuracy: 0.9531
+Balanced Accuracy: 0.9531
+Overall F1 Score: 0.9531
+Kappa: 0.9062
+AUC: 0.9600
+Expected Cost: 0.1875
+Loss Function Used: nicme_hybrid
+Total Test Samples: 64
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/vit_test/stop2b_threshold_breakhis_vit_hybrid_s0.05_l0.1_04-28_07-24
+============================================================

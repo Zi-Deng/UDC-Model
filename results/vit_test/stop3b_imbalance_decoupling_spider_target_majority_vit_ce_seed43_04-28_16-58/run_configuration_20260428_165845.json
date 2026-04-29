@@ -1,0 +1,56 @@
+{
+  "run_info": {
+    "timestamp": "20260428_165845",
+    "output_directory": "results/vit_test/stop3b_imbalance_decoupling_spider_target_majority_vit_ce_seed43_04-28_16-58"
+  },
+  "model_configuration": {
+    "model": "google/vit-base-patch16-224-in21k",
+    "model_backend": "hf_auto",
+    "model_type": "vit",
+    "weights": null,
+    "num_labels": 2,
+    "peft_enabled": false
+  },
+  "dataset_configuration": {
+    "dataset_host": "local_folder",
+    "dataset": "spider_target_majority",
+    "dataset_location": "data/prepared/spider/splits/target_majority",
+    "local_dataset_name": null,
+    "local_folder_path": "data/prepared/spider/splits/target_majority",
+    "local_dataset_format": "manifest"
+  },
+  "training_parameters": {
+    "batch_size": 16,
+    "learning_rate": 0.0001,
+    "num_train_epochs": 20,
+    "loss_function": "ce",
+    "cs_lambda": 0.0,
+    "cs_warmup_epochs": 0,
+    "seed": 43
+  },
+  "cost_matrix_configuration": {
+    "cost_matrix": [
+      [
+        0.0,
+        10.0
+      ],
+      [
+        1.0,
+        0.0
+      ]
+    ],
+    "cost_matrix_convention": "C[true_label][predicted_label]",
+    "target_recall_class": "black_widow",
+    "target_recall_floor": 0.95,
+    "accuracy_floor": 0.75,
+    "selection_accuracy_metric": "balanced_accuracy",
+    "sweep_mode": false,
+    "sweep_cost_value": null,
+    "sweep_matrix_row": null,
+    "sweep_matrix_col": null
+  },
+  "other_settings": {
+    "wandb_enabled": false,
+    "push_to_hub": false
+  }
+}

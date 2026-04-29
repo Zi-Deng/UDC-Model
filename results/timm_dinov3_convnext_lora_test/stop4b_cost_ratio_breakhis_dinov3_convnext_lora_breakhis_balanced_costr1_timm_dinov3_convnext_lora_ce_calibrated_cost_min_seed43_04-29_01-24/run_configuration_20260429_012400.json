@@ -1,0 +1,56 @@
+{
+  "run_info": {
+    "timestamp": "20260429_012400",
+    "output_directory": "results/timm_dinov3_convnext_lora_test/stop4b_cost_ratio_breakhis_dinov3_convnext_lora_breakhis_balanced_costr1_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed43_04-29_01-24"
+  },
+  "model_configuration": {
+    "model": "timm/convnext_tiny.dinov3_lvd1689m",
+    "model_backend": "timm",
+    "model_type": "timm_dinov3_convnext_lora",
+    "weights": null,
+    "num_labels": 2,
+    "peft_enabled": true
+  },
+  "dataset_configuration": {
+    "dataset_host": "local_folder",
+    "dataset": "breakhis_balanced",
+    "dataset_location": "data/prepared/breakhis/splits/balanced",
+    "local_dataset_name": null,
+    "local_folder_path": "data/prepared/breakhis/splits/balanced",
+    "local_dataset_format": "manifest"
+  },
+  "training_parameters": {
+    "batch_size": 16,
+    "learning_rate": 0.0001,
+    "num_train_epochs": 20,
+    "loss_function": "ce_calibrated_cost_min",
+    "cs_lambda": 0.0,
+    "cs_warmup_epochs": 0,
+    "seed": 43
+  },
+  "cost_matrix_configuration": {
+    "cost_matrix": [
+      [
+        0.0,
+        1.0
+      ],
+      [
+        1.0,
+        0.0
+      ]
+    ],
+    "cost_matrix_convention": "C[true_label][predicted_label]",
+    "target_recall_class": "malignant",
+    "target_recall_floor": 0.97,
+    "accuracy_floor": 0.85,
+    "selection_accuracy_metric": "accuracy",
+    "sweep_mode": false,
+    "sweep_cost_value": null,
+    "sweep_matrix_row": null,
+    "sweep_matrix_col": null
+  },
+  "other_settings": {
+    "wandb_enabled": false,
+    "push_to_hub": false
+  }
+}

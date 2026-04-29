@@ -16,6 +16,7 @@ nicme-hpo = "nicme.cli:hpo"
 nicme-compare-sweeps = "nicme.cli:compare_sweeps"
 nicme-prepare-data = "nicme.cli:prepare_data"
 nicme-run-binary-experiments = "nicme.cli:run_binary_experiments"
+nicme-experiment-stop = "nicme.cli:experiment_stop"
 
 [tool.ruff]
 line-length = 120

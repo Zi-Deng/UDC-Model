@@ -1,0 +1,47 @@
+Prepared manifest loaded — Train=96, Val=24, Calibration=24, Test=24
+cuda
+Using model backend=hf_auto type=vit with 2 labels
+Using device: cuda
+{'eval_loss': '0.6326', 'eval_accuracy': '0.5833', 'eval_f1': '0.4958', 'eval_balanced_accuracy': '0.5833', 'eval_macro_f1': '0.4958', 'eval_atc': '0.4167', 'eval_normalized_atc': '0.04167', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.1128', 'eval_selection_accuracy_value': '0.5833', 'eval_nll': '0.6326', 'eval_brier': '0.4404', 'eval_ece': '0.1999', 'eval_auroc': '0.9028', 'eval_auprc': '0.9122', 'eval_runtime': '1.901', 'eval_samples_per_second': '12.62', 'eval_steps_per_second': '1.578', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop1_smoke_breakhis_balanced_smoke_vit_ce/checkpoint-3/preprocessor_config.json
+{'train_runtime': '3.382', 'train_samples_per_second': '28.39', 'train_steps_per_second': '0.887', 'train_loss': '2.761', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =  6928323GF
+  train_loss               =     2.7611
+  train_runtime            = 0:00:03.38
+  train_samples_per_second =     28.386
+  train_steps_per_second   =      0.887
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/vit_test/stop1_smoke_breakhis_balanced_smoke_vit_ce_04-28_04-09
+Saving run configuration...
+Run configuration saved to: results/vit_test/stop1_smoke_breakhis_balanced_smoke_vit_ce_04-28_04-09/run_configuration_20260428_040929.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/vit_test/stop1_smoke_breakhis_balanced_smoke_vit_ce_04-28_04-09/metrics_20260428_040935_ce.json and results/vit_test/stop1_smoke_breakhis_balanced_smoke_vit_ce_04-28_04-09/metrics_20260428_040935_ce.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/vit_test/stop1_smoke_breakhis_balanced_smoke_vit_ce_04-28_04-09/confusion_matrix_20260428_040935_ce.png and results/vit_test/stop1_smoke_breakhis_balanced_smoke_vit_ce_04-28_04-09/confusion_matrix_20260428_040935_ce.pdf
+Detailed confusion matrix saved to: results/vit_test/stop1_smoke_breakhis_balanced_smoke_vit_ce_04-28_04-09/confusion_matrix_detailed_20260428_040935_ce.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/vit_test/stop1_smoke_breakhis_balanced_smoke_vit_ce_04-28_04-09
+Overall Accuracy: 0.7917
+Balanced Accuracy: 0.7917
+Overall F1 Score: 0.7822
+Kappa: 0.5833
+AUC: 0.9583
+Expected Cost: 0.2083
+Loss Function Used: ce
+Total Test Samples: 24
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/vit_test/stop1_smoke_breakhis_balanced_smoke_vit_ce_04-28_04-09
+============================================================

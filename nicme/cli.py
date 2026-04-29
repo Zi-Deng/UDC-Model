@@ -60,3 +60,10 @@ def run_binary_experiments() -> None:
     from scripts.run_binary_experiments import main
 
     main()
+
+
+def experiment_stop() -> None:
+    """Generate stop-gated experiment report and next-plan artifacts."""
+    from nicme.experiment_stops import main
+
+    main()

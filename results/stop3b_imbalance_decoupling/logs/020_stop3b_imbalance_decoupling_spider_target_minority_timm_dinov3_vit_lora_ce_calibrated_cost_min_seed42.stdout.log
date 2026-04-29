@@ -1,0 +1,62 @@
+Prepared manifest loaded — Train=1398, Val=200, Calibration=200, Test=200
+cuda
+Using model backend=timm type=timm_dinov3_vit_lora with 2 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '2.764', 'grad_norm': '9.961', 'learning_rate': '4.091e-05', 'epoch': '0.4545'}
+{'loss': '2.717', 'grad_norm': '8.219', 'learning_rate': '8.636e-05', 'epoch': '0.9091'}
+{'eval_loss': '0.6601', 'eval_accuracy': '0.75', 'eval_f1': '0.4286', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.4286', 'eval_atc': '2.5', 'eval_normalized_atc': '0.25', 'eval_target_recall': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.922', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.6601', 'eval_brier': '0.467', 'eval_ece': '0.2172', 'eval_auroc': '0.6752', 'eval_auprc': '0.8623', 'eval_runtime': '2.219', 'eval_samples_per_second': '90.14', 'eval_steps_per_second': '5.859', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42/checkpoint-22/preprocessor_config.json
+{'loss': '2.613', 'grad_norm': '6.391', 'learning_rate': '9.993e-05', 'epoch': '1.364'}
+{'loss': '2.47', 'grad_norm': '8.524', 'learning_rate': '9.959e-05', 'epoch': '1.818'}
+{'eval_loss': '0.5995', 'eval_accuracy': '0.75', 'eval_f1': '0.4286', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.4286', 'eval_atc': '2.5', 'eval_normalized_atc': '0.25', 'eval_target_recall': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.922', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.5995', 'eval_brier': '0.4079', 'eval_ece': '0.1446', 'eval_auroc': '0.6919', 'eval_auprc': '0.8704', 'eval_runtime': '2.356', 'eval_samples_per_second': '84.91', 'eval_steps_per_second': '5.519', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42/checkpoint-44/preprocessor_config.json
+{'loss': '2.413', 'grad_norm': '3.693', 'learning_rate': '9.897e-05', 'epoch': '2.273'}
+{'loss': '2.301', 'grad_norm': '2.725', 'learning_rate': '9.808e-05', 'epoch': '2.727'}
+{'eval_loss': '0.5517', 'eval_accuracy': '0.75', 'eval_f1': '0.4286', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.4286', 'eval_atc': '2.5', 'eval_normalized_atc': '0.25', 'eval_target_recall': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.922', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.5517', 'eval_brier': '0.3657', 'eval_ece': '0.1126', 'eval_auroc': '0.7184', 'eval_auprc': '0.883', 'eval_runtime': '1.99', 'eval_samples_per_second': '100.5', 'eval_steps_per_second': '6.531', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42/checkpoint-66/preprocessor_config.json
+{'loss': '2.165', 'grad_norm': '3.273', 'learning_rate': '9.691e-05', 'epoch': '3.182'}
+{'loss': '2.182', 'grad_norm': '2.242', 'learning_rate': '9.548e-05', 'epoch': '3.636'}
+{'eval_loss': '0.5246', 'eval_accuracy': '0.75', 'eval_f1': '0.4286', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.4286', 'eval_atc': '2.5', 'eval_normalized_atc': '0.25', 'eval_target_recall': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.922', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.5246', 'eval_brier': '0.3459', 'eval_ece': '0.1012', 'eval_auroc': '0.7605', 'eval_auprc': '0.9048', 'eval_runtime': '1.986', 'eval_samples_per_second': '100.7', 'eval_steps_per_second': '6.547', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42/checkpoint-88/preprocessor_config.json
+{'train_runtime': '26.43', 'train_samples_per_second': '1058', 'train_steps_per_second': '16.65', 'train_loss': '2.421', 'epoch': '4'}
+***** train metrics *****
+  epoch                    =        4.0
+  total_flos               =        0GF
+  train_loss               =     2.4207
+  train_runtime            = 0:00:26.42
+  train_samples_per_second =   1058.063
+  train_steps_per_second   =      16.65
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_vit_lora_test/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42_04-28_16-29
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_vit_lora_test/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42_04-28_16-29/run_configuration_20260428_162953.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_vit_lora_test/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42_04-28_16-29/metrics_20260428_163001_ce_calibrated_cost_min.json and results/timm_dinov3_vit_lora_test/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42_04-28_16-29/metrics_20260428_163001_ce_calibrated_cost_min.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/timm_dinov3_vit_lora_test/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42_04-28_16-29/confusion_matrix_20260428_163001_ce_calibrated_cost_min.png and results/timm_dinov3_vit_lora_test/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42_04-28_16-29/confusion_matrix_20260428_163001_ce_calibrated_cost_min.pdf
+Detailed confusion matrix saved to: results/timm_dinov3_vit_lora_test/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42_04-28_16-29/confusion_matrix_detailed_20260428_163001_ce_calibrated_cost_min.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_vit_lora_test/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42_04-28_16-29
+Overall Accuracy: 0.7500
+Balanced Accuracy: 0.5000
+Overall F1 Score: 0.4286
+Kappa: 0.0000
+AUC: 0.7019
+Expected Cost: 2.5000
+Loss Function Used: ce_calibrated_cost_min
+Total Test Samples: 200
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/timm_dinov3_vit_lora_test/stop3b_imbalance_decoupling_spider_target_minority_timm_dinov3_vit_lora_ce_calibrated_cost_min_seed42_04-28_16-29
+============================================================

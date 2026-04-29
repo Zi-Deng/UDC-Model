@@ -1,0 +1,100 @@
+Prepared manifest loaded — Train=5616, Val=768, Calibration=815, Test=710
+cuda
+Using model backend=hf_auto type=vit with 2 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '3.026', 'grad_norm': '4.879', 'learning_rate': '1.023e-05', 'epoch': '0.114'}
+{'loss': '2.493', 'grad_norm': '7.367', 'learning_rate': '2.159e-05', 'epoch': '0.2279'}
+{'loss': '2.109', 'grad_norm': '5.233', 'learning_rate': '3.295e-05', 'epoch': '0.3419'}
+{'loss': '1.852', 'grad_norm': '5.055', 'learning_rate': '4.432e-05', 'epoch': '0.4558'}
+{'loss': '1.424', 'grad_norm': '6.824', 'learning_rate': '5.568e-05', 'epoch': '0.5698'}
+{'loss': '1.234', 'grad_norm': '23.8', 'learning_rate': '6.705e-05', 'epoch': '0.6838'}
+{'loss': '1.53', 'grad_norm': '6.71', 'learning_rate': '7.841e-05', 'epoch': '0.7977'}
+{'loss': '1.059', 'grad_norm': '4.91', 'learning_rate': '8.977e-05', 'epoch': '0.9117'}
+{'eval_loss': '0.5474', 'eval_accuracy': '0.8633', 'eval_f1': '0.8106', 'eval_balanced_accuracy': '0.7889', 'eval_macro_f1': '0.8106', 'eval_atc': '0.4766', 'eval_normalized_atc': '0.04766', 'eval_target_recall': '0.9485', 'eval_target_fnr': '0.05151', 'eval_selection_score': '0.04963', 'eval_selection_accuracy_value': '0.7889', 'eval_nll': '0.3967', 'eval_brier': '0.2246', 'eval_ece': '0.06359', 'eval_auroc': '0.8525', 'eval_auprc': '0.9293', 'eval_runtime': '7.469', 'eval_samples_per_second': '102.8', 'eval_steps_per_second': '6.426', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44/checkpoint-88/preprocessor_config.json
+{'loss': '0.9866', 'grad_norm': '21.56', 'learning_rate': '0.0001', 'epoch': '1.023'}
+{'loss': '1.367', 'grad_norm': '113.5', 'learning_rate': '9.999e-05', 'epoch': '1.137'}
+{'loss': '0.8739', 'grad_norm': '3.818', 'learning_rate': '9.996e-05', 'epoch': '1.251'}
+{'loss': '1.216', 'grad_norm': '33.22', 'learning_rate': '9.992e-05', 'epoch': '1.365'}
+{'loss': '0.7792', 'grad_norm': '10.25', 'learning_rate': '9.985e-05', 'epoch': '1.479'}
+{'loss': '0.7863', 'grad_norm': '19.53', 'learning_rate': '9.977e-05', 'epoch': '1.593'}
+{'loss': '0.5822', 'grad_norm': '3.477', 'learning_rate': '9.967e-05', 'epoch': '1.707'}
+{'loss': '1.019', 'grad_norm': '11.57', 'learning_rate': '9.956e-05', 'epoch': '1.821'}
+{'loss': '0.5952', 'grad_norm': '26.13', 'learning_rate': '9.942e-05', 'epoch': '1.934'}
+{'eval_loss': '0.5857', 'eval_accuracy': '0.8763', 'eval_f1': '0.8103', 'eval_balanced_accuracy': '0.7683', 'eval_macro_f1': '0.8103', 'eval_atc': '0.1237', 'eval_normalized_atc': '0.01237', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.01338', 'eval_selection_accuracy_value': '0.7683', 'eval_nll': '0.4618', 'eval_brier': '0.2219', 'eval_ece': '0.09161', 'eval_auroc': '0.9061', 'eval_auprc': '0.9587', 'eval_runtime': '7.173', 'eval_samples_per_second': '107.1', 'eval_steps_per_second': '6.692', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44/checkpoint-176/preprocessor_config.json
+{'loss': '0.6948', 'grad_norm': '53.46', 'learning_rate': '9.927e-05', 'epoch': '2.046'}
+{'loss': '1.036', 'grad_norm': '3.799', 'learning_rate': '9.91e-05', 'epoch': '2.16'}
+{'loss': '0.5346', 'grad_norm': '0.8665', 'learning_rate': '9.892e-05', 'epoch': '2.274'}
+{'loss': '0.4553', 'grad_norm': '3.255', 'learning_rate': '9.871e-05', 'epoch': '2.387'}
+{'loss': '0.6119', 'grad_norm': '12.55', 'learning_rate': '9.849e-05', 'epoch': '2.501'}
+{'loss': '0.6999', 'grad_norm': '2.701', 'learning_rate': '9.826e-05', 'epoch': '2.615'}
+{'loss': '0.6431', 'grad_norm': '3.195', 'learning_rate': '9.8e-05', 'epoch': '2.729'}
+{'loss': '0.4638', 'grad_norm': '27.52', 'learning_rate': '9.773e-05', 'epoch': '2.843'}
+{'loss': '1.24', 'grad_norm': '18.61', 'learning_rate': '9.744e-05', 'epoch': '2.957'}
+{'eval_loss': '0.6121', 'eval_accuracy': '0.8997', 'eval_f1': '0.8578', 'eval_balanced_accuracy': '0.8262', 'eval_macro_f1': '0.8578', 'eval_atc': '0.2057', 'eval_normalized_atc': '0.02057', 'eval_target_recall': '0.984', 'eval_target_fnr': '0.01599', 'eval_selection_score': '0.02057', 'eval_selection_accuracy_value': '0.8262', 'eval_nll': '0.4582', 'eval_brier': '0.1924', 'eval_ece': '0.08912', 'eval_auroc': '0.7809', 'eval_auprc': '0.8491', 'eval_runtime': '12.19', 'eval_samples_per_second': '63.02', 'eval_steps_per_second': '3.939', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44/checkpoint-264/preprocessor_config.json
+{'loss': '0.5436', 'grad_norm': '19.39', 'learning_rate': '9.714e-05', 'epoch': '3.068'}
+{'loss': '0.3499', 'grad_norm': '2.773', 'learning_rate': '9.681e-05', 'epoch': '3.182'}
+{'loss': '0.4651', 'grad_norm': '4.846', 'learning_rate': '9.648e-05', 'epoch': '3.296'}
+{'loss': '0.3573', 'grad_norm': '1.726', 'learning_rate': '9.612e-05', 'epoch': '3.41'}
+{'loss': '0.5604', 'grad_norm': '47.03', 'learning_rate': '9.575e-05', 'epoch': '3.524'}
+{'loss': '0.6749', 'grad_norm': '4.738', 'learning_rate': '9.536e-05', 'epoch': '3.638'}
+{'loss': '0.6491', 'grad_norm': '34.94', 'learning_rate': '9.496e-05', 'epoch': '3.752'}
+{'loss': '0.2416', 'grad_norm': '13.04', 'learning_rate': '9.454e-05', 'epoch': '3.866'}
+{'loss': '0.2377', 'grad_norm': '2.722', 'learning_rate': '9.411e-05', 'epoch': '3.98'}
+{'eval_loss': '1.075', 'eval_accuracy': '0.8685', 'eval_f1': '0.8205', 'eval_balanced_accuracy': '0.8017', 'eval_macro_f1': '0.8205', 'eval_atc': '0.4948', 'eval_normalized_atc': '0.04948', 'eval_target_recall': '0.9449', 'eval_target_fnr': '0.05506', 'eval_selection_score': '0.05199', 'eval_selection_accuracy_value': '0.8017', 'eval_nll': '0.5897', 'eval_brier': '0.249', 'eval_ece': '0.1162', 'eval_auroc': '0.8223', 'eval_auprc': '0.906', 'eval_runtime': '7.035', 'eval_samples_per_second': '109.2', 'eval_steps_per_second': '6.823', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44/checkpoint-352/preprocessor_config.json
+{'loss': '0.5977', 'grad_norm': '30.13', 'learning_rate': '9.366e-05', 'epoch': '4.091'}
+{'loss': '0.2702', 'grad_norm': '3.211', 'learning_rate': '9.319e-05', 'epoch': '4.205'}
+{'loss': '1.089', 'grad_norm': '12.12', 'learning_rate': '9.271e-05', 'epoch': '4.319'}
+{'loss': '0.5905', 'grad_norm': '8.008', 'learning_rate': '9.221e-05', 'epoch': '4.433'}
+{'loss': '0.2633', 'grad_norm': '40.08', 'learning_rate': '9.17e-05', 'epoch': '4.547'}
+{'loss': '0.5352', 'grad_norm': '6.937', 'learning_rate': '9.118e-05', 'epoch': '4.661'}
+{'loss': '0.2866', 'grad_norm': '1.715', 'learning_rate': '9.064e-05', 'epoch': '4.775'}
+{'loss': '0.4209', 'grad_norm': '6.528', 'learning_rate': '9.008e-05', 'epoch': '4.889'}
+{'loss': '0.5504', 'grad_norm': '54.42', 'learning_rate': '8.951e-05', 'epoch': '5'}
+{'eval_loss': '0.8359', 'eval_accuracy': '0.888', 'eval_f1': '0.844', 'eval_balanced_accuracy': '0.8182', 'eval_macro_f1': '0.844', 'eval_atc': '0.3229', 'eval_normalized_atc': '0.03229', 'eval_target_recall': '0.968', 'eval_target_fnr': '0.03197', 'eval_selection_score': '0.03231', 'eval_selection_accuracy_value': '0.8182', 'eval_nll': '0.5376', 'eval_brier': '0.2103', 'eval_ece': '0.1018', 'eval_auroc': '0.8582', 'eval_auprc': '0.932', 'eval_runtime': '7.208', 'eval_samples_per_second': '106.6', 'eval_steps_per_second': '6.66', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44/checkpoint-440/preprocessor_config.json
+{'train_runtime': '286.9', 'train_samples_per_second': '391.5', 'train_steps_per_second': '6.134', 'train_loss': '0.8635', 'epoch': '5'}
+***** train metrics *****
+  epoch                    =          5.0
+  total_flos               = 2026534702GF
+  train_loss               =       0.8635
+  train_runtime            =   0:04:46.93
+  train_samples_per_second =      391.451
+  train_steps_per_second   =        6.134
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/vit_test/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44_04-28_19-47
+Saving run configuration...
+Run configuration saved to: results/vit_test/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44_04-28_19-47/run_configuration_20260428_194731.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/vit_test/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44_04-28_19-47/metrics_20260428_194754_nicme_logit_adjustment.json and results/vit_test/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44_04-28_19-47/metrics_20260428_194754_nicme_logit_adjustment.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/vit_test/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44_04-28_19-47/confusion_matrix_20260428_194754_nicme_logit_adjustment.png and results/vit_test/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44_04-28_19-47/confusion_matrix_20260428_194754_nicme_logit_adjustment.pdf
+Detailed confusion matrix saved to: results/vit_test/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44_04-28_19-47/confusion_matrix_detailed_20260428_194754_nicme_logit_adjustment.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/vit_test/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44_04-28_19-47
+Overall Accuracy: 0.8592
+Balanced Accuracy: 0.8227
+Overall F1 Score: 0.8399
+Kappa: 0.6869
+AUC: 0.9880
+Expected Cost: 0.1408
+Loss Function Used: nicme_logit_adjustment
+Total Test Samples: 710
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/vit_test/stop3b_imbalance_decoupling_breakhis_natural_vit_nicme_logit_adjustment_seed44_04-28_19-47
+============================================================

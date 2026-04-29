@@ -1,0 +1,423 @@
+{
+  "phase": "stop4a_backbone_ablation",
+  "created_at": "2026-04-28 21:45:07",
+  "datasets": [
+    "spider_balanced",
+    "breakhis_balanced"
+  ],
+  "models": [
+    "convnext",
+    "timm_dinov3_convnext_lora"
+  ],
+  "methods": [
+    "ce_calibrated_cost_min",
+    "nicme_logit_adjustment",
+    "nicme_hybrid"
+  ],
+  "seeds": [
+    "42",
+    "43",
+    "44"
+  ],
+  "run_count": 36,
+  "cleanup_checkpoints": true,
+  "time_budget_hours": 6.0,
+  "runs": [
+    {
+      "index": 1,
+      "config": "results/stop4a_backbone_ablation/configs/001_stop4a_backbone_ablation_spider_balanced_convnext_ce_calibrated_cost_min_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_convnext_ce_calibrated_cost_min_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 42,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 2,
+      "config": "results/stop4a_backbone_ablation/configs/002_stop4a_backbone_ablation_spider_balanced_convnext_nicme_logit_adjustment_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_convnext_nicme_logit_adjustment_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 42,
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 3,
+      "config": "results/stop4a_backbone_ablation/configs/003_stop4a_backbone_ablation_spider_balanced_convnext_nicme_hybrid_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_convnext_nicme_hybrid_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 42,
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 4,
+      "config": "results/stop4a_backbone_ablation/configs/004_stop4a_backbone_ablation_spider_balanced_convnext_ce_calibrated_cost_min_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_convnext_ce_calibrated_cost_min_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 43,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 5,
+      "config": "results/stop4a_backbone_ablation/configs/005_stop4a_backbone_ablation_spider_balanced_convnext_nicme_logit_adjustment_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_convnext_nicme_logit_adjustment_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 43,
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 6,
+      "config": "results/stop4a_backbone_ablation/configs/006_stop4a_backbone_ablation_spider_balanced_convnext_nicme_hybrid_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_convnext_nicme_hybrid_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 43,
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 7,
+      "config": "results/stop4a_backbone_ablation/configs/007_stop4a_backbone_ablation_spider_balanced_convnext_ce_calibrated_cost_min_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_convnext_ce_calibrated_cost_min_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 44,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 8,
+      "config": "results/stop4a_backbone_ablation/configs/008_stop4a_backbone_ablation_spider_balanced_convnext_nicme_logit_adjustment_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_convnext_nicme_logit_adjustment_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 44,
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 9,
+      "config": "results/stop4a_backbone_ablation/configs/009_stop4a_backbone_ablation_spider_balanced_convnext_nicme_hybrid_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_convnext_nicme_hybrid_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 44,
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 10,
+      "config": "results/stop4a_backbone_ablation/configs/010_stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "ce_calibrated_cost_min",
+      "seed": 42,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 11,
+      "config": "results/stop4a_backbone_ablation/configs/011_stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "seed": 42,
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 12,
+      "config": "results/stop4a_backbone_ablation/configs/012_stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "seed": 42,
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 13,
+      "config": "results/stop4a_backbone_ablation/configs/013_stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "ce_calibrated_cost_min",
+      "seed": 43,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 14,
+      "config": "results/stop4a_backbone_ablation/configs/014_stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "seed": 43,
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 15,
+      "config": "results/stop4a_backbone_ablation/configs/015_stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43",
+      "dataset": "spider_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "seed": 43,
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 16,
+      "config": "results/stop4a_backbone_ablation/configs/016_stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "ce_calibrated_cost_min",
+      "seed": 44,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 17,
+      "config": "results/stop4a_backbone_ablation/configs/017_stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "seed": 44,
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 18,
+      "config": "results/stop4a_backbone_ablation/configs/018_stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed44",
+      "dataset": "spider_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "seed": 44,
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 19,
+      "config": "results/stop4a_backbone_ablation/configs/019_stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42",
+      "dataset": "breakhis_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 42,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 20,
+      "config": "results/stop4a_backbone_ablation/configs/020_stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_logit_adjustment_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_logit_adjustment_seed42",
+      "dataset": "breakhis_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 42,
+      "scale": 0.3,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 21,
+      "config": "results/stop4a_backbone_ablation/configs/021_stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_hybrid_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_hybrid_seed42",
+      "dataset": "breakhis_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 42,
+      "scale": 0.3,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 22,
+      "config": "results/stop4a_backbone_ablation/configs/022_stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed43",
+      "dataset": "breakhis_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 43,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 23,
+      "config": "results/stop4a_backbone_ablation/configs/023_stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_logit_adjustment_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_logit_adjustment_seed43",
+      "dataset": "breakhis_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 43,
+      "scale": 0.3,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 24,
+      "config": "results/stop4a_backbone_ablation/configs/024_stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_hybrid_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_hybrid_seed43",
+      "dataset": "breakhis_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 43,
+      "scale": 0.3,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 25,
+      "config": "results/stop4a_backbone_ablation/configs/025_stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed44",
+      "dataset": "breakhis_balanced",
+      "model_type": "convnext",
+      "method": "ce_calibrated_cost_min",
+      "seed": 44,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 26,
+      "config": "results/stop4a_backbone_ablation/configs/026_stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_logit_adjustment_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_logit_adjustment_seed44",
+      "dataset": "breakhis_balanced",
+      "model_type": "convnext",
+      "method": "nicme_logit_adjustment",
+      "seed": 44,
+      "scale": 0.3,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 27,
+      "config": "results/stop4a_backbone_ablation/configs/027_stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_hybrid_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_hybrid_seed44",
+      "dataset": "breakhis_balanced",
+      "model_type": "convnext",
+      "method": "nicme_hybrid",
+      "seed": 44,
+      "scale": 0.3,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 28,
+      "config": "results/stop4a_backbone_ablation/configs/028_stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed42",
+      "dataset": "breakhis_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "ce_calibrated_cost_min",
+      "seed": 42,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 29,
+      "config": "results/stop4a_backbone_ablation/configs/029_stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed42",
+      "dataset": "breakhis_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "seed": 42,
+      "scale": 0.3,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 30,
+      "config": "results/stop4a_backbone_ablation/configs/030_stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed42.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed42",
+      "dataset": "breakhis_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "seed": 42,
+      "scale": 0.3,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 31,
+      "config": "results/stop4a_backbone_ablation/configs/031_stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed43",
+      "dataset": "breakhis_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "ce_calibrated_cost_min",
+      "seed": 43,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 32,
+      "config": "results/stop4a_backbone_ablation/configs/032_stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed43",
+      "dataset": "breakhis_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "seed": 43,
+      "scale": 0.3,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 33,
+      "config": "results/stop4a_backbone_ablation/configs/033_stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43",
+      "dataset": "breakhis_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "seed": 43,
+      "scale": 0.3,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 34,
+      "config": "results/stop4a_backbone_ablation/configs/034_stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_ce_calibrated_cost_min_seed44",
+      "dataset": "breakhis_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "ce_calibrated_cost_min",
+      "seed": 44,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 35,
+      "config": "results/stop4a_backbone_ablation/configs/035_stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed44",
+      "dataset": "breakhis_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_logit_adjustment",
+      "seed": 44,
+      "scale": 0.3,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 36,
+      "config": "results/stop4a_backbone_ablation/configs/036_stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed44.json",
+      "output_dir": "stop4a_backbone_ablation_breakhis_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed44",
+      "dataset": "breakhis_balanced",
+      "model_type": "timm_dinov3_convnext_lora",
+      "method": "nicme_hybrid",
+      "seed": 44,
+      "scale": 0.3,
+      "cs_lambda": 0.25
+    }
+  ]
+}

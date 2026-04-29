@@ -1,0 +1,53 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=hf_auto type=convnext with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '2.928', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.1725', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.7108', 'eval_brier': '0.5174', 'eval_ece': '0.1528', 'eval_auroc': '0.7217', 'eval_auprc': '0.6835', 'eval_runtime': '1.865', 'eval_samples_per_second': '34.33', 'eval_steps_per_second': '2.145', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid/checkpoint-4/preprocessor_config.json
+{'eval_loss': '2.626', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.1725', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.8199', 'eval_brier': '0.6068', 'eval_ece': '0.2819', 'eval_auroc': '0.7939', 'eval_auprc': '0.7185', 'eval_runtime': '2.205', 'eval_samples_per_second': '29.03', 'eval_steps_per_second': '1.814', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid/checkpoint-8/preprocessor_config.json
+{'loss': '2.38', 'grad_norm': '7.316', 'learning_rate': '8.716e-05', 'epoch': '2.5'}
+{'eval_loss': '2.316', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.1725', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.7252', 'eval_brier': '0.5192', 'eval_ece': '0.3201', 'eval_auroc': '0.8203', 'eval_auprc': '0.7166', 'eval_runtime': '1.642', 'eval_samples_per_second': '38.98', 'eval_steps_per_second': '2.436', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid/checkpoint-12/preprocessor_config.json
+{'train_runtime': '13.66', 'train_samples_per_second': '150', 'train_steps_per_second': '2.343', 'train_loss': '2.379', 'epoch': '3'}
+***** train metrics *****
+  epoch                    =        3.0
+  total_flos               = 17972687GF
+  train_loss               =     2.3789
+  train_runtime            = 0:00:13.65
+  train_samples_per_second =    149.967
+  train_steps_per_second   =      2.343
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/convnext_test/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid_04-28_05-31
+Saving run configuration...
+Run configuration saved to: results/convnext_test/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid_04-28_05-31/run_configuration_20260428_053159.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/convnext_test/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid_04-28_05-31/metrics_20260428_053205_nicme_hybrid.json and results/convnext_test/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid_04-28_05-31/metrics_20260428_053205_nicme_hybrid.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/convnext_test/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid_04-28_05-31/confusion_matrix_20260428_053205_nicme_hybrid.png and results/convnext_test/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid_04-28_05-31/confusion_matrix_20260428_053205_nicme_hybrid.pdf
+Detailed confusion matrix saved to: results/convnext_test/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid_04-28_05-31/confusion_matrix_detailed_20260428_053205_nicme_hybrid.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/convnext_test/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid_04-28_05-31
+Overall Accuracy: 0.5000
+Balanced Accuracy: 0.5000
+Overall F1 Score: 0.3333
+Kappa: 0.0000
+AUC: 0.6924
+Expected Cost: 0.5000
+Loss Function Used: nicme_hybrid
+Total Test Samples: 64
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/convnext_test/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid_04-28_05-31
+============================================================

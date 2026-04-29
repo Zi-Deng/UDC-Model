@@ -1,0 +1,50 @@
+{
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "local_folder_path": "data/prepared/spider/splits/target_minority",
+  "dataset": "spider_target_minority",
+  "class_names": [
+    "black_widow",
+    "false_widow"
+  ],
+  "target_recall_class": "black_widow",
+  "target_recall_floor": 0.95,
+  "accuracy_floor": 0.75,
+  "selection_accuracy_metric": "balanced_accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      10.0
+    ],
+    [
+      1.0,
+      0.0
+    ]
+  ],
+  "num_labels": 2,
+  "num_train_epochs": 20,
+  "early_stopping_patience": 3,
+  "batch_size": 16,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.05,
+  "lr_scheduler_type": "cosine",
+  "wandb": false,
+  "push_to_hub": false,
+  "calibration_enabled": true,
+  "decision_modes": "argmax,calibrated_cost_min,calibrated_threshold",
+  "save_total_limit": 1,
+  "seed": 42,
+  "model": "google/vit-base-patch16-224-in21k",
+  "model_backend": "hf_auto",
+  "model_type": "vit",
+  "peft_enabled": false,
+  "learning_rate": 0.0001,
+  "loss_function": "nicme_logit_adjustment",
+  "cs_lambda": 0.0,
+  "cs_warmup_epochs": 0,
+  "nicme_logit_cost_scale": 0.5,
+  "logit_adjustment_tau": 1.0,
+  "output_dir": "stop3b_imbalance_decoupling_spider_target_minority_vit_nicme_logit_adjustment_seed42",
+  "stop3_phase": "stop3b_imbalance_decoupling",
+  "stop3_note": "Adjusted after Stop 2A-2C tuning; checkpoints deleted after metrics export."
+}

@@ -81,6 +81,27 @@ Available model-family presets are `convnext`, `vit`, `dinov3_convnext`, and `di
 
 Do not run Tier 2 until Tier 0 and Tier 1 complete within the RTX 5090 time budgets.
 
+## Stop-Gated Experiment Reports
+
+The paper experiment workflow is stop-gated. The archived master plan is:
+
+```text
+docs/experiment_plans/STOP_GATED_MASTER_PLAN.md
+```
+
+After each completed stop, generate the required docs and memory artifacts:
+
+```bash
+nicme-experiment-stop \
+  --stop 0 \
+  --archived-plan docs/experiment_plans/STOP_GATED_MASTER_PLAN.md \
+  --split-dir spider_balanced=data/prepared/spider/splits/balanced \
+  --split-dir breakhis_balanced=data/prepared/breakhis/splits/balanced \
+  --notes "Summarize data audit findings here."
+```
+
+This writes `docs/experiment_plans/STOP_N_results_and_next_plan.md` and `memory/experiment_plan_stop_N.md`. Do not begin the next stop until the user approves the checkpoint question in that report.
+
 ## Verification
 
 Focused unit tests live in `tests/`:

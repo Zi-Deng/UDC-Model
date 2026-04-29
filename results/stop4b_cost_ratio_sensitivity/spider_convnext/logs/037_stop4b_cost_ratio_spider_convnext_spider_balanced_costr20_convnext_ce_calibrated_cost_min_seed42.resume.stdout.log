@@ -1,0 +1,88 @@
+Prepared manifest loaded — Train=2098, Val=300, Calibration=300, Test=300
+cuda
+Using model backend=hf_auto type=convnext with 2 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '0.6702', 'grad_norm': '1.211', 'learning_rate': '2.727e-05', 'epoch': '0.303'}
+{'loss': '0.6408', 'grad_norm': '1.13', 'learning_rate': '5.758e-05', 'epoch': '0.6061'}
+{'loss': '0.5968', 'grad_norm': '1.238', 'learning_rate': '8.788e-05', 'epoch': '0.9091'}
+{'eval_loss': '0.5094', 'eval_accuracy': '0.7867', 'eval_f1': '0.7863', 'eval_balanced_accuracy': '0.7867', 'eval_macro_f1': '0.7863', 'eval_atc': '2.62', 'eval_normalized_atc': '0.131', 'eval_target_recall': '0.7467', 'eval_target_fnr': '0.2533', 'eval_selection_score': '0.2966', 'eval_selection_accuracy_value': '0.7867', 'eval_nll': '0.5094', 'eval_brier': '0.3286', 'eval_ece': '0.1246', 'eval_auroc': '0.8794', 'eval_auprc': '0.8862', 'eval_runtime': '3.031', 'eval_samples_per_second': '98.97', 'eval_steps_per_second': '6.268', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42/checkpoint-33/preprocessor_config.json
+{'loss': '0.4836', 'grad_norm': '1.407', 'learning_rate': '9.998e-05', 'epoch': '1.212'}
+{'loss': '0.3616', 'grad_norm': '2.402', 'learning_rate': '9.984e-05', 'epoch': '1.515'}
+{'loss': '0.322', 'grad_norm': '2.06', 'learning_rate': '9.958e-05', 'epoch': '1.818'}
+{'eval_loss': '0.2587', 'eval_accuracy': '0.8967', 'eval_f1': '0.8967', 'eval_balanced_accuracy': '0.8967', 'eval_macro_f1': '0.8967', 'eval_atc': '1.053', 'eval_normalized_atc': '0.05267', 'eval_target_recall': '0.9', 'eval_target_fnr': '0.1', 'eval_selection_score': '0.06267', 'eval_selection_accuracy_value': '0.8967', 'eval_nll': '0.2587', 'eval_brier': '0.1569', 'eval_ece': '0.0348', 'eval_auroc': '0.9631', 'eval_auprc': '0.9661', 'eval_runtime': '1.98', 'eval_samples_per_second': '151.5', 'eval_steps_per_second': '9.594', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42/checkpoint-66/preprocessor_config.json
+{'loss': '0.235', 'grad_norm': '3.338', 'learning_rate': '9.919e-05', 'epoch': '2.121'}
+{'loss': '0.283', 'grad_norm': '1.939', 'learning_rate': '9.868e-05', 'epoch': '2.424'}
+{'loss': '0.2296', 'grad_norm': '2.98', 'learning_rate': '9.804e-05', 'epoch': '2.727'}
+{'eval_loss': '0.2279', 'eval_accuracy': '0.9', 'eval_f1': '0.9', 'eval_balanced_accuracy': '0.9', 'eval_macro_f1': '0.9', 'eval_atc': '1.113', 'eval_normalized_atc': '0.05567', 'eval_target_recall': '0.8933', 'eval_target_fnr': '0.1067', 'eval_selection_score': '0.06851', 'eval_selection_accuracy_value': '0.9', 'eval_nll': '0.2279', 'eval_brier': '0.1426', 'eval_ece': '0.03821', 'eval_auroc': '0.9707', 'eval_auprc': '0.9702', 'eval_runtime': '1.972', 'eval_samples_per_second': '152.1', 'eval_steps_per_second': '9.635', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42/checkpoint-99/preprocessor_config.json
+{'loss': '0.2171', 'grad_norm': '2.082', 'learning_rate': '9.729e-05', 'epoch': '3.03'}
+{'loss': '0.1627', 'grad_norm': '2.155', 'learning_rate': '9.642e-05', 'epoch': '3.333'}
+{'loss': '0.221', 'grad_norm': '5.027', 'learning_rate': '9.543e-05', 'epoch': '3.636'}
+{'loss': '0.184', 'grad_norm': '3.82', 'learning_rate': '9.433e-05', 'epoch': '3.939'}
+{'eval_loss': '0.197', 'eval_accuracy': '0.92', 'eval_f1': '0.9199', 'eval_balanced_accuracy': '0.92', 'eval_macro_f1': '0.9199', 'eval_atc': '1.157', 'eval_normalized_atc': '0.05783', 'eval_target_recall': '0.8867', 'eval_target_fnr': '0.1133', 'eval_selection_score': '0.07388', 'eval_selection_accuracy_value': '0.92', 'eval_nll': '0.197', 'eval_brier': '0.1242', 'eval_ece': '0.04242', 'eval_auroc': '0.982', 'eval_auprc': '0.9829', 'eval_runtime': '2.254', 'eval_samples_per_second': '133.1', 'eval_steps_per_second': '8.428', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42/checkpoint-132/preprocessor_config.json
+{'loss': '0.1315', 'grad_norm': '3.313', 'learning_rate': '9.311e-05', 'epoch': '4.242'}
+{'loss': '0.1641', 'grad_norm': '2.588', 'learning_rate': '9.179e-05', 'epoch': '4.545'}
+{'loss': '0.1567', 'grad_norm': '6.667', 'learning_rate': '9.036e-05', 'epoch': '4.848'}
+{'eval_loss': '0.3385', 'eval_accuracy': '0.8767', 'eval_f1': '0.8752', 'eval_balanced_accuracy': '0.8767', 'eval_macro_f1': '0.8752', 'eval_atc': '0.25', 'eval_normalized_atc': '0.0125', 'eval_target_recall': '0.9867', 'eval_target_fnr': '0.01333', 'eval_selection_score': '0.0125', 'eval_selection_accuracy_value': '0.8767', 'eval_nll': '0.3385', 'eval_brier': '0.1914', 'eval_ece': '0.07952', 'eval_auroc': '0.9776', 'eval_auprc': '0.9791', 'eval_runtime': '1.981', 'eval_samples_per_second': '151.4', 'eval_steps_per_second': '9.589', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42/checkpoint-165/preprocessor_config.json
+{'loss': '0.1671', 'grad_norm': '4.701', 'learning_rate': '8.883e-05', 'epoch': '5.152'}
+{'loss': '0.1085', 'grad_norm': '3.185', 'learning_rate': '8.721e-05', 'epoch': '5.455'}
+{'loss': '0.1244', 'grad_norm': '5.985', 'learning_rate': '8.549e-05', 'epoch': '5.758'}
+{'eval_loss': '0.2182', 'eval_accuracy': '0.9067', 'eval_f1': '0.9066', 'eval_balanced_accuracy': '0.9067', 'eval_macro_f1': '0.9066', 'eval_atc': '0.7267', 'eval_normalized_atc': '0.03633', 'eval_target_recall': '0.9333', 'eval_target_fnr': '0.06667', 'eval_selection_score': '0.03744', 'eval_selection_accuracy_value': '0.9067', 'eval_nll': '0.2182', 'eval_brier': '0.13', 'eval_ece': '0.05684', 'eval_auroc': '0.9788', 'eval_auprc': '0.9799', 'eval_runtime': '2.134', 'eval_samples_per_second': '140.6', 'eval_steps_per_second': '8.903', 'epoch': '6'}
+CustomImageProcessor configuration saved to checkpoints/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42/checkpoint-198/preprocessor_config.json
+{'loss': '0.1569', 'grad_norm': '3.384', 'learning_rate': '8.368e-05', 'epoch': '6.061'}
+{'loss': '0.1021', 'grad_norm': '1.752', 'learning_rate': '8.179e-05', 'epoch': '6.364'}
+{'loss': '0.1204', 'grad_norm': '4.294', 'learning_rate': '7.981e-05', 'epoch': '6.667'}
+{'loss': '0.1111', 'grad_norm': '1.303', 'learning_rate': '7.777e-05', 'epoch': '6.97'}
+{'eval_loss': '0.1837', 'eval_accuracy': '0.9367', 'eval_f1': '0.9367', 'eval_balanced_accuracy': '0.9367', 'eval_macro_f1': '0.9367', 'eval_atc': '0.6967', 'eval_normalized_atc': '0.03483', 'eval_target_recall': '0.9333', 'eval_target_fnr': '0.06667', 'eval_selection_score': '0.03594', 'eval_selection_accuracy_value': '0.9367', 'eval_nll': '0.1837', 'eval_brier': '0.1033', 'eval_ece': '0.0386', 'eval_auroc': '0.9838', 'eval_auprc': '0.985', 'eval_runtime': '2.446', 'eval_samples_per_second': '122.7', 'eval_steps_per_second': '7.77', 'epoch': '7'}
+CustomImageProcessor configuration saved to checkpoints/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42/checkpoint-231/preprocessor_config.json
+{'loss': '0.08967', 'grad_norm': '5.23', 'learning_rate': '7.565e-05', 'epoch': '7.273'}
+{'loss': '0.1014', 'grad_norm': '1.495', 'learning_rate': '7.347e-05', 'epoch': '7.576'}
+{'loss': '0.1058', 'grad_norm': '6.58', 'learning_rate': '7.123e-05', 'epoch': '7.879'}
+{'eval_loss': '0.26', 'eval_accuracy': '0.91', 'eval_f1': '0.9097', 'eval_balanced_accuracy': '0.91', 'eval_macro_f1': '0.9097', 'eval_atc': '0.4067', 'eval_normalized_atc': '0.02033', 'eval_target_recall': '0.9667', 'eval_target_fnr': '0.03333', 'eval_selection_score': '0.02033', 'eval_selection_accuracy_value': '0.91', 'eval_nll': '0.26', 'eval_brier': '0.1386', 'eval_ece': '0.04951', 'eval_auroc': '0.9808', 'eval_auprc': '0.982', 'eval_runtime': '2.069', 'eval_samples_per_second': '145', 'eval_steps_per_second': '9.181', 'epoch': '8'}
+CustomImageProcessor configuration saved to checkpoints/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42/checkpoint-264/preprocessor_config.json
+{'train_runtime': '83.56', 'train_samples_per_second': '502.2', 'train_steps_per_second': '7.899', 'train_loss': '0.2386', 'epoch': '8'}
+***** train metrics *****
+  epoch                    =         8.0
+  total_flos               = 392778109GF
+  train_loss               =      0.2386
+  train_runtime            =  0:01:23.55
+  train_samples_per_second =     502.173
+  train_steps_per_second   =       7.899
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/convnext_test/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42_04-29_00-59
+Saving run configuration...
+Run configuration saved to: results/convnext_test/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42_04-29_00-59/run_configuration_20260429_005946.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/convnext_test/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42_04-29_00-59/metrics_20260429_005954_ce_calibrated_cost_min.json and results/convnext_test/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42_04-29_00-59/metrics_20260429_005954_ce_calibrated_cost_min.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/convnext_test/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42_04-29_00-59/confusion_matrix_20260429_005954_ce_calibrated_cost_min.png and results/convnext_test/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42_04-29_00-59/confusion_matrix_20260429_005954_ce_calibrated_cost_min.pdf
+Detailed confusion matrix saved to: results/convnext_test/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42_04-29_00-59/confusion_matrix_detailed_20260429_005954_ce_calibrated_cost_min.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/convnext_test/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42_04-29_00-59
+Overall Accuracy: 0.9133
+Balanced Accuracy: 0.9133
+Overall F1 Score: 0.9131
+Kappa: 0.8267
+AUC: 0.9772
+Expected Cost: 0.4033
+Loss Function Used: ce_calibrated_cost_min
+Total Test Samples: 300
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/convnext_test/stop4b_cost_ratio_spider_convnext_spider_balanced_costr20_convnext_ce_calibrated_cost_min_seed42_04-29_00-59
+============================================================

@@ -1,0 +1,9 @@
+[2026-04-28T16:07:14-07:00] Starting Stop 3B imbalance decoupling
+Wrote 108 Stop 3 configs to results/stop3b_imbalance_decoupling
+[2026-04-28T17:49:07-07:00] launcher exit code: 0
+[2026-04-28T17:49:12-07:00] Resuming Stop 3B until all manifest rows are complete
+Manifest rows: 108; successful: 73; missing to run: 35
+[2026-04-28T21:45:07-07:00] Stop 3B resume completed; starting Stop 4A backbone ablation
+Wrote 36 Stop 3 configs to results/stop4a_backbone_ablation
+[2026-04-28T23:25:25-07:00] Stop 4A completed
+[2026-04-28T23:25:25-07:00] resume launcher exit code: 0

@@ -1,0 +1,45 @@
+{
+  "run_info": {
+    "timestamp": "20260127_072850",
+    "output_directory": "results/resnet_test/resnet_run_01-27_07-28"
+  },
+  "model_configuration": {
+    "model": "microsoft/resnet-50",
+    "weights": "weights/pytorch_model.bin",
+    "num_labels": 2
+  },
+  "dataset_configuration": {
+    "dataset_host": "local_folder",
+    "dataset": "local_black_widows",
+    "dataset_location": "data/2_class_black_widows",
+    "local_dataset_name": null,
+    "local_folder_path": "data/2_class_black_widows",
+    "local_dataset_format": "folder"
+  },
+  "training_parameters": {
+    "batch_size": 32,
+    "learning_rate": 0.0003,
+    "num_train_epochs": 30,
+    "loss_function": "logit_adjustment"
+  },
+  "cost_matrix_configuration": {
+    "cost_matrix": [
+      [
+        0.0,
+        9.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "sweep_mode": false,
+    "sweep_cost_value": null,
+    "sweep_matrix_row": null,
+    "sweep_matrix_col": null
+  },
+  "other_settings": {
+    "wandb_enabled": "False",
+    "push_to_hub": "False"
+  }
+}

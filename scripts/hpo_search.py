@@ -151,6 +151,7 @@ def main():
         cost_matrix=script_args.cost_matrix,
         class_priors=class_priors,
         logit_adjustment_tau=getattr(script_args, "logit_adjustment_tau", 1.0),
+        nicme_logit_cost_scale=getattr(script_args, "nicme_logit_cost_scale", 1.0),
         model=None,
         model_init=model_init,
         args=training_args,

@@ -1,0 +1,248 @@
+{
+  "phase": "stop2c_nicme_frontier",
+  "purpose": "Focused NICME frontier pass around Stop 2A/2B best settings.",
+  "runs": [
+    {
+      "index": 1,
+      "tag": "spider_vit_logit_s0.55",
+      "config": "results/stop2c_nicme_frontier/configs/001_stop2c_frontier_spider_vit_logit_s0.55.json",
+      "output_dir": "stop2c_frontier_spider_vit_logit_s0.55",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.55,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 2,
+      "tag": "spider_vit_logit_s0.6",
+      "config": "results/stop2c_nicme_frontier/configs/002_stop2c_frontier_spider_vit_logit_s0.6.json",
+      "output_dir": "stop2c_frontier_spider_vit_logit_s0.6",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.6,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 3,
+      "tag": "spider_vit_logit_s0.65",
+      "config": "results/stop2c_nicme_frontier/configs/003_stop2c_frontier_spider_vit_logit_s0.65.json",
+      "output_dir": "stop2c_frontier_spider_vit_logit_s0.65",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.65,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 4,
+      "tag": "spider_vit_logit_s0.7",
+      "config": "results/stop2c_nicme_frontier/configs/004_stop2c_frontier_spider_vit_logit_s0.7.json",
+      "output_dir": "stop2c_frontier_spider_vit_logit_s0.7",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.7,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 5,
+      "tag": "spider_vit_logit_s0.8",
+      "config": "results/stop2c_nicme_frontier/configs/005_stop2c_frontier_spider_vit_logit_s0.8.json",
+      "output_dir": "stop2c_frontier_spider_vit_logit_s0.8",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.8,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 6,
+      "tag": "spider_vit_logit_s0.9",
+      "config": "results/stop2c_nicme_frontier/configs/006_stop2c_frontier_spider_vit_logit_s0.9.json",
+      "output_dir": "stop2c_frontier_spider_vit_logit_s0.9",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.9,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 7,
+      "tag": "spider_vit_logit_s1",
+      "config": "results/stop2c_nicme_frontier/configs/007_stop2c_frontier_spider_vit_logit_s1.json",
+      "output_dir": "stop2c_frontier_spider_vit_logit_s1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 8,
+      "tag": "spider_vit_hybrid_s0.35_l0.25",
+      "config": "results/stop2c_nicme_frontier/configs/008_stop2c_frontier_spider_vit_hybrid_s0.35_l0.25.json",
+      "output_dir": "stop2c_frontier_spider_vit_hybrid_s0.35_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.35,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 9,
+      "tag": "spider_vit_hybrid_s0.5_l0.25",
+      "config": "results/stop2c_nicme_frontier/configs/009_stop2c_frontier_spider_vit_hybrid_s0.5_l0.25.json",
+      "output_dir": "stop2c_frontier_spider_vit_hybrid_s0.5_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.5,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 10,
+      "tag": "spider_vit_hybrid_s0.6_l0.25",
+      "config": "results/stop2c_nicme_frontier/configs/010_stop2c_frontier_spider_vit_hybrid_s0.6_l0.25.json",
+      "output_dir": "stop2c_frontier_spider_vit_hybrid_s0.6_l0.25",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.6,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 11,
+      "tag": "spider_vit_hybrid_s0.5_l0.1",
+      "config": "results/stop2c_nicme_frontier/configs/011_stop2c_frontier_spider_vit_hybrid_s0.5_l0.1.json",
+      "output_dir": "stop2c_frontier_spider_vit_hybrid_s0.5_l0.1",
+      "dataset": "spider_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    },
+    {
+      "index": 12,
+      "tag": "breakhis_vit_hybrid_s0.3_l0.25",
+      "config": "results/stop2c_nicme_frontier/configs/012_stop2c_frontier_breakhis_vit_hybrid_s0.3_l0.25.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_hybrid_s0.3_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.3,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 13,
+      "tag": "breakhis_vit_hybrid_s0.5_l0.25",
+      "config": "results/stop2c_nicme_frontier/configs/013_stop2c_frontier_breakhis_vit_hybrid_s0.5_l0.25.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_hybrid_s0.5_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.5,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 14,
+      "tag": "breakhis_vit_hybrid_s0.75_l0.25",
+      "config": "results/stop2c_nicme_frontier/configs/014_stop2c_frontier_breakhis_vit_hybrid_s0.75_l0.25.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_hybrid_s0.75_l0.25",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.75,
+      "cs_lambda": 0.25
+    },
+    {
+      "index": 15,
+      "tag": "breakhis_vit_hybrid_s0.3_l0.5",
+      "config": "results/stop2c_nicme_frontier/configs/015_stop2c_frontier_breakhis_vit_hybrid_s0.3_l0.5.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_hybrid_s0.3_l0.5",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.3,
+      "cs_lambda": 0.5
+    },
+    {
+      "index": 16,
+      "tag": "breakhis_vit_hybrid_s0.5_l0.5",
+      "config": "results/stop2c_nicme_frontier/configs/016_stop2c_frontier_breakhis_vit_hybrid_s0.5_l0.5.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_hybrid_s0.5_l0.5",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.5,
+      "cs_lambda": 0.5
+    },
+    {
+      "index": 17,
+      "tag": "breakhis_vit_hybrid_s0.1_l0.5",
+      "config": "results/stop2c_nicme_frontier/configs/017_stop2c_frontier_breakhis_vit_hybrid_s0.1_l0.5.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_hybrid_s0.1_l0.5",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.1,
+      "cs_lambda": 0.5
+    },
+    {
+      "index": 18,
+      "tag": "breakhis_vit_hybrid_s0.2_l0.5",
+      "config": "results/stop2c_nicme_frontier/configs/018_stop2c_frontier_breakhis_vit_hybrid_s0.2_l0.5.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_hybrid_s0.2_l0.5",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "scale": 0.2,
+      "cs_lambda": 0.5
+    },
+    {
+      "index": 19,
+      "tag": "breakhis_vit_logit_s0.3",
+      "config": "results/stop2c_nicme_frontier/configs/019_stop2c_frontier_breakhis_vit_logit_s0.3.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_logit_s0.3",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.3,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 20,
+      "tag": "breakhis_vit_logit_s0.5",
+      "config": "results/stop2c_nicme_frontier/configs/020_stop2c_frontier_breakhis_vit_logit_s0.5.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_logit_s0.5",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.5,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 21,
+      "tag": "breakhis_vit_logit_s0.75",
+      "config": "results/stop2c_nicme_frontier/configs/021_stop2c_frontier_breakhis_vit_logit_s0.75.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_logit_s0.75",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 0.75,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 22,
+      "tag": "breakhis_vit_logit_s1",
+      "config": "results/stop2c_nicme_frontier/configs/022_stop2c_frontier_breakhis_vit_logit_s1.json",
+      "output_dir": "stop2c_frontier_breakhis_vit_logit_s1",
+      "dataset": "breakhis_balanced_prototype",
+      "model_type": "vit",
+      "method": "nicme_logit_adjustment",
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    }
+  ]
+}

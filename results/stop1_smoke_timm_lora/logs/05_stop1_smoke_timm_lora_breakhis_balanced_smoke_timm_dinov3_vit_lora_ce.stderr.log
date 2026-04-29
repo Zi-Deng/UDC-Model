@@ -1,0 +1,13 @@
+warmup_ratio is deprecated and will be removed in v5.2. Use `warmup_steps` instead.
+  0%|          | 0/3 [00:00<?, ?it/s] 33%|███▎      | 1/3 [00:00<00:00,  2.18it/s] 67%|██████▋   | 2/3 [00:00<00:00,  3.02it/s]100%|██████████| 3/3 [00:00<00:00,  3.69it/s]
+  0%|          | 0/3 [00:00<?, ?it/s][A                                             
+                                     [A100%|██████████| 3/3 [00:02<00:00,  3.69it/s]
+100%|██████████| 3/3 [00:01<00:00,  1.64it/s][A
+                                             [A                                             100%|██████████| 3/3 [00:02<00:00,  3.69it/s]100%|██████████| 3/3 [00:02<00:00,  1.05it/s]
+  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:01<00:00,  1.75it/s]
+  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:01<00:00,  1.90it/s]
+  0%|          | 0/3 [00:00<?, ?it/s]100%|██████████| 3/3 [00:01<00:00,  2.27it/s]
+/home/zi/Work/github/UDC-Model/utils/utils.py:720: RuntimeWarning: invalid value encountered in divide
+  cm_precision = cm.astype("float") / cm.sum(axis=0)[np.newaxis, :]
+/home/zi/Work/github/UDC-Model/utils/utils.py:771: RuntimeWarning: invalid value encountered in divide
+  precision_per_class = np.diag(cm) / np.sum(cm, axis=0)

@@ -1,0 +1,55 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=hf_auto type=vit with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.6546', 'eval_accuracy': '0.6562', 'eval_f1': '0.6333', 'eval_balanced_accuracy': '0.6562', 'eval_macro_f1': '0.6333', 'eval_atc': '3.016', 'eval_normalized_atc': '0.3016', 'eval_target_recall': '0.4062', 'eval_target_fnr': '0.5938', 'eval_selection_score': '1.505', 'eval_selection_accuracy_value': '0.6562', 'eval_nll': '0.6546', 'eval_brier': '0.4618', 'eval_ece': '0.112', 'eval_auroc': '0.7881', 'eval_auprc': '0.8089', 'eval_runtime': '1.52', 'eval_samples_per_second': '42.11', 'eval_steps_per_second': '2.632', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2_prototype_spider_balanced_prototype_vit_ce/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.5754', 'eval_accuracy': '0.7812', 'eval_f1': '0.7793', 'eval_balanced_accuracy': '0.7812', 'eval_macro_f1': '0.7793', 'eval_atc': '1.625', 'eval_normalized_atc': '0.1625', 'eval_target_recall': '0.6875', 'eval_target_fnr': '0.3125', 'eval_selection_score': '0.4385', 'eval_selection_accuracy_value': '0.7812', 'eval_nll': '0.5754', 'eval_brier': '0.3855', 'eval_ece': '0.2146', 'eval_auroc': '0.9014', 'eval_auprc': '0.8989', 'eval_runtime': '1.901', 'eval_samples_per_second': '33.67', 'eval_steps_per_second': '2.104', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2_prototype_spider_balanced_prototype_vit_ce/checkpoint-8/preprocessor_config.json
+{'loss': '2.472', 'grad_norm': '3.439', 'learning_rate': '6.227e-05', 'epoch': '2.5'}
+{'eval_loss': '0.5211', 'eval_accuracy': '0.7812', 'eval_f1': '0.7778', 'eval_balanced_accuracy': '0.7812', 'eval_macro_f1': '0.7778', 'eval_atc': '1.766', 'eval_normalized_atc': '0.1766', 'eval_target_recall': '0.6562', 'eval_target_fnr': '0.3438', 'eval_selection_score': '0.5221', 'eval_selection_accuracy_value': '0.7812', 'eval_nll': '0.5211', 'eval_brier': '0.3367', 'eval_ece': '0.2089', 'eval_auroc': '0.9111', 'eval_auprc': '0.9108', 'eval_runtime': '1.843', 'eval_samples_per_second': '34.72', 'eval_steps_per_second': '2.17', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2_prototype_spider_balanced_prototype_vit_ce/checkpoint-12/preprocessor_config.json
+{'eval_loss': '0.4915', 'eval_accuracy': '0.7656', 'eval_f1': '0.7642', 'eval_balanced_accuracy': '0.7656', 'eval_macro_f1': '0.7642', 'eval_atc': '1.641', 'eval_normalized_atc': '0.1641', 'eval_target_recall': '0.6875', 'eval_target_fnr': '0.3125', 'eval_selection_score': '0.4409', 'eval_selection_accuracy_value': '0.7656', 'eval_nll': '0.4915', 'eval_brier': '0.3114', 'eval_ece': '0.2017', 'eval_auroc': '0.9189', 'eval_auprc': '0.9227', 'eval_runtime': '1.916', 'eval_samples_per_second': '33.4', 'eval_steps_per_second': '2.087', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop2_prototype_spider_balanced_prototype_vit_ce/checkpoint-16/preprocessor_config.json
+{'train_runtime': '13.87', 'train_samples_per_second': '92.3', 'train_steps_per_second': '1.442', 'train_loss': '2.22', 'epoch': '4'}
+***** train metrics *****
+  epoch                    =        4.0
+  total_flos               = 73902120GF
+  train_loss               =     2.2204
+  train_runtime            = 0:00:13.86
+  train_samples_per_second =     92.302
+  train_steps_per_second   =      1.442
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/vit_test/stop2_prototype_spider_balanced_prototype_vit_ce_04-28_05-25
+Saving run configuration...
+Run configuration saved to: results/vit_test/stop2_prototype_spider_balanced_prototype_vit_ce_04-28_05-25/run_configuration_20260428_052507.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/vit_test/stop2_prototype_spider_balanced_prototype_vit_ce_04-28_05-25/metrics_20260428_052513_ce.json and results/vit_test/stop2_prototype_spider_balanced_prototype_vit_ce_04-28_05-25/metrics_20260428_052513_ce.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/vit_test/stop2_prototype_spider_balanced_prototype_vit_ce_04-28_05-25/confusion_matrix_20260428_052513_ce.png and results/vit_test/stop2_prototype_spider_balanced_prototype_vit_ce_04-28_05-25/confusion_matrix_20260428_052513_ce.pdf
+Detailed confusion matrix saved to: results/vit_test/stop2_prototype_spider_balanced_prototype_vit_ce_04-28_05-25/confusion_matrix_detailed_20260428_052513_ce.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/vit_test/stop2_prototype_spider_balanced_prototype_vit_ce_04-28_05-25
+Overall Accuracy: 0.8125
+Balanced Accuracy: 0.8125
+Overall F1 Score: 0.8108
+Kappa: 0.6250
+AUC: 0.9336
+Expected Cost: 1.4531
+Loss Function Used: ce
+Total Test Samples: 64
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/vit_test/stop2_prototype_spider_balanced_prototype_vit_ce_04-28_05-25
+============================================================

@@ -1,0 +1,226 @@
+[
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "convnext",
+    "method": "ce",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_convnext_ce.json",
+    "name": "stop2_prototype_spider_balanced_prototype_convnext_ce"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "convnext",
+    "method": "ce_calibrated_cost_min",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_convnext_ce_calibrated_cost_min.json",
+    "name": "stop2_prototype_spider_balanced_prototype_convnext_ce_calibrated_cost_min"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "convnext",
+    "method": "menon_logit_adjusted",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_convnext_menon_logit_adjusted.json",
+    "name": "stop2_prototype_spider_balanced_prototype_convnext_menon_logit_adjusted"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "convnext",
+    "method": "nicme_hybrid",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_convnext_nicme_hybrid.json",
+    "name": "stop2_prototype_spider_balanced_prototype_convnext_nicme_hybrid"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "vit",
+    "method": "ce",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_vit_ce.json",
+    "name": "stop2_prototype_spider_balanced_prototype_vit_ce"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "vit",
+    "method": "ce_calibrated_cost_min",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_vit_ce_calibrated_cost_min.json",
+    "name": "stop2_prototype_spider_balanced_prototype_vit_ce_calibrated_cost_min"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "vit",
+    "method": "menon_logit_adjusted",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_vit_menon_logit_adjusted.json",
+    "name": "stop2_prototype_spider_balanced_prototype_vit_menon_logit_adjusted"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "vit",
+    "method": "nicme_hybrid",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_vit_nicme_hybrid.json",
+    "name": "stop2_prototype_spider_balanced_prototype_vit_nicme_hybrid"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "ce",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_ce.json",
+    "name": "stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_ce"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "ce_calibrated_cost_min",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_ce_calibrated_cost_min.json",
+    "name": "stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_ce_calibrated_cost_min"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "menon_logit_adjusted",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_menon_logit_adjusted.json",
+    "name": "stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_menon_logit_adjusted"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "nicme_hybrid",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid.json",
+    "name": "stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "ce",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_timm_dinov3_convnext_lora_ce.json",
+    "name": "stop2_prototype_spider_balanced_prototype_timm_dinov3_convnext_lora_ce"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "ce_calibrated_cost_min",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_timm_dinov3_convnext_lora_ce_calibrated_cost_min.json",
+    "name": "stop2_prototype_spider_balanced_prototype_timm_dinov3_convnext_lora_ce_calibrated_cost_min"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "menon_logit_adjusted",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_timm_dinov3_convnext_lora_menon_logit_adjusted.json",
+    "name": "stop2_prototype_spider_balanced_prototype_timm_dinov3_convnext_lora_menon_logit_adjusted"
+  },
+  {
+    "dataset": "spider_balanced_prototype",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "nicme_hybrid",
+    "config": "results/stop2_prototype/configs/stop2_prototype_spider_balanced_prototype_timm_dinov3_convnext_lora_nicme_hybrid.json",
+    "name": "stop2_prototype_spider_balanced_prototype_timm_dinov3_convnext_lora_nicme_hybrid"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "convnext",
+    "method": "ce",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_convnext_ce.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_convnext_ce"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "convnext",
+    "method": "ce_calibrated_cost_min",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_convnext_ce_calibrated_cost_min.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_convnext_ce_calibrated_cost_min"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "convnext",
+    "method": "menon_logit_adjusted",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_convnext_menon_logit_adjusted.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_convnext_menon_logit_adjusted"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "convnext",
+    "method": "nicme_hybrid",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_convnext_nicme_hybrid"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "vit",
+    "method": "ce",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_vit_ce.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_vit_ce"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "vit",
+    "method": "ce_calibrated_cost_min",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_vit_ce_calibrated_cost_min.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_vit_ce_calibrated_cost_min"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "vit",
+    "method": "menon_logit_adjusted",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_vit_menon_logit_adjusted.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_vit_menon_logit_adjusted"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "vit",
+    "method": "nicme_hybrid",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_vit_nicme_hybrid.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_vit_nicme_hybrid"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "ce",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_timm_dinov3_vit_lora_ce.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_timm_dinov3_vit_lora_ce"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "ce_calibrated_cost_min",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_timm_dinov3_vit_lora_ce_calibrated_cost_min.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_timm_dinov3_vit_lora_ce_calibrated_cost_min"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "menon_logit_adjusted",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_timm_dinov3_vit_lora_menon_logit_adjusted.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_timm_dinov3_vit_lora_menon_logit_adjusted"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "nicme_hybrid",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "ce",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_timm_dinov3_convnext_lora_ce.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_timm_dinov3_convnext_lora_ce"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "ce_calibrated_cost_min",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_timm_dinov3_convnext_lora_ce_calibrated_cost_min.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_timm_dinov3_convnext_lora_ce_calibrated_cost_min"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "menon_logit_adjusted",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_timm_dinov3_convnext_lora_menon_logit_adjusted.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_timm_dinov3_convnext_lora_menon_logit_adjusted"
+  },
+  {
+    "dataset": "breakhis_balanced_prototype",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "nicme_hybrid",
+    "config": "results/stop2_prototype/configs/stop2_prototype_breakhis_balanced_prototype_timm_dinov3_convnext_lora_nicme_hybrid.json",
+    "name": "stop2_prototype_breakhis_balanced_prototype_timm_dinov3_convnext_lora_nicme_hybrid"
+  }
+]

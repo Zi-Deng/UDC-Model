@@ -25,14 +25,13 @@ from sklearn.metrics import balanced_accuracy_score, cohen_kappa_score, roc_auc_
 from sklearn.model_selection import train_test_split
 from transformers import HfArgumentParser
 
+from nicme.calibration import binary_threshold_predictions, fit_binary_threshold_np, fit_temperature_np
 from nicme.costs import (
-    CostMatrix,
     classification_metrics,
     cost_min_predictions,
     resolve_class_id,
     softmax_np,
 )
-from nicme.calibration import fit_temperature_np
 from utils.image_processor import CustomImageProcessor
 
 # Try to import visualization libraries (they might not be installed)
@@ -223,10 +222,10 @@ def validate_training_config(config):
 
     if model_backend == "custom" and model_type not in {"resnet", "convnext"}:
         raise ValueError(f"Unsupported model_type: {model_type}. Supported types are 'resnet' and 'convnext'.")
-    if model_backend not in {"custom", "hf_auto", "hf_backbone", "dinov3_feature"}:
+    if model_backend not in {"custom", "hf_auto", "hf_backbone", "dinov3_feature", "timm"}:
         raise ValueError(
             f"Unsupported model_backend: {model_backend}. "
-            "Supported backends are 'custom', 'hf_auto', 'hf_backbone', and 'dinov3_feature'."
+            "Supported backends are 'custom', 'hf_auto', 'hf_backbone', 'dinov3_feature', and 'timm'."
         )
     if selection_accuracy_metric not in {"accuracy", "balanced_accuracy", "balanced_acc", "bacc"}:
         raise ValueError("selection_accuracy_metric must be 'accuracy' or 'balanced_accuracy'.")
@@ -385,6 +384,10 @@ class ScriptTrainingArguments:
     )
     baseline_atc: float | None = field(default=None, metadata={"help": "Baseline ATC for CRR reporting"})
     logit_adjustment_tau: float = field(default=1.0, metadata={"help": "Tau for Menon prior-logit adjustment"})
+    nicme_logit_cost_scale: float = field(
+        default=1.0,
+        metadata={"help": "Scale applied to raw cost values inside NICME logit adjustment losses"},
+    )
     seed: int = field(default=42, metadata={"help": "Random seed"})
     calibration_enabled: bool = field(default=False, metadata={"help": "Enable calibration split evaluation"})
     decision_modes: str = field(default="argmax,calibrated_cost_min", metadata={"help": "Comma-separated modes"})
@@ -394,6 +397,8 @@ class ScriptTrainingArguments:
     peft_dropout: float = field(default=0.1, metadata={"help": "LoRA dropout"})
     peft_target_modules: str | None = field(default=None, metadata={"help": "Comma-separated LoRA target modules"})
     peft_modules_to_save: str | None = field(default=None, metadata={"help": "Comma-separated trainable modules to save"})
+    timm_pretrained: bool = field(default=True, metadata={"help": "Load pretrained weights for timm backends"})
+    save_total_limit: int = field(default=1, metadata={"help": "Maximum checkpoints to retain per run"})
 
 
 def preprocess_hf_dataset(dataset_name, model_name):
@@ -983,25 +988,63 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
         decision_modes = {
             mode.strip() for mode in str(getattr(script_args, "decision_modes", "argmax")).split(",") if mode.strip()
         }
-        if calibration_ds is not None and "calibrated_cost_min" in decision_modes:
+        if calibration_ds is not None and (
+            "calibrated_cost_min" in decision_modes or "calibrated_threshold" in decision_modes
+        ):
             calibration_predictions = trainer.predict(calibration_ds)
             calibration_result = fit_temperature_np(calibration_predictions.predictions, calibration_predictions.label_ids)
+            calibration_probs = softmax_np(calibration_predictions.predictions, calibration_result.temperature)
             calibrated_probs = softmax_np(predictions.predictions, calibration_result.temperature)
-            calibrated_cost_pred = cost_min_predictions(calibrated_probs, cost_matrix_cfg)
-            calibrated_report = classification_metrics(
-                y_true,
-                calibrated_cost_pred,
-                calibrated_probs,
-                cost_matrix_cfg,
-                target_class_id=target_class_id,
-                target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
-                accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
-                selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
-            )
-            calibrated_report["temperature"] = calibration_result.temperature
-            calibrated_report["calibration_nll_before"] = calibration_result.nll_before
-            calibrated_report["calibration_nll_after"] = calibration_result.nll_after
-            decision_reports["calibrated_cost_min"] = calibrated_report
+            if "calibrated_cost_min" in decision_modes:
+                calibrated_cost_pred = cost_min_predictions(calibrated_probs, cost_matrix_cfg)
+                calibrated_report = classification_metrics(
+                    y_true,
+                    calibrated_cost_pred,
+                    calibrated_probs,
+                    cost_matrix_cfg,
+                    target_class_id=target_class_id,
+                    target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
+                    accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
+                    selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
+                )
+                calibrated_report["temperature"] = calibration_result.temperature
+                calibrated_report["calibration_nll_before"] = calibration_result.nll_before
+                calibrated_report["calibration_nll_after"] = calibration_result.nll_after
+                decision_reports["calibrated_cost_min"] = calibrated_report
+            if "calibrated_threshold" in decision_modes:
+                threshold_result = fit_binary_threshold_np(
+                    calibration_probs,
+                    calibration_predictions.label_ids,
+                    cost_matrix_cfg,
+                    target_class_id=target_class_id,
+                    target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
+                    accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
+                    selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
+                )
+                threshold_pred = binary_threshold_predictions(
+                    calibrated_probs,
+                    threshold_result.threshold,
+                    target_class_id=target_class_id,
+                )
+                threshold_report = classification_metrics(
+                    y_true,
+                    threshold_pred,
+                    calibrated_probs,
+                    cost_matrix_cfg,
+                    target_class_id=target_class_id,
+                    target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
+                    accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
+                    selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
+                )
+                threshold_report["temperature"] = calibration_result.temperature
+                threshold_report["threshold"] = threshold_result.threshold
+                threshold_report["calibration_selection_score"] = threshold_result.selection_score
+                threshold_report["calibration_target_recall"] = threshold_result.target_recall
+                threshold_report["calibration_accuracy"] = threshold_result.accuracy
+                threshold_report["calibration_normalized_atc"] = threshold_result.normalized_atc
+                threshold_report["calibration_nll_before"] = calibration_result.nll_before
+                threshold_report["calibration_nll_after"] = calibration_result.nll_after
+                decision_reports["calibrated_threshold"] = threshold_report
     else:
         expected_cost = 0.0
 

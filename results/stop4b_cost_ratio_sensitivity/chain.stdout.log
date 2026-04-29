@@ -1,0 +1,3 @@
+[2026-04-28T23:32:42-07:00] Starting Stop 4B spider ConvNeXt cost-ratio queue
+Wrote 45 Stop 4B configs to results/stop4b_cost_ratio_sensitivity/spider_convnext
+[2026-04-28T23:32:42-07:00] Spider queue exit code: 1

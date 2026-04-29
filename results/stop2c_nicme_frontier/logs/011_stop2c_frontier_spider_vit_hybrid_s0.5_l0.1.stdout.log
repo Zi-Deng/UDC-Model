@@ -1,0 +1,53 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=hf_auto type=vit with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.7733', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.14', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.6872', 'eval_brier': '0.4943', 'eval_ece': '0.05887', 'eval_auroc': '0.6641', 'eval_auprc': '0.6107', 'eval_runtime': '1.932', 'eval_samples_per_second': '33.12', 'eval_steps_per_second': '2.07', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.8638', 'eval_accuracy': '0.6875', 'eval_f1': '0.6718', 'eval_balanced_accuracy': '0.6875', 'eval_macro_f1': '0.6718', 'eval_atc': '2.703', 'eval_normalized_atc': '0.2703', 'eval_target_recall': '0.4688', 'eval_target_fnr': '0.5312', 'eval_selection_score': '1.209', 'eval_selection_accuracy_value': '0.6875', 'eval_nll': '0.656', 'eval_brier': '0.463', 'eval_ece': '0.1522', 'eval_auroc': '0.8115', 'eval_auprc': '0.783', 'eval_runtime': '1.44', 'eval_samples_per_second': '44.44', 'eval_steps_per_second': '2.777', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1/checkpoint-8/preprocessor_config.json
+{'loss': '3.047', 'grad_norm': '12.52', 'learning_rate': '6.227e-05', 'epoch': '2.5'}
+{'eval_loss': '0.7068', 'eval_accuracy': '0.7656', 'eval_f1': '0.7651', 'eval_balanced_accuracy': '0.7656', 'eval_macro_f1': '0.7651', 'eval_atc': '1.078', 'eval_normalized_atc': '0.1078', 'eval_target_recall': '0.8125', 'eval_target_fnr': '0.1875', 'eval_selection_score': '0.1846', 'eval_selection_accuracy_value': '0.7656', 'eval_nll': '0.6404', 'eval_brier': '0.4477', 'eval_ece': '0.2256', 'eval_auroc': '0.8516', 'eval_auprc': '0.8606', 'eval_runtime': '1.568', 'eval_samples_per_second': '40.82', 'eval_steps_per_second': '2.551', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1/checkpoint-12/preprocessor_config.json
+{'train_runtime': '10.19', 'train_samples_per_second': '125.6', 'train_steps_per_second': '1.962', 'train_loss': '2.974', 'epoch': '3'}
+***** train metrics *****
+  epoch                    =        3.0
+  total_flos               = 55426590GF
+  train_loss               =     2.9741
+  train_runtime            = 0:00:10.19
+  train_samples_per_second =    125.563
+  train_steps_per_second   =      1.962
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/vit_test/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1_04-28_07-31
+Saving run configuration...
+Run configuration saved to: results/vit_test/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1_04-28_07-31/run_configuration_20260428_073142.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/vit_test/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1_04-28_07-31/metrics_20260428_073148_nicme_hybrid.json and results/vit_test/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1_04-28_07-31/metrics_20260428_073148_nicme_hybrid.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/vit_test/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1_04-28_07-31/confusion_matrix_20260428_073148_nicme_hybrid.png and results/vit_test/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1_04-28_07-31/confusion_matrix_20260428_073148_nicme_hybrid.pdf
+Detailed confusion matrix saved to: results/vit_test/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1_04-28_07-31/confusion_matrix_detailed_20260428_073148_nicme_hybrid.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/vit_test/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1_04-28_07-31
+Overall Accuracy: 0.4844
+Balanced Accuracy: 0.4844
+Overall F1 Score: 0.3263
+Kappa: -0.0312
+AUC: 0.7031
+Expected Cost: 0.6562
+Loss Function Used: nicme_hybrid
+Total Test Samples: 64
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/vit_test/stop2c_frontier_spider_vit_hybrid_s0.5_l0.1_04-28_07-31
+============================================================

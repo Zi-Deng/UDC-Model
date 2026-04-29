@@ -1,0 +1,50 @@
+{
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "learning_rate": 0.0001,
+  "num_train_epochs": 1,
+  "early_stopping_patience": 0,
+  "batch_size": 8,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.05,
+  "lr_scheduler_type": "cosine",
+  "num_labels": 2,
+  "wandb": false,
+  "push_to_hub": false,
+  "decision_modes": "argmax,calibrated_cost_min",
+  "calibration_enabled": true,
+  "cs_lambda": 10.0,
+  "cs_warmup_epochs": 1,
+  "seed": 42,
+  "local_folder_path": "data/prepared/stop1_smoke/spider_balanced",
+  "class_names": [
+    "black_widow",
+    "false_widow"
+  ],
+  "target_recall_class": "black_widow",
+  "target_recall_floor": 0.95,
+  "accuracy_floor": 0.8,
+  "selection_accuracy_metric": "accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      10.0
+    ],
+    [
+      1.0,
+      0.0
+    ]
+  ],
+  "model": "facebook/dinov3-vits16-pretrain-lvd1689m",
+  "model_backend": "dinov3_feature",
+  "model_type": "dinov3_vit",
+  "peft_enabled": true,
+  "peft_r": 8,
+  "peft_alpha": 16,
+  "peft_dropout": 0.1,
+  "peft_target_modules": "q_proj,v_proj",
+  "peft_modules_to_save": "classifier",
+  "dataset": "spider_balanced_smoke",
+  "loss_function": "ce",
+  "output_dir": "stop1_smoke_spider_balanced_smoke_dinov3_vit_ce"
+}

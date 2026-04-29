@@ -1,0 +1,93 @@
+Prepared manifest loaded — Train=2098, Val=300, Calibration=300, Test=300
+cuda
+Using model backend=timm type=timm_dinov3_convnext_lora with 2 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '7.853', 'grad_norm': '299', 'learning_rate': '2.727e-05', 'epoch': '0.303'}
+{'loss': '5.601', 'grad_norm': '96.82', 'learning_rate': '5.758e-05', 'epoch': '0.6061'}
+{'loss': '4.228', 'grad_norm': '142.5', 'learning_rate': '8.788e-05', 'epoch': '0.9091'}
+{'eval_loss': '1.074', 'eval_accuracy': '0.6833', 'eval_f1': '0.6767', 'eval_balanced_accuracy': '0.6833', 'eval_macro_f1': '0.6767', 'eval_atc': '1.097', 'eval_normalized_atc': '0.1097', 'eval_target_recall': '0.8267', 'eval_target_fnr': '0.1733', 'eval_selection_score': '0.1841', 'eval_selection_accuracy_value': '0.6833', 'eval_nll': '0.5883', 'eval_brier': '0.4042', 'eval_ece': '0.04669', 'eval_auroc': '0.7702', 'eval_auprc': '0.7807', 'eval_runtime': '3.063', 'eval_samples_per_second': '97.95', 'eval_steps_per_second': '6.204', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43/checkpoint-33/preprocessor_config.json
+{'loss': '3.562', 'grad_norm': '50.94', 'learning_rate': '9.998e-05', 'epoch': '1.212'}
+{'loss': '3.355', 'grad_norm': '71.07', 'learning_rate': '9.984e-05', 'epoch': '1.515'}
+{'loss': '2.881', 'grad_norm': '82.82', 'learning_rate': '9.958e-05', 'epoch': '1.818'}
+{'eval_loss': '0.6676', 'eval_accuracy': '0.7633', 'eval_f1': '0.7524', 'eval_balanced_accuracy': '0.7633', 'eval_macro_f1': '0.7524', 'eval_atc': '0.3567', 'eval_normalized_atc': '0.03567', 'eval_target_recall': '0.9733', 'eval_target_fnr': '0.02667', 'eval_selection_score': '0.03701', 'eval_selection_accuracy_value': '0.7633', 'eval_nll': '0.4833', 'eval_brier': '0.3201', 'eval_ece': '0.07379', 'eval_auroc': '0.9164', 'eval_auprc': '0.9164', 'eval_runtime': '2.283', 'eval_samples_per_second': '131.4', 'eval_steps_per_second': '8.321', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43/checkpoint-66/preprocessor_config.json
+{'loss': '2.572', 'grad_norm': '184.4', 'learning_rate': '9.919e-05', 'epoch': '2.121'}
+{'loss': '2.434', 'grad_norm': '83.61', 'learning_rate': '9.868e-05', 'epoch': '2.424'}
+{'loss': '2.327', 'grad_norm': '46.95', 'learning_rate': '9.804e-05', 'epoch': '2.727'}
+{'eval_loss': '0.6094', 'eval_accuracy': '0.8467', 'eval_f1': '0.8453', 'eval_balanced_accuracy': '0.8467', 'eval_macro_f1': '0.8453', 'eval_atc': '0.4233', 'eval_normalized_atc': '0.04233', 'eval_target_recall': '0.94', 'eval_target_fnr': '0.06', 'eval_selection_score': '0.04273', 'eval_selection_accuracy_value': '0.8467', 'eval_nll': '0.3827', 'eval_brier': '0.2353', 'eval_ece': '0.1088', 'eval_auroc': '0.9391', 'eval_auprc': '0.9411', 'eval_runtime': '2.218', 'eval_samples_per_second': '135.2', 'eval_steps_per_second': '8.565', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43/checkpoint-99/preprocessor_config.json
+{'loss': '2.028', 'grad_norm': '62.37', 'learning_rate': '9.729e-05', 'epoch': '3.03'}
+{'loss': '2.239', 'grad_norm': '167.7', 'learning_rate': '9.642e-05', 'epoch': '3.333'}
+{'loss': '2.046', 'grad_norm': '63.43', 'learning_rate': '9.543e-05', 'epoch': '3.636'}
+{'loss': '2.015', 'grad_norm': '103', 'learning_rate': '9.433e-05', 'epoch': '3.939'}
+{'eval_loss': '0.5922', 'eval_accuracy': '0.76', 'eval_f1': '0.7493', 'eval_balanced_accuracy': '0.76', 'eval_macro_f1': '0.7493', 'eval_atc': '0.39', 'eval_normalized_atc': '0.039', 'eval_target_recall': '0.9667', 'eval_target_fnr': '0.03333', 'eval_selection_score': '0.0406', 'eval_selection_accuracy_value': '0.76', 'eval_nll': '0.4048', 'eval_brier': '0.2639', 'eval_ece': '0.1054', 'eval_auroc': '0.9505', 'eval_auprc': '0.9501', 'eval_runtime': '2.197', 'eval_samples_per_second': '136.5', 'eval_steps_per_second': '8.647', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43/checkpoint-132/preprocessor_config.json
+{'loss': '1.756', 'grad_norm': '21.36', 'learning_rate': '9.311e-05', 'epoch': '4.242'}
+{'loss': '1.925', 'grad_norm': '55.38', 'learning_rate': '9.179e-05', 'epoch': '4.545'}
+{'loss': '1.863', 'grad_norm': '59.57', 'learning_rate': '9.036e-05', 'epoch': '4.848'}
+{'eval_loss': '0.556', 'eval_accuracy': '0.8267', 'eval_f1': '0.8232', 'eval_balanced_accuracy': '0.8267', 'eval_macro_f1': '0.8232', 'eval_atc': '0.3233', 'eval_normalized_atc': '0.03233', 'eval_target_recall': '0.9667', 'eval_target_fnr': '0.03333', 'eval_selection_score': '0.03233', 'eval_selection_accuracy_value': '0.8267', 'eval_nll': '0.3607', 'eval_brier': '0.2311', 'eval_ece': '0.06273', 'eval_auroc': '0.96', 'eval_auprc': '0.9606', 'eval_runtime': '2.227', 'eval_samples_per_second': '134.7', 'eval_steps_per_second': '8.53', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43/checkpoint-165/preprocessor_config.json
+{'loss': '1.772', 'grad_norm': '41.38', 'learning_rate': '8.883e-05', 'epoch': '5.152'}
+{'loss': '1.78', 'grad_norm': '81.44', 'learning_rate': '8.721e-05', 'epoch': '5.455'}
+{'loss': '1.764', 'grad_norm': '177.7', 'learning_rate': '8.549e-05', 'epoch': '5.758'}
+{'eval_loss': '0.5599', 'eval_accuracy': '0.8333', 'eval_f1': '0.8297', 'eval_balanced_accuracy': '0.8333', 'eval_macro_f1': '0.8297', 'eval_atc': '0.2567', 'eval_normalized_atc': '0.02567', 'eval_target_recall': '0.98', 'eval_target_fnr': '0.02', 'eval_selection_score': '0.02567', 'eval_selection_accuracy_value': '0.8333', 'eval_nll': '0.3424', 'eval_brier': '0.2213', 'eval_ece': '0.02815', 'eval_auroc': '0.9656', 'eval_auprc': '0.9656', 'eval_runtime': '2.228', 'eval_samples_per_second': '134.7', 'eval_steps_per_second': '8.529', 'epoch': '6'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43/checkpoint-198/preprocessor_config.json
+{'loss': '2.366', 'grad_norm': '39.05', 'learning_rate': '8.368e-05', 'epoch': '6.061'}
+{'loss': '1.751', 'grad_norm': '26.03', 'learning_rate': '8.179e-05', 'epoch': '6.364'}
+{'loss': '1.525', 'grad_norm': '113.4', 'learning_rate': '7.981e-05', 'epoch': '6.667'}
+{'loss': '1.576', 'grad_norm': '78.57', 'learning_rate': '7.777e-05', 'epoch': '6.97'}
+{'eval_loss': '0.5141', 'eval_accuracy': '0.8367', 'eval_f1': '0.8339', 'eval_balanced_accuracy': '0.8367', 'eval_macro_f1': '0.8339', 'eval_atc': '0.3133', 'eval_normalized_atc': '0.03133', 'eval_target_recall': '0.9667', 'eval_target_fnr': '0.03333', 'eval_selection_score': '0.03133', 'eval_selection_accuracy_value': '0.8367', 'eval_nll': '0.3204', 'eval_brier': '0.2054', 'eval_ece': '0.0378', 'eval_auroc': '0.9674', 'eval_auprc': '0.9672', 'eval_runtime': '2.315', 'eval_samples_per_second': '129.6', 'eval_steps_per_second': '8.208', 'epoch': '7'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43/checkpoint-231/preprocessor_config.json
+{'loss': '1.347', 'grad_norm': '152.3', 'learning_rate': '7.565e-05', 'epoch': '7.273'}
+{'loss': '1.228', 'grad_norm': '31.53', 'learning_rate': '7.347e-05', 'epoch': '7.576'}
+{'loss': '1.675', 'grad_norm': '165.1', 'learning_rate': '7.123e-05', 'epoch': '7.879'}
+{'eval_loss': '0.6169', 'eval_accuracy': '0.8533', 'eval_f1': '0.8516', 'eval_balanced_accuracy': '0.8533', 'eval_macro_f1': '0.8516', 'eval_atc': '0.3267', 'eval_normalized_atc': '0.03267', 'eval_target_recall': '0.96', 'eval_target_fnr': '0.04', 'eval_selection_score': '0.03267', 'eval_selection_accuracy_value': '0.8533', 'eval_nll': '0.3147', 'eval_brier': '0.2037', 'eval_ece': '0.04647', 'eval_auroc': '0.9608', 'eval_auprc': '0.9597', 'eval_runtime': '2.158', 'eval_samples_per_second': '139', 'eval_steps_per_second': '8.805', 'epoch': '8'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43/checkpoint-264/preprocessor_config.json
+{'loss': '1.342', 'grad_norm': '71.8', 'learning_rate': '6.893e-05', 'epoch': '8.182'}
+{'loss': '1.33', 'grad_norm': '57.09', 'learning_rate': '6.659e-05', 'epoch': '8.485'}
+{'loss': '1.475', 'grad_norm': '22.55', 'learning_rate': '6.421e-05', 'epoch': '8.788'}
+{'eval_loss': '0.6552', 'eval_accuracy': '0.88', 'eval_f1': '0.8796', 'eval_balanced_accuracy': '0.88', 'eval_macro_f1': '0.8796', 'eval_atc': '0.39', 'eval_normalized_atc': '0.039', 'eval_target_recall': '0.94', 'eval_target_fnr': '0.06', 'eval_selection_score': '0.0394', 'eval_selection_accuracy_value': '0.88', 'eval_nll': '0.2675', 'eval_brier': '0.17', 'eval_ece': '0.02555', 'eval_auroc': '0.9645', 'eval_auprc': '0.9643', 'eval_runtime': '1.999', 'eval_samples_per_second': '150.1', 'eval_steps_per_second': '9.504', 'epoch': '9'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43/checkpoint-297/preprocessor_config.json
+{'train_runtime': '81.16', 'train_samples_per_second': '517', 'train_steps_per_second': '8.132', 'train_loss': '2.373', 'epoch': '9'}
+***** train metrics *****
+  epoch                    =        9.0
+  total_flos               =        0GF
+  train_loss               =     2.3731
+  train_runtime            = 0:01:21.15
+  train_samples_per_second =    517.018
+  train_steps_per_second   =      8.132
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_convnext_lora_test/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43_04-28_22-10
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_convnext_lora_test/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43_04-28_22-10/run_configuration_20260428_221023.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_convnext_lora_test/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43_04-28_22-10/metrics_20260428_221031_nicme_hybrid.json and results/timm_dinov3_convnext_lora_test/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43_04-28_22-10/metrics_20260428_221031_nicme_hybrid.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/timm_dinov3_convnext_lora_test/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43_04-28_22-10/confusion_matrix_20260428_221031_nicme_hybrid.png and results/timm_dinov3_convnext_lora_test/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43_04-28_22-10/confusion_matrix_20260428_221031_nicme_hybrid.pdf
+Detailed confusion matrix saved to: results/timm_dinov3_convnext_lora_test/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43_04-28_22-10/confusion_matrix_detailed_20260428_221031_nicme_hybrid.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_convnext_lora_test/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43_04-28_22-10
+Overall Accuracy: 0.8167
+Balanced Accuracy: 0.8167
+Overall F1 Score: 0.8112
+Kappa: 0.6333
+AUC: 0.9485
+Expected Cost: 0.2433
+Loss Function Used: nicme_hybrid
+Total Test Samples: 300
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/timm_dinov3_convnext_lora_test/stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_hybrid_seed43_04-28_22-10
+============================================================

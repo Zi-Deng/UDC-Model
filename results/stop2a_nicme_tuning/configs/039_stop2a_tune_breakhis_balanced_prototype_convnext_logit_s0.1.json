@@ -1,0 +1,49 @@
+{
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "learning_rate": 0.0001,
+  "early_stopping_patience": 2,
+  "batch_size": 16,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.05,
+  "lr_scheduler_type": "cosine",
+  "num_labels": 2,
+  "wandb": false,
+  "push_to_hub": false,
+  "decision_modes": "argmax,calibrated_cost_min",
+  "calibration_enabled": true,
+  "cs_lambda": 0.0,
+  "cs_warmup_epochs": 1,
+  "seed": 42,
+  "local_folder_path": "data/prepared/stop2_prototype/breakhis_balanced",
+  "class_names": [
+    "benign",
+    "malignant"
+  ],
+  "target_recall_class": "malignant",
+  "target_recall_floor": 0.97,
+  "accuracy_floor": 0.85,
+  "selection_accuracy_metric": "accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      1.0
+    ],
+    [
+      10.0,
+      0.0
+    ]
+  ],
+  "num_train_epochs": 8,
+  "model": "facebook/convnext-tiny-224",
+  "model_backend": "hf_auto",
+  "model_type": "convnext",
+  "peft_enabled": false,
+  "dataset": "breakhis_balanced_prototype",
+  "loss_function": "nicme_logit_adjustment",
+  "output_dir": "stop2a_tune_breakhis_balanced_prototype_convnext_logit_s0.1",
+  "nicme_logit_cost_scale": 0.1,
+  "save_total_limit": 1,
+  "tuning_phase": "stop2a_nicme_tuning",
+  "tuning_note": "NICME-only validation/test prototype grid; tune scale/lambda after Stop 2 collapse."
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm_lora/configs/stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_vit_lora_ce.json",
+    "name": "stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_vit_lora_ce",
+    "index": 1,
+    "returncode": 0,
+    "elapsed_seconds": 12.720890998840332,
+    "stdout_log": "results/stop1_smoke_timm_lora/logs/01_stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_vit_lora_ce.stdout.log",
+    "stderr_log": "results/stop1_smoke_timm_lora/logs/01_stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_vit_lora_ce.stderr.log"
+  },
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm_lora/configs/stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_vit_lora_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_vit_lora_nicme_hybrid",
+    "index": 2,
+    "returncode": 0,
+    "elapsed_seconds": 12.536667108535767,
+    "stdout_log": "results/stop1_smoke_timm_lora/logs/02_stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_vit_lora_nicme_hybrid.stdout.log",
+    "stderr_log": "results/stop1_smoke_timm_lora/logs/02_stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_vit_lora_nicme_hybrid.stderr.log"
+  },
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm_lora/configs/stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_convnext_lora_ce.json",
+    "name": "stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_convnext_lora_ce",
+    "index": 3,
+    "returncode": 0,
+    "elapsed_seconds": 13.47006893157959,
+    "stdout_log": "results/stop1_smoke_timm_lora/logs/03_stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_convnext_lora_ce.stdout.log",
+    "stderr_log": "results/stop1_smoke_timm_lora/logs/03_stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_convnext_lora_ce.stderr.log"
+  },
+  {
+    "dataset": "spider_balanced_smoke",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm_lora/configs/stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_convnext_lora_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_convnext_lora_nicme_hybrid",
+    "index": 4,
+    "returncode": 0,
+    "elapsed_seconds": 14.121055841445923,
+    "stdout_log": "results/stop1_smoke_timm_lora/logs/04_stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_convnext_lora_nicme_hybrid.stdout.log",
+    "stderr_log": "results/stop1_smoke_timm_lora/logs/04_stop1_smoke_timm_lora_spider_balanced_smoke_timm_dinov3_convnext_lora_nicme_hybrid.stderr.log"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm_lora/configs/stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_vit_lora_ce.json",
+    "name": "stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_vit_lora_ce",
+    "index": 5,
+    "returncode": 0,
+    "elapsed_seconds": 13.586579322814941,
+    "stdout_log": "results/stop1_smoke_timm_lora/logs/05_stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_vit_lora_ce.stdout.log",
+    "stderr_log": "results/stop1_smoke_timm_lora/logs/05_stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_vit_lora_ce.stderr.log"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "timm_dinov3_vit_lora",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm_lora/configs/stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_vit_lora_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_vit_lora_nicme_hybrid",
+    "index": 6,
+    "returncode": 0,
+    "elapsed_seconds": 13.41408896446228,
+    "stdout_log": "results/stop1_smoke_timm_lora/logs/06_stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_vit_lora_nicme_hybrid.stdout.log",
+    "stderr_log": "results/stop1_smoke_timm_lora/logs/06_stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_vit_lora_nicme_hybrid.stderr.log"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "ce",
+    "config": "results/stop1_smoke_timm_lora/configs/stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_convnext_lora_ce.json",
+    "name": "stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_convnext_lora_ce",
+    "index": 7,
+    "returncode": 0,
+    "elapsed_seconds": 14.268367052078247,
+    "stdout_log": "results/stop1_smoke_timm_lora/logs/07_stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_convnext_lora_ce.stdout.log",
+    "stderr_log": "results/stop1_smoke_timm_lora/logs/07_stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_convnext_lora_ce.stderr.log"
+  },
+  {
+    "dataset": "breakhis_balanced_smoke",
+    "model_family": "timm_dinov3_convnext_lora",
+    "method": "nicme_hybrid",
+    "config": "results/stop1_smoke_timm_lora/configs/stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_convnext_lora_nicme_hybrid.json",
+    "name": "stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_convnext_lora_nicme_hybrid",
+    "index": 8,
+    "returncode": 0,
+    "elapsed_seconds": 15.191290616989136,
+    "stdout_log": "results/stop1_smoke_timm_lora/logs/08_stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_convnext_lora_nicme_hybrid.stdout.log",
+    "stderr_log": "results/stop1_smoke_timm_lora/logs/08_stop1_smoke_timm_lora_breakhis_balanced_smoke_timm_dinov3_convnext_lora_nicme_hybrid.stderr.log"
+  }
+]

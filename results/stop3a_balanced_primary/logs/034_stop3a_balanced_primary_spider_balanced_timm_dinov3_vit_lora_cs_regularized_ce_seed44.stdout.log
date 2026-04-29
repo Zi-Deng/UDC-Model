@@ -1,0 +1,67 @@
+Prepared manifest loaded — Train=2098, Val=300, Calibration=300, Test=300
+cuda
+Using model backend=timm type=timm_dinov3_vit_lora with 2 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '2.787', 'grad_norm': '3.528', 'learning_rate': '2.727e-05', 'epoch': '0.303'}
+{'loss': '2.811', 'grad_norm': '2.792', 'learning_rate': '5.758e-05', 'epoch': '0.6061'}
+{'loss': '2.837', 'grad_norm': '2.242', 'learning_rate': '8.788e-05', 'epoch': '0.9091'}
+{'eval_loss': '0.7125', 'eval_accuracy': '0.68', 'eval_f1': '0.6779', 'eval_balanced_accuracy': '0.68', 'eval_macro_f1': '0.6779', 'eval_atc': '1.4', 'eval_normalized_atc': '0.14', 'eval_target_recall': '0.76', 'eval_target_fnr': '0.24', 'eval_selection_score': '0.2988', 'eval_selection_accuracy_value': '0.68', 'eval_nll': '0.6854', 'eval_brier': '0.4923', 'eval_ece': '0.1718', 'eval_auroc': '0.736', 'eval_auprc': '0.6944', 'eval_runtime': '2.454', 'eval_samples_per_second': '122.3', 'eval_steps_per_second': '7.744', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44/checkpoint-33/preprocessor_config.json
+{'loss': '2.84', 'grad_norm': '2.197', 'learning_rate': '9.998e-05', 'epoch': '1.212'}
+{'loss': '2.809', 'grad_norm': '3.934', 'learning_rate': '9.984e-05', 'epoch': '1.515'}
+{'loss': '2.785', 'grad_norm': '3.033', 'learning_rate': '9.958e-05', 'epoch': '1.818'}
+{'eval_loss': '0.6933', 'eval_accuracy': '0.68', 'eval_f1': '0.6798', 'eval_balanced_accuracy': '0.68', 'eval_macro_f1': '0.6798', 'eval_atc': '1.64', 'eval_normalized_atc': '0.164', 'eval_target_recall': '0.7067', 'eval_target_fnr': '0.2933', 'eval_selection_score': '0.4152', 'eval_selection_accuracy_value': '0.68', 'eval_nll': '0.667', 'eval_brier': '0.4739', 'eval_ece': '0.1523', 'eval_auroc': '0.7452', 'eval_auprc': '0.709', 'eval_runtime': '2.485', 'eval_samples_per_second': '120.7', 'eval_steps_per_second': '7.646', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44/checkpoint-66/preprocessor_config.json
+{'loss': '2.755', 'grad_norm': '3.384', 'learning_rate': '9.919e-05', 'epoch': '2.121'}
+{'loss': '2.715', 'grad_norm': '2.577', 'learning_rate': '9.868e-05', 'epoch': '2.424'}
+{'loss': '2.679', 'grad_norm': '4.568', 'learning_rate': '9.804e-05', 'epoch': '2.727'}
+{'eval_loss': '0.6644', 'eval_accuracy': '0.6767', 'eval_f1': '0.6766', 'eval_balanced_accuracy': '0.6767', 'eval_macro_f1': '0.6766', 'eval_atc': '1.703', 'eval_normalized_atc': '0.1703', 'eval_target_recall': '0.6933', 'eval_target_fnr': '0.3067', 'eval_selection_score': '0.4491', 'eval_selection_accuracy_value': '0.6767', 'eval_nll': '0.6391', 'eval_brier': '0.4467', 'eval_ece': '0.1166', 'eval_auroc': '0.7538', 'eval_auprc': '0.7254', 'eval_runtime': '2.322', 'eval_samples_per_second': '129.2', 'eval_steps_per_second': '8.184', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44/checkpoint-99/preprocessor_config.json
+{'loss': '2.592', 'grad_norm': '3.49', 'learning_rate': '9.729e-05', 'epoch': '3.03'}
+{'loss': '2.561', 'grad_norm': '3.614', 'learning_rate': '9.642e-05', 'epoch': '3.333'}
+{'loss': '2.503', 'grad_norm': '3.276', 'learning_rate': '9.543e-05', 'epoch': '3.636'}
+{'loss': '2.424', 'grad_norm': '2.492', 'learning_rate': '9.433e-05', 'epoch': '3.939'}
+{'eval_loss': '0.6226', 'eval_accuracy': '0.6933', 'eval_f1': '0.6931', 'eval_balanced_accuracy': '0.6933', 'eval_macro_f1': '0.6931', 'eval_atc': '1.567', 'eval_normalized_atc': '0.1567', 'eval_target_recall': '0.72', 'eval_target_fnr': '0.28', 'eval_selection_score': '0.3796', 'eval_selection_accuracy_value': '0.6933', 'eval_nll': '0.5996', 'eval_brier': '0.4106', 'eval_ece': '0.08892', 'eval_auroc': '0.7673', 'eval_auprc': '0.7461', 'eval_runtime': '2.482', 'eval_samples_per_second': '120.9', 'eval_steps_per_second': '7.654', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44/checkpoint-132/preprocessor_config.json
+{'train_runtime': '36.32', 'train_samples_per_second': '1155', 'train_steps_per_second': '18.17', 'train_loss': '2.693', 'epoch': '4'}
+***** train metrics *****
+  epoch                    =        4.0
+  total_flos               =        0GF
+  train_loss               =     2.6929
+  train_runtime            = 0:00:36.31
+  train_samples_per_second =   1155.332
+  train_steps_per_second   =     18.173
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44_04-28_08-58
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44_04-28_08-58/run_configuration_20260428_085851.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44_04-28_08-58/metrics_20260428_085859_cs_regularized_ce.json and results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44_04-28_08-58/metrics_20260428_085859_cs_regularized_ce.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44_04-28_08-58/confusion_matrix_20260428_085859_cs_regularized_ce.png and results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44_04-28_08-58/confusion_matrix_20260428_085859_cs_regularized_ce.pdf
+Detailed confusion matrix saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44_04-28_08-58/confusion_matrix_detailed_20260428_085859_cs_regularized_ce.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44_04-28_08-58
+Overall Accuracy: 0.6967
+Balanced Accuracy: 0.6967
+Overall F1 Score: 0.6897
+Kappa: 0.3933
+AUC: 0.7947
+Expected Cost: 0.9933
+Loss Function Used: cs_regularized_ce
+Total Test Samples: 300
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_cs_regularized_ce_seed44_04-28_08-58
+============================================================

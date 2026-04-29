@@ -1,0 +1,67 @@
+Prepared manifest loaded — Train=2098, Val=300, Calibration=300, Test=300
+cuda
+Using model backend=timm type=timm_dinov3_vit_lora with 2 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '2.772', 'grad_norm': '3.437', 'learning_rate': '2.727e-05', 'epoch': '0.303'}
+{'loss': '2.764', 'grad_norm': '2.658', 'learning_rate': '5.758e-05', 'epoch': '0.6061'}
+{'loss': '2.753', 'grad_norm': '2.139', 'learning_rate': '8.788e-05', 'epoch': '0.9091'}
+{'eval_loss': '0.6853', 'eval_accuracy': '0.6833', 'eval_f1': '0.683', 'eval_balanced_accuracy': '0.6833', 'eval_macro_f1': '0.683', 'eval_atc': '1.607', 'eval_normalized_atc': '0.1607', 'eval_target_recall': '0.7133', 'eval_target_fnr': '0.2867', 'eval_selection_score': '0.3983', 'eval_selection_accuracy_value': '0.6833', 'eval_nll': '0.6853', 'eval_brier': '0.4922', 'eval_ece': '0.1753', 'eval_auroc': '0.7356', 'eval_auprc': '0.6958', 'eval_runtime': '2.482', 'eval_samples_per_second': '120.9', 'eval_steps_per_second': '7.656', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43/checkpoint-33/preprocessor_config.json
+{'loss': '2.732', 'grad_norm': '2.084', 'learning_rate': '9.998e-05', 'epoch': '1.212'}
+{'loss': '2.701', 'grad_norm': '3.671', 'learning_rate': '9.984e-05', 'epoch': '1.515'}
+{'loss': '2.679', 'grad_norm': '2.982', 'learning_rate': '9.958e-05', 'epoch': '1.818'}
+{'eval_loss': '0.6668', 'eval_accuracy': '0.69', 'eval_f1': '0.6898', 'eval_balanced_accuracy': '0.69', 'eval_macro_f1': '0.6898', 'eval_atc': '1.81', 'eval_normalized_atc': '0.181', 'eval_target_recall': '0.6667', 'eval_target_fnr': '0.3333', 'eval_selection_score': '0.5142', 'eval_selection_accuracy_value': '0.69', 'eval_nll': '0.6668', 'eval_brier': '0.4737', 'eval_ece': '0.1624', 'eval_auroc': '0.7448', 'eval_auprc': '0.712', 'eval_runtime': '2.245', 'eval_samples_per_second': '133.6', 'eval_steps_per_second': '8.463', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43/checkpoint-66/preprocessor_config.json
+{'loss': '2.65', 'grad_norm': '3.372', 'learning_rate': '9.919e-05', 'epoch': '2.121'}
+{'loss': '2.61', 'grad_norm': '2.468', 'learning_rate': '9.868e-05', 'epoch': '2.424'}
+{'loss': '2.577', 'grad_norm': '4.382', 'learning_rate': '9.804e-05', 'epoch': '2.727'}
+{'eval_loss': '0.639', 'eval_accuracy': '0.6933', 'eval_f1': '0.6931', 'eval_balanced_accuracy': '0.6933', 'eval_macro_f1': '0.6931', 'eval_atc': '1.807', 'eval_normalized_atc': '0.1807', 'eval_target_recall': '0.6667', 'eval_target_fnr': '0.3333', 'eval_selection_score': '0.5132', 'eval_selection_accuracy_value': '0.6933', 'eval_nll': '0.639', 'eval_brier': '0.4466', 'eval_ece': '0.1335', 'eval_auroc': '0.7563', 'eval_auprc': '0.7313', 'eval_runtime': '2.583', 'eval_samples_per_second': '116.2', 'eval_steps_per_second': '7.357', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43/checkpoint-99/preprocessor_config.json
+{'loss': '2.495', 'grad_norm': '3.424', 'learning_rate': '9.729e-05', 'epoch': '3.03'}
+{'loss': '2.464', 'grad_norm': '3.541', 'learning_rate': '9.642e-05', 'epoch': '3.333'}
+{'loss': '2.414', 'grad_norm': '3.148', 'learning_rate': '9.543e-05', 'epoch': '3.636'}
+{'loss': '2.341', 'grad_norm': '2.544', 'learning_rate': '9.433e-05', 'epoch': '3.939'}
+{'eval_loss': '0.5979', 'eval_accuracy': '0.6967', 'eval_f1': '0.6967', 'eval_balanced_accuracy': '0.6967', 'eval_macro_f1': '0.6967', 'eval_atc': '1.653', 'eval_normalized_atc': '0.1653', 'eval_target_recall': '0.7', 'eval_target_fnr': '0.3', 'eval_selection_score': '0.426', 'eval_selection_accuracy_value': '0.6967', 'eval_nll': '0.5979', 'eval_brier': '0.4086', 'eval_ece': '0.1009', 'eval_auroc': '0.7754', 'eval_auprc': '0.7547', 'eval_runtime': '2.013', 'eval_samples_per_second': '149', 'eval_steps_per_second': '9.437', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43/checkpoint-132/preprocessor_config.json
+{'train_runtime': '36.21', 'train_samples_per_second': '1159', 'train_steps_per_second': '18.23', 'train_loss': '2.605', 'epoch': '4'}
+***** train metrics *****
+  epoch                    =        4.0
+  total_flos               =        0GF
+  train_loss               =     2.6049
+  train_runtime            = 0:00:36.21
+  train_samples_per_second =   1158.647
+  train_steps_per_second   =     18.225
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43_04-28_08-44
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43_04-28_08-44/run_configuration_20260428_084444.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43_04-28_08-44/metrics_20260428_084452_menon_logit_adjusted.json and results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43_04-28_08-44/metrics_20260428_084452_menon_logit_adjusted.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43_04-28_08-44/confusion_matrix_20260428_084452_menon_logit_adjusted.png and results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43_04-28_08-44/confusion_matrix_20260428_084452_menon_logit_adjusted.pdf
+Detailed confusion matrix saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43_04-28_08-44/confusion_matrix_detailed_20260428_084452_menon_logit_adjusted.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43_04-28_08-44
+Overall Accuracy: 0.6967
+Balanced Accuracy: 0.6967
+Overall F1 Score: 0.6934
+Kappa: 0.3933
+AUC: 0.7959
+Expected Cost: 1.2033
+Loss Function Used: menon_logit_adjusted
+Total Test Samples: 300
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/timm_dinov3_vit_lora_test/stop3a_balanced_primary_spider_balanced_timm_dinov3_vit_lora_menon_logit_adjusted_seed43_04-28_08-44
+============================================================

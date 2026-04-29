@@ -1,0 +1,30 @@
+Training Metrics Report - 20260127_012208
+==================================================
+
+OVERALL METRICS:
+--------------------
+Accuracy: 0.8533
+F1 Score: 0.8524
+Loss: 0.4911
+
+CLASS SAMPLE COUNTS:
+--------------------
+Class 0: 150 samples
+Class 1: 150 samples
+
+PER-CLASS METRICS:
+--------------------
+Class 0:
+  True Positive Rate (TPR): 0.9333
+  False Positive Rate (FPR): 0.2267
+  False Negative Rate (FNR): 0.0667
+
+Class 1:
+  True Positive Rate (TPR): 0.7733
+  False Positive Rate (FPR): 0.0667
+  False Negative Rate (FNR): 0.2267
+
+CONFUSION MATRIX:
+--------------------
+Row 0: [140, 10]
+Row 1: [34, 116]

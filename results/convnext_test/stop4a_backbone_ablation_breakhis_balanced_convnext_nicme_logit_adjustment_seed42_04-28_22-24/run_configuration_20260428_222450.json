@@ -1,0 +1,56 @@
+{
+  "run_info": {
+    "timestamp": "20260428_222450",
+    "output_directory": "results/convnext_test/stop4a_backbone_ablation_breakhis_balanced_convnext_nicme_logit_adjustment_seed42_04-28_22-24"
+  },
+  "model_configuration": {
+    "model": "facebook/convnext-tiny-224",
+    "model_backend": "hf_auto",
+    "model_type": "convnext",
+    "weights": null,
+    "num_labels": 2,
+    "peft_enabled": false
+  },
+  "dataset_configuration": {
+    "dataset_host": "local_folder",
+    "dataset": "breakhis_balanced",
+    "dataset_location": "data/prepared/breakhis/splits/balanced",
+    "local_dataset_name": null,
+    "local_folder_path": "data/prepared/breakhis/splits/balanced",
+    "local_dataset_format": "manifest"
+  },
+  "training_parameters": {
+    "batch_size": 16,
+    "learning_rate": 0.0001,
+    "num_train_epochs": 20,
+    "loss_function": "nicme_logit_adjustment",
+    "cs_lambda": 0.0,
+    "cs_warmup_epochs": 0,
+    "seed": 42
+  },
+  "cost_matrix_configuration": {
+    "cost_matrix": [
+      [
+        0.0,
+        1.0
+      ],
+      [
+        10.0,
+        0.0
+      ]
+    ],
+    "cost_matrix_convention": "C[true_label][predicted_label]",
+    "target_recall_class": "malignant",
+    "target_recall_floor": 0.97,
+    "accuracy_floor": 0.85,
+    "selection_accuracy_metric": "accuracy",
+    "sweep_mode": false,
+    "sweep_cost_value": null,
+    "sweep_matrix_row": null,
+    "sweep_matrix_col": null
+  },
+  "other_settings": {
+    "wandb_enabled": false,
+    "push_to_hub": false
+  }
+}

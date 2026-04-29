@@ -1,0 +1,58 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=hf_auto type=vit with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.662', 'eval_accuracy': '0.6562', 'eval_f1': '0.6532', 'eval_balanced_accuracy': '0.6562', 'eval_macro_f1': '0.6532', 'eval_atc': '1.469', 'eval_normalized_atc': '0.1469', 'eval_target_recall': '0.75', 'eval_target_fnr': '0.25', 'eval_selection_score': '0.3275', 'eval_selection_accuracy_value': '0.6562', 'eval_nll': '0.6594', 'eval_brier': '0.4665', 'eval_ece': '0.1268', 'eval_auroc': '0.7656', 'eval_auprc': '0.7875', 'eval_runtime': '2.03', 'eval_samples_per_second': '31.53', 'eval_steps_per_second': '1.971', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.5875', 'eval_accuracy': '0.7969', 'eval_f1': '0.7964', 'eval_balanced_accuracy': '0.7969', 'eval_macro_f1': '0.7964', 'eval_atc': '1.328', 'eval_normalized_atc': '0.1328', 'eval_target_recall': '0.75', 'eval_target_fnr': '0.25', 'eval_selection_score': '0.2928', 'eval_selection_accuracy_value': '0.7969', 'eval_nll': '0.5803', 'eval_brier': '0.3898', 'eval_ece': '0.2152', 'eval_auroc': '0.8965', 'eval_auprc': '0.8994', 'eval_runtime': '1.907', 'eval_samples_per_second': '33.55', 'eval_steps_per_second': '2.097', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05/checkpoint-8/preprocessor_config.json
+{'loss': '2.498', 'grad_norm': '3.681', 'learning_rate': '6.227e-05', 'epoch': '2.5'}
+{'eval_loss': '0.5421', 'eval_accuracy': '0.7969', 'eval_f1': '0.7964', 'eval_balanced_accuracy': '0.7969', 'eval_macro_f1': '0.7964', 'eval_atc': '1.328', 'eval_normalized_atc': '0.1328', 'eval_target_recall': '0.75', 'eval_target_fnr': '0.25', 'eval_selection_score': '0.2928', 'eval_selection_accuracy_value': '0.7969', 'eval_nll': '0.5326', 'eval_brier': '0.3466', 'eval_ece': '0.2021', 'eval_auroc': '0.9062', 'eval_auprc': '0.9092', 'eval_runtime': '1.518', 'eval_samples_per_second': '42.17', 'eval_steps_per_second': '2.636', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05/checkpoint-12/preprocessor_config.json
+{'eval_loss': '0.5126', 'eval_accuracy': '0.8125', 'eval_f1': '0.8125', 'eval_balanced_accuracy': '0.8125', 'eval_macro_f1': '0.8125', 'eval_atc': '1.031', 'eval_normalized_atc': '0.1031', 'eval_target_recall': '0.8125', 'eval_target_fnr': '0.1875', 'eval_selection_score': '0.1787', 'eval_selection_accuracy_value': '0.8125', 'eval_nll': '0.5034', 'eval_brier': '0.3211', 'eval_ece': '0.1968', 'eval_auroc': '0.9141', 'eval_auprc': '0.9153', 'eval_runtime': '1.598', 'eval_samples_per_second': '40.06', 'eval_steps_per_second': '2.504', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05/checkpoint-16/preprocessor_config.json
+{'loss': '1.783', 'grad_norm': '4.742', 'learning_rate': '6.819e-07', 'epoch': '5'}
+{'eval_loss': '0.5063', 'eval_accuracy': '0.8125', 'eval_f1': '0.8125', 'eval_balanced_accuracy': '0.8125', 'eval_macro_f1': '0.8125', 'eval_atc': '1.031', 'eval_normalized_atc': '0.1031', 'eval_target_recall': '0.8125', 'eval_target_fnr': '0.1875', 'eval_selection_score': '0.1787', 'eval_selection_accuracy_value': '0.8125', 'eval_nll': '0.4972', 'eval_brier': '0.3158', 'eval_ece': '0.1923', 'eval_auroc': '0.915', 'eval_auprc': '0.916', 'eval_runtime': '1.496', 'eval_samples_per_second': '42.79', 'eval_steps_per_second': '2.674', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05/checkpoint-20/preprocessor_config.json
+{'train_runtime': '17.08', 'train_samples_per_second': '74.93', 'train_steps_per_second': '1.171', 'train_loss': '2.141', 'epoch': '5'}
+***** train metrics *****
+  epoch                    =        5.0
+  total_flos               = 92377650GF
+  train_loss               =     2.1409
+  train_runtime            = 0:00:17.08
+  train_samples_per_second =     74.934
+  train_steps_per_second   =      1.171
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/vit_test/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05_04-28_06-29
+Saving run configuration...
+Run configuration saved to: results/vit_test/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05_04-28_06-29/run_configuration_20260428_062940.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/vit_test/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05_04-28_06-29/metrics_20260428_062946_nicme_logit_adjustment.json and results/vit_test/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05_04-28_06-29/metrics_20260428_062946_nicme_logit_adjustment.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/vit_test/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05_04-28_06-29/confusion_matrix_20260428_062946_nicme_logit_adjustment.png and results/vit_test/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05_04-28_06-29/confusion_matrix_20260428_062946_nicme_logit_adjustment.pdf
+Detailed confusion matrix saved to: results/vit_test/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05_04-28_06-29/confusion_matrix_detailed_20260428_062946_nicme_logit_adjustment.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/vit_test/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05_04-28_06-29
+Overall Accuracy: 0.8438
+Balanced Accuracy: 0.8438
+Overall F1 Score: 0.8438
+Kappa: 0.6875
+AUC: 0.9424
+Expected Cost: 0.8594
+Loss Function Used: nicme_logit_adjustment
+Total Test Samples: 64
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/vit_test/stop2a_tune_spider_balanced_prototype_vit_logit_s0.05_04-28_06-29
+============================================================

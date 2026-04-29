@@ -198,12 +198,8 @@ def _stratified_split(df: pd.DataFrame, seed: int) -> dict[str, pd.DataFrame]:
 
 def balance_split(df: pd.DataFrame, seed: int) -> pd.DataFrame:
     min_count = int(df["label"].value_counts().min())
-    return (
-        df.groupby("label", group_keys=False)
-        .apply(lambda group: group.sample(n=min_count, random_state=seed))
-        .sort_values("image_path")
-        .reset_index(drop=True)
-    )
+    sampled = [group.sample(n=min_count, random_state=seed) for _, group in df.groupby("label", sort=True)]
+    return pd.concat(sampled).sort_values("image_path").reset_index(drop=True)
 
 
 def controlled_prevalence_split(

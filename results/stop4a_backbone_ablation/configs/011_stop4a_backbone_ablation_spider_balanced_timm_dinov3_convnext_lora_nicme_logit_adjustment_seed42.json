@@ -1,0 +1,56 @@
+{
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "local_folder_path": "data/prepared/spider/splits/balanced",
+  "dataset": "spider_balanced",
+  "class_names": [
+    "black_widow",
+    "false_widow"
+  ],
+  "target_recall_class": "black_widow",
+  "target_recall_floor": 0.95,
+  "accuracy_floor": 0.8,
+  "selection_accuracy_metric": "accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      10.0
+    ],
+    [
+      1.0,
+      0.0
+    ]
+  ],
+  "num_labels": 2,
+  "num_train_epochs": 20,
+  "early_stopping_patience": 3,
+  "batch_size": 16,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.05,
+  "lr_scheduler_type": "cosine",
+  "wandb": false,
+  "push_to_hub": false,
+  "calibration_enabled": true,
+  "decision_modes": "argmax,calibrated_cost_min,calibrated_threshold",
+  "save_total_limit": 1,
+  "seed": 42,
+  "model": "timm/convnext_tiny.dinov3_lvd1689m",
+  "model_backend": "timm",
+  "model_type": "timm_dinov3_convnext_lora",
+  "timm_pretrained": true,
+  "peft_enabled": true,
+  "peft_r": 8,
+  "peft_alpha": 16,
+  "peft_dropout": 0.1,
+  "peft_target_modules": "mlp.fc1,mlp.fc2",
+  "peft_modules_to_save": "model.head",
+  "learning_rate": 0.0001,
+  "loss_function": "nicme_logit_adjustment",
+  "cs_lambda": 0.0,
+  "cs_warmup_epochs": 0,
+  "nicme_logit_cost_scale": 0.5,
+  "logit_adjustment_tau": 1.0,
+  "output_dir": "stop4a_backbone_ablation_spider_balanced_timm_dinov3_convnext_lora_nicme_logit_adjustment_seed42",
+  "stop3_phase": "stop4a_backbone_ablation",
+  "stop3_note": "Adjusted after Stop 2A-2C tuning; checkpoints deleted after metrics export."
+}

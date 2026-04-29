@@ -1,0 +1,44 @@
+{
+  "phase": "stop3_dry_run",
+  "created_at": "2026-04-28 08:08:36",
+  "datasets": [
+    "spider_balanced"
+  ],
+  "models": [
+    "vit"
+  ],
+  "methods": [
+    "ce",
+    "nicme_hybrid"
+  ],
+  "seeds": [
+    "42"
+  ],
+  "run_count": 2,
+  "cleanup_checkpoints": true,
+  "time_budget_hours": null,
+  "runs": [
+    {
+      "index": 1,
+      "config": "results/stop3_dry_run/configs/001_stop3_dry_run_spider_balanced_vit_ce_seed42.json",
+      "output_dir": "stop3_dry_run_spider_balanced_vit_ce_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "vit",
+      "method": "ce",
+      "seed": 42,
+      "scale": 1.0,
+      "cs_lambda": 0.0
+    },
+    {
+      "index": 2,
+      "config": "results/stop3_dry_run/configs/002_stop3_dry_run_spider_balanced_vit_nicme_hybrid_seed42.json",
+      "output_dir": "stop3_dry_run_spider_balanced_vit_nicme_hybrid_seed42",
+      "dataset": "spider_balanced",
+      "model_type": "vit",
+      "method": "nicme_hybrid",
+      "seed": 42,
+      "scale": 0.5,
+      "cs_lambda": 0.1
+    }
+  ]
+}

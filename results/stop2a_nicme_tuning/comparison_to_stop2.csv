@@ -1,0 +1,9 @@
+dataset,candidate,phase,model_family,method,decision_mode,scale,cs_lambda,normalized_atc,target_recall,accuracy,balanced_accuracy,macro_f1,selection_score,all_floors_met,confusion_matrix
+breakhis_balanced_prototype,stop2_best_any,stop2,convnext,ce,argmax,,,0.0203125,0.96875,0.9375,0.9375,0.9374389051808408,0.02031875,,"[[29, 3], [1, 31]]"
+breakhis_balanced_prototype,stop2_best_nicme,stop2,vit,nicme_hybrid,argmax,,,0.0234375,0.96875,0.90625,0.90625,0.9058823529411764,0.02344375,,"[[27, 5], [1, 31]]"
+breakhis_balanced_prototype,stop2a_best_nicme,stop2a_nicme_tuning,vit,nicme_hybrid,argmax,0.1,0.25,0.01875,0.96875,0.953125,0.953125,0.9531135531135531,0.01875625,False,"[[30, 2], [1, 31]]"
+breakhis_balanced_prototype,stop2a_best_nicme_argmax,stop2a_nicme_tuning,vit,nicme_hybrid,argmax,0.1,0.25,0.01875,0.96875,0.953125,0.953125,0.9531135531135531,0.01875625,False,"[[30, 2], [1, 31]]"
+spider_balanced_prototype,stop2_best_any,stop2,vit,ce_calibrated_cost_min,calibrated_cost_min,,,0.0421875,1.0,0.578125,0.578125,0.4867834867834868,0.091416015625,,"[[32, 0], [27, 5]]"
+spider_balanced_prototype,stop2_best_nicme,stop2,timm_dinov3_convnext_lora,nicme_hybrid,argmax,,,0.059375,0.96875,0.546875,0.546875,0.4487674487674488,0.123447265625,,"[[31, 1], [28, 4]]"
+spider_balanced_prototype,stop2a_best_nicme,stop2a_nicme_tuning,vit,nicme_logit_adjustment,argmax,0.5,0.0,0.0484375,0.9375,0.796875,0.796875,0.7927770859277707,0.04907226562499999,False,"[[30, 2], [11, 21]]"
+spider_balanced_prototype,stop2a_best_nicme_argmax,stop2a_nicme_tuning,vit,nicme_logit_adjustment,argmax,0.5,0.0,0.0484375,0.9375,0.796875,0.796875,0.7927770859277707,0.04907226562499999,False,"[[30, 2], [11, 21]]"

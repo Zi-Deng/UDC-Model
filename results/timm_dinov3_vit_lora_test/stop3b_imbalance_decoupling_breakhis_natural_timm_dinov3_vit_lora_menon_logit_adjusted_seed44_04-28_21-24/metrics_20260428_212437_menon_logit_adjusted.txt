@@ -1,0 +1,41 @@
+Training Metrics Report - 20260428_212437
+==================================================
+
+OVERALL METRICS:
+--------------------
+Accuracy: 0.8789
+Balanced Accuracy: 0.8995
+F1 Score: 0.8780
+Kappa: 0.7596
+AUC: 0.9772
+Loss: 0.3072
+ATC: 1.2113
+Normalized ATC: 0.1211
+Selection Score: 0.2380
+Target Recall: 0.7991
+Target FNR: 0.2009
+Recall Class 0: 1.0000
+Expected Cost: 1.2113
+Prevalence Class 0: 0.3972
+
+CLASS SAMPLE COUNTS:
+--------------------
+Class 0: 282 samples
+Class 1: 428 samples
+
+PER-CLASS METRICS:
+--------------------
+Class 0:
+  True Positive Rate (TPR): 1.0000
+  False Positive Rate (FPR): 0.2009
+  False Negative Rate (FNR): 0.0000
+
+Class 1:
+  True Positive Rate (TPR): 0.7991
+  False Positive Rate (FPR): 0.0000
+  False Negative Rate (FNR): 0.2009
+
+CONFUSION MATRIX:
+--------------------
+Row 0: [282, 0]
+Row 1: [86, 342]

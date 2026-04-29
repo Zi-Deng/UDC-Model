@@ -1,0 +1,51 @@
+{
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "learning_rate": 0.0001,
+  "early_stopping_patience": 2,
+  "batch_size": 16,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.05,
+  "lr_scheduler_type": "cosine",
+  "num_labels": 2,
+  "wandb": false,
+  "push_to_hub": false,
+  "decision_modes": "argmax,calibrated_cost_min",
+  "calibration_enabled": true,
+  "cs_lambda": 10.0,
+  "cs_warmup_epochs": 1,
+  "seed": 42,
+  "local_folder_path": "data/prepared/stop2_prototype/spider_balanced",
+  "class_names": [
+    "black_widow",
+    "false_widow"
+  ],
+  "target_recall_class": "black_widow",
+  "target_recall_floor": 0.95,
+  "accuracy_floor": 0.8,
+  "selection_accuracy_metric": "accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      10.0
+    ],
+    [
+      1.0,
+      0.0
+    ]
+  ],
+  "num_train_epochs": 5,
+  "model": "timm/vit_small_patch16_dinov3.lvd1689m",
+  "model_backend": "timm",
+  "model_type": "timm_dinov3_vit_lora",
+  "peft_enabled": true,
+  "peft_r": 8,
+  "peft_alpha": 16,
+  "peft_dropout": 0.1,
+  "peft_target_modules": "qkv",
+  "peft_modules_to_save": "model.head",
+  "timm_pretrained": true,
+  "dataset": "spider_balanced_prototype",
+  "loss_function": "nicme_hybrid",
+  "output_dir": "stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid"
+}

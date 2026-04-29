@@ -77,7 +77,7 @@ If a later search finds a method that already combines user-defined pairwise cos
 | Chen et al., “Rethinking Cost-Sensitive Classification in Deep Learning via Adversarial Data Augmentation,” INFORMS JDS | True cost-sensitive | CNNs and ViT appendix; ResNet-34 on OCT | Generated/expert pairwise costs | Includes balanced-style CIFAR and expert-cost OCT experiments; not NICME-style DINOv3/LoRA or logit-adjustment regularization | Important prior; directly blocks “no ViT cost-sensitive work” claims. |
 | “Diabetic retinopathy classification method based on cost sensitive regularization and EfficientNet,” 2022 | Mixed/unclear | EfficientNet | Cost-sensitive regularization; exact cost-vs-imbalance separation needs full-text verification | Appears DR-grade/domain severity oriented, but do not use a broad “no EfficientNet” claim | Treat as a counterexample candidate until fully adjudicated. |
 | Hugging Face / Meta DINOv3 documentation and repository | Not a cost-sensitive method | DINOv3 ViT and ConvNeXt backbones | None | Foundation-backbone support only | Confirms implementation target: DINOv3 ViT and DINOv3 ConvNeXt are available in modern Transformers/timm ecosystems. |
-| Hugging Face PEFT LoRA image-classification guide | Not a cost-sensitive method | ViT example | None | PEFT implementation guidance only | Supports default LoRA target modules `query,value` and saving classifier modules for image classification. |
+| Hugging Face PEFT LoRA image-classification guide | Not a cost-sensitive method | ViT example | None | PEFT implementation guidance only | Supports the PEFT image-classification pattern; NICME uses DINOv3-specific ViT targets `q_proj,v_proj` after verifying the current Transformers DINOv3 module names. |
 
 ## Experimental Consequence
 

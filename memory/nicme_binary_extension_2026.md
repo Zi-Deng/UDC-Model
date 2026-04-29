@@ -133,7 +133,7 @@ Experiment runner model presets:
 5090-friendly primary target:
 
 - `facebook/dinov3-vits16-pretrain-lvd1689m`
-- LoRA defaults: `r=8`, `alpha=16`, `dropout=0.1`, `query,value`, classifier saved.
+- LoRA defaults: `r=8`, `alpha=16`, `dropout=0.1`; official HF DINOv3 ViT uses `q_proj,v_proj`, timm DINOv3 ViT uses fused `qkv`, timm DINOv3 ConvNeXt uses MLP targets `mlp.fc1,mlp.fc2`, and classifier heads are saved.
 
 Dependencies now include `torch>=2.7.1`, `transformers>=4.56`, `peft`, `timm`, and `pytest`.
 
@@ -211,4 +211,3 @@ Do not assume any of these have happened:
 - Any final paper table generation from real results.
 
 Run Tier 0 before Tier 1, and Tier 1 before any Tier 2 paper-scale run.
-

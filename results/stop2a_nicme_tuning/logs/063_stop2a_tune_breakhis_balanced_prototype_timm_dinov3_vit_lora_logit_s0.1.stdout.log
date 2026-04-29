@@ -1,0 +1,58 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=timm type=timm_dinov3_vit_lora with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '0.6924', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.1725', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.692', 'eval_brier': '0.4989', 'eval_ece': '0.004849', 'eval_auroc': '0.877', 'eval_auprc': '0.859', 'eval_runtime': '2.237', 'eval_samples_per_second': '28.61', 'eval_steps_per_second': '1.788', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1/checkpoint-4/preprocessor_config.json
+{'eval_loss': '0.6903', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.1725', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.6901', 'eval_brier': '0.4969', 'eval_ece': '0.004013', 'eval_auroc': '0.9219', 'eval_auprc': '0.9156', 'eval_runtime': '2.026', 'eval_samples_per_second': '31.59', 'eval_steps_per_second': '1.974', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1/checkpoint-8/preprocessor_config.json
+{'loss': '2.769', 'grad_norm': '1.824', 'learning_rate': '8.716e-05', 'epoch': '2.5'}
+{'eval_loss': '0.6884', 'eval_accuracy': '0.7344', 'eval_f1': '0.7142', 'eval_balanced_accuracy': '0.7344', 'eval_macro_f1': '0.7142', 'eval_atc': '0.2656', 'eval_normalized_atc': '0.02656', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.03993', 'eval_selection_accuracy_value': '0.7344', 'eval_nll': '0.6883', 'eval_brier': '0.4952', 'eval_ece': '0.2307', 'eval_auroc': '0.9355', 'eval_auprc': '0.9284', 'eval_runtime': '2.062', 'eval_samples_per_second': '31.04', 'eval_steps_per_second': '1.94', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1/checkpoint-12/preprocessor_config.json
+{'eval_loss': '0.687', 'eval_accuracy': '0.7188', 'eval_f1': '0.6946', 'eval_balanced_accuracy': '0.7188', 'eval_macro_f1': '0.6946', 'eval_atc': '0.2812', 'eval_normalized_atc': '0.02813', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.04535', 'eval_selection_accuracy_value': '0.7188', 'eval_nll': '0.6868', 'eval_brier': '0.4937', 'eval_ece': '0.2138', 'eval_auroc': '0.9414', 'eval_auprc': '0.9324', 'eval_runtime': '2.054', 'eval_samples_per_second': '31.16', 'eval_steps_per_second': '1.948', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1/checkpoint-16/preprocessor_config.json
+{'loss': '2.756', 'grad_norm': '3.649', 'learning_rate': '3.96e-05', 'epoch': '5'}
+{'eval_loss': '0.686', 'eval_accuracy': '0.7344', 'eval_f1': '0.7142', 'eval_balanced_accuracy': '0.7344', 'eval_macro_f1': '0.7142', 'eval_atc': '0.2656', 'eval_normalized_atc': '0.02656', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.03993', 'eval_selection_accuracy_value': '0.7344', 'eval_nll': '0.6858', 'eval_brier': '0.4927', 'eval_ece': '0.2289', 'eval_auroc': '0.9473', 'eval_auprc': '0.9399', 'eval_runtime': '1.652', 'eval_samples_per_second': '38.73', 'eval_steps_per_second': '2.421', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1/checkpoint-20/preprocessor_config.json
+{'train_runtime': '19.08', 'train_samples_per_second': '107.3', 'train_steps_per_second': '1.677', 'train_loss': '2.762', 'epoch': '5'}
+***** train metrics *****
+  epoch                    =        5.0
+  total_flos               =        0GF
+  train_loss               =     2.7624
+  train_runtime            = 0:00:19.08
+  train_samples_per_second =    107.317
+  train_steps_per_second   =      1.677
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1_04-28_07-01
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1_04-28_07-01/run_configuration_20260428_070119.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1_04-28_07-01/metrics_20260428_070126_nicme_logit_adjustment.json and results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1_04-28_07-01/metrics_20260428_070126_nicme_logit_adjustment.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1_04-28_07-01/confusion_matrix_20260428_070126_nicme_logit_adjustment.png and results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1_04-28_07-01/confusion_matrix_20260428_070126_nicme_logit_adjustment.pdf
+Detailed confusion matrix saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1_04-28_07-01/confusion_matrix_detailed_20260428_070126_nicme_logit_adjustment.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1_04-28_07-01
+Overall Accuracy: 0.6875
+Balanced Accuracy: 0.6875
+Overall F1 Score: 0.6718
+Kappa: 0.3750
+AUC: 0.8193
+Expected Cost: 0.7344
+Loss Function Used: nicme_logit_adjustment
+Total Test Samples: 64
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/timm_dinov3_vit_lora_test/stop2a_tune_breakhis_balanced_prototype_timm_dinov3_vit_lora_logit_s0.1_04-28_07-01
+============================================================

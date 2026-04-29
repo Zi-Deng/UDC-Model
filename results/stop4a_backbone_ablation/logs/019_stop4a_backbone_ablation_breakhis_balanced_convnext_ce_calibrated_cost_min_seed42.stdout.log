@@ -1,0 +1,90 @@
+Prepared manifest loaded — Train=3448, Val=410, Calibration=538, Test=564
+cuda
+Using model backend=hf_auto type=convnext with 2 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '0.6879', 'grad_norm': '1.548', 'learning_rate': '1.667e-05', 'epoch': '0.1852'}
+{'loss': '0.6653', 'grad_norm': '1.906', 'learning_rate': '3.519e-05', 'epoch': '0.3704'}
+{'loss': '0.6191', 'grad_norm': '1.944', 'learning_rate': '5.37e-05', 'epoch': '0.5556'}
+{'loss': '0.5091', 'grad_norm': '3.212', 'learning_rate': '7.222e-05', 'epoch': '0.7407'}
+{'loss': '0.398', 'grad_norm': '3.353', 'learning_rate': '9.074e-05', 'epoch': '0.9259'}
+{'eval_loss': '0.4337', 'eval_accuracy': '0.8561', 'eval_f1': '0.854', 'eval_balanced_accuracy': '0.8561', 'eval_macro_f1': '0.854', 'eval_atc': '0.2537', 'eval_normalized_atc': '0.02537', 'eval_target_recall': '0.9756', 'eval_target_fnr': '0.02439', 'eval_selection_score': '0.02537', 'eval_selection_accuracy_value': '0.8561', 'eval_nll': '0.4337', 'eval_brier': '0.255', 'eval_ece': '0.06828', 'eval_auroc': '0.8534', 'eval_auprc': '0.7671', 'eval_runtime': '4.977', 'eval_samples_per_second': '82.38', 'eval_steps_per_second': '5.224', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42/checkpoint-54/preprocessor_config.json
+{'loss': '0.3014', 'grad_norm': '11.47', 'learning_rate': '9.999e-05', 'epoch': '1.111'}
+{'loss': '0.3027', 'grad_norm': '3.52', 'learning_rate': '9.995e-05', 'epoch': '1.296'}
+{'loss': '0.2947', 'grad_norm': '4.493', 'learning_rate': '9.985e-05', 'epoch': '1.481'}
+{'loss': '0.2067', 'grad_norm': '3.529', 'learning_rate': '9.971e-05', 'epoch': '1.667'}
+{'loss': '0.2348', 'grad_norm': '16.1', 'learning_rate': '9.953e-05', 'epoch': '1.852'}
+{'eval_loss': '0.749', 'eval_accuracy': '0.8098', 'eval_f1': '0.8061', 'eval_balanced_accuracy': '0.8098', 'eval_macro_f1': '0.8061', 'eval_atc': '0.4317', 'eval_normalized_atc': '0.04317', 'eval_target_recall': '0.9463', 'eval_target_fnr': '0.05366', 'eval_selection_score': '0.04703', 'eval_selection_accuracy_value': '0.8098', 'eval_nll': '0.749', 'eval_brier': '0.331', 'eval_ece': '0.155', 'eval_auroc': '0.7956', 'eval_auprc': '0.6607', 'eval_runtime': '4.147', 'eval_samples_per_second': '98.86', 'eval_steps_per_second': '6.269', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42/checkpoint-108/preprocessor_config.json
+{'loss': '0.2142', 'grad_norm': '13.48', 'learning_rate': '9.929e-05', 'epoch': '2.037'}
+{'loss': '0.174', 'grad_norm': '4.067', 'learning_rate': '9.901e-05', 'epoch': '2.222'}
+{'loss': '0.141', 'grad_norm': '3.823', 'learning_rate': '9.869e-05', 'epoch': '2.407'}
+{'loss': '0.1495', 'grad_norm': '6.429', 'learning_rate': '9.832e-05', 'epoch': '2.593'}
+{'loss': '0.1308', 'grad_norm': '16.86', 'learning_rate': '9.79e-05', 'epoch': '2.778'}
+{'loss': '0.1051', 'grad_norm': '5.89', 'learning_rate': '9.744e-05', 'epoch': '2.963'}
+{'eval_loss': '0.9019', 'eval_accuracy': '0.8293', 'eval_f1': '0.8244', 'eval_balanced_accuracy': '0.8293', 'eval_macro_f1': '0.8244', 'eval_atc': '0.1927', 'eval_normalized_atc': '0.01927', 'eval_target_recall': '0.9951', 'eval_target_fnr': '0.004878', 'eval_selection_score': '0.0197', 'eval_selection_accuracy_value': '0.8293', 'eval_nll': '0.9019', 'eval_brier': '0.3305', 'eval_ece': '0.1617', 'eval_auroc': '0.8325', 'eval_auprc': '0.7359', 'eval_runtime': '4.041', 'eval_samples_per_second': '101.5', 'eval_steps_per_second': '6.434', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42/checkpoint-162/preprocessor_config.json
+{'loss': '0.1157', 'grad_norm': '15.26', 'learning_rate': '9.693e-05', 'epoch': '3.148'}
+{'loss': '0.111', 'grad_norm': '4.099', 'learning_rate': '9.638e-05', 'epoch': '3.333'}
+{'loss': '0.1313', 'grad_norm': '9.664', 'learning_rate': '9.579e-05', 'epoch': '3.519'}
+{'loss': '0.09363', 'grad_norm': '2.797', 'learning_rate': '9.515e-05', 'epoch': '3.704'}
+{'loss': '0.1017', 'grad_norm': '14.29', 'learning_rate': '9.447e-05', 'epoch': '3.889'}
+{'eval_loss': '1.027', 'eval_accuracy': '0.8146', 'eval_f1': '0.8106', 'eval_balanced_accuracy': '0.8146', 'eval_macro_f1': '0.8106', 'eval_atc': '0.361', 'eval_normalized_atc': '0.0361', 'eval_target_recall': '0.961', 'eval_target_fnr': '0.03902', 'eval_selection_score': '0.03767', 'eval_selection_accuracy_value': '0.8146', 'eval_nll': '1.027', 'eval_brier': '0.3563', 'eval_ece': '0.1702', 'eval_auroc': '0.7681', 'eval_auprc': '0.6259', 'eval_runtime': '4.214', 'eval_samples_per_second': '97.29', 'eval_steps_per_second': '6.17', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42/checkpoint-216/preprocessor_config.json
+{'loss': '0.08821', 'grad_norm': '13.51', 'learning_rate': '9.375e-05', 'epoch': '4.074'}
+{'loss': '0.1156', 'grad_norm': '2.05', 'learning_rate': '9.299e-05', 'epoch': '4.259'}
+{'loss': '0.1041', 'grad_norm': '2.077', 'learning_rate': '9.219e-05', 'epoch': '4.444'}
+{'loss': '0.08702', 'grad_norm': '5.653', 'learning_rate': '9.135e-05', 'epoch': '4.63'}
+{'loss': '0.0854', 'grad_norm': '6.47', 'learning_rate': '9.047e-05', 'epoch': '4.815'}
+{'loss': '0.05992', 'grad_norm': '7.176', 'learning_rate': '8.955e-05', 'epoch': '5'}
+{'eval_loss': '1.067', 'eval_accuracy': '0.8268', 'eval_f1': '0.8221', 'eval_balanced_accuracy': '0.8268', 'eval_macro_f1': '0.8221', 'eval_atc': '0.2171', 'eval_normalized_atc': '0.02171', 'eval_target_recall': '0.9902', 'eval_target_fnr': '0.009756', 'eval_selection_score': '0.02224', 'eval_selection_accuracy_value': '0.8268', 'eval_nll': '1.067', 'eval_brier': '0.3345', 'eval_ece': '0.1623', 'eval_auroc': '0.8072', 'eval_auprc': '0.6903', 'eval_runtime': '4.415', 'eval_samples_per_second': '92.86', 'eval_steps_per_second': '5.889', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42/checkpoint-270/preprocessor_config.json
+{'loss': '0.0674', 'grad_norm': '6.239', 'learning_rate': '8.86e-05', 'epoch': '5.185'}
+{'loss': '0.07801', 'grad_norm': '5.182', 'learning_rate': '8.76e-05', 'epoch': '5.37'}
+{'loss': '0.04338', 'grad_norm': '0.7706', 'learning_rate': '8.658e-05', 'epoch': '5.556'}
+{'loss': '0.07013', 'grad_norm': '9.532', 'learning_rate': '8.552e-05', 'epoch': '5.741'}
+{'loss': '0.05859', 'grad_norm': '3.939', 'learning_rate': '8.442e-05', 'epoch': '5.926'}
+{'eval_loss': '1.227', 'eval_accuracy': '0.8268', 'eval_f1': '0.8218', 'eval_balanced_accuracy': '0.8268', 'eval_macro_f1': '0.8218', 'eval_atc': '0.1951', 'eval_normalized_atc': '0.01951', 'eval_target_recall': '0.9951', 'eval_target_fnr': '0.004878', 'eval_selection_score': '0.02005', 'eval_selection_accuracy_value': '0.8268', 'eval_nll': '1.227', 'eval_brier': '0.3409', 'eval_ece': '0.1708', 'eval_auroc': '0.8115', 'eval_auprc': '0.7097', 'eval_runtime': '4.459', 'eval_samples_per_second': '91.94', 'eval_steps_per_second': '5.83', 'epoch': '6'}
+CustomImageProcessor configuration saved to checkpoints/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42/checkpoint-324/preprocessor_config.json
+{'train_runtime': '189.1', 'train_samples_per_second': '364.8', 'train_steps_per_second': '5.712', 'train_loss': '0.2024', 'epoch': '6'}
+***** train metrics *****
+  epoch                    =         6.0
+  total_flos               = 484139271GF
+  train_loss               =      0.2024
+  train_runtime            =  0:03:09.06
+  train_samples_per_second =     364.751
+  train_steps_per_second   =       5.712
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/convnext_test/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42_04-28_22-18
+Saving run configuration...
+Run configuration saved to: results/convnext_test/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42_04-28_22-18/run_configuration_20260428_221845.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/convnext_test/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42_04-28_22-18/metrics_20260428_221903_ce_calibrated_cost_min.json and results/convnext_test/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42_04-28_22-18/metrics_20260428_221903_ce_calibrated_cost_min.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['benign', 'malignant']
+Confusion matrix visualizations (3-panel) saved to: results/convnext_test/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42_04-28_22-18/confusion_matrix_20260428_221903_ce_calibrated_cost_min.png and results/convnext_test/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42_04-28_22-18/confusion_matrix_20260428_221903_ce_calibrated_cost_min.pdf
+Detailed confusion matrix saved to: results/convnext_test/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42_04-28_22-18/confusion_matrix_detailed_20260428_221903_ce_calibrated_cost_min.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/convnext_test/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42_04-28_22-18
+Overall Accuracy: 0.9415
+Balanced Accuracy: 0.9415
+Overall F1 Score: 0.9414
+Kappa: 0.8830
+AUC: 0.9951
+Expected Cost: 0.1223
+Loss Function Used: ce_calibrated_cost_min
+Total Test Samples: 564
+Classes: benign, malignant
+
+Detailed metrics and visualizations saved to: results/convnext_test/stop4a_backbone_ablation_breakhis_balanced_convnext_ce_calibrated_cost_min_seed42_04-28_22-18
+============================================================

@@ -1,0 +1,58 @@
+{
+  "timestamp": "20260128_084904",
+  "overall_metrics": {
+    "accuracy": 0.88,
+    "f1_score": 0.8799519807923168,
+    "loss": 1.0442335605621338,
+    "balanced_accuracy": 0.88,
+    "kappa": 0.76,
+    "auc": 0.9552,
+    "recall_class0": 0.86,
+    "expected_cost": 0.42,
+    "prevalence_class0": 0.5
+  },
+  "class_counts": {
+    "0": 150,
+    "1": 150
+  },
+  "per_class_metrics": {
+    "accuracy": {
+      "0": 0.86,
+      "1": 0.9
+    },
+    "false_positive_rate": {
+      "0": 0.1,
+      "1": 0.14
+    },
+    "false_negative_rate": {
+      "0": 0.14,
+      "1": 0.1
+    },
+    "precision": {
+      "0": 0.8958333333333334,
+      "1": 0.8653846153846154
+    },
+    "recall": {
+      "0": 0.86,
+      "1": 0.9
+    },
+    "f1_score": {
+      "0": 0.8775510204081632,
+      "1": 0.8823529411764707
+    },
+    "support": {
+      "0": 150,
+      "1": 150
+    }
+  },
+  "confusion_matrix": [
+    [
+      129,
+      21
+    ],
+    [
+      15,
+      135
+    ]
+  ]
+}

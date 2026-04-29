@@ -1,0 +1,53 @@
+Prepared manifest loaded — Train=256, Val=64, Calibration=64, Test=64
+cuda
+Using model backend=timm type=timm_dinov3_vit_lora with 2 labels
+Early stopping enabled with patience=2
+Using device: cuda
+{'eval_loss': '3.417', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.14', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.693', 'eval_brier': '0.4998', 'eval_ece': '0.007183', 'eval_auroc': '0.5635', 'eval_auprc': '0.5554', 'eval_runtime': '1.404', 'eval_samples_per_second': '45.57', 'eval_steps_per_second': '2.848', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid/checkpoint-4/preprocessor_config.json
+{'eval_loss': '3.385', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.14', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.6933', 'eval_brier': '0.5001', 'eval_ece': '0.01652', 'eval_auroc': '0.5537', 'eval_auprc': '0.5486', 'eval_runtime': '1.681', 'eval_samples_per_second': '38.06', 'eval_steps_per_second': '2.379', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid/checkpoint-8/preprocessor_config.json
+{'loss': '10.84', 'grad_norm': '25.5', 'learning_rate': '6.227e-05', 'epoch': '2.5'}
+{'eval_loss': '3.363', 'eval_accuracy': '0.5', 'eval_f1': '0.3333', 'eval_balanced_accuracy': '0.5', 'eval_macro_f1': '0.3333', 'eval_atc': '0.5', 'eval_normalized_atc': '0.05', 'eval_target_recall': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.14', 'eval_selection_accuracy_value': '0.5', 'eval_nll': '0.6938', 'eval_brier': '0.5006', 'eval_ece': '0.02311', 'eval_auroc': '0.5508', 'eval_auprc': '0.5482', 'eval_runtime': '1.938', 'eval_samples_per_second': '33.01', 'eval_steps_per_second': '2.063', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid/checkpoint-12/preprocessor_config.json
+{'train_runtime': '7.798', 'train_samples_per_second': '164.2', 'train_steps_per_second': '2.565', 'train_loss': '11.32', 'epoch': '3'}
+***** train metrics *****
+  epoch                    =        3.0
+  total_flos               =        0GF
+  train_loss               =    11.3176
+  train_runtime            = 0:00:07.79
+  train_samples_per_second =    164.154
+  train_steps_per_second   =      2.565
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_vit_lora_test/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid_04-28_05-27
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_vit_lora_test/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid_04-28_05-27/run_configuration_20260428_052753.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_vit_lora_test/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid_04-28_05-27/metrics_20260428_052759_nicme_hybrid.json and results/timm_dinov3_vit_lora_test/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid_04-28_05-27/metrics_20260428_052759_nicme_hybrid.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['black_widow', 'false_widow']
+Confusion matrix visualizations (3-panel) saved to: results/timm_dinov3_vit_lora_test/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid_04-28_05-27/confusion_matrix_20260428_052759_nicme_hybrid.png and results/timm_dinov3_vit_lora_test/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid_04-28_05-27/confusion_matrix_20260428_052759_nicme_hybrid.pdf
+Detailed confusion matrix saved to: results/timm_dinov3_vit_lora_test/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid_04-28_05-27/confusion_matrix_detailed_20260428_052759_nicme_hybrid.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_vit_lora_test/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid_04-28_05-27
+Overall Accuracy: 0.5000
+Balanced Accuracy: 0.5000
+Overall F1 Score: 0.3333
+Kappa: 0.0000
+AUC: 0.6621
+Expected Cost: 0.5000
+Loss Function Used: nicme_hybrid
+Total Test Samples: 64
+Classes: black_widow, false_widow
+
+Detailed metrics and visualizations saved to: results/timm_dinov3_vit_lora_test/stop2_prototype_spider_balanced_prototype_timm_dinov3_vit_lora_nicme_hybrid_04-28_05-27
+============================================================

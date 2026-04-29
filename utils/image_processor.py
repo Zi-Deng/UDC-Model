@@ -57,6 +57,20 @@ class CustomImageProcessor:
             "crop_pct": 0.9,
             "interpolation": "bicubic",
         },
+        "timm_dinov3_vit": {
+            "image_mean": [0.485, 0.456, 0.406],
+            "image_std": [0.229, 0.224, 0.225],
+            "size": {"height": 256, "width": 256},
+            "crop_pct": 1.0,
+            "interpolation": "bicubic",
+        },
+        "timm_dinov3_convnext": {
+            "image_mean": [0.485, 0.456, 0.406],
+            "image_std": [0.229, 0.224, 0.225],
+            "size": {"height": 224, "width": 224},
+            "crop_pct": 1.0,
+            "interpolation": "bicubic",
+        },
     }
 
     def __init__(
@@ -112,7 +126,12 @@ class CustomImageProcessor:
         """Extract model type from model name string."""
         model_name_lower = model_name.lower()
 
-        if "resnet" in model_name_lower:
+        is_timm_dinov3 = model_name_lower.startswith("timm/") or ".dinov3" in model_name_lower
+        if is_timm_dinov3 and "convnext" in model_name_lower:
+            return "timm_dinov3_convnext"
+        elif is_timm_dinov3 and "vit" in model_name_lower:
+            return "timm_dinov3_vit"
+        elif "resnet" in model_name_lower:
             return "resnet"
         elif "vit" in model_name_lower or "vision" in model_name_lower:
             return "vit"
