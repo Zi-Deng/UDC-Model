@@ -1,0 +1,6 @@
+[2026-05-03T22:50:51-07:00] START resume-run
+Completed 33 long training runs
+[2026-05-03T23:45:54-07:00] DONE resume-run
+[2026-05-03T23:45:54-07:00] START analyze
+Wrote camera-ready analysis under /mnt/storage/github/NICME/results/pmi10_camera_ready_lr5e5_multiseed_20260504/analysis
+[2026-05-03T23:45:54-07:00] DONE analyze

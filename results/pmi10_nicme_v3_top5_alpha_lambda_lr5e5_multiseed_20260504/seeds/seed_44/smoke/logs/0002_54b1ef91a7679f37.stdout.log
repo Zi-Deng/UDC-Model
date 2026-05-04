@@ -1,0 +1,47 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_sota_convnext_base with 10 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '7.912', 'grad_norm': '29.66', 'learning_rate': '2.5e-05', 'epoch': '0.6557'}
+{'eval_loss': '1.284', 'eval_accuracy': '0.7161', 'eval_f1': '0.6904', 'eval_balanced_accuracy': '0.7161', 'eval_macro_f1': '0.6904', 'eval_atc': '0.7194', 'eval_normalized_atc': '0.07194', 'eval_target_recall': '0.1935', 'eval_target_recall_macro': '0.7339', 'eval_target_fnr': '0.09677', 'eval_selection_score': '2.075', 'eval_selection_accuracy_value': '0.7161', 'eval_nll': '1.243', 'eval_brier': '0.5798', 'eval_ece': '0.3465', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.44', 'eval_samples_per_second': '69.82', 'eval_steps_per_second': '4.504', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/top5_smoke_nicme_v3_run69_a0p2_l0p09_lr5e5_s44/checkpoint-16/preprocessor_config.json
+{'train_runtime': '18.96', 'train_samples_per_second': '51.17', 'train_steps_per_second': '0.844', 'train_loss': '6.689', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     6.6889
+  train_runtime            = 0:00:18.95
+  train_samples_per_second =     51.172
+  train_steps_per_second   =      0.844
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_sota_convnext_base_test/top5_smoke_nicme_v3_run69_a0p2_l0p09_lr5e5_s44_05-04_03-13
+Saving run configuration...
+Run configuration saved to: results/pmi10_sota_convnext_base_test/top5_smoke_nicme_v3_run69_a0p2_l0p09_lr5e5_s44_05-04_03-13/run_configuration_20260504_031339.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_sota_convnext_base_test/top5_smoke_nicme_v3_run69_a0p2_l0p09_lr5e5_s44_05-04_03-13/metrics_20260504_031347_nicme_v3_hybrid.json and results/pmi10_sota_convnext_base_test/top5_smoke_nicme_v3_run69_a0p2_l0p09_lr5e5_s44_05-04_03-13/metrics_20260504_031347_nicme_v3_hybrid.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_sota_convnext_base_test/top5_smoke_nicme_v3_run69_a0p2_l0p09_lr5e5_s44_05-04_03-13
+Overall Accuracy: 0.7188
+Balanced Accuracy: 0.7188
+Overall F1 Score: 0.6920
+Kappa: 0.6875
+AUC: 0.9783
+Expected Cost: 0.5625
+Loss Function Used: nicme_v3_hybrid
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/top5_smoke_nicme_v3_run69_a0p2_l0p09_lr5e5_s44_05-04_03-13
+============================================================

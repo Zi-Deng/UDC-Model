@@ -1,0 +1,46 @@
+
+[2026-05-03T20:26:32-07:00] START prepare-balanced-split
+[2026-05-03T20:26:32-07:00] CMD micromamba run -n ml python scripts/prepare_data.py --dataset pmi_pills_10_no_cal --input-dir data/raw/pmi --output-dir data/prepared/pmi_pills_10_no_cal --seed 42
+[2026-05-03T20:26:33-07:00] DONE prepare-balanced-split
+
+[2026-05-03T20:26:33-07:00] START readiness
+[2026-05-03T20:26:33-07:00] CMD micromamba run -n ml python scripts/check_multiclass_readiness.py --datasets pmi_pills_10_no_cal --variants balanced --raw-root data/raw --prepared-root data/prepared --output-dir /mnt/storage/github/NICME/results/pmi10_camera_ready_lr5e5_multiseed_20260504/readiness
+Wrote readiness reports to /mnt/storage/github/NICME/results/pmi10_camera_ready_lr5e5_multiseed_20260504/readiness/mc0_readiness.json and /mnt/storage/github/NICME/results/pmi10_camera_ready_lr5e5_multiseed_20260504/readiness/mc0_readiness.md
+[2026-05-03T20:26:33-07:00] DONE readiness
+
+[2026-05-03T20:26:33-07:00] START unit-tests
+[2026-05-03T20:26:33-07:00] CMD micromamba run -n ml pytest -q tests/test_loss_functions.py tests/test_sota_baselines_runner.py tests/test_data_prep.py tests/test_multiclass_readiness.py tests/test_pmi10_camera_ready_runner.py
+...................................................                      [100%]
+51 passed in 3.21s
+[2026-05-03T20:26:38-07:00] DONE unit-tests
+
+[2026-05-03T20:26:38-07:00] START preflight
+[2026-05-03T20:26:38-07:00] CMD runner_cmd preflight
+Camera-ready PMI-10 preflight passed
+[2026-05-03T20:26:38-07:00] DONE preflight
+
+[2026-05-03T20:26:38-07:00] START dry-run
+[2026-05-03T20:26:38-07:00] CMD runner_cmd dry-run
+Wrote 33 dry-run training configs under /mnt/storage/github/NICME/results/pmi10_camera_ready_lr5e5_multiseed_20260504
+[2026-05-03T20:26:38-07:00] DONE dry-run
+
+[2026-05-03T20:26:38-07:00] START smoke
+[2026-05-03T20:26:38-07:00] CMD runner_cmd smoke --per-run-timeout-minutes 240
+Completed 33 smoke training runs
+[2026-05-03T20:52:36-07:00] DONE smoke
+
+[2026-05-03T20:52:36-07:00] START long-camera-ready-chain
+[2026-05-03T20:52:36-07:00] CMD runner_cmd run --per-run-timeout-minutes 960
+Traceback (most recent call last):
+  File "/mnt/storage/github/NICME/scripts/run_pmi10_camera_ready_lr5e5.py", line 743, in <module>
+    main()
+  File "/mnt/storage/github/NICME/scripts/run_pmi10_camera_ready_lr5e5.py", line 736, in main
+    rows = execute_phase(args, "run", smoke=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/storage/github/NICME/scripts/run_pmi10_camera_ready_lr5e5.py", line 228, in execute_phase
+    rows = execute_seed_phase(args, seed, phase, smoke=smoke)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/storage/github/NICME/scripts/run_pmi10_camera_ready_lr5e5.py", line 219, in execute_seed_phase
+    raise RuntimeError(f"{phase} failed for seed={seed}, method={method}: {row.get('failure_reason')}")
+RuntimeError: run failed for seed=43, method=class_balanced_focal: returncode_-11
+[2026-05-03T22:04:57-07:00] FAILED long-camera-ready-chain rc=1

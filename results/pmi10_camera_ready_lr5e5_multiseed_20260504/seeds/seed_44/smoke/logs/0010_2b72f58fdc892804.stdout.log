@@ -1,0 +1,48 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_sota_convnext_base with 10 labels
+Loaded initial checkpoint: checkpoints/camera_ready_smoke_ce_anchor_pretty_lr5e5_s44/checkpoint-16/model.safetensors
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '3.56', 'grad_norm': '16.09', 'learning_rate': '5e-06', 'epoch': '0.6557'}
+{'eval_loss': '0.5779', 'eval_accuracy': '0', 'eval_f1': '0', 'eval_balanced_accuracy': '0', 'eval_macro_f1': '0', 'eval_atc': '1', 'eval_normalized_atc': '0.1', 'eval_target_recall': '0', 'eval_target_recall_macro': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.98', 'eval_selection_accuracy_value': '0', 'eval_nll': '3.295', 'eval_brier': '1.044', 'eval_ece': '0.2095', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.749', 'eval_samples_per_second': '65.27', 'eval_steps_per_second': '4.211', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/camera_ready_smoke_sosr_cnn_lr5e5_s44/checkpoint-16/preprocessor_config.json
+{'train_runtime': '19.26', 'train_samples_per_second': '50.37', 'train_steps_per_second': '0.831', 'train_loss': '3.016', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     3.0164
+  train_runtime            = 0:00:19.25
+  train_samples_per_second =     50.367
+  train_steps_per_second   =      0.831
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_sosr_cnn_lr5e5_s44_05-03_20-51
+Saving run configuration...
+Run configuration saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_sosr_cnn_lr5e5_s44_05-03_20-51/run_configuration_20260503_205128.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_sosr_cnn_lr5e5_s44_05-03_20-51/metrics_20260503_205137_sosr_cnn.json and results/pmi10_sota_convnext_base_test/camera_ready_smoke_sosr_cnn_lr5e5_s44_05-03_20-51/metrics_20260503_205137_sosr_cnn.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_sota_convnext_base_test/camera_ready_smoke_sosr_cnn_lr5e5_s44_05-03_20-51
+Overall Accuracy: 0.0000
+Balanced Accuracy: 0.0000
+Overall F1 Score: 0.0000
+Kappa: -0.1111
+AUC: 0.0436
+Expected Cost: 1.0000
+Loss Function Used: sosr_cnn
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_sosr_cnn_lr5e5_s44_05-03_20-51
+============================================================

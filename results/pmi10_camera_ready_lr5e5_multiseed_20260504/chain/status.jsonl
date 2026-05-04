@@ -1,0 +1,16 @@
+{"time":"2026-05-03T20:26:32-07:00","phase":"chain","status":"started"}
+{"time":"2026-05-03T20:26:32-07:00","phase":"prepare-balanced-split","status":"started"}
+{"time":"2026-05-03T20:26:33-07:00","phase":"prepare-balanced-split","status":"completed"}
+{"time":"2026-05-03T20:26:33-07:00","phase":"readiness","status":"started"}
+{"time":"2026-05-03T20:26:33-07:00","phase":"readiness","status":"completed"}
+{"time":"2026-05-03T20:26:33-07:00","phase":"unit-tests","status":"started"}
+{"time":"2026-05-03T20:26:38-07:00","phase":"unit-tests","status":"completed"}
+{"time":"2026-05-03T20:26:38-07:00","phase":"preflight","status":"started"}
+{"time":"2026-05-03T20:26:38-07:00","phase":"preflight","status":"completed"}
+{"time":"2026-05-03T20:26:38-07:00","phase":"dry-run","status":"started"}
+{"time":"2026-05-03T20:26:38-07:00","phase":"dry-run","status":"completed"}
+{"time":"2026-05-03T20:26:38-07:00","phase":"smoke","status":"started"}
+{"time":"2026-05-03T20:52:36-07:00","phase":"smoke","status":"completed"}
+{"time":"2026-05-03T20:52:36-07:00","phase":"long-camera-ready-chain","status":"started"}
+{"time":"2026-05-03T22:04:57-07:00","phase":"long-camera-ready-chain","status":"failed"}
+{"time":"2026-05-03T22:04:57-07:00","phase":"chain","status":"failed"}

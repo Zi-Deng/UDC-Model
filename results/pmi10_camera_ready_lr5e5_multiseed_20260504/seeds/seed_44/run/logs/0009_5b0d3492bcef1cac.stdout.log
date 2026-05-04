@@ -1,0 +1,63 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_sota_convnext_base with 10 labels
+Loaded initial checkpoint: checkpoints/camera_ready_run_ce_anchor_pretty_lr5e5_s44/checkpoint-208/model.safetensors
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '0.02069', 'grad_norm': '0.6962', 'learning_rate': '5.625e-06', 'epoch': '0.6557'}
+{'eval_loss': '0.07414', 'eval_accuracy': '0.9774', 'eval_f1': '0.9774', 'eval_balanced_accuracy': '0.9774', 'eval_macro_f1': '0.9774', 'eval_atc': '0.02258', 'eval_normalized_atc': '0.002258', 'eval_target_recall': '0.9355', 'eval_target_recall_macro': '0.9839', 'eval_target_fnr': '0', 'eval_selection_score': '0.002258', 'eval_selection_accuracy_value': '0.9774', 'eval_nll': '0.05592', 'eval_brier': '0.02773', 'eval_ece': '0.01667', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.718', 'eval_samples_per_second': '65.71', 'eval_steps_per_second': '4.239', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/camera_ready_run_ap_csada_lr5e5_s44/checkpoint-16/preprocessor_config.json
+{'loss': '0.05682', 'grad_norm': '2.764', 'learning_rate': '9.989e-06', 'epoch': '1.262'}
+{'loss': '0.01616', 'grad_norm': '0.2961', 'learning_rate': '9.8e-06', 'epoch': '1.918'}
+{'eval_loss': '0.05972', 'eval_accuracy': '0.9935', 'eval_f1': '0.9935', 'eval_balanced_accuracy': '0.9935', 'eval_macro_f1': '0.9935', 'eval_atc': '0.006452', 'eval_normalized_atc': '0.0006452', 'eval_target_recall': '0.9677', 'eval_target_recall_macro': '0.9919', 'eval_target_fnr': '0', 'eval_selection_score': '0.0006452', 'eval_selection_accuracy_value': '0.9935', 'eval_nll': '0.03468', 'eval_brier': '0.01818', 'eval_ece': '0.01477', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.728', 'eval_samples_per_second': '83.14', 'eval_steps_per_second': '5.364', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/camera_ready_run_ap_csada_lr5e5_s44/checkpoint-32/preprocessor_config.json
+{'loss': '0.01471', 'grad_norm': '0.4283', 'learning_rate': '9.384e-06', 'epoch': '2.525'}
+{'eval_loss': '0.07142', 'eval_accuracy': '0.9871', 'eval_f1': '0.9871', 'eval_balanced_accuracy': '0.9871', 'eval_macro_f1': '0.9871', 'eval_atc': '0.04194', 'eval_normalized_atc': '0.004194', 'eval_target_recall': '0.9677', 'eval_target_recall_macro': '0.9839', 'eval_target_fnr': '0.03226', 'eval_selection_score': '0.004194', 'eval_selection_accuracy_value': '0.9871', 'eval_nll': '0.03841', 'eval_brier': '0.0233', 'eval_ece': '0.01501', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.942', 'eval_samples_per_second': '78.64', 'eval_steps_per_second': '5.073', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/camera_ready_run_ap_csada_lr5e5_s44/checkpoint-48/preprocessor_config.json
+{'loss': '0.003416', 'grad_norm': '0.332', 'learning_rate': '8.759e-06', 'epoch': '3.131'}
+{'loss': '0.003631', 'grad_norm': '3.393', 'learning_rate': '7.957e-06', 'epoch': '3.787'}
+{'eval_loss': '0.06332', 'eval_accuracy': '0.9871', 'eval_f1': '0.9871', 'eval_balanced_accuracy': '0.9871', 'eval_macro_f1': '0.9871', 'eval_atc': '0.0129', 'eval_normalized_atc': '0.00129', 'eval_target_recall': '0.9677', 'eval_target_recall_macro': '0.9919', 'eval_target_fnr': '0', 'eval_selection_score': '0.00129', 'eval_selection_accuracy_value': '0.9871', 'eval_nll': '0.04583', 'eval_brier': '0.02353', 'eval_ece': '0.01605', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.804', 'eval_samples_per_second': '81.48', 'eval_steps_per_second': '5.257', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/camera_ready_run_ap_csada_lr5e5_s44/checkpoint-64/preprocessor_config.json
+{'loss': '0.002805', 'grad_norm': '0.5193', 'learning_rate': '7.014e-06', 'epoch': '4.393'}
+{'loss': '0.002492', 'grad_norm': '0.01858', 'learning_rate': '5.975e-06', 'epoch': '5'}
+{'eval_loss': '0.08941', 'eval_accuracy': '0.9774', 'eval_f1': '0.9771', 'eval_balanced_accuracy': '0.9774', 'eval_macro_f1': '0.9771', 'eval_atc': '0.05161', 'eval_normalized_atc': '0.005161', 'eval_target_recall': '0.871', 'eval_target_recall_macro': '0.9677', 'eval_target_fnr': '0', 'eval_selection_score': '0.008533', 'eval_selection_accuracy_value': '0.9774', 'eval_nll': '0.05633', 'eval_brier': '0.03036', 'eval_ece': '0.02049', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.693', 'eval_samples_per_second': '83.93', 'eval_steps_per_second': '5.415', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/camera_ready_run_ap_csada_lr5e5_s44/checkpoint-80/preprocessor_config.json
+{'train_runtime': '80.97', 'train_samples_per_second': '119.8', 'train_steps_per_second': '1.976', 'train_loss': '0.01509', 'epoch': '5'}
+***** train metrics *****
+  epoch                    =        5.0
+  total_flos               =        0GF
+  train_loss               =     0.0151
+  train_runtime            = 0:01:20.97
+  train_samples_per_second =    119.797
+  train_steps_per_second   =      1.976
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_sota_convnext_base_test/camera_ready_run_ap_csada_lr5e5_s44_05-03_23-41
+Saving run configuration...
+Run configuration saved to: results/pmi10_sota_convnext_base_test/camera_ready_run_ap_csada_lr5e5_s44_05-03_23-41/run_configuration_20260503_234149.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_sota_convnext_base_test/camera_ready_run_ap_csada_lr5e5_s44_05-03_23-41/metrics_20260503_234158_ap_csada.json and results/pmi10_sota_convnext_base_test/camera_ready_run_ap_csada_lr5e5_s44_05-03_23-41/metrics_20260503_234158_ap_csada.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_sota_convnext_base_test/camera_ready_run_ap_csada_lr5e5_s44_05-03_23-41
+Overall Accuracy: 0.9750
+Balanced Accuracy: 0.9750
+Overall F1 Score: 0.9750
+Kappa: 0.9722
+AUC: 0.9998
+Expected Cost: 0.0531
+Loss Function Used: ap_csada
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/camera_ready_run_ap_csada_lr5e5_s44_05-03_23-41
+============================================================
