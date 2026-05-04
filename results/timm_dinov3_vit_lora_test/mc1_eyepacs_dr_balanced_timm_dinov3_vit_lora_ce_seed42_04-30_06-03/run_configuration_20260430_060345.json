@@ -1,0 +1,95 @@
+{
+  "run_info": {
+    "timestamp": "20260430_060345",
+    "output_directory": "results/timm_dinov3_vit_lora_test/mc1_eyepacs_dr_balanced_timm_dinov3_vit_lora_ce_seed42_04-30_06-03"
+  },
+  "model_configuration": {
+    "model": "timm/vit_small_patch16_dinov3.lvd1689m",
+    "model_backend": "timm",
+    "model_type": "timm_dinov3_vit_lora",
+    "weights": null,
+    "num_labels": 5,
+    "peft_enabled": true
+  },
+  "dataset_configuration": {
+    "dataset_profile": "eyepacs_dr",
+    "dataset_host": "local_folder",
+    "dataset": "eyepacs_dr_balanced",
+    "dataset_location": "data/prepared/eyepacs_dr/splits/balanced",
+    "local_dataset_name": null,
+    "local_folder_path": "data/prepared/eyepacs_dr/splits/balanced",
+    "local_dataset_format": "manifest"
+  },
+  "training_parameters": {
+    "batch_size": 16,
+    "learning_rate": 5e-05,
+    "num_train_epochs": 1,
+    "loss_function": "ce",
+    "cs_lambda": 0.0,
+    "cs_warmup_epochs": 0,
+    "seed": 42
+  },
+  "cost_matrix_configuration": {
+    "cost_matrix": [
+      [
+        0.0,
+        1.0,
+        4.0,
+        9.0,
+        16.0
+      ],
+      [
+        1.0,
+        0.0,
+        1.0,
+        4.0,
+        9.0
+      ],
+      [
+        4.0,
+        1.0,
+        0.0,
+        1.0,
+        4.0
+      ],
+      [
+        9.0,
+        4.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      [
+        16.0,
+        9.0,
+        4.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "cost_matrix_source": "dataset",
+    "cost_matrix_sha256": "2ddb9a77faab698cd29f1475048e7f5438e89d3c7420eaa8607238053746d412",
+    "cost_matrix_convention": "C[true_label][predicted_label]",
+    "target_recall_class": "DR4",
+    "target_recall_classes": [
+      "DR4"
+    ],
+    "secondary_target_recall_classes": [
+      "DR3",
+      "DR4"
+    ],
+    "target_recall_floor": 0.9,
+    "accuracy_floor": 0.55,
+    "selection_accuracy_metric": "balanced_accuracy",
+    "metric_profile": "diabetic_retinopathy",
+    "critical_pairs": [],
+    "sweep_mode": false,
+    "sweep_cost_value": null,
+    "sweep_matrix_row": null,
+    "sweep_matrix_col": null
+  },
+  "other_settings": {
+    "wandb_enabled": false,
+    "push_to_hub": false
+  }
+}

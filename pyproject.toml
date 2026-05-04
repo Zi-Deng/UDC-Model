@@ -15,7 +15,11 @@ nicme-sweep = "nicme.cli:sweep"
 nicme-hpo = "nicme.cli:hpo"
 nicme-compare-sweeps = "nicme.cli:compare_sweeps"
 nicme-prepare-data = "nicme.cli:prepare_data"
+nicme-check-multiclass-readiness = "nicme.cli:check_multiclass_readiness"
+nicme-check-dinov3-storage = "nicme.cli:check_dinov3_storage"
 nicme-run-binary-experiments = "nicme.cli:run_binary_experiments"
+nicme-run-multiclass-experiments = "nicme.cli:run_multiclass_experiments"
+nicme-run-pmi10-no-cal-experiments = "nicme.cli:run_pmi10_no_cal_experiments"
 nicme-experiment-stop = "nicme.cli:experiment_stop"
 
 [tool.ruff]

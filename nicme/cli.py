@@ -62,6 +62,34 @@ def run_binary_experiments() -> None:
     main()
 
 
+def run_multiclass_experiments() -> None:
+    """Create or execute multiclass experiment matrices."""
+    from scripts.run_multiclass_experiments import main
+
+    main()
+
+
+def run_pmi10_no_cal_experiments() -> None:
+    """Create or execute focused PMI-10 no-calibration experiment matrices."""
+    from scripts.run_pmi10_no_cal_experiments import main
+
+    main()
+
+
+def check_multiclass_readiness() -> None:
+    """Check MC0 readiness for multiclass datasets."""
+    from scripts.check_multiclass_readiness import main
+
+    main()
+
+
+def check_dinov3_storage() -> None:
+    """Check storage-safe Hugging Face access for official DINOv3 models."""
+    from scripts.check_dinov3_storage_access import main
+
+    main()
+
+
 def experiment_stop() -> None:
     """Generate stop-gated experiment report and next-plan artifacts."""
     from nicme.experiment_stops import main

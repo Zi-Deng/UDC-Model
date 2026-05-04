@@ -1,0 +1,419 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\definecolor{nicmeBlue}{HTML}{1F4E79}
+\definecolor{nicmeTeal}{HTML}{1B7F79}
+\definecolor{nicmeGold}{HTML}{B7791F}
+\definecolor{nicmeLight}{HTML}{F4F7FA}
+\definecolor{nicmeLine}{HTML}{D7DEE8}
+\definecolor{nicmeText}{HTML}{1F2933}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=nicmeBlue,
+  urlcolor=nicmeTeal,
+  citecolor=nicmeBlue,
+  pdftitle={NICME V3 Hyperparameters},
+  pdfauthor={NICME Repository Notes},
+  pdfsubject={nicme\_logit\_cost\_scale and cs\_lambda},
+  pdfkeywords={NICME, cost-sensitive learning, logit adjustment, expected cost, PMI}
+}
+
+\titleformat{\section}
+  {\large\bfseries\color{nicmeBlue}}
+  {\thesection}{0.7em}{}
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{nicmeTeal}}
+  {\thesubsection}{0.7em}{}
+\setlist[itemize]{leftmargin=1.4em, itemsep=0.2em}
+\emergencystretch=3em
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\pathref}[1]{\texttt{\small #1}}
+\newcommand{\keybox}[1]{%
+  \vspace{0.35em}
+  \noindent\fcolorbox{nicmeLine}{nicmeLight}{%
+    \begin{minipage}{0.965\linewidth}
+      #1
+    \end{minipage}
+  }
+  \vspace{0.35em}
+}
+
+\begin{document}
+
+\begin{center}
+  {\huge\bfseries\color{nicmeBlue} NICME V3 Hyperparameters}\\[0.25em]
+  {\Large \code{nicme\_logit\_cost\_scale} and \code{cs\_lambda}}\\[0.6em]
+  {\normalsize Repository note for \pathref{/mnt/storage/github/NICME}}\\
+  {\normalsize Current as of May 2, 2026}
+\end{center}
+
+\vspace{0.6em}
+
+\keybox{
+\textbf{One-sentence summary.}
+\code{nicme\_logit\_cost\_scale} is the V3 pairwise cost-margin strength: it controls how much extra raw-logit margin the model must learn against costly wrong classes.
+\code{cs\_lambda} is the hybrid expected-cost penalty strength: it controls how strongly the loss penalizes softmax probability mass assigned to costly wrong classes.
+}
+
+\section{Where These Knobs Live In The Repository}
+
+The current implementation routes both hyperparameters through the training script into the dispatch-based loss class:
+
+\begin{itemize}
+  \item \pathref{scripts/train.py:141--149} passes \code{cs\_lambda}, \code{cs\_warmup\_epochs}, and \code{nicme\_logit\_cost\_scale} into \code{LossFunctions}.
+  \item \pathref{utils/loss\_functions.py:47--83} stores the hyperparameters.
+  \item \pathref{utils/loss\_functions.py:434--458} implements the V3 pairwise adjustment and V3 hybrid loss.
+  \item \pathref{utils/loss\_functions.py:610--649} dispatches \code{nicme\_v3\_logit\_adjustment} and \code{nicme\_v3\_hybrid}.
+  \item \pathref{tests/test\_loss\_functions.py:49--120} checks the important boundary cases.
+\end{itemize}
+
+\section{Notation}
+
+For one training example, let:
+
+\begin{center}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.18\linewidth} p{0.72\linewidth}}
+\toprule
+Symbol & Meaning \\
+\midrule
+$y$ & True class label. \\
+$k$ & Candidate predicted class. \\
+$z_k$ & Raw model logit for class $k$. \\
+$M[y,k]$ & Misclassification cost incurred if a sample with true class $y$ is predicted as $k$. \\
+$\alpha$ & \code{nicme\_logit\_cost\_scale}. \\
+$\lambda$ & \code{cs\_lambda}. \\
+$p_k$ & Ordinary softmax probability from raw logits, $p_k=\mathrm{softmax}(z)_k$. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The PMI-10 cost matrix used in these experiments has diagonal cost $0$, ordinary noncritical off-diagonal cost $1$, and four directed critical costs with values $8$ or $10$.
+
+\section{\code{nicme\_logit\_cost\_scale}: V3 Pairwise Cost-Margin Strength}
+
+NICME V3 first constructs a pairwise cost-conditioned offset:
+
+\begin{equation}
+o_{y,k} =
+\begin{cases}
+0, & k=y,\\
+\log\left(\max(M[y,k], 1)\right), & k \neq y.
+\end{cases}
+\end{equation}
+
+It then forms adjusted logits:
+
+\begin{equation}
+z'_k = z_k + \alpha \, o_{y,k},
+\qquad
+\alpha = \code{nicme\_logit\_cost\_scale}.
+\end{equation}
+
+The V3 pairwise CE loss is ordinary cross entropy on these adjusted logits:
+
+\begin{equation}
+\mathcal{L}_{\mathrm{V3\text{-}CE}}
+=
+-\log
+\frac{\exp(z'_y)}
+{\sum_j \exp(z'_j)}.
+\end{equation}
+
+\subsection{Why The Offset Is Positive}
+
+The positive offset is applied only inside the training loss, not at inference. It deliberately makes costly wrong classes harder to beat during training:
+
+\begin{equation}
+\exp(z_k + \alpha \log M[y,k])
+=
+\exp(z_k)\,M[y,k]^\alpha.
+\end{equation}
+
+So the model must learn a larger raw margin against a high-cost wrong class:
+
+\begin{equation}
+z_y - z_k
+\quad\text{must grow by roughly}\quad
+\alpha \log M[y,k].
+\end{equation}
+
+For PMI-10, this means:
+
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Cost & Offset before scaling & V3 interpretation \\
+\midrule
+$M=1$ & $\log(1)=0$ & Ordinary noncritical pairs receive no V3 margin. \\
+$M=8$ & $\log(8)\approx2.079$ & Costly wrong class requires an extra $2.079\alpha$ margin. \\
+$M=10$ & $\log(10)\approx2.303$ & Costly wrong class requires an extra $2.303\alpha$ margin. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Gradient Interpretation}
+
+Let $p'_k=\mathrm{softmax}(z')_k$. Cross entropy gives:
+
+\begin{equation}
+\frac{\partial \mathcal{L}_{\mathrm{V3\text{-}CE}}}{\partial z_k}
+=
+p'_k - \mathbf{1}[k=y].
+\end{equation}
+
+Because a costly wrong class receives a larger adjusted logit $z'_k$, it also receives larger adjusted softmax mass $p'_k$ for the same raw logits. Gradient descent therefore pushes that costly wrong-class logit down more aggressively, and pushes the target logit up until the model has a larger cost-aware margin.
+
+\keybox{
+\textbf{Practical reading.}
+\code{nicme\_logit\_cost\_scale} answers: ``How much extra raw-logit margin should costly wrong classes require?''
+It turns the cost matrix into a margin-shaping device.
+}
+
+\section{\code{cs\_lambda}: Expected-Cost Regularization Strength}
+
+The hybrid V3 loss adds a second term that uses the original, unadjusted logits:
+
+\begin{equation}
+p_k = \mathrm{softmax}(z)_k.
+\end{equation}
+
+The cost matrix is normalized by its maximum value:
+
+\begin{equation}
+M_{\mathrm{norm}} = \frac{M}{\max(M)+\epsilon}.
+\end{equation}
+
+The normalized expected-cost penalty is:
+
+\begin{equation}
+\mathcal{R}_{\mathrm{CS}}
+=
+\frac{1}{B}
+\sum_{i=1}^{B}
+\sum_k
+M_{\mathrm{norm}}[y_i,k]\,p_{i,k}.
+\end{equation}
+
+The effective regularization weight is optionally warmed up:
+
+\begin{equation}
+\lambda_{\mathrm{eff}}(t)
+=
+\begin{cases}
+\lambda \cdot \frac{t}{T_{\mathrm{warmup}}},
+& T_{\mathrm{warmup}}>0 \text{ and } t<T_{\mathrm{warmup}},\\
+\lambda,
+& \text{otherwise}.
+\end{cases}
+\end{equation}
+
+where:
+
+\begin{equation}
+\lambda = \code{cs\_lambda}.
+\end{equation}
+
+The full hybrid loss is therefore:
+
+\begin{equation}
+\boxed{
+\mathcal{L}_{\mathrm{NICME\text{-}V3\text{-}Hybrid}}
+=
+\mathcal{L}_{\mathrm{V3\text{-}CE}}
++
+\lambda_{\mathrm{eff}}(t)\,
+\mathcal{R}_{\mathrm{CS}}
+}
+\end{equation}
+
+\subsection{Why Use The Original Logits For The Regularizer}
+
+The V3 CE term shapes the training challenge by inflating costly wrong-class logits inside the loss.
+The expected-cost term instead evaluates the model's actual raw probability distribution.
+This gives two distinct gradient paths:
+
+\begin{itemize}
+  \item a margin path, controlled by \code{nicme\_logit\_cost\_scale};
+  \item a probability-mass path, controlled by \code{cs\_lambda}.
+\end{itemize}
+
+Normalizing $M$ keeps the expected-cost term numerically bounded, which makes $\lambda$ easier to tune across cost matrices.
+
+\keybox{
+\textbf{Practical reading.}
+\code{cs\_lambda} answers: ``How much should the loss punish probability mass on costly wrong classes, even when the argmax prediction is already correct?''
+}
+
+\section{Boundary Cases And Sanity Checks}
+
+The implemented tests verify the intended behavior:
+
+\begin{center}
+\begin{tabular}{p{0.4\linewidth} p{0.5\linewidth}}
+\toprule
+Setting & Expected behavior \\
+\midrule
+$\alpha=0$ and $\lambda=0$ & V3 hybrid exactly reduces to ordinary CE. \\
+$M[y,k]=1$ for all non-target $k$ & V3 pairwise adjustment matches CE because $\log(1)=0$. \\
+Correctly classified sample with high-cost wrong class & V3 still applies, so the model is pushed to improve the margin. \\
+Larger $M[y,k]$ & Larger non-target gradient pressure for class $k$. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+These checks correspond to \pathref{tests/test\_loss\_functions.py:49--120}.
+
+\section{Why Both Hyperparameters Are Needed}
+
+The cost matrix, logits, and CE loss do not share natural units.
+A PMI expert saying ``this error has cost 10'' does not automatically tell us how many logit units the model should be forced to separate that pair by.
+Likewise, the expected-cost regularizer has a different numeric scale from CE.
+
+Therefore:
+
+\begin{itemize}
+  \item $\alpha$ calibrates the conversion from user-defined pairwise costs into logit-space margins.
+  \item $\lambda$ calibrates the tradeoff between ordinary classification fit and direct expected-cost minimization.
+\end{itemize}
+
+They are not replacements for the cost matrix. The cost matrix keeps the semantic meaning of the problem fixed; these hyperparameters tune how strongly the optimization procedure listens to that matrix.
+
+\section{Intellectual Lineage}
+
+\subsection{Logit Adjustment And Margins}
+
+The closest conceptual ancestor of \code{nicme\_logit\_cost\_scale} is logit adjustment for long-tailed learning.
+Menon et al. show that adjusting logits based on class priors can be applied either after training or inside the loss, and that such adjustment encourages larger relative margins for rare classes \cite{menon2021logit}.
+
+NICME V3 generalizes the shape of that idea:
+
+\begin{center}
+\begin{tabular}{p{0.35\linewidth} p{0.55\linewidth}}
+\toprule
+Method family & Adjustment source \\
+\midrule
+Menon-style logit adjustment & Class prior or label frequency. \\
+NICME V3 & Pairwise cost $M[y,k]$ for true class $y$ and candidate wrong class $k$. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The margin perspective is also related to LDAM, which replaces CE with a label-distribution-aware margin loss for imbalanced recognition \cite{cao2019ldam}.
+
+\subsection{Expected Cost And Cost-Sensitive Learning}
+
+The \code{cs\_lambda} term comes from the basic cost-sensitive principle that predictive probabilities can be combined with a cost matrix to compute expected cost.
+The CSADA/PMI paper summarizes this family of methods and explicitly discusses pairwise, asymmetric misclassification costs in the PMI setting \cite{chen2024csada}.
+
+Our regularizer keeps this expected-cost idea during training:
+
+\begin{equation}
+\text{put less softmax mass on labels that would be expensive if predicted.}
+\end{equation}
+
+\subsection{Why V3 Is TPT-Aware, Not TPT-Proof}
+
+The CSADA/PMI paper argues that overparameterized DNNs can interpolate the training data so completely that cost-sensitive objectives evaluated only on training examples may become hard to distinguish from accuracy-focused CE \cite{chen2024csada}.
+NICME V3 addresses that critique by applying cost-conditioned margins unconditionally, including on samples that are already correctly classified.
+
+However, it would be too strong to claim that V3 is theoretically TPT-proof.
+Kini et al. show that in strict terminal-phase linear analyses, multiplicative or vector-scaling adjustments are more theoretically aligned with changing interclass margins than purely additive adjustments \cite{kini2021overparam}.
+The careful claim is therefore:
+
+\keybox{
+NICME V3 is a TPT-aware unconditional pairwise cost-margin loss with an expected-cost regularizer.
+It is designed to keep cost pressure active after correct classification, but its robustness to terminal-phase training should be validated empirically rather than asserted as a theorem.
+}
+
+\section{Current Experiment Values}
+
+The selected final V3 run currently records:
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Hyperparameter & Value \\
+\midrule
+\code{nicme\_logit\_cost\_scale} & $0.08485510619155306$ \\
+\code{cs\_lambda} & $0.027767842261142275$ \\
+\code{cs\_warmup\_epochs} & $2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Source:
+\begin{flushleft}
+\pathref{results/pmi10\_v3\_balanced\_convnext\_base\_20260502/final/}\\
+\pathref{planned\_runs.json:226--229}.
+\end{flushleft}
+
+A stronger HPO trial by test metrics used substantially larger values:
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Hyperparameter & Trial 22 value \\
+\midrule
+\code{nicme\_logit\_cost\_scale} & $0.4077794135852269$ \\
+\code{cs\_lambda} & $0.22675328005922865$ \\
+\code{cs\_warmup\_epochs} & $2$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Source:
+\begin{flushleft}
+\pathref{results/pmi10\_v3\_balanced\_convnext\_base\_20260502/hpo-v3/configs/}\\
+\pathref{0022\_02e547c6862c4192.json:225--228}.
+\end{flushleft}
+This does not automatically make trial 22 the official selection, because final model selection should be validation-based rather than test-based.
+
+\section{Plain-English Interpretation}
+
+\begin{itemize}
+  \item \code{nicme\_logit\_cost\_scale} says how much harder the model must work to separate a true pill class from a dangerous confusable pill class.
+  \item \code{cs\_lambda} says how much we punish the model for leaving probability mass on dangerous confusable pill classes.
+  \item The first term is about margins; the second term is about probabilities.
+  \item Together, they keep the original PMI expert cost matrix fixed while giving the optimizer enough flexibility to find a useful tradeoff between accuracy and cost-sensitive safety.
+\end{itemize}
+
+\begin{thebibliography}{9}
+
+\bibitem{menon2021logit}
+Aditya Krishna Menon, Sadeep Jayasumana, Ankit Singh Rawat, Himanshu Jain, Andreas Veit, and Sanjiv Kumar.
+\newblock Long-tail learning via logit adjustment.
+\newblock \emph{ICLR}, 2021.
+\newblock \url{https://openreview.net/forum?id=37nvvqkCo5}
+
+\bibitem{cao2019ldam}
+Kaidi Cao, Colin Wei, Adrien Gaidon, Nikos Arechiga, and Tengyu Ma.
+\newblock Learning imbalanced datasets with label-distribution-aware margin loss.
+\newblock \emph{NeurIPS}, 2019.
+\newblock \url{https://papers.nips.cc/paper_files/paper/2019/hash/621461af90cadfdaf0e8d4cc25129f91-Abstract.html}
+
+\bibitem{kini2021overparam}
+Ganesh Ramachandra Kini, Orestis Paraskevas, Samet Oymak, and Christos Thrampoulidis.
+\newblock Label-imbalanced and group-sensitive classification under overparameterization.
+\newblock \emph{NeurIPS}, 2021.
+\newblock \url{https://proceedings.neurips.cc/paper/2021/hash/9dfcf16f0adbc5e2a55ef02db36bac7f-Abstract.html}
+
+\bibitem{chen2024csada}
+Qiyuan Chen, Raed Al Kontar, Maher Nouiehed, X. Jessie Yang, and Corey Lester.
+\newblock Rethinking cost-sensitive classification in deep learning via adversarial data augmentation.
+\newblock \emph{INFORMS Journal on Data Science}, 2024.
+\newblock \url{https://pubsonline.informs.org/doi/10.1287/ijds.2022.0033}
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,11 @@
+{"time":"2026-05-01T22:59:08-07:00","phase":"preflight","status":"started"}
+{"time":"2026-05-01T22:59:10-07:00","phase":"preflight","status":"completed"}
+{"time":"2026-05-01T22:59:10-07:00","phase":"archive-old-hpo","status":"started"}
+{"time":"2026-05-01T22:59:10-07:00","phase":"archive-old-hpo","status":"completed"}
+{"time":"2026-05-01T22:59:10-07:00","phase":"hpo-nicme-plan","status":"started"}
+{"time":"2026-05-01T22:59:12-07:00","phase":"hpo-nicme-plan","status":"completed"}
+{"time":"2026-05-01T22:59:12-07:00","phase":"hpo-nicme-smoke","status":"started"}
+{"time":"2026-05-01T23:06:38-07:00","phase":"hpo-nicme-smoke","status":"completed"}
+{"time":"2026-05-01T23:06:38-07:00","phase":"hpo-nicme","status":"started"}
+{"time": "2026-05-02T02:16:01-07:00", "phase": "pause", "status": "requested", "snapshot": "results/pmi10_no_cal_convnext_base_20260501/paused/20260502_021601"}
+{"time": "2026-05-02T02:16:40-07:00", "phase": "pause", "status": "completed", "snapshot": "results/pmi10_no_cal_convnext_base_20260501/paused/20260502_021601"}

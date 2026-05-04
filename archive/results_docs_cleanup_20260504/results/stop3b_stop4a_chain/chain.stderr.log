@@ -1,0 +1,42 @@
++ trap 'printf "[%s] launcher exit code: %s\n" "$(date -Is)" "$?"' EXIT
++ cd /mnt/storage/github/NICME
+++ date -Is
++ printf '[%s] Starting Stop 3B imbalance decoupling\n' 2026-04-28T16:07:14-07:00
++ micromamba run -n ml python scripts/run_stop3_main.py --phase stop3b_imbalance_decoupling --output-root results/stop3b_imbalance_decoupling --datasets spider_target_minority,spider_target_majority,breakhis_natural --models vit,timm_dinov3_vit_lora --methods ce,ce_calibrated_cost_min,menon_logit_adjusted,cs_regularized_ce,nicme_logit_adjustment,nicme_hybrid --seeds 42,43,44 --time-budget-hours 8 --cleanup-checkpoints --execute
+Traceback (most recent call last):
+  File "/mnt/storage/github/NICME/scripts/run_stop3_main.py", line 359, in <module>
+    main()
+  File "/mnt/storage/github/NICME/scripts/run_stop3_main.py", line 355, in main
+    run_queue(config_paths, output_root, args.cleanup_checkpoints, args.time_budget_hours)
+  File "/mnt/storage/github/NICME/scripts/run_stop3_main.py", line 305, in run_queue
+    proc = subprocess.run(cmd, stdout=stdout_f, stderr=stderr_f, env=env, check=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/subprocess.py", line 1201, in communicate
+    self.wait()
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/subprocess.py", line 2053, in _wait
+    (pid, sts) = self._try_wait(0)
+                 ^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/subprocess.py", line 2011, in _try_wait
+    (pid, sts) = os.waitpid(self.pid, wait_flags)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+++ date -Is
++ printf '[%s] launcher exit code: %s\n' 2026-04-28T17:49:07-07:00 0
++ trap 'printf "[%s] resume launcher exit code: %s\n" "$(date -Is)" "$?"' EXIT
++ cd /mnt/storage/github/NICME
+++ date -Is
++ printf '[%s] Resuming Stop 3B until all manifest rows are complete\n' 2026-04-28T17:49:12-07:00
++ micromamba run -n ml python scripts/resume_stop_queue.py --output-root results/stop3b_imbalance_decoupling --cleanup-checkpoints
+++ date -Is
++ printf '[%s] Stop 3B resume completed; starting Stop 4A backbone ablation\n' 2026-04-28T21:45:07-07:00
++ micromamba run -n ml python scripts/run_stop3_main.py --phase stop4a_backbone_ablation --output-root results/stop4a_backbone_ablation --datasets spider_balanced,breakhis_balanced --models convnext,timm_dinov3_convnext_lora --methods ce_calibrated_cost_min,nicme_logit_adjustment,nicme_hybrid --seeds 42,43,44 --time-budget-hours 6 --cleanup-checkpoints --execute
+++ date -Is
++ printf '[%s] Stop 4A completed\n' 2026-04-28T23:25:25-07:00
+++ date -Is
++ printf '[%s] resume launcher exit code: %s\n' 2026-04-28T23:25:25-07:00 0

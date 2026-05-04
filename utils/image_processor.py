@@ -8,10 +8,21 @@ from the model name or loaded from a JSON file.
 
 import json
 import os
+import random
 
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
+
+
+class RandomQuarterTurns:
+    """Randomly rotate a PIL image by 0, 90, 180, or 270 degrees."""
+
+    def __call__(self, image: Image.Image) -> Image.Image:
+        turns = random.randint(0, 3)
+        if turns == 0:
+            return image
+        return image.rotate(90 * turns)
 
 
 class CustomImageProcessor:
@@ -71,6 +82,13 @@ class CustomImageProcessor:
             "crop_pct": 1.0,
             "interpolation": "bicubic",
         },
+        "facebook_dinov3": {
+            "image_mean": [0.485, 0.456, 0.406],
+            "image_std": [0.229, 0.224, 0.225],
+            "size": {"height": 224, "width": 224},
+            "crop_pct": 1.0,
+            "interpolation": "bilinear",
+        },
     }
 
     def __init__(
@@ -81,6 +99,7 @@ class CustomImageProcessor:
         size: dict[str, int] | None = None,
         crop_pct: float = 0.875,
         interpolation: str = "bilinear",
+        image_size: int | None = None,
         custom_config: dict | None = None,
     ):
         """
@@ -97,11 +116,20 @@ class CustomImageProcessor:
         """
         # Use custom config if provided, otherwise use model-specific config
         if custom_config:
-            config = custom_config
+            config = dict(custom_config)
+            self.data_config_source = "custom"
+        elif self._is_timm_model_name(model_name):
+            config = self._config_from_timm_model(model_name)
+            self.data_config_source = "timm"
         else:
             # Extract model type from model name for common architectures
             model_type = self._extract_model_type(model_name)
-            config = self.MODEL_CONFIGS.get(model_type, self.MODEL_CONFIGS["resnet"])
+            config = dict(self.MODEL_CONFIGS.get(model_type, self.MODEL_CONFIGS["resnet"]))
+            self.data_config_source = model_type
+
+        if image_size is not None:
+            config = dict(config)
+            config["size"] = {"height": int(image_size), "width": int(image_size)}
 
         # Override with provided parameters
         self.image_mean = image_mean if image_mean is not None else config["image_mean"]
@@ -122,12 +150,46 @@ class CustomImageProcessor:
         # Create basic transforms
         self._create_transforms()
 
+    @staticmethod
+    def _is_timm_model_name(model_name: str) -> bool:
+        model_name_lower = str(model_name).lower()
+        return model_name_lower.startswith("timm/") or ".dinov3" in model_name_lower or ".fb_" in model_name_lower
+
+    @staticmethod
+    def _config_from_timm_model(model_name: str) -> dict:
+        try:
+            from timm.data import resolve_model_data_config
+        except ImportError:
+            return dict(CustomImageProcessor.MODEL_CONFIGS["resnet"])
+
+        timm_name = str(model_name)
+        if timm_name.startswith("timm/"):
+            timm_name = timm_name.split("/", 1)[1]
+        try:
+            data_config = resolve_model_data_config(timm_name)
+        except Exception:
+            return dict(CustomImageProcessor.MODEL_CONFIGS["resnet"])
+
+        input_size = data_config.get("input_size", (3, 224, 224))
+        height = int(input_size[-2])
+        width = int(input_size[-1])
+        return {
+            "image_mean": list(data_config.get("mean", (0.485, 0.456, 0.406))),
+            "image_std": list(data_config.get("std", (0.229, 0.224, 0.225))),
+            "size": {"height": height, "width": width},
+            "crop_pct": float(data_config.get("crop_pct", 0.875)),
+            "interpolation": str(data_config.get("interpolation", "bilinear")).lower(),
+        }
+
     def _extract_model_type(self, model_name: str) -> str:
         """Extract model type from model name string."""
         model_name_lower = model_name.lower()
 
         is_timm_dinov3 = model_name_lower.startswith("timm/") or ".dinov3" in model_name_lower
-        if is_timm_dinov3 and "convnext" in model_name_lower:
+        is_facebook_dinov3 = model_name_lower.startswith("facebook/dinov3-")
+        if is_facebook_dinov3:
+            return "facebook_dinov3"
+        elif is_timm_dinov3 and "convnext" in model_name_lower:
             return "timm_dinov3_convnext"
         elif is_timm_dinov3 and "vit" in model_name_lower:
             return "timm_dinov3_vit"
@@ -241,6 +303,7 @@ class CustomImageProcessor:
             "size": self.size,
             "crop_pct": self.crop_pct,
             "interpolation": self.interpolation,
+            "data_config_source": self.data_config_source,
         }
 
         with open(file_path, "w") as f:
@@ -281,7 +344,8 @@ class CustomImageProcessor:
             f"image_std={self.image_std}, "
             f"size={self.size}, "
             f"crop_pct={self.crop_pct}, "
-            f"interpolation='{self.interpolation}')"
+            f"interpolation='{self.interpolation}', "
+            f"data_config_source='{self.data_config_source}')"
         )
 
     def to_dict(self):
@@ -292,10 +356,16 @@ class CustomImageProcessor:
             "size": self.size,
             "crop_pct": self.crop_pct,
             "interpolation": self.interpolation,
+            "data_config_source": self.data_config_source,
         }
 
     def get_transform_for_training(
-        self, random_resize_crop: bool = True, horizontal_flip: bool = True, color_jitter: bool = False
+        self,
+        random_resize_crop: bool = True,
+        horizontal_flip: bool = True,
+        color_jitter: bool = False,
+        random_quarter_turns: bool = False,
+        random_resized_crop_scale: tuple[float, float] = (0.08, 1.0),
     ) -> transforms.Compose:
         """
         Get training transform with data augmentation.
@@ -304,6 +374,8 @@ class CustomImageProcessor:
             random_resize_crop: Whether to use random resize crop
             horizontal_flip: Whether to use random horizontal flip
             color_jitter: Whether to use color jitter
+            random_quarter_turns: Whether to rotate by a random multiple of 90 degrees
+            random_resized_crop_scale: Scale range for RandomResizedCrop
 
         Returns:
             Training transform pipeline
@@ -312,10 +384,20 @@ class CustomImageProcessor:
 
         if random_resize_crop:
             if isinstance(self.crop_size, tuple):
-                transform_list.append(transforms.RandomResizedCrop(self.crop_size, interpolation=self.interp_mode))
+                transform_list.append(
+                    transforms.RandomResizedCrop(
+                        self.crop_size,
+                        scale=random_resized_crop_scale,
+                        interpolation=self.interp_mode,
+                    )
+                )
             else:
                 transform_list.append(
-                    transforms.RandomResizedCrop((self.crop_size, self.crop_size), interpolation=self.interp_mode)
+                    transforms.RandomResizedCrop(
+                        (self.crop_size, self.crop_size),
+                        scale=random_resized_crop_scale,
+                        interpolation=self.interp_mode,
+                    )
                 )
         else:
             # Use resize + center crop for training if random crop is disabled
@@ -330,6 +412,9 @@ class CustomImageProcessor:
 
         if horizontal_flip:
             transform_list.append(transforms.RandomHorizontalFlip())
+
+        if random_quarter_turns:
+            transform_list.append(RandomQuarterTurns())
 
         if color_jitter:
             transform_list.append(transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0.05))

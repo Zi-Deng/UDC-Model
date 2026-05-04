@@ -1,0 +1,9 @@
+{
+  "top_k": 3,
+  "selected_backbones": [
+    "convnext_base.fb_in22k_ft_in1k",
+    "swin_small_patch4_window7_224.ms_in22k_ft_in1k",
+    "swin_tiny_patch4_window7_224.ms_in22k_ft_in1k"
+  ],
+  "source_ledger": "/mnt/storage/github/NICME/results/pmi10_no_cal_20260501/screen/run_ledger.csv"
+}

@@ -1,0 +1,9 @@
+{
+  "source_v3_config": "/mnt/storage/github/NICME/results/pmi10_v3_balanced_convnext_base_20260502/hpo-v3/best_config.json",
+  "matched_v2_config": "/mnt/storage/github/NICME/results/pmi10_v3_balanced_convnext_base_20260502/hpo-v2-matched/best_config.json",
+  "copied_non_loss_hyperparameters": true,
+  "loss_fields_reset": {
+    "loss_function": "nicme_hybrid",
+    "pmi10_loss": "nicme_hybrid"
+  }
+}

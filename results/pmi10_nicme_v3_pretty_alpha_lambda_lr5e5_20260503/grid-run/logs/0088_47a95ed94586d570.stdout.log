@@ -1,0 +1,98 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_sota_convnext_base with 10 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '9.508', 'grad_norm': '17.15', 'learning_rate': '8.654e-06', 'epoch': '0.6557'}
+{'eval_loss': '2.04', 'eval_accuracy': '0.4839', 'eval_f1': '0.4632', 'eval_balanced_accuracy': '0.4839', 'eval_macro_f1': '0.4632', 'eval_atc': '0.8903', 'eval_normalized_atc': '0.08903', 'eval_target_recall': '0.1935', 'eval_target_recall_macro': '0.4758', 'eval_target_fnr': '0.4194', 'eval_selection_score': '2.185', 'eval_selection_accuracy_value': '0.4839', 'eval_nll': '1.976', 'eval_brier': '0.8172', 'eval_ece': '0.3214', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.421', 'eval_samples_per_second': '70.13', 'eval_steps_per_second': '4.524', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-16/preprocessor_config.json
+{'loss': '7.706', 'grad_norm': '20.94', 'learning_rate': '1.827e-05', 'epoch': '1.262'}
+{'loss': '6.301', 'grad_norm': '20.94', 'learning_rate': '2.788e-05', 'epoch': '1.918'}
+{'eval_loss': '1.195', 'eval_accuracy': '0.7129', 'eval_f1': '0.7057', 'eval_balanced_accuracy': '0.7129', 'eval_macro_f1': '0.7057', 'eval_atc': '0.5806', 'eval_normalized_atc': '0.05806', 'eval_target_recall': '0.4516', 'eval_target_recall_macro': '0.7581', 'eval_target_fnr': '0.03226', 'eval_selection_score': '0.8699', 'eval_selection_accuracy_value': '0.7129', 'eval_nll': '1.105', 'eval_brier': '0.5321', 'eval_ece': '0.3165', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.705', 'eval_samples_per_second': '83.67', 'eval_steps_per_second': '5.398', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-32/preprocessor_config.json
+{'loss': '3.776', 'grad_norm': '20.66', 'learning_rate': '3.75e-05', 'epoch': '2.525'}
+{'eval_loss': '0.6715', 'eval_accuracy': '0.7258', 'eval_f1': '0.688', 'eval_balanced_accuracy': '0.7258', 'eval_macro_f1': '0.688', 'eval_atc': '0.5065', 'eval_normalized_atc': '0.05065', 'eval_target_recall': '0.8065', 'eval_target_recall_macro': '0.8871', 'eval_target_fnr': '0', 'eval_selection_score': '0.09116', 'eval_selection_accuracy_value': '0.7258', 'eval_nll': '0.6006', 'eval_brier': '0.338', 'eval_ece': '0.08731', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.954', 'eval_samples_per_second': '78.4', 'eval_steps_per_second': '5.058', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-48/preprocessor_config.json
+{'loss': '2.575', 'grad_norm': '44.83', 'learning_rate': '4.712e-05', 'epoch': '3.131'}
+{'loss': '1.841', 'grad_norm': '79.26', 'learning_rate': '4.997e-05', 'epoch': '3.787'}
+{'eval_loss': '0.3785', 'eval_accuracy': '0.8968', 'eval_f1': '0.8947', 'eval_balanced_accuracy': '0.8968', 'eval_macro_f1': '0.8947', 'eval_atc': '0.3355', 'eval_normalized_atc': '0.03355', 'eval_target_recall': '0.6452', 'eval_target_recall_macro': '0.8306', 'eval_target_fnr': '0.03226', 'eval_selection_score': '0.2933', 'eval_selection_accuracy_value': '0.8968', 'eval_nll': '0.3077', 'eval_brier': '0.1537', 'eval_ece': '0.09696', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.091', 'eval_samples_per_second': '75.78', 'eval_steps_per_second': '4.889', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-64/preprocessor_config.json
+{'loss': '1.289', 'grad_norm': '47.09', 'learning_rate': '4.983e-05', 'epoch': '4.393'}
+{'loss': '0.9745', 'grad_norm': '13.01', 'learning_rate': '4.958e-05', 'epoch': '5'}
+{'eval_loss': '0.2179', 'eval_accuracy': '0.9452', 'eval_f1': '0.9456', 'eval_balanced_accuracy': '0.9452', 'eval_macro_f1': '0.9456', 'eval_atc': '0.08387', 'eval_normalized_atc': '0.008387', 'eval_target_recall': '0.8065', 'eval_target_recall_macro': '0.9435', 'eval_target_fnr': '0', 'eval_selection_score': '0.04339', 'eval_selection_accuracy_value': '0.9452', 'eval_nll': '0.1961', 'eval_brier': '0.09469', 'eval_ece': '0.06726', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.741', 'eval_samples_per_second': '82.86', 'eval_steps_per_second': '5.345', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-80/preprocessor_config.json
+{'loss': '0.7136', 'grad_norm': '10.77', 'learning_rate': '4.921e-05', 'epoch': '5.656'}
+{'eval_loss': '0.1812', 'eval_accuracy': '0.9548', 'eval_f1': '0.954', 'eval_balanced_accuracy': '0.9548', 'eval_macro_f1': '0.954', 'eval_atc': '0.07419', 'eval_normalized_atc': '0.007419', 'eval_target_recall': '0.8387', 'eval_target_recall_macro': '0.9516', 'eval_target_fnr': '0', 'eval_selection_score': '0.02245', 'eval_selection_accuracy_value': '0.9548', 'eval_nll': '0.1545', 'eval_brier': '0.07633', 'eval_ece': '0.05267', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.969', 'eval_samples_per_second': '78.1', 'eval_steps_per_second': '5.039', 'epoch': '6'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-96/preprocessor_config.json
+{'loss': '0.5308', 'grad_norm': '59.48', 'learning_rate': '4.872e-05', 'epoch': '6.262'}
+{'loss': '0.3365', 'grad_norm': '18.39', 'learning_rate': '4.813e-05', 'epoch': '6.918'}
+{'eval_loss': '0.1457', 'eval_accuracy': '0.9581', 'eval_f1': '0.9572', 'eval_balanced_accuracy': '0.9581', 'eval_macro_f1': '0.9572', 'eval_atc': '0.07097', 'eval_normalized_atc': '0.007097', 'eval_target_recall': '0.8065', 'eval_target_recall_macro': '0.9516', 'eval_target_fnr': '0', 'eval_selection_score': '0.0421', 'eval_selection_accuracy_value': '0.9581', 'eval_nll': '0.137', 'eval_brier': '0.07028', 'eval_ece': '0.02126', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.004', 'eval_samples_per_second': '77.42', 'eval_steps_per_second': '4.995', 'epoch': '7'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-112/preprocessor_config.json
+{'loss': '0.199', 'grad_norm': '24.56', 'learning_rate': '4.743e-05', 'epoch': '7.525'}
+{'eval_loss': '0.1967', 'eval_accuracy': '0.9355', 'eval_f1': '0.9345', 'eval_balanced_accuracy': '0.9355', 'eval_macro_f1': '0.9345', 'eval_atc': '0.3355', 'eval_normalized_atc': '0.03355', 'eval_target_recall': '0.6129', 'eval_target_recall_macro': '0.8871', 'eval_target_fnr': '0', 'eval_selection_score': '0.3632', 'eval_selection_accuracy_value': '0.9355', 'eval_nll': '0.1599', 'eval_brier': '0.09024', 'eval_ece': '0.03633', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.935', 'eval_samples_per_second': '78.77', 'eval_steps_per_second': '5.082', 'epoch': '8'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-128/preprocessor_config.json
+{'loss': '0.2845', 'grad_norm': '32.09', 'learning_rate': '4.662e-05', 'epoch': '8.131'}
+{'loss': '0.3208', 'grad_norm': '59.58', 'learning_rate': '4.572e-05', 'epoch': '8.787'}
+{'eval_loss': '0.08734', 'eval_accuracy': '0.9742', 'eval_f1': '0.9738', 'eval_balanced_accuracy': '0.9742', 'eval_macro_f1': '0.9738', 'eval_atc': '0.02581', 'eval_normalized_atc': '0.002581', 'eval_target_recall': '0.8387', 'eval_target_recall_macro': '0.9597', 'eval_target_fnr': '0', 'eval_selection_score': '0.01761', 'eval_selection_accuracy_value': '0.9742', 'eval_nll': '0.08303', 'eval_brier': '0.04343', 'eval_ece': '0.01637', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.779', 'eval_samples_per_second': '82.03', 'eval_steps_per_second': '5.293', 'epoch': '9'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-144/preprocessor_config.json
+{'loss': '0.125', 'grad_norm': '40.97', 'learning_rate': '4.471e-05', 'epoch': '9.393'}
+{'loss': '0.1858', 'grad_norm': '52.77', 'learning_rate': '4.362e-05', 'epoch': '10'}
+{'eval_loss': '0.05339', 'eval_accuracy': '0.9806', 'eval_f1': '0.9807', 'eval_balanced_accuracy': '0.9806', 'eval_macro_f1': '0.9807', 'eval_atc': '0.04839', 'eval_normalized_atc': '0.004839', 'eval_target_recall': '0.9355', 'eval_target_recall_macro': '0.9758', 'eval_target_fnr': '0', 'eval_selection_score': '0.004839', 'eval_selection_accuracy_value': '0.9806', 'eval_nll': '0.04836', 'eval_brier': '0.02543', 'eval_ece': '0.01306', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.822', 'eval_samples_per_second': '81.1', 'eval_steps_per_second': '5.232', 'epoch': '10'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-160/preprocessor_config.json
+{'loss': '0.03995', 'grad_norm': '4.72', 'learning_rate': '4.243e-05', 'epoch': '10.66'}
+{'eval_loss': '0.08395', 'eval_accuracy': '0.9677', 'eval_f1': '0.968', 'eval_balanced_accuracy': '0.9677', 'eval_macro_f1': '0.968', 'eval_atc': '0.06129', 'eval_normalized_atc': '0.006129', 'eval_target_recall': '0.871', 'eval_target_recall_macro': '0.9516', 'eval_target_fnr': '0', 'eval_selection_score': '0.009501', 'eval_selection_accuracy_value': '0.9677', 'eval_nll': '0.07996', 'eval_brier': '0.04583', 'eval_ece': '0.01958', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.088', 'eval_samples_per_second': '75.83', 'eval_steps_per_second': '4.892', 'epoch': '11'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-176/preprocessor_config.json
+{'loss': '0.1208', 'grad_norm': '6.555', 'learning_rate': '4.117e-05', 'epoch': '11.26'}
+{'loss': '0.0754', 'grad_norm': '74.05', 'learning_rate': '3.983e-05', 'epoch': '11.92'}
+{'eval_loss': '0.06652', 'eval_accuracy': '0.9806', 'eval_f1': '0.9806', 'eval_balanced_accuracy': '0.9806', 'eval_macro_f1': '0.9806', 'eval_atc': '0.04839', 'eval_normalized_atc': '0.004839', 'eval_target_recall': '0.9032', 'eval_target_recall_macro': '0.9677', 'eval_target_fnr': '0', 'eval_selection_score': '0.004839', 'eval_selection_accuracy_value': '0.9806', 'eval_nll': '0.06232', 'eval_brier': '0.03468', 'eval_ece': '0.01531', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.829', 'eval_samples_per_second': '80.97', 'eval_steps_per_second': '5.224', 'epoch': '12'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-192/preprocessor_config.json
+{'loss': '0.05636', 'grad_norm': '6.206', 'learning_rate': '3.842e-05', 'epoch': '12.52'}
+{'eval_loss': '0.04537', 'eval_accuracy': '0.9871', 'eval_f1': '0.9869', 'eval_balanced_accuracy': '0.9871', 'eval_macro_f1': '0.9869', 'eval_atc': '0.0129', 'eval_normalized_atc': '0.00129', 'eval_target_recall': '0.9032', 'eval_target_recall_macro': '0.9758', 'eval_target_fnr': '0', 'eval_selection_score': '0.00129', 'eval_selection_accuracy_value': '0.9871', 'eval_nll': '0.04352', 'eval_brier': '0.02319', 'eval_ece': '0.01544', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.864', 'eval_samples_per_second': '80.23', 'eval_steps_per_second': '5.176', 'epoch': '13'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-208/preprocessor_config.json
+{'loss': '0.01719', 'grad_norm': '2.099', 'learning_rate': '3.695e-05', 'epoch': '13.13'}
+{'loss': '0.06643', 'grad_norm': '0.9109', 'learning_rate': '3.543e-05', 'epoch': '13.79'}
+{'eval_loss': '0.04644', 'eval_accuracy': '0.9839', 'eval_f1': '0.9839', 'eval_balanced_accuracy': '0.9839', 'eval_macro_f1': '0.9839', 'eval_atc': '0.01613', 'eval_normalized_atc': '0.001613', 'eval_target_recall': '0.9355', 'eval_target_recall_macro': '0.9839', 'eval_target_fnr': '0', 'eval_selection_score': '0.001613', 'eval_selection_accuracy_value': '0.9839', 'eval_nll': '0.04494', 'eval_brier': '0.02653', 'eval_ece': '0.01295', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.799', 'eval_samples_per_second': '81.61', 'eval_steps_per_second': '5.265', 'epoch': '14'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-224/preprocessor_config.json
+{'loss': '0.06683', 'grad_norm': '90.6', 'learning_rate': '3.385e-05', 'epoch': '14.39'}
+{'loss': '0.01081', 'grad_norm': '0.04842', 'learning_rate': '3.224e-05', 'epoch': '15'}
+{'eval_loss': '0.07582', 'eval_accuracy': '0.971', 'eval_f1': '0.9712', 'eval_balanced_accuracy': '0.971', 'eval_macro_f1': '0.9712', 'eval_atc': '0.05806', 'eval_normalized_atc': '0.005806', 'eval_target_recall': '0.9032', 'eval_target_recall_macro': '0.9597', 'eval_target_fnr': '0', 'eval_selection_score': '0.005806', 'eval_selection_accuracy_value': '0.971', 'eval_nll': '0.07197', 'eval_brier': '0.03698', 'eval_ece': '0.02107', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.939', 'eval_samples_per_second': '78.7', 'eval_steps_per_second': '5.077', 'epoch': '15'}
+CustomImageProcessor configuration saved to checkpoints/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42/checkpoint-240/preprocessor_config.json
+{'train_runtime': '233.4', 'train_samples_per_second': '133', 'train_steps_per_second': '2.193', 'train_loss': '1.547', 'epoch': '15'}
+***** train metrics *****
+  epoch                    =       15.0
+  total_flos               =        0GF
+  train_loss               =     1.5467
+  train_runtime            = 0:03:53.43
+  train_samples_per_second =    132.969
+  train_steps_per_second   =      2.193
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_sota_convnext_base_test/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42_05-03_07-35
+Saving run configuration...
+Run configuration saved to: results/pmi10_sota_convnext_base_test/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42_05-03_07-35/run_configuration_20260503_073501.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_sota_convnext_base_test/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42_05-03_07-35/metrics_20260503_073514_nicme_v3_hybrid.json and results/pmi10_sota_convnext_base_test/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42_05-03_07-35/metrics_20260503_073514_nicme_v3_hybrid.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_sota_convnext_base_test/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42_05-03_07-35
+Overall Accuracy: 0.9781
+Balanced Accuracy: 0.9781
+Overall F1 Score: 0.9781
+Kappa: 0.9757
+AUC: 0.9995
+Expected Cost: 0.0781
+Loss Function Used: nicme_v3_hybrid
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/grid-run_nicme_v3_hybrid_pretty_a0p4_l0p1_lr5e5_s42_05-03_07-35
+============================================================

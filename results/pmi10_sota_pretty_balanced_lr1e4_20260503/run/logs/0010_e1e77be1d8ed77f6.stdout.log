@@ -1,0 +1,59 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_sota_convnext_base with 10 labels
+Loaded initial checkpoint: checkpoints/run_ce_anchor_pretty_lr1e4_s42/checkpoint-208/model.safetensors
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '10.86', 'grad_norm': '31.72', 'learning_rate': '5.625e-06', 'epoch': '0.6557'}
+{'eval_loss': '1.961', 'eval_accuracy': '0', 'eval_f1': '0', 'eval_balanced_accuracy': '0', 'eval_macro_f1': '0', 'eval_atc': '1.174', 'eval_normalized_atc': '0.1174', 'eval_target_recall': '0', 'eval_target_recall_macro': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.997', 'eval_selection_accuracy_value': '0', 'eval_nll': '11.77', 'eval_brier': '1.297', 'eval_ece': '0.4479', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.449', 'eval_samples_per_second': '69.69', 'eval_steps_per_second': '4.496', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/run_sosr_cnn_lr1e4_s42/checkpoint-16/preprocessor_config.json
+{'loss': '7.735', 'grad_norm': '30.99', 'learning_rate': '9.989e-06', 'epoch': '1.262'}
+{'loss': '5.391', 'grad_norm': '24.41', 'learning_rate': '9.8e-06', 'epoch': '1.918'}
+{'eval_loss': '0.8724', 'eval_accuracy': '0.009677', 'eval_f1': '0.009231', 'eval_balanced_accuracy': '0.009677', 'eval_macro_f1': '0.009231', 'eval_atc': '1.019', 'eval_normalized_atc': '0.1019', 'eval_target_recall': '0', 'eval_target_recall_macro': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.967', 'eval_selection_accuracy_value': '0.009677', 'eval_nll': '5.896', 'eval_brier': '1.12', 'eval_ece': '0.2701', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.015', 'eval_samples_per_second': '77.21', 'eval_steps_per_second': '4.981', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/run_sosr_cnn_lr1e4_s42/checkpoint-32/preprocessor_config.json
+{'loss': '2.774', 'grad_norm': '16.16', 'learning_rate': '9.384e-06', 'epoch': '2.525'}
+{'eval_loss': '0.4368', 'eval_accuracy': '0.08387', 'eval_f1': '0.05161', 'eval_balanced_accuracy': '0.08387', 'eval_macro_f1': '0.05161', 'eval_atc': '0.9161', 'eval_normalized_atc': '0.09161', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.008065', 'eval_target_fnr': '1', 'eval_selection_score': '3.844', 'eval_selection_accuracy_value': '0.08387', 'eval_nll': '2.931', 'eval_brier': '0.9783', 'eval_ece': '0.08235', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.964', 'eval_samples_per_second': '78.19', 'eval_steps_per_second': '5.045', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/run_sosr_cnn_lr1e4_s42/checkpoint-48/preprocessor_config.json
+{'loss': '1.77', 'grad_norm': '6.989', 'learning_rate': '8.759e-06', 'epoch': '3.131'}
+{'loss': '1.61', 'grad_norm': '4.663', 'learning_rate': '7.957e-06', 'epoch': '3.787'}
+{'eval_loss': '0.3615', 'eval_accuracy': '0.3129', 'eval_f1': '0.2922', 'eval_balanced_accuracy': '0.3129', 'eval_macro_f1': '0.2922', 'eval_atc': '0.6871', 'eval_normalized_atc': '0.06871', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.2339', 'eval_target_fnr': '0.5806', 'eval_selection_score': '3.546', 'eval_selection_accuracy_value': '0.3129', 'eval_nll': '2.247', 'eval_brier': '0.8812', 'eval_ece': '0.1652', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.755', 'eval_samples_per_second': '82.57', 'eval_steps_per_second': '5.327', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/run_sosr_cnn_lr1e4_s42/checkpoint-64/preprocessor_config.json
+{'train_runtime': '65.05', 'train_samples_per_second': '149.1', 'train_steps_per_second': '2.46', 'train_loss': '4.778', 'epoch': '4'}
+***** train metrics *****
+  epoch                    =        4.0
+  total_flos               =        0GF
+  train_loss               =     4.7781
+  train_runtime            = 0:01:05.04
+  train_samples_per_second =    149.119
+  train_steps_per_second   =       2.46
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_sota_convnext_base_test/run_sosr_cnn_lr1e4_s42_05-02_19-48
+Saving run configuration...
+Run configuration saved to: results/pmi10_sota_convnext_base_test/run_sosr_cnn_lr1e4_s42_05-02_19-48/run_configuration_20260502_194808.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_sota_convnext_base_test/run_sosr_cnn_lr1e4_s42_05-02_19-48/metrics_20260502_194817_sosr_cnn.json and results/pmi10_sota_convnext_base_test/run_sosr_cnn_lr1e4_s42_05-02_19-48/metrics_20260502_194817_sosr_cnn.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_sota_convnext_base_test/run_sosr_cnn_lr1e4_s42_05-02_19-48
+Overall Accuracy: 0.0000
+Balanced Accuracy: 0.0000
+Overall F1 Score: 0.0000
+Kappa: -0.1111
+AUC: 0.0031
+Expected Cost: 1.1969
+Loss Function Used: sosr_cnn
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/run_sosr_cnn_lr1e4_s42_05-02_19-48
+============================================================

@@ -1,0 +1,223 @@
+{
+  "run_info": {
+    "timestamp": "20260502_181344",
+    "output_directory": "results/pmi10_sota_convnext_base_test/smoke_nicme_v2_hybrid_pretty_lr5e5_s42_05-02_18-13"
+  },
+  "model_configuration": {
+    "model": "timm/convnext_base.fb_in22k_ft_in1k",
+    "model_backend": "timm",
+    "model_type": "pmi10_sota_convnext_base",
+    "weights": null,
+    "num_labels": 10,
+    "peft_enabled": false
+  },
+  "dataset_configuration": {
+    "dataset_profile": "pmi_pills_10_no_cal",
+    "dataset_host": "local_folder",
+    "dataset": "pmi_pills_10_no_cal_balanced",
+    "dataset_location": "/mnt/storage/github/NICME/data/prepared/pmi_pills_10_no_cal/splits/balanced",
+    "local_dataset_name": null,
+    "local_folder_path": "/mnt/storage/github/NICME/data/prepared/pmi_pills_10_no_cal/splits/balanced",
+    "local_dataset_format": "manifest"
+  },
+  "training_parameters": {
+    "batch_size": 16,
+    "learning_rate": 5e-05,
+    "num_train_epochs": 1,
+    "loss_function": "nicme_hybrid",
+    "cs_lambda": 0.25,
+    "cs_warmup_epochs": 2,
+    "nicme_logit_cost_scale": 0.4,
+    "prediction_mode": "argmax",
+    "initial_checkpoint_path": null,
+    "cb_beta": 0.9999,
+    "focal_gamma": 2.0,
+    "ldam_max_m": 0.5,
+    "ldam_scale": 30.0,
+    "ldam_drw_start_epoch": 16,
+    "ap_alpha": 5.0,
+    "csada_lambda": 2.0,
+    "csada_attack_steps": 5,
+    "csada_epsilon": 0.00784313725490196,
+    "csada_step_size": 0.00392156862745098,
+    "csada_cost_temperature": 3.0,
+    "seed": 42,
+    "augmentations": {
+      "train_random_resize_crop": "True",
+      "train_random_resized_crop_scale_min": 0.8,
+      "train_random_resized_crop_scale_max": 1.0,
+      "train_horizontal_flip": "False",
+      "train_color_jitter": "False",
+      "train_random_quarter_turns": "True"
+    }
+  },
+  "cost_matrix_configuration": {
+    "cost_matrix": [
+      [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        10.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        10.0
+      ],
+      [
+        10.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        8.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    ],
+    "cost_matrix_source": "dataset",
+    "cost_matrix_sha256": "1160cbf20c4fac24dc7bb84cbbb229a16545259d585ae1ef1c066e0007082e08",
+    "cost_matrix_convention": "C[true_label][predicted_label]",
+    "target_recall_class": "50111-0434",
+    "target_recall_classes": [
+      "50111-0434",
+      "53489-0156",
+      "53746-0544",
+      "68382-0227"
+    ],
+    "secondary_target_recall_classes": [],
+    "target_recall_floor": 0.9,
+    "accuracy_floor": 0.8,
+    "selection_accuracy_metric": "balanced_accuracy",
+    "metric_profile": "pmi_pills",
+    "critical_pairs": [
+      {
+        "true": "50111-0434",
+        "pred": "00591-0461",
+        "cost": 10.0
+      },
+      {
+        "true": "53489-0156",
+        "pred": "68382-0227",
+        "cost": 10.0
+      },
+      {
+        "true": "53746-0544",
+        "pred": "00378-0208",
+        "cost": 10.0
+      },
+      {
+        "true": "68382-0227",
+        "pred": "53489-0156",
+        "cost": 8.0
+      }
+    ],
+    "sweep_mode": false,
+    "sweep_cost_value": null,
+    "sweep_matrix_row": null,
+    "sweep_matrix_col": null
+  },
+  "other_settings": {
+    "wandb_enabled": false,
+    "push_to_hub": false
+  }
+}

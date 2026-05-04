@@ -14,7 +14,7 @@ from nicme.modeling import (  # noqa: E402
     build_model,
 )
 from scripts.run_binary_experiments import MODEL_PRESETS  # noqa: E402
-from utils.image_processor import CustomImageProcessor  # noqa: E402
+from utils.image_processor import CustomImageProcessor, RandomQuarterTurns  # noqa: E402
 from utils.utils import validate_training_config  # noqa: E402
 
 
@@ -43,6 +43,54 @@ def test_dinov3_vit_lora_targets_current_transformers_qv_projection_names():
     assert any("q_proj" in name and "lora" in name for name in trainable)
     assert any("v_proj" in name and "lora" in name for name in trainable)
     assert any("classifier" in name for name in trainable)
+
+
+def test_dinov3_convnext_lora_targets_current_transformers_pointwise_names():
+    config = transformers.DINOv3ConvNextConfig(
+        depths=[1, 1, 1, 1],
+        hidden_sizes=[8, 16, 32, 64],
+        image_size=32,
+    )
+    backbone = transformers.DINOv3ConvNextModel(config)
+    model = AutoBackboneForImageClassification(backbone, hidden_size=64, num_labels=3)
+    args = SimpleNamespace(
+        peft_enabled=True,
+        peft_r=2,
+        peft_alpha=4,
+        peft_dropout=0.0,
+        peft_target_modules="pointwise_conv1,pointwise_conv2",
+        peft_modules_to_save="classifier",
+    )
+
+    lora_model = apply_lora_if_requested(model, args)
+    lora_model.train()
+    lora_model.eval()
+    lora_model.train()
+    trainable = [name for name, param in lora_model.named_parameters() if param.requires_grad]
+    outputs = lora_model(pixel_values=torch.randn(2, 3, 32, 32), labels=torch.tensor([0, 1]))
+    outputs.loss.backward()
+
+    assert any("pointwise_conv1" in name and "lora" in name for name in trainable)
+    assert any("pointwise_conv2" in name and "lora" in name for name in trainable)
+    assert any("classifier" in name for name in trainable)
+    assert outputs.logits.shape == (2, 3)
+    assert torch.isfinite(outputs.loss)
+
+
+def test_official_facebook_dinov3_lora_presets_use_current_transformers_targets():
+    vit = MODEL_PRESETS["facebook_dinov3_vit_lora"]
+    convnext = MODEL_PRESETS["facebook_dinov3_convnext_lora"]
+
+    assert vit["model"] == "facebook/dinov3-vits16-pretrain-lvd1689m"
+    assert vit["model_backend"] == "dinov3_feature"
+    assert vit["peft_enabled"]
+    assert vit["peft_target_modules"] == "q_proj,v_proj"
+    assert vit["peft_modules_to_save"] == "classifier"
+    assert convnext["model"] == "facebook/dinov3-convnext-tiny-pretrain-lvd1689m"
+    assert convnext["model_backend"] == "dinov3_feature"
+    assert convnext["peft_enabled"]
+    assert convnext["peft_target_modules"] == "pointwise_conv1,pointwise_conv2"
+    assert convnext["peft_modules_to_save"] == "classifier"
 
 
 def test_timm_wrapper_returns_trainer_compatible_logits():
@@ -86,11 +134,42 @@ def test_custom_image_processor_uses_timm_dinov3_transforms():
     vit_processor = CustomImageProcessor.from_pretrained("timm/vit_small_patch16_dinov3.lvd1689m")
     convnext_processor = CustomImageProcessor.from_pretrained("timm/convnext_tiny.dinov3_lvd1689m")
 
-    assert vit_processor.size == {"height": 256, "width": 256}
-    assert vit_processor.image_mean == [0.485, 0.456, 0.406]
-    assert vit_processor.crop_pct == 1.0
-    assert convnext_processor.size == {"height": 224, "width": 224}
-    assert convnext_processor.crop_pct == 1.0
+    for processor in (vit_processor, convnext_processor):
+        assert processor.data_config_source == "timm"
+        assert processor.size == {"height": 224, "width": 224}
+        assert processor.image_mean == [0.485, 0.456, 0.406]
+        assert processor.image_std == [0.229, 0.224, 0.225]
+        assert processor.crop_pct == 0.875
+        assert processor.interpolation == "bicubic"
+
+
+def test_custom_image_processor_uses_official_facebook_dinov3_transforms():
+    vit_processor = CustomImageProcessor.from_pretrained("facebook/dinov3-vits16-pretrain-lvd1689m")
+    convnext_processor = CustomImageProcessor.from_pretrained("facebook/dinov3-convnext-tiny-pretrain-lvd1689m")
+
+    for processor in (vit_processor, convnext_processor):
+        assert processor.size == {"height": 224, "width": 224}
+        assert processor.image_mean == [0.485, 0.456, 0.406]
+        assert processor.image_std == [0.229, 0.224, 0.225]
+        assert processor.crop_pct == 1.0
+        assert processor.interpolation == "bilinear"
+
+
+def test_training_transform_supports_quarter_turns_and_tight_crop_scale():
+    processor = CustomImageProcessor.from_pretrained("timm/convnext_base.fb_in22k_ft_in1k", image_size=224)
+
+    transform = processor.get_transform_for_training(
+        random_resize_crop=True,
+        horizontal_flip=False,
+        color_jitter=False,
+        random_quarter_turns=True,
+        random_resized_crop_scale=(0.8, 1.0),
+    )
+
+    assert any(isinstance(item, RandomQuarterTurns) for item in transform.transforms)
+    crop = next(item for item in transform.transforms if item.__class__.__name__ == "RandomResizedCrop")
+    assert crop.scale == (0.8, 1.0)
+    assert not any(item.__class__.__name__ == "RandomHorizontalFlip" for item in transform.transforms)
 
 
 def test_timm_dinov3_lora_presets_attach_expected_adapters():

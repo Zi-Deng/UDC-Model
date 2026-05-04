@@ -1,0 +1,17 @@
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=dinov3_feature type=facebook_dinov3_convnext_lora with 20 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '13.75', 'grad_norm': '48.26', 'learning_rate': '3.462e-05', 'epoch': '0.3279'}
+{'loss': '12.25', 'grad_norm': '32.64', 'learning_rate': '4.992e-05', 'epoch': '0.6557'}
+{'loss': '10.9', 'grad_norm': '40.63', 'learning_rate': '4.943e-05', 'epoch': '0.9836'}
+{'eval_loss': '2.65', 'eval_accuracy': '0.1531', 'eval_f1': '0.1191', 'eval_balanced_accuracy': '0.1531', 'eval_macro_f1': '0.1191', 'eval_atc': '0.9313', 'eval_normalized_atc': '0.09312', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.1719', 'eval_target_fnr': '1', 'eval_selection_score': '3.752', 'eval_selection_accuracy_value': '0.1531', 'eval_nll': '2.65', 'eval_brier': '0.9091', 'eval_ece': '0.06101', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.012', 'eval_samples_per_second': '79.77', 'eval_steps_per_second': '4.985', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3cnx_lora_menon_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_cb00c228/checkpoint-31/preprocessor_config.json
+{'loss': '9.331', 'grad_norm': '44.5', 'learning_rate': '4.85e-05', 'epoch': '1.295'}
+{'loss': '8.224', 'grad_norm': '37.01', 'learning_rate': '4.716e-05', 'epoch': '1.623'}
+{'loss': '7.32', 'grad_norm': '43.58', 'learning_rate': '4.542e-05', 'epoch': '1.951'}
+{'eval_loss': '1.872', 'eval_accuracy': '0.3875', 'eval_f1': '0.3636', 'eval_balanced_accuracy': '0.3875', 'eval_macro_f1': '0.3636', 'eval_atc': '0.8594', 'eval_normalized_atc': '0.08594', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.2344', 'eval_target_fnr': '1', 'eval_selection_score': '3.496', 'eval_selection_accuracy_value': '0.3875', 'eval_nll': '1.872', 'eval_brier': '0.7586', 'eval_ece': '0.1079', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.935', 'eval_samples_per_second': '81.32', 'eval_steps_per_second': '5.083', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3cnx_lora_menon_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_cb00c228/checkpoint-62/preprocessor_config.json
+{'loss': '5.94', 'grad_norm': '39.19', 'learning_rate': '4.332e-05', 'epoch': '2.262'}
+{'loss': '5.238', 'grad_norm': '52.57', 'learning_rate': '4.088e-05', 'epoch': '2.59'}

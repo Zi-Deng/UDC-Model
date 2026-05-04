@@ -1,0 +1,200 @@
+{
+  "datasets": {
+    "pmi_pills_10_no_cal": {
+      "raw": {
+        "path": "data/raw/pmi",
+        "exists": true,
+        "archive_present": true,
+        "split_dirs_present": true,
+        "download_note": "Deep Blue direct CLI download may return Cloudflare 403; browser or Globus is expected."
+      },
+      "prepared": {
+        "natural": {
+          "variant": "natural",
+          "profile_json": "data/prepared/pmi_pills_10_no_cal/profile_natural.json",
+          "profile_json_present": true,
+          "split_dir": "data/prepared/pmi_pills_10_no_cal/splits/natural",
+          "required_split_names": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "split_files_present": true,
+          "cost_matrix_sha256": "1160cbf20c4fac24dc7bb84cbbb229a16545259d585ae1ef1c066e0007082e08",
+          "missing_images": 0,
+          "patient_overlap": 0,
+          "ready": true,
+          "audit": {
+            "dataset_profile": "pmi_pills_10_no_cal",
+            "split_dir": "data/prepared/pmi_pills_10_no_cal/splits/natural",
+            "exists": true,
+            "cost_matrix_convention": "C[true_label][predicted_label]",
+            "cost_matrix_sha256": "1160cbf20c4fac24dc7bb84cbbb229a16545259d585ae1ef1c066e0007082e08",
+            "num_classes": 10,
+            "class_names": [
+              "00378-0208",
+              "00378-3855",
+              "00591-0461",
+              "16729-0020",
+              "50111-0434",
+              "53489-0156",
+              "53746-0544",
+              "62037-0831",
+              "68382-0008",
+              "68382-0227"
+            ],
+            "cared_classes": [
+              "50111-0434",
+              "53489-0156",
+              "53746-0544",
+              "68382-0227"
+            ],
+            "critical_pairs": [
+              {
+                "true": "50111-0434",
+                "pred": "00591-0461",
+                "cost": 10.0
+              },
+              {
+                "true": "53489-0156",
+                "pred": "68382-0227",
+                "cost": 10.0
+              },
+              {
+                "true": "53746-0544",
+                "pred": "00378-0208",
+                "cost": 10.0
+              },
+              {
+                "true": "68382-0227",
+                "pred": "53489-0156",
+                "cost": 8.0
+              }
+            ],
+            "splits": {
+              "train": {
+                "exists": true,
+                "rows": 3578,
+                "label_counts": {
+                  "0": 602,
+                  "1": 129,
+                  "2": 148,
+                  "3": 258,
+                  "4": 601,
+                  "5": 600,
+                  "6": 97,
+                  "7": 600,
+                  "8": 423,
+                  "9": 120
+                },
+                "label_name_counts": {
+                  "00378-0208": 602,
+                  "00378-3855": 129,
+                  "00591-0461": 148,
+                  "16729-0020": 258,
+                  "50111-0434": 601,
+                  "53489-0156": 600,
+                  "53746-0544": 97,
+                  "62037-0831": 600,
+                  "68382-0008": 423,
+                  "68382-0227": 120
+                },
+                "missing_images": 0,
+                "cared_class_prevalence": {
+                  "50111-0434": 0.1679709334823924,
+                  "53489-0156": 0.16769144773616546,
+                  "53746-0544": 0.027110117384013414,
+                  "68382-0227": 0.03353828954723309
+                },
+                "unique_patients": 3578
+              },
+              "validation": {
+                "exists": true,
+                "rows": 1181,
+                "label_counts": {
+                  "0": 199,
+                  "1": 42,
+                  "2": 48,
+                  "3": 84,
+                  "4": 199,
+                  "5": 200,
+                  "6": 31,
+                  "7": 200,
+                  "8": 139,
+                  "9": 39
+                },
+                "label_name_counts": {
+                  "00378-0208": 199,
+                  "00378-3855": 42,
+                  "00591-0461": 48,
+                  "16729-0020": 84,
+                  "50111-0434": 199,
+                  "53489-0156": 200,
+                  "53746-0544": 31,
+                  "62037-0831": 200,
+                  "68382-0008": 139,
+                  "68382-0227": 39
+                },
+                "missing_images": 0,
+                "cared_class_prevalence": {
+                  "50111-0434": 0.1685012701100762,
+                  "53489-0156": 0.1693480101608806,
+                  "53746-0544": 0.026248941574936496,
+                  "68382-0227": 0.03302286198137172
+                },
+                "unique_patients": 1181
+              },
+              "calibration": {
+                "exists": false
+              },
+              "test": {
+                "exists": true,
+                "rows": 1186,
+                "label_counts": {
+                  "0": 200,
+                  "1": 42,
+                  "2": 48,
+                  "3": 85,
+                  "4": 200,
+                  "5": 200,
+                  "6": 32,
+                  "7": 200,
+                  "8": 140,
+                  "9": 39
+                },
+                "label_name_counts": {
+                  "00378-0208": 200,
+                  "00378-3855": 42,
+                  "00591-0461": 48,
+                  "16729-0020": 85,
+                  "50111-0434": 200,
+                  "53489-0156": 200,
+                  "53746-0544": 32,
+                  "62037-0831": 200,
+                  "68382-0008": 140,
+                  "68382-0227": 39
+                },
+                "missing_images": 0,
+                "cared_class_prevalence": {
+                  "50111-0434": 0.16863406408094436,
+                  "53489-0156": 0.16863406408094436,
+                  "53746-0544": 0.026981450252951095,
+                  "68382-0227": 0.03288364249578415
+                },
+                "unique_patients": 1186
+              }
+            },
+            "patient_overlap": {
+              "train__validation": 0,
+              "test__train": 0,
+              "test__validation": 0
+            },
+            "duplicate_image_paths": {}
+          }
+        }
+      },
+      "ready": true
+    }
+  },
+  "all_ready": true
+}

@@ -1,0 +1,47 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_sota_convnext_base with 10 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '105.2', 'grad_norm': '924.8', 'learning_rate': '5e-06', 'epoch': '0.6557'}
+{'eval_loss': '18.17', 'eval_accuracy': '0.3065', 'eval_f1': '0.2562', 'eval_balanced_accuracy': '0.3065', 'eval_macro_f1': '0.2562', 'eval_atc': '1.065', 'eval_normalized_atc': '0.1065', 'eval_target_recall': '0.03226', 'eval_target_recall_macro': '0.2903', 'eval_target_fnr': '0.6452', 'eval_selection_score': '3.362', 'eval_selection_accuracy_value': '0.3065', 'eval_nll': '2.202', 'eval_brier': '0.878', 'eval_ece': '0.179', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.856', 'eval_samples_per_second': '63.84', 'eval_steps_per_second': '4.119', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/smoke_ldam_drw_lr1e5_s42/checkpoint-16/preprocessor_config.json
+{'train_runtime': '19.3', 'train_samples_per_second': '50.27', 'train_steps_per_second': '0.829', 'train_loss': '89.81', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =      89.81
+  train_runtime            = 0:00:19.29
+  train_samples_per_second =     50.266
+  train_steps_per_second   =      0.829
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_sota_convnext_base_test/smoke_ldam_drw_lr1e5_s42_05-02_21-56
+Saving run configuration...
+Run configuration saved to: results/pmi10_sota_convnext_base_test/smoke_ldam_drw_lr1e5_s42_05-02_21-56/run_configuration_20260502_215654.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_sota_convnext_base_test/smoke_ldam_drw_lr1e5_s42_05-02_21-56/metrics_20260502_215703_ldam_drw.json and results/pmi10_sota_convnext_base_test/smoke_ldam_drw_lr1e5_s42_05-02_21-56/metrics_20260502_215703_ldam_drw.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_sota_convnext_base_test/smoke_ldam_drw_lr1e5_s42_05-02_21-56
+Overall Accuracy: 0.2969
+Balanced Accuracy: 0.2969
+Overall F1 Score: 0.2576
+Kappa: 0.2188
+AUC: 0.7061
+Expected Cost: 0.9563
+Loss Function Used: ldam_drw
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/smoke_ldam_drw_lr1e5_s42_05-02_21-56
+============================================================

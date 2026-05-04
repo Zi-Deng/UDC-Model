@@ -1,0 +1,55 @@
+[2026-05-01T22:59:08-07:00] ConvNeXt-base-only PMI-10 no-calibration recovery chain launched
+[2026-05-01T22:59:08-07:00] Repo: /mnt/storage/github/NICME
+[2026-05-01T22:59:08-07:00] Results: /mnt/storage/github/NICME/results/pmi10_no_cal_convnext_base_20260501
+[2026-05-01T22:59:08-07:00] HPO profile: convnext_base_fast
+[2026-05-01T22:59:08-07:00] CUDA_VISIBLE_DEVICES=0
+Fri May  1 22:59:08 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5090        Off |   00000000:01:00.0 Off |                  N/A |
+|  0%   34C    P8              2W /  575W |     107MiB /  32607MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2237      G   /usr/lib/xorg/Xorg                       65MiB |
+|    0   N/A  N/A            2568      G   /usr/bin/gnome-shell                     11MiB |
++-----------------------------------------------------------------------------------------+
+[2026-05-01T22:59:08-07:00] START preflight: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase preflight --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_convnext_base_20260501 --hpo-profile convnext_base_fast --seed 42
+Preflight passed: /mnt/storage/github/NICME/results/pmi10_no_cal_convnext_base_20260501/preflight/preflight_report.json
+[2026-05-01T22:59:10-07:00] DONE preflight
+[2026-05-01T22:59:10-07:00] START archive-old-hpo: archive_old_hpo
+[2026-05-01T22:59:10-07:00] DONE archive-old-hpo
+[2026-05-01T22:59:10-07:00] START hpo-nicme-plan: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase hpo-nicme --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_convnext_base_20260501 --hpo-profile convnext_base_fast --seed 42 --trials 36
+[2026-05-01T22:59:12-07:00] DONE hpo-nicme-plan
+[2026-05-01T22:59:12-07:00] START hpo-nicme-smoke: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase hpo-nicme --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_convnext_base_20260501/hpo_smoke --hpo-profile convnext_base_fast --seed 42 --trials 1 --per-run-timeout-minutes 360 --execute
+[I 2026-05-01 22:59:12,134] A new study created in memory with name: pmi10_hpo-nicme_convnext_base_fast
+[I 2026-05-01 23:06:38,271] Trial 0 finished with value: 944.480610912244 and parameters: {'learning_rate': 7.397751535438749e-05, 'weight_decay': 0.047352029748433236, 'warmup_ratio': 0.04940270839925393, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.16958245449595122, 'cs_lambda': 0.02382069968078716, 'cs_warmup_epochs': 2}. Best is trial 0 with value: 944.480610912244.
+[2026-05-01T23:06:38-07:00] DONE hpo-nicme-smoke
+[2026-05-01T23:06:38-07:00] START hpo-nicme: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase hpo-nicme --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_convnext_base_20260501 --hpo-profile convnext_base_fast --seed 42 --trials 36 --per-run-timeout-minutes 720 --execute
+[I 2026-05-01 23:06:38,674] A new study created in memory with name: pmi10_hpo-nicme_convnext_base_fast
+[I 2026-05-01 23:19:18,411] Trial 0 finished with value: 985.7860885078898 and parameters: {'learning_rate': 1.6393846887746455e-05, 'weight_decay': 0.02935203378975142, 'warmup_ratio': 0.05382488006065128, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.31830238151822327, 'cs_lambda': 0.08741080659116543, 'cs_warmup_epochs': 1}. Best is trial 0 with value: 985.7860885078898.
+[I 2026-05-01 23:36:29,145] Trial 1 finished with value: 1000.8620681029032 and parameters: {'learning_rate': 5.250683930392608e-05, 'weight_decay': 0.04010331576958989, 'warmup_ratio': 0.07308037761629266, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.1573158319530576, 'cs_lambda': 0.17304828364728997, 'cs_warmup_epochs': 2}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-01 23:46:50,764] Trial 2 finished with value: 965.4099908228746 and parameters: {'learning_rate': 1.6771586669704366e-05, 'weight_decay': 0.014838576381896052, 'warmup_ratio': 0.06868673157944581, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.4443816150390206, 'cs_lambda': 0.17871111556170818, 'cs_warmup_epochs': 3}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-01 23:56:29,488] Trial 3 finished with value: 955.3657396768731 and parameters: {'learning_rate': 1.9787146510748018e-05, 'weight_decay': 0.036788258952221715, 'warmup_ratio': 0.06126306365667776, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.3521882689002432, 'cs_lambda': 0.0341863393616927, 'cs_warmup_epochs': 1}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-02 00:03:42,843] Trial 4 finished with value: 1000.714843228777 and parameters: {'learning_rate': 4.4190070979285114e-05, 'weight_decay': 0.04732191339471178, 'warmup_ratio': 0.05478146479801399, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.4492438506212744, 'cs_lambda': 0.13948752183904073, 'cs_warmup_epochs': 1}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-02 00:16:24,861] Trial 5 finished with value: 990.8945897376788 and parameters: {'learning_rate': 2.7404269274329072e-05, 'weight_decay': 0.025859056450272512, 'warmup_ratio': 0.025835086043267844, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.09624945816323134, 'cs_lambda': 0.19481552895350646, 'cs_warmup_epochs': 3}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-02 00:29:46,984] Trial 6 finished with value: 995.735494926897 and parameters: {'learning_rate': 4.398177337005255e-05, 'weight_decay': 0.04981114560345493, 'warmup_ratio': 0.02419658524292477, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.4207475132978068, 'cs_lambda': 0.2414303312371294, 'cs_warmup_epochs': 2}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-02 00:40:10,475] Trial 7 finished with value: 1000.7268948740365 and parameters: {'learning_rate': 5.338495231420272e-05, 'weight_decay': 0.044102774813739955, 'warmup_ratio': 0.06338039093508951, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.3473188711824431, 'cs_lambda': 0.2131891743517997, 'cs_warmup_epochs': 3}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-02 00:48:25,248] Trial 8 finished with value: 977.9474740517107 and parameters: {'learning_rate': 3.751817729723566e-05, 'weight_decay': 0.00869474061590741, 'warmup_ratio': 0.04818750231624637, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.44064480996752525, 'cs_lambda': 0.23911169169925298, 'cs_warmup_epochs': 2}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-02 00:58:03,750] Trial 9 finished with value: 995.7117011869734 and parameters: {'learning_rate': 8.070114316350156e-05, 'weight_decay': 0.040002286076878224, 'warmup_ratio': 0.038012618972984774, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.12877144637995866, 'cs_lambda': 0.22599622603384842, 'cs_warmup_epochs': 2}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-02 01:05:26,709] Trial 10 finished with value: 977.861420563363 and parameters: {'learning_rate': 7.668206007870076e-05, 'weight_decay': 0.018562249677522007, 'warmup_ratio': 0.08942346693952244, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.18425438531847999, 'cs_lambda': 0.14164127267726354, 'cs_warmup_epochs': 2}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-02 01:17:15,969] Trial 11 finished with value: 984.9560011721561 and parameters: {'learning_rate': 5.478242899971198e-05, 'weight_decay': 0.0379040920772573, 'warmup_ratio': 0.07913013373273155, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.1645702431208465, 'cs_lambda': 0.1842969818101765, 'cs_warmup_epochs': 3}. Best is trial 1 with value: 1000.8620681029032.
+[I 2026-05-02 01:32:42,757] Trial 12 finished with value: 1005.8465453910616 and parameters: {'learning_rate': 6.141308401821229e-05, 'weight_decay': 0.04257297382574372, 'warmup_ratio': 0.07453267301660482, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.2567055972679634, 'cs_lambda': 0.09965901330281995, 'cs_warmup_epochs': 3}. Best is trial 12 with value: 1005.8465453910616.
+[I 2026-05-02 01:40:05,108] Trial 13 finished with value: 932.560348531233 and parameters: {'learning_rate': 9.798317730720971e-05, 'weight_decay': 0.033593901049855414, 'warmup_ratio': 0.09996290594460751, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.24508242805036104, 'cs_lambda': 0.09313710808244684, 'cs_warmup_epochs': 2}. Best is trial 12 with value: 1005.8465453910616.
+[I 2026-05-02 01:59:47,217] Trial 14 finished with value: 1005.966307815437 and parameters: {'learning_rate': 6.346684095236786e-05, 'weight_decay': 0.03225605402868666, 'warmup_ratio': 0.07406022469874304, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.13292115417370853, 'cs_lambda': 0.09180834918548055, 'cs_warmup_epochs': 3}. Best is trial 14 with value: 1005.966307815437.
+[I 2026-05-02 02:14:19,929] Trial 15 finished with value: 1000.7642666278829 and parameters: {'learning_rate': 6.774433417705595e-05, 'weight_decay': 0.028786537934829222, 'warmup_ratio': 0.08381536137197147, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.25462420893066373, 'cs_lambda': 0.08151164785979217, 'cs_warmup_epochs': 3}. Best is trial 14 with value: 1005.966307815437.

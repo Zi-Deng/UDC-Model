@@ -1,0 +1,86 @@
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=dinov3_feature type=facebook_dinov3_convnext_lora with 20 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '14.76', 'grad_norm': '75.4', 'learning_rate': '3.462e-05', 'epoch': '0.3279'}
+{'loss': '12.61', 'grad_norm': '37.12', 'learning_rate': '4.992e-05', 'epoch': '0.6557'}
+{'loss': '11.15', 'grad_norm': '40.08', 'learning_rate': '4.943e-05', 'epoch': '0.9836'}
+{'eval_loss': '2.703', 'eval_accuracy': '0.1562', 'eval_f1': '0.1098', 'eval_balanced_accuracy': '0.1562', 'eval_macro_f1': '0.1098', 'eval_atc': '0.9563', 'eval_normalized_atc': '0.09563', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.2188', 'eval_target_fnr': '1', 'eval_selection_score': '3.75', 'eval_selection_accuracy_value': '0.1562', 'eval_nll': '2.684', 'eval_brier': '0.9132', 'eval_ece': '0.04591', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.479', 'eval_samples_per_second': '91.97', 'eval_steps_per_second': '5.748', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b/checkpoint-31/preprocessor_config.json
+{'loss': '9.626', 'grad_norm': '47.31', 'learning_rate': '4.85e-05', 'epoch': '1.295'}
+{'loss': '8.592', 'grad_norm': '35.3', 'learning_rate': '4.716e-05', 'epoch': '1.623'}
+{'loss': '7.741', 'grad_norm': '40.72', 'learning_rate': '4.542e-05', 'epoch': '1.951'}
+{'eval_loss': '1.964', 'eval_accuracy': '0.3719', 'eval_f1': '0.36', 'eval_balanced_accuracy': '0.3719', 'eval_macro_f1': '0.36', 'eval_atc': '0.7656', 'eval_normalized_atc': '0.07656', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.2344', 'eval_target_fnr': '1', 'eval_selection_score': '3.5', 'eval_selection_accuracy_value': '0.3719', 'eval_nll': '1.931', 'eval_brier': '0.7719', 'eval_ece': '0.1193', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '8.19', 'eval_samples_per_second': '39.07', 'eval_steps_per_second': '2.442', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b/checkpoint-62/preprocessor_config.json
+{'loss': '6.403', 'grad_norm': '46.55', 'learning_rate': '4.332e-05', 'epoch': '2.262'}
+{'loss': '5.748', 'grad_norm': '51.83', 'learning_rate': '4.088e-05', 'epoch': '2.59'}
+{'loss': '5.152', 'grad_norm': '58.08', 'learning_rate': '3.817e-05', 'epoch': '2.918'}
+{'eval_loss': '1.466', 'eval_accuracy': '0.5375', 'eval_f1': '0.5056', 'eval_balanced_accuracy': '0.5375', 'eval_macro_f1': '0.5056', 'eval_atc': '0.7594', 'eval_normalized_atc': '0.07594', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.2812', 'eval_target_fnr': '1', 'eval_selection_score': '3.385', 'eval_selection_accuracy_value': '0.5375', 'eval_nll': '1.395', 'eval_brier': '0.6249', 'eval_ece': '0.1404', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.27', 'eval_samples_per_second': '97.85', 'eval_steps_per_second': '6.116', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b/checkpoint-93/preprocessor_config.json
+{'loss': '4.627', 'grad_norm': '53.19', 'learning_rate': '3.522e-05', 'epoch': '3.23'}
+{'loss': '3.857', 'grad_norm': '39.42', 'learning_rate': '3.209e-05', 'epoch': '3.557'}
+{'loss': '3.953', 'grad_norm': '51.19', 'learning_rate': '2.883e-05', 'epoch': '3.885'}
+{'eval_loss': '1.083', 'eval_accuracy': '0.6594', 'eval_f1': '0.6334', 'eval_balanced_accuracy': '0.6594', 'eval_macro_f1': '0.6334', 'eval_atc': '0.6031', 'eval_normalized_atc': '0.06031', 'eval_target_recall': '0.0625', 'eval_target_recall_macro': '0.4375', 'eval_target_fnr': '0.875', 'eval_selection_score': '2.886', 'eval_selection_accuracy_value': '0.6594', 'eval_nll': '1.039', 'eval_brier': '0.4869', 'eval_ece': '0.1703', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.248', 'eval_samples_per_second': '98.52', 'eval_steps_per_second': '6.158', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b/checkpoint-124/preprocessor_config.json
+{'loss': '3.471', 'grad_norm': '70.47', 'learning_rate': '2.55e-05', 'epoch': '4.197'}
+{'loss': '3.287', 'grad_norm': '64.61', 'learning_rate': '2.217e-05', 'epoch': '4.525'}
+{'loss': '3.334', 'grad_norm': '56.09', 'learning_rate': '1.888e-05', 'epoch': '4.852'}
+{'eval_loss': '0.9435', 'eval_accuracy': '0.7031', 'eval_f1': '0.6912', 'eval_balanced_accuracy': '0.7031', 'eval_macro_f1': '0.6912', 'eval_atc': '0.5625', 'eval_normalized_atc': '0.05625', 'eval_target_recall': '0.1875', 'eval_target_recall_macro': '0.5312', 'eval_target_fnr': '0.375', 'eval_selection_score': '2.096', 'eval_selection_accuracy_value': '0.7031', 'eval_nll': '0.8981', 'eval_brier': '0.428', 'eval_ece': '0.1646', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.2', 'eval_samples_per_second': '100', 'eval_steps_per_second': '6.251', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b/checkpoint-155/preprocessor_config.json
+{'loss': '2.876', 'grad_norm': '55.31', 'learning_rate': '1.57e-05', 'epoch': '5.164'}
+{'loss': '2.99', 'grad_norm': '52.1', 'learning_rate': '1.269e-05', 'epoch': '5.492'}
+{'loss': '3.037', 'grad_norm': '67.93', 'learning_rate': '9.903e-06', 'epoch': '5.82'}
+{'eval_loss': '0.9074', 'eval_accuracy': '0.7156', 'eval_f1': '0.6911', 'eval_balanced_accuracy': '0.7156', 'eval_macro_f1': '0.6911', 'eval_atc': '0.5188', 'eval_normalized_atc': '0.05188', 'eval_target_recall': '0.1875', 'eval_target_recall_macro': '0.5625', 'eval_target_fnr': '0.5625', 'eval_selection_score': '2.09', 'eval_selection_accuracy_value': '0.7156', 'eval_nll': '0.8592', 'eval_brier': '0.4093', 'eval_ece': '0.1513', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.214', 'eval_samples_per_second': '99.57', 'eval_steps_per_second': '6.223', 'epoch': '6'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b/checkpoint-186/preprocessor_config.json
+{'loss': '2.631', 'grad_norm': '59.02', 'learning_rate': '7.382e-06', 'epoch': '6.131'}
+{'loss': '2.849', 'grad_norm': '56.71', 'learning_rate': '5.175e-06', 'epoch': '6.459'}
+{'loss': '2.819', 'grad_norm': '85.46', 'learning_rate': '3.322e-06', 'epoch': '6.787'}
+{'eval_loss': '0.8579', 'eval_accuracy': '0.7125', 'eval_f1': '0.6952', 'eval_balanced_accuracy': '0.7125', 'eval_macro_f1': '0.6952', 'eval_atc': '0.5875', 'eval_normalized_atc': '0.05875', 'eval_target_recall': '0.1875', 'eval_target_recall_macro': '0.5312', 'eval_target_fnr': '0.5', 'eval_selection_score': '2.097', 'eval_selection_accuracy_value': '0.7125', 'eval_nll': '0.816', 'eval_brier': '0.3929', 'eval_ece': '0.1484', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.221', 'eval_samples_per_second': '99.36', 'eval_steps_per_second': '6.21', 'epoch': '7'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b/checkpoint-217/preprocessor_config.json
+{'loss': '2.496', 'grad_norm': '78.43', 'learning_rate': '1.855e-06', 'epoch': '7.098'}
+{'loss': '2.646', 'grad_norm': '67.12', 'learning_rate': '8.021e-07', 'epoch': '7.426'}
+{'loss': '2.707', 'grad_norm': '49.37', 'learning_rate': '1.807e-07', 'epoch': '7.754'}
+{'eval_loss': '0.8542', 'eval_accuracy': '0.7188', 'eval_f1': '0.7038', 'eval_balanced_accuracy': '0.7188', 'eval_macro_f1': '0.7038', 'eval_atc': '0.5813', 'eval_normalized_atc': '0.05813', 'eval_target_recall': '0.1875', 'eval_target_recall_macro': '0.5312', 'eval_target_fnr': '0.5', 'eval_selection_score': '2.095', 'eval_selection_accuracy_value': '0.7188', 'eval_nll': '0.812', 'eval_brier': '0.3909', 'eval_ece': '0.1473', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.093', 'eval_samples_per_second': '103.4', 'eval_steps_per_second': '6.465', 'epoch': '8'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b/checkpoint-248/preprocessor_config.json
+{'train_runtime': '119', 'train_samples_per_second': '130.4', 'train_steps_per_second': '2.084', 'train_loss': '5.301', 'epoch': '8'}
+***** train metrics *****
+  epoch                    =        8.0
+  total_flos               =        0GF
+  train_loss               =     5.3015
+  train_runtime            = 0:01:59.02
+  train_samples_per_second =    130.393
+  train_steps_per_second   =      2.084
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b_05-01_01-54
+Saving run configuration...
+Run configuration saved to: results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b_05-01_01-54/run_configuration_20260501_015428.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b_05-01_01-54/metrics_20260501_015442_nicme_logit_adjustment.json and results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b_05-01_01-54/metrics_20260501_015442_nicme_logit_adjustment.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '16729-0168', '50111-0434', '53489-0156', '53746-0544', '57664-0377', '62037-0831', '62037-0832', '64380-0803', '65162-0253', '67253-0901', '68382-0008', '68382-0227', '69097-0127', '69097-0128', '69315-0904', '69315-0905']
+Creating confusion matrix visualizations...
+Confusion matrix visualizations (3-panel) saved to: results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b_05-01_01-54/confusion_matrix_20260501_015442_nicme_logit_adjustment.png and results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b_05-01_01-54/confusion_matrix_20260501_015442_nicme_logit_adjustment.pdf
+Detailed confusion matrix saved to: results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b_05-01_01-54/confusion_matrix_detailed_20260501_015442_nicme_logit_adjustment.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b_05-01_01-54
+Overall Accuracy: 0.7562
+Balanced Accuracy: 0.7562
+Overall F1 Score: 0.7513
+Kappa: 0.7434
+AUC: 0.9845
+Expected Cost: 0.3484
+Loss Function Used: nicme_logit_adjustment
+Total Test Samples: 640
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 16729-0168, 50111-0434, 53489-0156, 53746-0544, 57664-0377, 62037-0831, 62037-0832, 64380-0803, 65162-0253, 67253-0901, 68382-0008, 68382-0227, 69097-0127, 69097-0128, 69315-0904, 69315-0905
+
+Detailed metrics and visualizations saved to: results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b_05-01_01-54
+============================================================

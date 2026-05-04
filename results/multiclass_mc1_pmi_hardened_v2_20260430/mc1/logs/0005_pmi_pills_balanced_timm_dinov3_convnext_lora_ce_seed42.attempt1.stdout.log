@@ -1,0 +1,46 @@
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=timm type=timm_dinov3_convnext_lora with 20 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'eval_loss': '3.355', 'eval_accuracy': '0.04375', 'eval_f1': '0.02305', 'eval_balanced_accuracy': '0.04911', 'eval_macro_f1': '0.02305', 'eval_atc': '0.9563', 'eval_normalized_atc': '0.09563', 'eval_target_recall': '0', 'eval_target_recall_macro': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.899', 'eval_selection_accuracy_value': '0.04911', 'eval_nll': '3.355', 'eval_brier': '0.987', 'eval_ece': '0.1108', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '2.634', 'eval_samples_per_second': '60.75', 'eval_steps_per_second': '3.797', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/mc1_pmi_pills_balanced_d3cnx_lora_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_ccc8cf32/checkpoint-5/preprocessor_config.json
+{'train_runtime': '6.207', 'train_samples_per_second': '51.55', 'train_steps_per_second': '0.806', 'train_loss': '13.28', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     13.282
+  train_runtime            = 0:00:06.20
+  train_samples_per_second =     51.553
+  train_steps_per_second   =      0.806
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_d3cnx_lora_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_ccc8cf32_04-30_15-58
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_d3cnx_lora_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_ccc8cf32_04-30_15-58/run_configuration_20260430_155852.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_d3cnx_lora_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_ccc8cf32_04-30_15-58/metrics_20260430_155900_ce.json and results/timm_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_d3cnx_lora_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_ccc8cf32_04-30_15-58/metrics_20260430_155900_ce.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '16729-0168', '50111-0434', '53489-0156', '53746-0544', '57664-0377', '62037-0831', '62037-0832', '64380-0803', '65162-0253', '67253-0901', '68382-0008', '68382-0227', '69097-0127', '69097-0128', '69315-0904', '69315-0905']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_d3cnx_lora_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_ccc8cf32_04-30_15-58
+Overall Accuracy: 0.0250
+Balanced Accuracy: 0.0236
+Overall F1 Score: 0.0218
+Kappa: -0.0576
+AUC: 0.4725
+Expected Cost: 0.9750
+Loss Function Used: ce
+Total Test Samples: 160
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 16729-0168, 50111-0434, 53489-0156, 53746-0544, 57664-0377, 62037-0831, 62037-0832, 64380-0803, 65162-0253, 67253-0901, 68382-0008, 68382-0227, 69097-0127, 69097-0128, 69315-0904, 69315-0905
+
+Detailed metrics saved to: results/timm_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_d3cnx_lora_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_ccc8cf32_04-30_15-58
+============================================================

@@ -1,0 +1,70 @@
+{
+  "stage": "training",
+  "storage_root": "/mnt/storage",
+  "env": {
+    "HF_HOME": {
+      "value": "/mnt/storage/huggingface",
+      "resolved": "/mnt/storage/huggingface"
+    },
+    "HF_HUB_CACHE": {
+      "value": "/mnt/storage/huggingface/hub",
+      "resolved": "/mnt/storage/huggingface/hub"
+    },
+    "HF_DATASETS_CACHE": {
+      "value": "/mnt/storage/huggingface/datasets",
+      "resolved": "/mnt/storage/huggingface/datasets"
+    },
+    "TORCH_HOME": {
+      "value": "/mnt/storage/torch",
+      "resolved": "/mnt/storage/torch"
+    },
+    "TMPDIR": {
+      "value": "/mnt/storage/tmp/nicme",
+      "resolved": "/mnt/storage/tmp/nicme"
+    },
+    "XDG_CACHE_HOME": {
+      "value": "/mnt/storage/.cache",
+      "resolved": "/mnt/storage/.cache"
+    },
+    "MPLCONFIGDIR": {
+      "value": "/mnt/storage/.cache/matplotlib",
+      "resolved": "/mnt/storage/.cache/matplotlib"
+    }
+  },
+  "space": [
+    {
+      "name": "root",
+      "path": "/",
+      "exists": true,
+      "free_gb": 177.60378646850586,
+      "min_free_gb": 10.0,
+      "ok": true
+    },
+    {
+      "name": "home_root",
+      "path": "/home",
+      "exists": true,
+      "free_gb": 177.60378646850586,
+      "min_free_gb": 10.0,
+      "ok": true
+    },
+    {
+      "name": "user_home",
+      "path": "/home/zi",
+      "exists": true,
+      "free_gb": 177.60378646850586,
+      "min_free_gb": 10.0,
+      "ok": true
+    },
+    {
+      "name": "storage",
+      "path": "/mnt/storage",
+      "exists": true,
+      "free_gb": 488.6501808166504,
+      "min_free_gb": 50.0,
+      "ok": true
+    }
+  ],
+  "ok": true,
+  "errors": []
+}

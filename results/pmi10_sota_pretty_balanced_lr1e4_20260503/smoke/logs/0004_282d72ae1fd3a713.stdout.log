@@ -1,0 +1,47 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_sota_convnext_base with 10 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '7.152', 'grad_norm': '53.64', 'learning_rate': '5e-05', 'epoch': '0.6557'}
+{'eval_loss': '0.9934', 'eval_accuracy': '0.6032', 'eval_f1': '0.5356', 'eval_balanced_accuracy': '0.6032', 'eval_macro_f1': '0.5356', 'eval_atc': '0.5226', 'eval_normalized_atc': '0.05226', 'eval_target_recall': '0.8387', 'eval_target_recall_macro': '0.9113', 'eval_target_fnr': '0.03226', 'eval_selection_score': '0.106', 'eval_selection_accuracy_value': '0.6032', 'eval_nll': '1.124', 'eval_brier': '0.5449', 'eval_ece': '0.1129', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.619', 'eval_samples_per_second': '67.11', 'eval_steps_per_second': '4.33', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/smoke_cost_weighted_ce_lr1e4_s42/checkpoint-16/preprocessor_config.json
+{'train_runtime': '19.07', 'train_samples_per_second': '50.87', 'train_steps_per_second': '0.839', 'train_loss': '5.886', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     5.8865
+  train_runtime            = 0:00:19.06
+  train_samples_per_second =      50.87
+  train_steps_per_second   =      0.839
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_sota_convnext_base_test/smoke_cost_weighted_ce_lr1e4_s42_05-02_18-23
+Saving run configuration...
+Run configuration saved to: results/pmi10_sota_convnext_base_test/smoke_cost_weighted_ce_lr1e4_s42_05-02_18-23/run_configuration_20260502_182309.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_sota_convnext_base_test/smoke_cost_weighted_ce_lr1e4_s42_05-02_18-23/metrics_20260502_182318_cost_weighted_ce.json and results/pmi10_sota_convnext_base_test/smoke_cost_weighted_ce_lr1e4_s42_05-02_18-23/metrics_20260502_182318_cost_weighted_ce.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_sota_convnext_base_test/smoke_cost_weighted_ce_lr1e4_s42_05-02_18-23
+Overall Accuracy: 0.6375
+Balanced Accuracy: 0.6375
+Overall F1 Score: 0.5716
+Kappa: 0.5972
+AUC: 0.9665
+Expected Cost: 0.4625
+Loss Function Used: cost_weighted_ce
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/smoke_cost_weighted_ce_lr1e4_s42_05-02_18-23
+============================================================

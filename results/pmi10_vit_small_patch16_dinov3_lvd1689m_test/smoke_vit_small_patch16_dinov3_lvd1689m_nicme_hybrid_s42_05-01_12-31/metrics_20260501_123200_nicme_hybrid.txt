@@ -1,0 +1,98 @@
+Training Metrics Report - 20260501_123200
+==================================================
+
+OVERALL METRICS:
+--------------------
+Accuracy: 0.6568
+Balanced Accuracy: 0.4470
+F1 Score: 0.3767
+Kappa: 0.5938
+Quadratic Weighted Kappa: 0.7017
+AUC: 0.8753
+Loss: 2.0386
+ATC: 0.6728
+Normalized ATC: 0.0673
+Selection Score: 3.3991
+Target Recall: 0.0000
+Target FNR: 0.1250
+Recall Class 0: 0.8850
+Expected Cost: 0.6728
+Prevalence Class 0: 0.1686
+
+CLASS SAMPLE COUNTS:
+--------------------
+Class 0: 200 samples
+Class 1: 42 samples
+Class 2: 48 samples
+Class 3: 85 samples
+Class 4: 200 samples
+Class 5: 200 samples
+Class 6: 32 samples
+Class 7: 200 samples
+Class 8: 140 samples
+Class 9: 39 samples
+
+PER-CLASS METRICS:
+--------------------
+Class 0:
+  True Positive Rate (TPR): 0.8850
+  False Positive Rate (FPR): 0.0365
+  False Negative Rate (FNR): 0.1150
+
+Class 1:
+  True Positive Rate (TPR): 0.0000
+  False Positive Rate (FPR): 0.0000
+  False Negative Rate (FNR): 1.0000
+
+Class 2:
+  True Positive Rate (TPR): 0.0000
+  False Positive Rate (FPR): 0.0000
+  False Negative Rate (FNR): 1.0000
+
+Class 3:
+  True Positive Rate (TPR): 1.0000
+  False Positive Rate (FPR): 0.0727
+  False Negative Rate (FNR): 0.0000
+
+Class 4:
+  True Positive Rate (TPR): 0.8750
+  False Positive Rate (FPR): 0.0639
+  False Negative Rate (FNR): 0.1250
+
+Class 5:
+  True Positive Rate (TPR): 0.8550
+  False Positive Rate (FPR): 0.1744
+  False Negative Rate (FNR): 0.1450
+
+Class 6:
+  True Positive Rate (TPR): 0.0000
+  False Positive Rate (FPR): 0.0000
+  False Negative Rate (FNR): 1.0000
+
+Class 7:
+  True Positive Rate (TPR): 0.8550
+  False Positive Rate (FPR): 0.0568
+  False Negative Rate (FNR): 0.1450
+
+Class 8:
+  True Positive Rate (TPR): 0.0000
+  False Positive Rate (FPR): 0.0000
+  False Negative Rate (FNR): 1.0000
+
+Class 9:
+  True Positive Rate (TPR): 0.0000
+  False Positive Rate (FPR): 0.0000
+  False Negative Rate (FNR): 1.0000
+
+CONFUSION MATRIX:
+--------------------
+Row 0: [177, 0, 0, 23, 0, 0, 0, 0, 0, 0]
+Row 1: [0, 0, 0, 42, 0, 0, 0, 0, 0, 0]
+Row 2: [0, 0, 0, 0, 39, 1, 0, 8, 0, 0]
+Row 3: [0, 0, 0, 85, 0, 0, 0, 0, 0, 0]
+Row 4: [0, 0, 0, 0, 175, 0, 0, 25, 0, 0]
+Row 5: [11, 0, 0, 0, 0, 171, 0, 18, 0, 0]
+Row 6: [17, 0, 0, 15, 0, 0, 0, 0, 0, 0]
+Row 7: [4, 0, 0, 0, 24, 1, 0, 171, 0, 0]
+Row 8: [4, 0, 0, 0, 0, 136, 0, 0, 0, 0]
+Row 9: [0, 0, 0, 0, 0, 34, 0, 5, 0, 0]

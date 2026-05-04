@@ -1,0 +1,144 @@
+{
+  "snapshot_date": "2026-05-01",
+  "repo": "/mnt/storage/github/NICME",
+  "purpose": "Machine-readable handoff for NICME multiclass EyePACS DR and PMI Pills extension.",
+  "scientific_constraints": {
+    "lora_is_core_claim": true,
+    "do_not_silently_replace_lora_with_full_finetuning": true,
+    "cost_matrices_are_fixed_dataset_metadata": true,
+    "cost_matrix_orientation": "C[true_label][predicted_label]",
+    "current_testing_variant": "balanced"
+  },
+  "datasets": {
+    "eyepacs_dr": {
+      "status": "prepared",
+      "prepared_root": "data/prepared/eyepacs_dr",
+      "num_classes": 5,
+      "class_names": ["DR0", "DR1", "DR2", "DR3", "DR4"],
+      "primary_cared_class": "DR4",
+      "secondary_cared_classes": ["DR3", "DR4"],
+      "cost_matrix": [
+        [0, 1, 4, 9, 16],
+        [1, 0, 1, 4, 9],
+        [4, 1, 0, 1, 4],
+        [9, 4, 1, 0, 1],
+        [16, 9, 4, 1, 0]
+      ],
+      "cost_matrix_source": "Galdran-style squared ordinal DR cost"
+    },
+    "pmi_pills": {
+      "status": "prepared",
+      "prepared_root": "data/prepared/pmi_pills",
+      "raw_archive": "data/raw/pmi/medication_images.zip",
+      "raw_archive_sha1": "df15ceb6aa039d71d23774258e28acc89bd31b91",
+      "balanced_counts": {
+        "train": 1940,
+        "validation": 320,
+        "calibration": 300,
+        "test": 640
+      },
+      "critical_pairs": [
+        {"true": "50111-0434", "pred": "00591-0461", "cost": 10},
+        {"true": "53489-0156", "pred": "68382-0227", "cost": 10},
+        {"true": "53746-0544", "pred": "00378-0208", "cost": 10},
+        {"true": "68382-0227", "pred": "53489-0156", "cost": 8}
+      ],
+      "noncritical_off_diagonal_cost": 1,
+      "diagonal_cost": 0
+    }
+  },
+  "stops": {
+    "mc0": {
+      "status": "complete",
+      "key_artifacts": [
+        "results/multiclass_pmi_ready_20260430/mc0/mc0_readiness.md",
+        "results/multiclass_pmi_ready_20260430/pmi_preparation_summary.md"
+      ]
+    },
+    "mc1": {
+      "status": "complete",
+      "key_artifacts": [
+        "results/multiclass_mc1_hardened_v2_20260430/mc1/mc1_smoke_summary.md",
+        "results/multiclass_mc1_pmi_hardened_v2_20260430/mc1/mc1_pmi_smoke_summary.md"
+      ]
+    },
+    "mc2": {
+      "status": "blocked",
+      "reason": "Known HF ConvNeXt and PEFT/timm LoRA failure modes caused D-state processes; reboot/reset required before further GPU work.",
+      "failed_artifacts": [
+        "results/multiclass_mc2_20260430/mc2/run_ledger.csv",
+        "results/multiclass_mc2_convnext_ce_repro_20260430/mc2/hf_convnext_quarantine_note.md",
+        "results/multiclass_mc2_v2_20260430/mc2/run_ledger.csv",
+        "results/multiclass_mc2_v2_20260430/mc2/mc2_environment_stop_summary.md"
+      ],
+      "next_output_root_recommended": "results/multiclass_mc2_lora_fixed_20260501"
+    },
+    "mc3": {
+      "status": "not_started",
+      "reason": "Wait for MC2 completion and selection."
+    },
+    "mc4": {
+      "status": "not_started"
+    }
+  },
+  "known_failures": [
+    {
+      "name": "HF ConvNeXt PyTorch/CUDA instability",
+      "model": "facebook/convnext-tiny-224",
+      "symptoms": [
+        "PyTorch autograd internal assert: isDifferentiableType(grad.scalar_type())",
+        "focused repro froze while holding CUDA memory",
+        "left unkillable D-state process"
+      ],
+      "current_policy": "Quarantine HF ConvNeXt from default MC2/MC3/MC4 plans."
+    },
+    {
+      "name": "PEFT/timm LoRA wrapper failure",
+      "model": "timm_dinov3_vit_lora",
+      "symptoms": [
+        "trained through repeated eval/checkpoint cycles",
+        "failed in model.train() with TypeError: cannot unpack non-iterable Linear object",
+        "left a D-state Python process after stop"
+      ],
+      "current_policy": "Do not abandon LoRA. Fix wrapper/checkpoint interaction, then run multi-epoch LoRA stability gate before MC2."
+    }
+  ],
+  "implemented_files_or_modules": [
+    "nicme/dataset_profiles.py",
+    "nicme/costs.py",
+    "nicme/data_prep.py",
+    "nicme/cli.py",
+    "scripts/check_multiclass_readiness.py",
+    "scripts/run_multiclass_experiments.py",
+    "scripts/select_mc2_configs.py",
+    "scripts/train.py",
+    "utils/utils.py",
+    "tests/test_costs.py",
+    "tests/test_calibration.py",
+    "tests/test_dataset_profiles.py",
+    "tests/test_data_prep.py"
+  ],
+  "current_code_caveat": {
+    "description": "During emergency debugging, run_multiclass_experiments.py defaults may have been changed to non-PEFT timm models and abort-on-failure hardening. This must be revisited because user confirmed LoRA is a key paper claim.",
+    "required_resolution": "Restore LoRA as primary after fixing PEFT/timm integration, or obtain explicit user approval for any claim change."
+  },
+  "recommended_next_steps": [
+    "Reboot/reset GPU if any D-state Python training process remains.",
+    "Inspect and fix nicme/modeling.py PEFT/timm LoRA application.",
+    "Prefer applying PEFT to the underlying timm model before wrapping, avoid fragile dotted modules_to_save on the outer wrapper, and keep head trainable manually.",
+    "Add CPU/unit tests for repeated train/eval cycles on timm LoRA models.",
+    "Run a 4-5 epoch LoRA stability gate with checkpoints before MC2.",
+    "Relaunch MC2 with timm_dinov3_vit_lora and timm_dinov3_convnext_lora only after the stability gate passes.",
+    "Run MC2 selection and then MC3."
+  ],
+  "recommended_commands": {
+    "post_reboot_preflight": [
+      "for d in /proc/[0-9]*; do p=${d##*/}; state=$(awk '/^State:/ {print $2}' \"$d/status\" 2>/dev/null) || continue; if [ \"$state\" = D ]; then name=$(awk '/^Name:/ {print $2}' \"$d/status\" 2>/dev/null); echo \"$p $name D\"; fi; done",
+      "nvidia-smi --query-gpu=index,name,memory.used,memory.total,utilization.gpu --format=csv,noheader,nounits",
+      "micromamba run -n ml ruff check scripts/run_multiclass_experiments.py scripts/train.py",
+      "micromamba run -n ml pytest -q"
+    ],
+    "mc2_lora_fixed": "micromamba run -n ml python scripts/run_multiclass_experiments.py --stop mc2 --datasets eyepacs_dr,pmi_pills --variants balanced --models timm_dinov3_vit_lora,timm_dinov3_convnext_lora --output-dir results/multiclass_mc2_lora_fixed_20260501 --execute --per-run-timeout-minutes 60",
+    "mc2_selection": "micromamba run -n ml python scripts/select_mc2_configs.py --ledger results/multiclass_mc2_lora_fixed_20260501/mc2/run_ledger.csv --output-dir results/multiclass_mc2_lora_fixed_20260501/selection"
+  }
+}

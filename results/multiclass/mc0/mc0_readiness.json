@@ -1,0 +1,235 @@
+{
+  "datasets": {
+    "eyepacs_dr": {
+      "raw": {
+        "path": "data/raw/eyepacs",
+        "exists": true,
+        "labels_present": true,
+        "images_present": true,
+        "kaggle_credentials_present": false,
+        "download_note": "Requires Kaggle competition terms acceptance and authenticated Kaggle API."
+      },
+      "prepared": {
+        "balanced": {
+          "variant": "balanced",
+          "profile_json": "data/prepared/eyepacs_dr/profile_balanced.json",
+          "profile_json_present": true,
+          "split_dir": "data/prepared/eyepacs_dr/splits/balanced",
+          "split_files_present": true,
+          "cost_matrix_sha256": "2ddb9a77faab698cd29f1475048e7f5438e89d3c7420eaa8607238053746d412",
+          "missing_images": 0,
+          "patient_overlap": 0,
+          "ready": true,
+          "audit": {
+            "dataset_profile": "eyepacs_dr",
+            "split_dir": "data/prepared/eyepacs_dr/splits/balanced",
+            "exists": true,
+            "cost_matrix_convention": "C[true_label][predicted_label]",
+            "cost_matrix_sha256": "2ddb9a77faab698cd29f1475048e7f5438e89d3c7420eaa8607238053746d412",
+            "num_classes": 5,
+            "class_names": [
+              "DR0",
+              "DR1",
+              "DR2",
+              "DR3",
+              "DR4"
+            ],
+            "cared_classes": [
+              "DR4"
+            ],
+            "critical_pairs": [],
+            "splits": {
+              "train": {
+                "exists": true,
+                "rows": 2485,
+                "label_counts": {
+                  "0": 497,
+                  "1": 497,
+                  "2": 497,
+                  "3": 497,
+                  "4": 497
+                },
+                "label_name_counts": {
+                  "DR0": 497,
+                  "DR1": 497,
+                  "DR2": 497,
+                  "DR3": 497,
+                  "DR4": 497
+                },
+                "missing_images": 0,
+                "cared_class_prevalence": {
+                  "DR4": 0.2
+                },
+                "unique_patients": 1997
+              },
+              "validation": {
+                "exists": true,
+                "rows": 335,
+                "label_counts": {
+                  "0": 67,
+                  "1": 67,
+                  "2": 67,
+                  "3": 67,
+                  "4": 67
+                },
+                "label_name_counts": {
+                  "DR0": 67,
+                  "DR1": 67,
+                  "DR2": 67,
+                  "DR3": 67,
+                  "DR4": 67
+                },
+                "missing_images": 0,
+                "cared_class_prevalence": {
+                  "DR4": 0.2
+                },
+                "unique_patients": 277
+              },
+              "calibration": {
+                "exists": true,
+                "rows": 350,
+                "label_counts": {
+                  "0": 70,
+                  "1": 70,
+                  "2": 70,
+                  "3": 70,
+                  "4": 70
+                },
+                "label_name_counts": {
+                  "DR0": 70,
+                  "DR1": 70,
+                  "DR2": 70,
+                  "DR3": 70,
+                  "DR4": 70
+                },
+                "missing_images": 0,
+                "cared_class_prevalence": {
+                  "DR4": 0.2
+                },
+                "unique_patients": 284
+              },
+              "test": {
+                "exists": true,
+                "rows": 370,
+                "label_counts": {
+                  "0": 74,
+                  "1": 74,
+                  "2": 74,
+                  "3": 74,
+                  "4": 74
+                },
+                "label_name_counts": {
+                  "DR0": 74,
+                  "DR1": 74,
+                  "DR2": 74,
+                  "DR3": 74,
+                  "DR4": 74
+                },
+                "missing_images": 0,
+                "cared_class_prevalence": {
+                  "DR4": 0.2
+                },
+                "unique_patients": 285
+              }
+            },
+            "patient_overlap": {
+              "train__validation": 0,
+              "calibration__train": 0,
+              "calibration__validation": 0,
+              "calibration__test": 0,
+              "test__train": 0,
+              "test__validation": 0
+            },
+            "duplicate_image_paths": {}
+          }
+        }
+      },
+      "ready": true
+    },
+    "pmi_pills": {
+      "raw": {
+        "path": "data/raw/pmi",
+        "exists": true,
+        "archive_present": false,
+        "split_dirs_present": false,
+        "download_note": "Deep Blue direct CLI download may return Cloudflare 403; browser or Globus is expected."
+      },
+      "prepared": {
+        "balanced": {
+          "variant": "balanced",
+          "profile_json": "data/prepared/pmi_pills/profile_balanced.json",
+          "profile_json_present": false,
+          "split_dir": "data/prepared/pmi_pills/splits/balanced",
+          "split_files_present": false,
+          "cost_matrix_sha256": "af92dbd367c299056f5f41dab4f3b4330a6171b856e8822bac0357fdfe4289d2",
+          "missing_images": 0,
+          "patient_overlap": 0,
+          "ready": false,
+          "audit": {
+            "dataset_profile": "pmi_pills",
+            "split_dir": "data/prepared/pmi_pills/splits/balanced",
+            "exists": false,
+            "cost_matrix_convention": "C[true_label][predicted_label]",
+            "cost_matrix_sha256": "af92dbd367c299056f5f41dab4f3b4330a6171b856e8822bac0357fdfe4289d2",
+            "num_classes": 20,
+            "class_names": [
+              "00378-0208",
+              "00378-3855",
+              "00591-0461",
+              "16729-0020",
+              "16729-0168",
+              "50111-0434",
+              "53489-0156",
+              "53746-0544",
+              "57664-0377",
+              "62037-0831",
+              "62037-0832",
+              "64380-0803",
+              "65162-0253",
+              "67253-0901",
+              "68382-0008",
+              "68382-0227",
+              "69097-0127",
+              "69097-0128",
+              "69315-0904",
+              "69315-0905"
+            ],
+            "cared_classes": [
+              "50111-0434",
+              "53489-0156",
+              "53746-0544",
+              "68382-0227"
+            ],
+            "critical_pairs": [
+              {
+                "true": "50111-0434",
+                "pred": "00591-0461",
+                "cost": 10.0
+              },
+              {
+                "true": "53489-0156",
+                "pred": "68382-0227",
+                "cost": 10.0
+              },
+              {
+                "true": "53746-0544",
+                "pred": "00378-0208",
+                "cost": 10.0
+              },
+              {
+                "true": "68382-0227",
+                "pred": "53489-0156",
+                "cost": 8.0
+              }
+            ],
+            "splits": {},
+            "patient_overlap": {},
+            "duplicate_image_paths": {}
+          }
+        }
+      },
+      "ready": false
+    }
+  },
+  "all_ready": false
+}

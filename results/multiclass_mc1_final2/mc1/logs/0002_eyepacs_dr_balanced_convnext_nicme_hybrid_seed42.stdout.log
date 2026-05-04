@@ -1,0 +1,49 @@
+cuDNN disabled for this run
+Prepared manifest loaded — Train=2485, Val=335, Calibration=350, Test=370
+cuda
+Using model backend=hf_auto type=convnext with 5 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'eval_loss': '1.807', 'eval_accuracy': '0.2625', 'eval_f1': '0.2377', 'eval_balanced_accuracy': '0.2568', 'eval_macro_f1': '0.2377', 'eval_atc': '3.081', 'eval_normalized_atc': '0.1926', 'eval_target_recall': '0.1818', 'eval_target_recall_macro': '0.1818', 'eval_target_fnr': '0.8182', 'eval_selection_score': '2.342', 'eval_selection_accuracy_value': '0.2568', 'eval_nll': '1.594', 'eval_brier': '0.7939', 'eval_ece': '0.04111', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '9.518', 'eval_samples_per_second': '16.81', 'eval_steps_per_second': '1.051', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/mc1_eyepacs_dr_balanced_cnx_nicme_hybrid_s42_multiclass_mc1_final2_mc1_da72a1a3/checkpoint-5/preprocessor_config.json
+{'train_runtime': '21.63', 'train_samples_per_second': '14.79', 'train_steps_per_second': '0.231', 'train_loss': '1.914', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =  7489240GF
+  train_loss               =     1.9136
+  train_runtime            = 0:00:21.63
+  train_samples_per_second =     14.791
+  train_steps_per_second   =      0.231
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/convnext_test/mc1_eyepacs_dr_balanced_cnx_nicme_hybrid_s42_multiclass_mc1_final2_mc1_da72a1a3_04-30_12-31
+Saving run configuration...
+Run configuration saved to: results/convnext_test/mc1_eyepacs_dr_balanced_cnx_nicme_hybrid_s42_multiclass_mc1_final2_mc1_da72a1a3_04-30_12-31/run_configuration_20260430_123135.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/convnext_test/mc1_eyepacs_dr_balanced_cnx_nicme_hybrid_s42_multiclass_mc1_final2_mc1_da72a1a3_04-30_12-31/metrics_20260430_123202_nicme_hybrid.json and results/convnext_test/mc1_eyepacs_dr_balanced_cnx_nicme_hybrid_s42_multiclass_mc1_final2_mc1_da72a1a3_04-30_12-31/metrics_20260430_123202_nicme_hybrid.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['DR0', 'DR1', 'DR2', 'DR3', 'DR4']
+Confusion matrix visualizations (3-panel) saved to: results/convnext_test/mc1_eyepacs_dr_balanced_cnx_nicme_hybrid_s42_multiclass_mc1_final2_mc1_da72a1a3_04-30_12-31/confusion_matrix_20260430_123202_nicme_hybrid.png and results/convnext_test/mc1_eyepacs_dr_balanced_cnx_nicme_hybrid_s42_multiclass_mc1_final2_mc1_da72a1a3_04-30_12-31/confusion_matrix_20260430_123202_nicme_hybrid.pdf
+Detailed confusion matrix saved to: results/convnext_test/mc1_eyepacs_dr_balanced_cnx_nicme_hybrid_s42_multiclass_mc1_final2_mc1_da72a1a3_04-30_12-31/confusion_matrix_detailed_20260430_123202_nicme_hybrid.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/convnext_test/mc1_eyepacs_dr_balanced_cnx_nicme_hybrid_s42_multiclass_mc1_final2_mc1_da72a1a3_04-30_12-31
+Overall Accuracy: 0.3750
+Balanced Accuracy: 0.3785
+Overall F1 Score: 0.3640
+Kappa: 0.2204
+AUC: 0.6312
+Expected Cost: 2.9875
+Loss Function Used: nicme_hybrid
+Total Test Samples: 160
+Classes: DR0, DR1, DR2, DR3, DR4
+
+Detailed metrics and visualizations saved to: results/convnext_test/mc1_eyepacs_dr_balanced_cnx_nicme_hybrid_s42_multiclass_mc1_final2_mc1_da72a1a3_04-30_12-31
+============================================================

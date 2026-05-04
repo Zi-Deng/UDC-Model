@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from nicme.calibration import (
     binary_threshold_predictions,
@@ -57,3 +58,20 @@ def test_binary_threshold_selection_can_prefer_accuracy_constrained_threshold():
     assert predictions.tolist() == [0, 0, 0, 1]
     assert result.target_recall == 1.0
     assert result.accuracy == 0.75
+
+
+def test_binary_threshold_helpers_reject_multiclass_probabilities():
+    probabilities = np.array([[0.2, 0.3, 0.5]])
+
+    with pytest.raises(ValueError):
+        binary_threshold_predictions(probabilities, threshold=0.5, target_class_id=2)
+
+    with pytest.raises(ValueError):
+        fit_binary_threshold_np(
+            probabilities,
+            np.array([2]),
+            [[0.0, 1.0, 2.0], [1.0, 0.0, 1.0], [2.0, 1.0, 0.0]],
+            target_class_id=2,
+            target_recall_floor=1.0,
+            accuracy_floor=0.0,
+        )

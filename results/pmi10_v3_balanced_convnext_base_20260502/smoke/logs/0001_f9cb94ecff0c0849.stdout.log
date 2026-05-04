@@ -1,0 +1,51 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_convnext_base_fb_in22k_ft_in1k with 10 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '8.197', 'grad_norm': '28.3', 'learning_rate': '4.358e-05', 'epoch': '0.6557'}
+{'eval_loss': '1.148', 'eval_accuracy': '0.6323', 'eval_f1': '0.5853', 'eval_balanced_accuracy': '0.6323', 'eval_macro_f1': '0.5853', 'eval_atc': '0.7742', 'eval_normalized_atc': '0.07742', 'eval_target_recall': '0.3548', 'eval_target_recall_macro': '0.6532', 'eval_target_fnr': '0.6452', 'eval_selection_score': '1.294', 'eval_selection_accuracy_value': '0.6323', 'eval_nll': '1.148', 'eval_brier': '0.5441', 'eval_ece': '0.2022', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.963', 'eval_samples_per_second': '62.46', 'eval_steps_per_second': '4.03', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/smoke_convnext_base_fb_in22k_ft_in1k_ce_s42/checkpoint-16/preprocessor_config.json
+{'loss': '4.83', 'grad_norm': '26.42', 'learning_rate': '1.98e-05', 'epoch': '1.262'}
+{'loss': '3.936', 'grad_norm': '25.02', 'learning_rate': '1.224e-06', 'epoch': '1.918'}
+{'eval_loss': '0.9098', 'eval_accuracy': '0.6903', 'eval_f1': '0.6744', 'eval_balanced_accuracy': '0.6903', 'eval_macro_f1': '0.6744', 'eval_atc': '0.6806', 'eval_normalized_atc': '0.06806', 'eval_target_recall': '0.4194', 'eval_target_recall_macro': '0.6774', 'eval_target_fnr': '0.3871', 'eval_selection_score': '1.004', 'eval_selection_accuracy_value': '0.6903', 'eval_nll': '0.9098', 'eval_brier': '0.453', 'eval_ece': '0.1569', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.934', 'eval_samples_per_second': '78.81', 'eval_steps_per_second': '5.084', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/smoke_convnext_base_fb_in22k_ft_in1k_ce_s42/checkpoint-32/preprocessor_config.json
+{'train_runtime': '31.64', 'train_samples_per_second': '61.32', 'train_steps_per_second': '1.011', 'train_loss': '5.452', 'epoch': '2'}
+***** train metrics *****
+  epoch                    =        2.0
+  total_flos               =        0GF
+  train_loss               =     5.4524
+  train_runtime            = 0:00:31.63
+  train_samples_per_second =     61.321
+  train_steps_per_second   =      1.011
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_ce_s42_05-02_02-43
+Saving run configuration...
+Run configuration saved to: results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_ce_s42_05-02_02-43/run_configuration_20260502_024357.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_ce_s42_05-02_02-43/metrics_20260502_024406_cross_entropy.json and results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_ce_s42_05-02_02-43/metrics_20260502_024406_cross_entropy.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_ce_s42_05-02_02-43
+Overall Accuracy: 0.7250
+Balanced Accuracy: 0.7250
+Overall F1 Score: 0.7055
+Kappa: 0.6944
+AUC: 0.9641
+Expected Cost: 0.6406
+Loss Function Used: cross_entropy
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_ce_s42_05-02_02-43
+============================================================

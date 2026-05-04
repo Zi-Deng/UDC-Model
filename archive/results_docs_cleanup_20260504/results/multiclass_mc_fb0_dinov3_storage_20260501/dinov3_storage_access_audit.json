@@ -1,0 +1,113 @@
+{
+  "timestamp": "2026-05-01T06:07:03.012439+00:00",
+  "all_ready": true,
+  "download_weights": true,
+  "storage_preflight": {
+    "stage": "model_download",
+    "storage_root": "/mnt/storage",
+    "env": {
+      "HF_HOME": {
+        "value": "/mnt/storage/huggingface",
+        "resolved": "/mnt/storage/huggingface"
+      },
+      "HF_HUB_CACHE": {
+        "value": "/mnt/storage/huggingface/hub",
+        "resolved": "/mnt/storage/huggingface/hub"
+      },
+      "HF_DATASETS_CACHE": {
+        "value": "/mnt/storage/huggingface/datasets",
+        "resolved": "/mnt/storage/huggingface/datasets"
+      },
+      "TORCH_HOME": {
+        "value": "/mnt/storage/torch",
+        "resolved": "/mnt/storage/torch"
+      },
+      "TMPDIR": {
+        "value": "/mnt/storage/tmp/nicme",
+        "resolved": "/mnt/storage/tmp/nicme"
+      },
+      "XDG_CACHE_HOME": {
+        "value": "/mnt/storage/.cache",
+        "resolved": "/mnt/storage/.cache"
+      },
+      "MPLCONFIGDIR": {
+        "value": "/mnt/storage/.cache/matplotlib",
+        "resolved": "/mnt/storage/.cache/matplotlib"
+      }
+    },
+    "space": [
+      {
+        "name": "root",
+        "path": "/",
+        "exists": true,
+        "free_gb": 177.62103652954102,
+        "min_free_gb": 10.0,
+        "ok": true
+      },
+      {
+        "name": "home_root",
+        "path": "/home",
+        "exists": true,
+        "free_gb": 177.62103652954102,
+        "min_free_gb": 10.0,
+        "ok": true
+      },
+      {
+        "name": "user_home",
+        "path": "/home/zi",
+        "exists": true,
+        "free_gb": 177.62103652954102,
+        "min_free_gb": 10.0,
+        "ok": true
+      },
+      {
+        "name": "storage",
+        "path": "/mnt/storage",
+        "exists": true,
+        "free_gb": 488.8687744140625,
+        "min_free_gb": 100.0,
+        "ok": true
+      }
+    ],
+    "ok": true,
+    "errors": []
+  },
+  "huggingface": {
+    "ok": true,
+    "user": "zkdeng",
+    "orgs": [
+      "UArizona"
+    ]
+  },
+  "models": [
+    {
+      "model_id": "facebook/dinov3-vits16-pretrain-lvd1689m",
+      "ok": true,
+      "download_weights": true,
+      "config_model_type": "dinov3_vit",
+      "processor_class": "DINOv3ViTImageProcessorFast",
+      "hidden_size": 384,
+      "hidden_sizes": null,
+      "image_size": 224,
+      "loaded_model_class": "DINOv3ViTModel",
+      "parameter_count": 21596544
+    },
+    {
+      "model_id": "facebook/dinov3-convnext-tiny-pretrain-lvd1689m",
+      "ok": true,
+      "download_weights": true,
+      "config_model_type": "dinov3_convnext",
+      "processor_class": "DINOv3ViTImageProcessorFast",
+      "hidden_size": null,
+      "hidden_sizes": [
+        96,
+        192,
+        384,
+        768
+      ],
+      "image_size": 224,
+      "loaded_model_class": "DINOv3ConvNextModel",
+      "parameter_count": 27820128
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+cuDNN disabled for this run
+Prepared manifest loaded — Train=2485, Val=335, Calibration=350, Test=370
+cuda
+Using model backend=hf_auto type=convnext with 5 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '1.599', 'grad_norm': '1.785', 'learning_rate': '2.813e-05', 'epoch': '0.2564'}
+{'loss': '1.578', 'grad_norm': '2.06', 'learning_rate': '4.999e-05', 'epoch': '0.5128'}
+{'loss': '1.522', 'grad_norm': '3.073', 'learning_rate': '4.976e-05', 'epoch': '0.7692'}
+{'eval_loss': '1.416', 'eval_accuracy': '0.409', 'eval_f1': '0.3623', 'eval_balanced_accuracy': '0.409', 'eval_macro_f1': '0.3623', 'eval_atc': '1.507', 'eval_normalized_atc': '0.09422', 'eval_target_recall': '0.4328', 'eval_target_recall_macro': '0.4328', 'eval_target_fnr': '0.5672', 'eval_selection_score': '0.9871', 'eval_selection_accuracy_value': '0.409', 'eval_nll': '1.416', 'eval_brier': '0.7205', 'eval_ece': '0.1199', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '16.55', 'eval_samples_per_second': '20.25', 'eval_steps_per_second': '1.269', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/mc2_eyepacs_dr_balanced_cnx_ce_s42_multiclass_mc2_20260430_mc2_a1_b2197e1b/checkpoint-39/preprocessor_config.json
+{'loss': '1.473', 'grad_norm': '2.329', 'learning_rate': '4.926e-05', 'epoch': '1.026'}
+{'loss': '1.422', 'grad_norm': '4.04', 'learning_rate': '4.848e-05', 'epoch': '1.282'}

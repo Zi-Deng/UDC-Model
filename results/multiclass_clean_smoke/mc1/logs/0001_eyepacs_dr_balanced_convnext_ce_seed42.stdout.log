@@ -1,0 +1,5 @@
+Prepared manifest loaded — Train=2485, Val=335, Calibration=350, Test=370
+cuda
+Using model backend=hf_auto type=convnext with 5 labels
+Early stopping enabled with patience=3
+Using device: cuda

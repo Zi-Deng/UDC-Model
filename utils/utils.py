@@ -28,14 +28,19 @@ from transformers import HfArgumentParser
 from nicme.calibration import binary_threshold_predictions, fit_binary_threshold_np, fit_temperature_np
 from nicme.costs import (
     classification_metrics,
+    cost_matrix_sha256,
     cost_min_predictions,
     resolve_class_id,
     softmax_np,
 )
+from nicme.dataset_profiles import get_profile
 from utils.image_processor import CustomImageProcessor
 
 # Try to import visualization libraries (they might not be installed)
 try:
+    import matplotlib
+
+    matplotlib.use("Agg", force=True)
     import matplotlib.pyplot as plt
     import seaborn as sns
 
@@ -91,6 +96,33 @@ def compute_metrics_test_no_confusion(eval_pred):
     return {"accuracy": accuracy, "f1": f1}
 
 
+def prediction_mode_for_args(script_args) -> str:
+    """Return the primary test-time decision rule for a training config."""
+    explicit = getattr(script_args, "prediction_mode", None)
+    if explicit:
+        return str(explicit)
+    loss_name = str(getattr(script_args, "loss_function", "") or "").strip().lower()
+    if loss_name in {"sosr_cnn", "csdnn_sosr"}:
+        return "sosr_argmin"
+    return "argmax"
+
+
+def predictions_and_probabilities(outputs, script_args):
+    """Convert raw model outputs into predictions and probability-like scores."""
+    outputs = np.asarray(outputs)
+    mode = prediction_mode_for_args(script_args)
+    if mode == "sosr_argmin":
+        predictions = np.argmin(outputs, axis=-1)
+        # SOSR outputs are estimated costs, so lower is better.
+        probabilities = scipy_softmax(-outputs, axis=-1)
+    elif mode == "argmax":
+        predictions = np.argmax(outputs, axis=-1)
+        probabilities = scipy_softmax(outputs, axis=-1)
+    else:
+        raise ValueError(f"Unsupported prediction_mode={mode!r}. Expected 'argmax' or 'sosr_argmin'.")
+    return predictions, probabilities, mode
+
+
 def _json_load_if_needed(value):
     if value is None:
         return None
@@ -114,10 +146,54 @@ def _get_target_class_id(script_args, class_names: list[str] | None, default: in
     return resolve_class_id(getattr(script_args, "target_recall_class", None), class_names, default=default)
 
 
+def _as_list(value) -> list:
+    value = _json_load_if_needed(value)
+    if value is None:
+        return []
+    if isinstance(value, (list, tuple)):
+        return list(value)
+    text = str(value).strip()
+    if not text:
+        return []
+    return [part.strip() for part in text.split(",") if part.strip()]
+
+
+def _get_target_class_ids(script_args, class_names: list[str] | None, default: int = 0) -> list[int]:
+    values = _as_list(getattr(script_args, "target_recall_classes", None))
+    if not values:
+        return [_get_target_class_id(script_args, class_names, default=default)]
+    return [resolve_class_id(value, class_names, default=default) for value in values]
+
+
+def _get_critical_pair_ids(script_args, class_names: list[str] | None) -> list[tuple[int, int, float]]:
+    pairs = _json_load_if_needed(getattr(script_args, "critical_pairs", None))
+    if not pairs:
+        return []
+    resolved = []
+    for pair in pairs:
+        if isinstance(pair, dict):
+            true_value = pair.get("true_id", pair.get("true"))
+            pred_value = pair.get("pred_id", pair.get("pred"))
+            cost = float(pair.get("cost", 0.0))
+        else:
+            true_value, pred_value, *rest = pair
+            cost = float(rest[0]) if rest else 0.0
+        resolved.append(
+            (
+                resolve_class_id(true_value, class_names),
+                resolve_class_id(pred_value, class_names),
+                cost,
+            )
+        )
+    return resolved
+
+
 def make_compute_metrics(script_args, class_names: list[str] | None = None):
     """Create a Trainer metrics callback with NICME cost-sensitive metrics."""
     resolved_class_names = class_names or _get_class_names(script_args)
     target_class_id = _get_target_class_id(script_args, resolved_class_names)
+    target_class_ids = _get_target_class_ids(script_args, resolved_class_names)
+    critical_pairs = _get_critical_pair_ids(script_args, resolved_class_names)
     cost_matrix = getattr(script_args, "cost_matrix", None)
     target_recall_floor = float(getattr(script_args, "target_recall_floor", 0.95))
     accuracy_floor = float(getattr(script_args, "accuracy_floor", 0.80))
@@ -126,9 +202,13 @@ def make_compute_metrics(script_args, class_names: list[str] | None = None):
 
     def _compute(eval_pred):
         outputs, labels = eval_pred
-        predictions = np.argmax(outputs, axis=-1)
-        probs = scipy_softmax(outputs, axis=-1)
-        base = compute_metrics(eval_pred)
+        predictions, probs, _mode = predictions_and_probabilities(outputs, script_args)
+        metric_accuracy = load("accuracy")
+        metric_f1 = load("f1")
+        base = {
+            "accuracy": metric_accuracy.compute(predictions=predictions, references=labels)["accuracy"],
+            "f1": metric_f1.compute(predictions=predictions, references=labels, average="macro")["f1"],
+        }
         if cost_matrix is None:
             return base
         nicme_metrics = classification_metrics(
@@ -141,6 +221,10 @@ def make_compute_metrics(script_args, class_names: list[str] | None = None):
             accuracy_floor=accuracy_floor,
             selection_accuracy_metric=selection_accuracy_metric,
             baseline_atc=baseline_atc,
+            target_class_ids=target_class_ids,
+            class_names=resolved_class_names,
+            critical_pairs=critical_pairs,
+            include_quadratic_weighted_kappa=getattr(script_args, "metric_profile", "") == "diabetic_retinopathy",
         )
         base.update(
             {
@@ -149,10 +233,11 @@ def make_compute_metrics(script_args, class_names: list[str] | None = None):
                 "atc": nicme_metrics["atc"],
                 "normalized_atc": nicme_metrics["normalized_atc"],
                 "target_recall": nicme_metrics["target_recall"],
+                "target_recall_macro": nicme_metrics["target_recall_macro"],
                 "target_fnr": nicme_metrics["target_fnr"],
-            "selection_score": nicme_metrics["selection_score"],
-            "selection_accuracy_value": nicme_metrics["selection_accuracy_value"],
-            "nll": nicme_metrics["nll"],
+                "selection_score": nicme_metrics["selection_score"],
+                "selection_accuracy_value": nicme_metrics["selection_accuracy_value"],
+                "nll": nicme_metrics["nll"],
                 "brier": nicme_metrics["brier"],
                 "ece": nicme_metrics["ece"],
                 "auroc": nicme_metrics["auroc"],
@@ -162,6 +247,56 @@ def make_compute_metrics(script_args, class_names: list[str] | None = None):
         return base
 
     return _compute
+
+
+def compute_argmax_decision_report(logits, labels, script_args, class_names: list[str] | None = None):
+    """Compute the full primary-decision cost-sensitive report outside Trainer metrics."""
+    resolved_class_names = class_names or _get_class_names(script_args)
+    cost_matrix = getattr(script_args, "cost_matrix", None)
+    if cost_matrix is None:
+        return {}
+    predictions, probs, mode = predictions_and_probabilities(logits, script_args)
+    report = classification_metrics(
+        labels,
+        predictions,
+        probs,
+        cost_matrix,
+        target_class_id=_get_target_class_id(script_args, resolved_class_names),
+        target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
+        accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
+        selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
+        target_class_ids=_get_target_class_ids(script_args, resolved_class_names),
+        class_names=resolved_class_names,
+        critical_pairs=_get_critical_pair_ids(script_args, resolved_class_names),
+        include_quadratic_weighted_kappa=getattr(script_args, "metric_profile", "") == "diabetic_retinopathy",
+    )
+    report["prediction_mode"] = mode
+    return report
+
+
+def compute_cost_min_decision_report(probabilities, labels, script_args, class_names: list[str] | None = None):
+    """Compute an uncalibrated Bayes cost-min report from probability estimates."""
+    resolved_class_names = class_names or _get_class_names(script_args)
+    cost_matrix = getattr(script_args, "cost_matrix", None)
+    if cost_matrix is None:
+        return {}
+    predictions = cost_min_predictions(probabilities, cost_matrix)
+    report = classification_metrics(
+        labels,
+        predictions,
+        probabilities,
+        cost_matrix,
+        target_class_id=_get_target_class_id(script_args, resolved_class_names),
+        target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
+        accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
+        selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
+        target_class_ids=_get_target_class_ids(script_args, resolved_class_names),
+        class_names=resolved_class_names,
+        critical_pairs=_get_critical_pair_ids(script_args, resolved_class_names),
+        include_quadratic_weighted_kappa=getattr(script_args, "metric_profile", "") == "diabetic_retinopathy",
+    )
+    report["prediction_mode"] = "cost_min"
+    return report
 
 
 def split_to_train_val_test(dataset):
@@ -242,6 +377,36 @@ def validate_training_config(config):
                 )
 
 
+def _apply_dataset_profile_defaults(json_args: dict) -> dict:
+    profile_name = json_args.get("dataset_profile")
+    if not profile_name:
+        return json_args
+    profile = get_profile(str(profile_name))
+    json_args.setdefault("class_names", list(profile.class_names))
+    json_args.setdefault("num_labels", profile.num_classes)
+    json_args.setdefault("cost_matrix_source", profile.cost_matrix_source)
+    if json_args.get("cost_matrix_source", "dataset") == "dataset":
+        if "cost_matrix" in json_args and json_args["cost_matrix"] is not None:
+            configured_hash = cost_matrix_sha256(json_args["cost_matrix"])
+            if configured_hash != profile.cost_matrix_sha256:
+                raise ValueError(
+                    f"Configured cost_matrix for {profile.name} does not match the fixed dataset matrix. "
+                    "Set cost_matrix_source to a non-dataset value only for explicit ablations."
+                )
+        json_args["cost_matrix"] = [list(row) for row in profile.cost_matrix]
+        json_args["cost_matrix_sha256"] = profile.cost_matrix_sha256
+    json_args.setdefault("target_recall_class", profile.target_recall_class)
+    json_args.setdefault("target_recall_classes", list(profile.cared_classes))
+    json_args.setdefault("secondary_target_recall_classes", list(profile.secondary_target_recall_classes))
+    json_args.setdefault("metric_profile", profile.metric_profile)
+    json_args.setdefault(
+        "critical_pairs",
+        [{"true": true_name, "pred": pred_name, "cost": cost} for true_name, pred_name, cost in profile.critical_pairs],
+    )
+    json_args.setdefault("model_selection_metric", "target_recall")
+    return json_args
+
+
 def parse_HF_args():
     """Parse a ``--config`` JSON file into a :class:`ScriptTrainingArguments` instance.
 
@@ -259,6 +424,8 @@ def parse_HF_args():
     with open(args.config) as f:
         json_args = json.load(f)
 
+    json_args = _apply_dataset_profile_defaults(json_args)
+
     # Allow profile-style configs with a nested selection block.
     if "selection" in json_args and isinstance(json_args["selection"], dict):
         selection = json_args["selection"]
@@ -275,7 +442,16 @@ def parse_HF_args():
         elif isinstance(json_args.get("cost_matrix"), list):
             json_args["num_labels"] = len(json_args["cost_matrix"])
 
-    for bool_key in ("wandb", "push_to_hub"):
+    for bool_key in (
+        "wandb",
+        "push_to_hub",
+        "disable_cudnn",
+        "skip_visualizations",
+        "train_random_resize_crop",
+        "train_horizontal_flip",
+        "train_color_jitter",
+        "train_random_quarter_turns",
+    ):
         if bool_key in json_args:
             json_args[bool_key] = _normalize_bool_string(json_args[bool_key])
 
@@ -287,7 +463,7 @@ def parse_HF_args():
     json_args = {k: v for k, v in json_args.items() if k in field_names}
 
     # HfArgumentParser requires cost_matrix as a JSON string, not a list
-    for json_field in ("cost_matrix", "class_names"):
+    for json_field in ("cost_matrix", "class_names", "target_recall_classes", "secondary_target_recall_classes", "critical_pairs"):
         if json_field in json_args and json_args[json_field] is not None:
             if isinstance(json_args[json_field], (list, dict)):
                 json_args[json_field] = json.dumps(json_args[json_field])
@@ -307,6 +483,10 @@ def parse_HF_args():
         parsed_args.cost_matrix = json.loads(parsed_args.cost_matrix)
     if parsed_args.class_names is not None:
         parsed_args.class_names = json.loads(parsed_args.class_names)
+    for json_field in ("target_recall_classes", "secondary_target_recall_classes", "critical_pairs"):
+        value = getattr(parsed_args, json_field)
+        if value is not None and str(value).strip().startswith(("[", "{")):
+            setattr(parsed_args, json_field, json.loads(value))
 
     validate_training_config(parsed_args)
     return parsed_args
@@ -330,6 +510,8 @@ class ScriptTrainingArguments:
     learning_rate: float = field(default=5e-5, metadata={"help": "Learning rate for training"})
     num_train_epochs: int = field(default=5, metadata={"help": "Number of training epochs"})
     batch_size: int = field(default=16, metadata={"help": "Batch size of training epochs"})
+    gradient_accumulation_steps: int = field(default=4, metadata={"help": "Gradient accumulation steps"})
+    image_size: int | None = field(default=None, metadata={"help": "Override square image size for preprocessing"})
     num_labels: int = field(default=5, metadata={"help": "Number of training labels"})
     wandb: str = field(default="False", metadata={"help": "Wandb upload ('True' or 'False' as strings)"})
     push_to_hub: str = field(default="False", metadata={"help": "Push to hub ('True' or 'False' as strings)"})
@@ -383,6 +565,21 @@ class ScriptTrainingArguments:
         metadata={"help": "Metric used in selection gap: 'accuracy' or 'balanced_accuracy'"},
     )
     baseline_atc: float | None = field(default=None, metadata={"help": "Baseline ATC for CRR reporting"})
+    dataset_profile: str | None = field(default=None, metadata={"help": "NICME dataset profile name"})
+    cost_matrix_source: str = field(default="dataset", metadata={"help": "Source for cost matrix: dataset or ablation"})
+    cost_matrix_sha256: str | None = field(default=None, metadata={"help": "SHA256 hash of the active cost matrix"})
+    target_recall_classes: str | None = field(default=None, metadata={"help": "JSON/CSV list of target recall classes"})
+    secondary_target_recall_classes: str | None = field(
+        default=None, metadata={"help": "JSON/CSV list of secondary target recall classes"}
+    )
+    metric_profile: str = field(default="", metadata={"help": "Dataset-specific metric profile"})
+    critical_pairs: str | None = field(default=None, metadata={"help": "JSON list of critical true->pred pairs"})
+    model_selection_metric: str | None = field(
+        default=None, metadata={"help": "Trainer best-checkpoint metric, e.g. selection_score or target_recall"}
+    )
+    max_train_samples: int | None = field(default=None, metadata={"help": "Optional train subset limit for smoke runs"})
+    max_eval_samples: int | None = field(default=None, metadata={"help": "Optional validation subset limit for smoke runs"})
+    max_test_samples: int | None = field(default=None, metadata={"help": "Optional test/calibration subset limit for smoke runs"})
     logit_adjustment_tau: float = field(default=1.0, metadata={"help": "Tau for Menon prior-logit adjustment"})
     nicme_logit_cost_scale: float = field(
         default=1.0,
@@ -391,6 +588,7 @@ class ScriptTrainingArguments:
     seed: int = field(default=42, metadata={"help": "Random seed"})
     calibration_enabled: bool = field(default=False, metadata={"help": "Enable calibration split evaluation"})
     decision_modes: str = field(default="argmax,calibrated_cost_min", metadata={"help": "Comma-separated modes"})
+    prediction_mode: str | None = field(default=None, metadata={"help": "Primary prediction rule: argmax or sosr_argmin"})
     peft_enabled: bool = field(default=False, metadata={"help": "Enable PEFT/LoRA"})
     peft_r: int = field(default=8, metadata={"help": "LoRA rank"})
     peft_alpha: int = field(default=16, metadata={"help": "LoRA alpha"})
@@ -398,7 +596,39 @@ class ScriptTrainingArguments:
     peft_target_modules: str | None = field(default=None, metadata={"help": "Comma-separated LoRA target modules"})
     peft_modules_to_save: str | None = field(default=None, metadata={"help": "Comma-separated trainable modules to save"})
     timm_pretrained: bool = field(default=True, metadata={"help": "Load pretrained weights for timm backends"})
+    disable_cudnn: bool = field(default=False, metadata={"help": "Disable cuDNN for native Conv2d stability"})
+    skip_visualizations: bool = field(default=False, metadata={"help": "Skip optional confusion-matrix figures"})
     save_total_limit: int = field(default=1, metadata={"help": "Maximum checkpoints to retain per run"})
+    train_random_resize_crop: bool = field(default=True, metadata={"help": "Use RandomResizedCrop for training"})
+    train_horizontal_flip: bool = field(default=True, metadata={"help": "Use random horizontal flips for training"})
+    train_color_jitter: bool = field(default=False, metadata={"help": "Use light ColorJitter augmentation for training"})
+    train_random_quarter_turns: bool = field(
+        default=False,
+        metadata={"help": "Randomly rotate training images by 0/90/180/270 degrees"},
+    )
+    train_random_resized_crop_scale_min: float = field(
+        default=0.08,
+        metadata={"help": "Minimum scale for RandomResizedCrop"},
+    )
+    train_random_resized_crop_scale_max: float = field(
+        default=1.0,
+        metadata={"help": "Maximum scale for RandomResizedCrop"},
+    )
+    initial_checkpoint_path: str | None = field(
+        default=None,
+        metadata={"help": "Optional checkpoint file or directory to initialize model weights from"},
+    )
+    cb_beta: float = field(default=0.9999, metadata={"help": "Class-balanced effective-number beta"})
+    focal_gamma: float = field(default=2.0, metadata={"help": "Focal loss gamma"})
+    ldam_max_m: float = field(default=0.5, metadata={"help": "LDAM maximum margin"})
+    ldam_scale: float = field(default=30.0, metadata={"help": "LDAM logit scale"})
+    ldam_drw_start_epoch: int = field(default=16, metadata={"help": "Epoch at which LDAM deferred reweighting starts"})
+    ap_alpha: float = field(default=5.0, metadata={"help": "Adjusted-penalty expected-cost weight"})
+    csada_lambda: float = field(default=2.0, metadata={"help": "CSADA adversarial CE weight"})
+    csada_attack_steps: int = field(default=5, metadata={"help": "CSADA targeted PGD steps"})
+    csada_epsilon: float = field(default=2.0 / 255.0, metadata={"help": "CSADA epsilon in input pixel units"})
+    csada_step_size: float = field(default=1.0 / 255.0, metadata={"help": "CSADA step size in input pixel units"})
+    csada_cost_temperature: float = field(default=3.0, metadata={"help": "CSADA critical-pair cost weighting temperature"})
 
 
 def preprocess_hf_dataset(dataset_name, model_name):
@@ -461,12 +691,23 @@ class ImagePreprocessor:
             torchvision transform pipelines.
     """
 
-    def __init__(self, dataset, image_processor):
+    def __init__(
+        self,
+        dataset,
+        image_processor,
+        random_resize_crop: bool = True,
+        horizontal_flip: bool = True,
+        color_jitter: bool = False,
+        random_quarter_turns: bool = False,
+        random_resized_crop_scale: tuple[float, float] = (0.08, 1.0),
+    ):
         self.image_processor = image_processor
         self.train_transforms = image_processor.get_transform_for_training(
-            random_resize_crop=True,
-            horizontal_flip=True,
-            color_jitter=False,
+            random_resize_crop=random_resize_crop,
+            horizontal_flip=horizontal_flip,
+            color_jitter=color_jitter,
+            random_quarter_turns=random_quarter_turns,
+            random_resized_crop_scale=random_resized_crop_scale,
         )
         self.val_transforms = image_processor.get_transform_for_validation()
         self.test_transforms = image_processor.get_transform_for_test()
@@ -517,17 +758,39 @@ def _create_dataset_dict(image_paths, labels):
     return {"image_path": image_paths, "label": labels}
 
 
-def _make_image_preprocessor(model_name):
+def _make_image_preprocessor(model_name, script_args=None):
     """Build an ImagePreprocessor from a model name.
 
     Uses a lightweight placeholder dataset object since ImagePreprocessor
     only needs the image_processor, not the dataset itself.
     """
-    image_processor = CustomImageProcessor.from_pretrained(model_name, use_fast=True)
-    return ImagePreprocessor(None, image_processor)
+    image_size = getattr(script_args, "image_size", None) if script_args is not None else None
+    image_processor = CustomImageProcessor.from_pretrained(model_name, use_fast=True, image_size=image_size)
+    random_resize_crop = True
+    horizontal_flip = True
+    color_jitter = False
+    random_quarter_turns = False
+    crop_scale = (0.08, 1.0)
+    if script_args is not None:
+        random_resize_crop = config_flag_enabled(getattr(script_args, "train_random_resize_crop", True))
+        horizontal_flip = config_flag_enabled(getattr(script_args, "train_horizontal_flip", True))
+        color_jitter = config_flag_enabled(getattr(script_args, "train_color_jitter", False))
+        random_quarter_turns = config_flag_enabled(getattr(script_args, "train_random_quarter_turns", False))
+        scale_min = float(getattr(script_args, "train_random_resized_crop_scale_min", 0.08))
+        scale_max = float(getattr(script_args, "train_random_resized_crop_scale_max", 1.0))
+        crop_scale = (max(0.0, min(scale_min, scale_max)), min(1.0, max(scale_min, scale_max)))
+    return ImagePreprocessor(
+        None,
+        image_processor,
+        random_resize_crop=random_resize_crop,
+        horizontal_flip=horizontal_flip,
+        color_jitter=color_jitter,
+        random_quarter_turns=random_quarter_turns,
+        random_resized_crop_scale=crop_scale,
+    )
 
 
-def save_metrics_to_file(metrics, class_metrics, class_counts, output_dir, filename_suffix=""):
+def save_metrics_to_file(metrics, class_metrics, class_counts, output_dir, filename_suffix="", validation_report=None):
     """
     Save all metrics to JSON and text files for easy analysis.
 
@@ -572,6 +835,7 @@ def save_metrics_to_file(metrics, class_metrics, class_counts, output_dir, filen
             "balanced_accuracy": float(metrics.get("eval_balanced_accuracy", 0.0)),
             "macro_f1": float(metrics.get("eval_macro_f1", metrics.get("eval_f1", 0.0))),
             "kappa": float(metrics.get("eval_kappa", 0.0)),
+            "quadratic_weighted_kappa": float(metrics.get("eval_quadratic_weighted_kappa", 0.0)),
             "auc": float(metrics.get("eval_auc", 0.0)),
             "auroc": float(metrics.get("eval_auroc", metrics.get("eval_auc", 0.0))),
             "auprc": float(metrics.get("eval_auprc", 0.0)),
@@ -583,8 +847,12 @@ def save_metrics_to_file(metrics, class_metrics, class_counts, output_dir, filen
             "selection_accuracy_value": float(metrics.get("eval_selection_accuracy_value", 0.0)),
             "selection_accuracy_metric": metrics.get(
                 "eval_decision_reports", {}
-            ).get("argmax", {}).get("selection_accuracy_metric", "accuracy"),
+            )
+            .get(metrics.get("eval_primary_decision_mode", "argmax"), {})
+            .get("selection_accuracy_metric", "accuracy"),
+            "primary_decision_mode": metrics.get("eval_primary_decision_mode", "argmax"),
             "target_recall": float(metrics.get("eval_target_recall", 0.0)),
+            "target_recall_macro": float(metrics.get("eval_target_recall_macro", metrics.get("eval_target_recall", 0.0))),
             "target_fnr": float(metrics.get("eval_target_fnr", 0.0)),
             "nll": float(metrics.get("eval_nll", 0.0)),
             "brier": float(metrics.get("eval_brier", 0.0)),
@@ -595,6 +863,9 @@ def save_metrics_to_file(metrics, class_metrics, class_counts, output_dir, filen
         "per_class_metrics": convert_numpy_types(class_metrics),
         "confusion_matrix": convert_numpy_types(metrics.get("eval_confusion_matrix", {}).get("confusion_matrix", [])),
         "decision_reports": convert_numpy_types(metrics.get("eval_decision_reports", {})),
+        "validation_report": convert_numpy_types(validation_report or {}),
+        "skipped_decision_modes": convert_numpy_types(metrics.get("eval_skipped_decision_modes", {})),
+        "cost_matrix_sha256": metrics.get("eval_cost_matrix_sha256"),
     }
 
     # Save as JSON
@@ -614,6 +885,7 @@ def save_metrics_to_file(metrics, class_metrics, class_counts, output_dir, filen
         f.write(f"Balanced Accuracy: {comprehensive_metrics['overall_metrics']['balanced_accuracy']:.4f}\n")
         f.write(f"F1 Score: {comprehensive_metrics['overall_metrics']['f1_score']:.4f}\n")
         f.write(f"Kappa: {comprehensive_metrics['overall_metrics']['kappa']:.4f}\n")
+        f.write(f"Quadratic Weighted Kappa: {comprehensive_metrics['overall_metrics']['quadratic_weighted_kappa']:.4f}\n")
         f.write(f"AUC: {comprehensive_metrics['overall_metrics']['auc']:.4f}\n")
         f.write(f"Loss: {comprehensive_metrics['overall_metrics']['loss']:.4f}\n")
         f.write(f"ATC: {comprehensive_metrics['overall_metrics']['atc']:.4f}\n")
@@ -703,8 +975,12 @@ def create_confusion_matrix_visualization(confusion_matrix, class_names=None, ou
     ax1.tick_params(axis="both", which="major", labelsize=12)
 
     # Plot 2: Normalized by true class (recall/sensitivity)
-    cm_recall = cm.astype("float") / cm.sum(axis=1)[:, np.newaxis]
-    cm_recall = np.nan_to_num(cm_recall)  # Handle division by zero
+    cm_recall = np.divide(
+        cm.astype("float"),
+        cm.sum(axis=1)[:, np.newaxis],
+        out=np.zeros_like(cm, dtype=float),
+        where=cm.sum(axis=1)[:, np.newaxis] != 0,
+    )
 
     sns.heatmap(
         cm_recall,
@@ -722,8 +998,12 @@ def create_confusion_matrix_visualization(confusion_matrix, class_names=None, ou
     ax2.tick_params(axis="both", which="major", labelsize=12)
 
     # Plot 3: Normalized by predicted class (precision)
-    cm_precision = cm.astype("float") / cm.sum(axis=0)[np.newaxis, :]
-    cm_precision = np.nan_to_num(cm_precision)  # Handle division by zero
+    cm_precision = np.divide(
+        cm.astype("float"),
+        cm.sum(axis=0)[np.newaxis, :],
+        out=np.zeros_like(cm, dtype=float),
+        where=cm.sum(axis=0)[np.newaxis, :] != 0,
+    )
 
     sns.heatmap(
         cm_precision,
@@ -772,8 +1052,18 @@ def create_detailed_confusion_matrix(cm, class_names, output_dir, filename_suffi
 
     # Calculate additional statistics
     total_samples = np.sum(cm)
-    accuracy_per_class = np.diag(cm) / np.sum(cm, axis=1)
-    precision_per_class = np.diag(cm) / np.sum(cm, axis=0)
+    accuracy_per_class = np.divide(
+        np.diag(cm),
+        np.sum(cm, axis=1),
+        out=np.zeros(len(class_names), dtype=float),
+        where=np.sum(cm, axis=1) != 0,
+    )
+    precision_per_class = np.divide(
+        np.diag(cm),
+        np.sum(cm, axis=0),
+        out=np.zeros(len(class_names), dtype=float),
+        where=np.sum(cm, axis=0) != 0,
+    )
 
     # Create the heatmap
     im = ax.imshow(cm, interpolation="nearest", cmap="Blues")
@@ -824,7 +1114,15 @@ def create_detailed_confusion_matrix(cm, class_names, output_dir, filename_suffi
     return detailed_path
 
 
-def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name=None, class_names=None, calibration_ds=None):
+def perform_comprehensive_evaluation(
+    trainer,
+    test_ds,
+    script_args,
+    dataset_name=None,
+    class_names=None,
+    calibration_ds=None,
+    validation_report=None,
+):
     """
     Perform comprehensive evaluation including confusion matrix, per-class metrics, and visualizations.
 
@@ -876,8 +1174,8 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
 
     # Get predictions
     predictions = trainer.predict(test_ds)
-    y_pred = np.argmax(predictions.predictions, axis=-1)
     y_true = predictions.label_ids
+    y_pred, y_proba, primary_decision_mode = predictions_and_probabilities(predictions.predictions, script_args)
 
     # Compute confusion matrix
     confusion_result = metric_confusion.compute(predictions=y_pred, references=y_true)
@@ -950,9 +1248,9 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
     # -- New overall metrics --
     balanced_acc = balanced_accuracy_score(y_true, y_pred)
     kappa_val = cohen_kappa_score(y_true, y_pred)
+    qwk_val = cohen_kappa_score(y_true, y_pred, weights="quadratic") if num_classes > 1 else 0.0
 
-    # AUC from softmax probabilities
-    y_proba = scipy_softmax(predictions.predictions, axis=-1)
+    # AUC from probability-like scores for the primary decision rule.
     try:
         if num_classes == 2:
             auc_val = roc_auc_score(y_true, y_proba[:, 1])
@@ -972,7 +1270,10 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
     if cost_matrix_cfg is not None:
         configured_class_names = class_names or _get_class_names(script_args)
         target_class_id = _get_target_class_id(script_args, configured_class_names)
-        argmax_report = classification_metrics(
+        target_class_ids = _get_target_class_ids(script_args, configured_class_names)
+        critical_pairs = _get_critical_pair_ids(script_args, configured_class_names)
+        include_qwk = getattr(script_args, "metric_profile", "") == "diabetic_retinopathy"
+        primary_report = classification_metrics(
             y_true,
             y_pred,
             y_proba,
@@ -981,13 +1282,27 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
             target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
             accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
             selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
+            target_class_ids=target_class_ids,
+            class_names=configured_class_names,
+            critical_pairs=critical_pairs,
+            include_quadratic_weighted_kappa=include_qwk,
         )
-        decision_reports["argmax"] = argmax_report
-        expected_cost = argmax_report["atc"]
+        primary_report["prediction_mode"] = primary_decision_mode
+        decision_reports[primary_decision_mode] = primary_report
+        if primary_decision_mode == "argmax":
+            decision_reports["argmax"] = primary_report
+        expected_cost = primary_report["atc"]
 
         decision_modes = {
             mode.strip() for mode in str(getattr(script_args, "decision_modes", "argmax")).split(",") if mode.strip()
         }
+        if "cost_min" in decision_modes or "ce_cost_min_inference" in decision_modes:
+            decision_reports["cost_min"] = compute_cost_min_decision_report(
+                y_proba,
+                y_true,
+                script_args,
+                class_names=configured_class_names,
+            )
         if calibration_ds is not None and (
             "calibrated_cost_min" in decision_modes or "calibrated_threshold" in decision_modes
         ):
@@ -1011,7 +1326,12 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
                 calibrated_report["calibration_nll_before"] = calibration_result.nll_before
                 calibrated_report["calibration_nll_after"] = calibration_result.nll_after
                 decision_reports["calibrated_cost_min"] = calibrated_report
-            if "calibrated_threshold" in decision_modes:
+            if "calibrated_threshold" in decision_modes and num_classes != 2:
+                print("Skipping calibrated_threshold: binary thresholding is only valid for two classes.")
+                metrics.setdefault("eval_skipped_decision_modes", {})["calibrated_threshold"] = (
+                    "binary_only_for_multiclass"
+                )
+            elif "calibrated_threshold" in decision_modes:
                 threshold_result = fit_binary_threshold_np(
                     calibration_probs,
                     calibration_predictions.label_ids,
@@ -1020,6 +1340,10 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
                     target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
                     accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
                     selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
+                    target_class_ids=target_class_ids,
+                    class_names=configured_class_names,
+                    critical_pairs=critical_pairs,
+                    include_quadratic_weighted_kappa=include_qwk,
                 )
                 threshold_pred = binary_threshold_predictions(
                     calibrated_probs,
@@ -1035,6 +1359,10 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
                     target_recall_floor=float(getattr(script_args, "target_recall_floor", 0.95)),
                     accuracy_floor=float(getattr(script_args, "accuracy_floor", 0.80)),
                     selection_accuracy_metric=getattr(script_args, "selection_accuracy_metric", "accuracy"),
+                    target_class_ids=target_class_ids,
+                    class_names=configured_class_names,
+                    critical_pairs=critical_pairs,
+                    include_quadratic_weighted_kappa=include_qwk,
                 )
                 threshold_report["temperature"] = calibration_result.temperature
                 threshold_report["threshold"] = threshold_result.threshold
@@ -1052,19 +1380,24 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
     metrics["eval_balanced_accuracy"] = balanced_acc
     metrics["eval_macro_f1"] = float(np.mean(list(class_metrics["f1_score"].values()))) if class_metrics["f1_score"] else 0.0
     metrics["eval_kappa"] = kappa_val
+    metrics["eval_quadratic_weighted_kappa"] = qwk_val
     metrics["eval_auc"] = auc_val
     if cost_matrix_cfg is not None:
-        metrics["eval_atc"] = decision_reports["argmax"]["atc"]
-        metrics["eval_normalized_atc"] = decision_reports["argmax"]["normalized_atc"]
-        metrics["eval_selection_score"] = decision_reports["argmax"]["selection_score"]
-        metrics["eval_selection_accuracy_value"] = decision_reports["argmax"]["selection_accuracy_value"]
-        metrics["eval_target_recall"] = decision_reports["argmax"]["target_recall"]
-        metrics["eval_target_fnr"] = decision_reports["argmax"]["target_fnr"]
-        metrics["eval_nll"] = decision_reports["argmax"]["nll"]
-        metrics["eval_brier"] = decision_reports["argmax"]["brier"]
-        metrics["eval_ece"] = decision_reports["argmax"]["ece"]
-        metrics["eval_auroc"] = decision_reports["argmax"]["auroc"]
-        metrics["eval_auprc"] = decision_reports["argmax"]["auprc"]
+        primary_report = decision_reports[primary_decision_mode]
+        metrics["eval_primary_decision_mode"] = primary_decision_mode
+        metrics["eval_atc"] = primary_report["atc"]
+        metrics["eval_normalized_atc"] = primary_report["normalized_atc"]
+        metrics["eval_selection_score"] = primary_report["selection_score"]
+        metrics["eval_selection_accuracy_value"] = primary_report["selection_accuracy_value"]
+        metrics["eval_target_recall"] = primary_report["target_recall"]
+        metrics["eval_target_recall_macro"] = primary_report["target_recall_macro"]
+        metrics["eval_cost_matrix_sha256"] = primary_report["cost_matrix_sha256"]
+        metrics["eval_target_fnr"] = primary_report["target_fnr"]
+        metrics["eval_nll"] = primary_report["nll"]
+        metrics["eval_brier"] = primary_report["brier"]
+        metrics["eval_ece"] = primary_report["ece"]
+        metrics["eval_auroc"] = primary_report["auroc"]
+        metrics["eval_auprc"] = primary_report["auprc"]
         metrics["eval_decision_reports"] = decision_reports
     metrics["eval_recall_class0"] = recall_class0
     metrics["eval_expected_cost"] = expected_cost
@@ -1072,10 +1405,14 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
 
     # Save all metrics to files
     print("Saving metrics to files...")
-    save_metrics_to_file(metrics, class_metrics, class_counts, results_dir, f"_{script_args.loss_function}")
-
-    # Create professional confusion matrix visualizations
-    print("Creating confusion matrix visualizations...")
+    save_metrics_to_file(
+        metrics,
+        class_metrics,
+        class_counts,
+        results_dir,
+        f"_{script_args.loss_function}",
+        validation_report=validation_report,
+    )
 
     # Use provided class names or try to get from dataset, or fall back to generic names
     if class_names is not None:
@@ -1097,12 +1434,17 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
             final_class_names = [f"Class {i}" for i in range(num_classes)]
         print(f"Using class names: {final_class_names}")
 
-    create_confusion_matrix_visualization(
-        confusion_matrix,
-        class_names=final_class_names,
-        output_dir=results_dir,
-        filename_suffix=f"_{script_args.loss_function}",
-    )
+    if config_flag_enabled(getattr(script_args, "skip_visualizations", False)):
+        print("Skipping confusion matrix visualizations by configuration.")
+    else:
+        # Create professional confusion matrix visualizations
+        print("Creating confusion matrix visualizations...")
+        create_confusion_matrix_visualization(
+            confusion_matrix,
+            class_names=final_class_names,
+            output_dir=results_dir,
+            filename_suffix=f"_{script_args.loss_function}",
+        )
 
     # Print summary to console (minimal output)
     print(f"\n{'=' * 60}")
@@ -1119,7 +1461,10 @@ def perform_comprehensive_evaluation(trainer, test_ds, script_args, dataset_name
     print(f"Total Test Samples: {total_samples}")
     if class_names:
         print(f"Classes: {', '.join(final_class_names)}")
-    print(f"\nDetailed metrics and visualizations saved to: {results_dir}")
+    if config_flag_enabled(getattr(script_args, "skip_visualizations", False)):
+        print(f"\nDetailed metrics saved to: {results_dir}")
+    else:
+        print(f"\nDetailed metrics and visualizations saved to: {results_dir}")
     print(f"{'=' * 60}")
 
     return results_dir
@@ -1355,7 +1700,7 @@ def preprocess_local_csv_dataset(folder_path, model_name, test_size=0.1, val_siz
     return train_dataset, val_dataset, test_dataset, class_names
 
 
-def preprocess_manifest_dataset(folder_path, model_name):
+def preprocess_manifest_dataset(folder_path, model_name, script_args=None):
     """Load prepared split CSVs produced by ``nicme-prepare-data``.
 
     Expected files are ``train.csv``, ``validation.csv``, optional
@@ -1399,7 +1744,7 @@ def preprocess_manifest_dataset(folder_path, model_name):
         )
         return dataset
 
-    image_preprocessor = _make_image_preprocessor(model_name)
+    image_preprocessor = _make_image_preprocessor(model_name, script_args=script_args)
     train_dataset = to_dataset(frames["train"])
     val_dataset = to_dataset(frames["validation"])
     test_dataset = to_dataset(frames["test"])
@@ -1461,6 +1806,7 @@ def save_run_configuration(script_args, output_dir, dataset_name=None):
             "peft_enabled": getattr(script_args, "peft_enabled", False),
         },
         "dataset_configuration": {
+            "dataset_profile": getattr(script_args, "dataset_profile", None),
             "dataset_host": script_args.dataset_host,
             "dataset": script_args.dataset,
             "dataset_location": dataset_location,
@@ -1475,15 +1821,48 @@ def save_run_configuration(script_args, output_dir, dataset_name=None):
             "loss_function": script_args.loss_function,
             "cs_lambda": getattr(script_args, "cs_lambda", 0.0),
             "cs_warmup_epochs": getattr(script_args, "cs_warmup_epochs", 0),
+            "nicme_logit_cost_scale": getattr(script_args, "nicme_logit_cost_scale", 1.0),
+            "prediction_mode": getattr(script_args, "prediction_mode", None),
+            "initial_checkpoint_path": getattr(script_args, "initial_checkpoint_path", None),
+            "cb_beta": getattr(script_args, "cb_beta", 0.9999),
+            "focal_gamma": getattr(script_args, "focal_gamma", 2.0),
+            "ldam_max_m": getattr(script_args, "ldam_max_m", 0.5),
+            "ldam_scale": getattr(script_args, "ldam_scale", 30.0),
+            "ldam_drw_start_epoch": getattr(script_args, "ldam_drw_start_epoch", 16),
+            "ap_alpha": getattr(script_args, "ap_alpha", 5.0),
+            "csada_lambda": getattr(script_args, "csada_lambda", 2.0),
+            "csada_attack_steps": getattr(script_args, "csada_attack_steps", 5),
+            "csada_epsilon": getattr(script_args, "csada_epsilon", 2.0 / 255.0),
+            "csada_step_size": getattr(script_args, "csada_step_size", 1.0 / 255.0),
+            "csada_cost_temperature": getattr(script_args, "csada_cost_temperature", 3.0),
             "seed": getattr(script_args, "seed", None),
+            "augmentations": {
+                "train_random_resize_crop": getattr(script_args, "train_random_resize_crop", True),
+                "train_random_resized_crop_scale_min": getattr(
+                    script_args, "train_random_resized_crop_scale_min", 0.08
+                ),
+                "train_random_resized_crop_scale_max": getattr(
+                    script_args, "train_random_resized_crop_scale_max", 1.0
+                ),
+                "train_horizontal_flip": getattr(script_args, "train_horizontal_flip", True),
+                "train_color_jitter": getattr(script_args, "train_color_jitter", False),
+                "train_random_quarter_turns": getattr(script_args, "train_random_quarter_turns", False),
+            },
         },
         "cost_matrix_configuration": {
             "cost_matrix": script_args.cost_matrix,
+            "cost_matrix_source": getattr(script_args, "cost_matrix_source", None),
+            "cost_matrix_sha256": getattr(script_args, "cost_matrix_sha256", None)
+            or (cost_matrix_sha256(script_args.cost_matrix) if script_args.cost_matrix is not None else None),
             "cost_matrix_convention": "C[true_label][predicted_label]",
             "target_recall_class": getattr(script_args, "target_recall_class", None),
+            "target_recall_classes": getattr(script_args, "target_recall_classes", None),
+            "secondary_target_recall_classes": getattr(script_args, "secondary_target_recall_classes", None),
             "target_recall_floor": getattr(script_args, "target_recall_floor", None),
             "accuracy_floor": getattr(script_args, "accuracy_floor", None),
             "selection_accuracy_metric": getattr(script_args, "selection_accuracy_metric", "accuracy"),
+            "metric_profile": getattr(script_args, "metric_profile", None),
+            "critical_pairs": getattr(script_args, "critical_pairs", None),
             "sweep_mode": script_args.sweep_mode,
             "sweep_cost_value": script_args.sweep_cost_value,
             "sweep_matrix_row": script_args.sweep_matrix_row,

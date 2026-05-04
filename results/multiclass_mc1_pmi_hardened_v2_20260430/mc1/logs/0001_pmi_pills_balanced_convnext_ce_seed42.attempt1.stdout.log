@@ -1,0 +1,47 @@
+cuDNN disabled for this run
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=hf_auto type=convnext with 20 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'eval_loss': '2.975', 'eval_accuracy': '0.06875', 'eval_f1': '0.03835', 'eval_balanced_accuracy': '0.08044', 'eval_macro_f1': '0.03835', 'eval_atc': '0.9313', 'eval_normalized_atc': '0.09312', 'eval_target_recall': '0', 'eval_target_recall_macro': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.851', 'eval_selection_accuracy_value': '0.08044', 'eval_nll': '2.975', 'eval_brier': '0.9481', 'eval_ece': '0.005834', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '2.789', 'eval_samples_per_second': '57.36', 'eval_steps_per_second': '3.585', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/mc1_pmi_pills_balanced_cnx_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_d802031f/checkpoint-5/preprocessor_config.json
+{'train_runtime': '5.282', 'train_samples_per_second': '60.59', 'train_steps_per_second': '0.947', 'train_loss': '2.989', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =  7492345GF
+  train_loss               =     2.9889
+  train_runtime            = 0:00:05.28
+  train_samples_per_second =     60.586
+  train_steps_per_second   =      0.947
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/convnext_test/mc1_pmi_pills_balanced_cnx_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_d802031f_04-30_15-57
+Saving run configuration...
+Run configuration saved to: results/convnext_test/mc1_pmi_pills_balanced_cnx_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_d802031f_04-30_15-57/run_configuration_20260430_155717.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/convnext_test/mc1_pmi_pills_balanced_cnx_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_d802031f_04-30_15-57/metrics_20260430_155731_ce.json and results/convnext_test/mc1_pmi_pills_balanced_cnx_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_d802031f_04-30_15-57/metrics_20260430_155731_ce.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '16729-0168', '50111-0434', '53489-0156', '53746-0544', '57664-0377', '62037-0831', '62037-0832', '64380-0803', '65162-0253', '67253-0901', '68382-0008', '68382-0227', '69097-0127', '69097-0128', '69315-0904', '69315-0905']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/convnext_test/mc1_pmi_pills_balanced_cnx_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_d802031f_04-30_15-57
+Overall Accuracy: 0.0813
+Balanced Accuracy: 0.1077
+Overall F1 Score: 0.0377
+Kappa: 0.0385
+AUC: 0.6650
+Expected Cost: 0.9187
+Loss Function Used: ce
+Total Test Samples: 160
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 16729-0168, 50111-0434, 53489-0156, 53746-0544, 57664-0377, 62037-0831, 62037-0832, 64380-0803, 65162-0253, 67253-0901, 68382-0008, 68382-0227, 69097-0127, 69097-0128, 69315-0904, 69315-0905
+
+Detailed metrics saved to: results/convnext_test/mc1_pmi_pills_balanced_cnx_ce_s42_multiclass_mc1_pmi_hardened_v2_20260430_mc1_a1_d802031f_04-30_15-57
+============================================================

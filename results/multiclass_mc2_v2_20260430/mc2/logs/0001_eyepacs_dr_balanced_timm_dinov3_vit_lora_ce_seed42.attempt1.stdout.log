@@ -1,0 +1,20 @@
+Prepared manifest loaded — Train=2485, Val=335, Calibration=350, Test=370
+cuda
+Using model backend=timm type=timm_dinov3_vit_lora with 5 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '6.437', 'grad_norm': '3.087', 'learning_rate': '2.813e-05', 'epoch': '0.2564'}
+{'loss': '6.433', 'grad_norm': '2.733', 'learning_rate': '4.999e-05', 'epoch': '0.5128'}
+{'loss': '6.428', 'grad_norm': '2.786', 'learning_rate': '4.976e-05', 'epoch': '0.7692'}
+{'eval_loss': '1.605', 'eval_accuracy': '0.2537', 'eval_f1': '0.1529', 'eval_balanced_accuracy': '0.2537', 'eval_macro_f1': '0.1529', 'eval_atc': '4.746', 'eval_normalized_atc': '0.2966', 'eval_target_recall': '0.2985', 'eval_target_recall_macro': '0.2985', 'eval_target_fnr': '0.7015', 'eval_selection_score': '1.832', 'eval_selection_accuracy_value': '0.2537', 'eval_nll': '1.605', 'eval_brier': '0.7982', 'eval_ece': '0.05119', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '17.87', 'eval_samples_per_second': '18.75', 'eval_steps_per_second': '1.175', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/mc2_eyepacs_dr_balanced_d3vit_lora_ce_s42_multiclass_mc2_v2_20260430_mc2_a1_d4e0908e/checkpoint-39/preprocessor_config.json
+{'loss': '6.419', 'grad_norm': '2.899', 'learning_rate': '4.926e-05', 'epoch': '1.026'}
+{'loss': '6.409', 'grad_norm': '3.565', 'learning_rate': '4.848e-05', 'epoch': '1.282'}
+{'loss': '6.413', 'grad_norm': '3.019', 'learning_rate': '4.744e-05', 'epoch': '1.538'}
+{'loss': '6.395', 'grad_norm': '2.543', 'learning_rate': '4.615e-05', 'epoch': '1.795'}
+{'eval_loss': '1.598', 'eval_accuracy': '0.3403', 'eval_f1': '0.2533', 'eval_balanced_accuracy': '0.3403', 'eval_macro_f1': '0.2533', 'eval_atc': '2.522', 'eval_normalized_atc': '0.1576', 'eval_target_recall': '0.2985', 'eval_target_recall_macro': '0.2985', 'eval_target_fnr': '0.7015', 'eval_selection_score': '1.649', 'eval_selection_accuracy_value': '0.3403', 'eval_nll': '1.598', 'eval_brier': '0.7955', 'eval_ece': '0.1357', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '17.24', 'eval_samples_per_second': '19.43', 'eval_steps_per_second': '1.218', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/mc2_eyepacs_dr_balanced_d3vit_lora_ce_s42_multiclass_mc2_v2_20260430_mc2_a1_d4e0908e/checkpoint-78/preprocessor_config.json
+{'loss': '6.381', 'grad_norm': '2.658', 'learning_rate': '4.462e-05', 'epoch': '2.051'}
+{'loss': '6.369', 'grad_norm': '3.246', 'learning_rate': '4.286e-05', 'epoch': '2.308'}
+{'loss': '6.364', 'grad_norm': '3.455', 'learning_rate': '4.091e-05', 'epoch': '2.564'}
+{'loss': '6.344', 'grad_norm': '2.569', 'learning_rate': '3.878e-05', 'epoch': '2.821'}

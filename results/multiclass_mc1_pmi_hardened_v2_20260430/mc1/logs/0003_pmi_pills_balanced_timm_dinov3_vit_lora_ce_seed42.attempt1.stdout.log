@@ -1,0 +1,5 @@
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=timm type=timm_dinov3_vit_lora with 20 labels
+Early stopping enabled with patience=3
+Using device: cuda

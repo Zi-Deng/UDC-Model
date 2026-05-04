@@ -10,7 +10,10 @@ is the cost incurred when an example with ``true_label`` is predicted as
 
 from __future__ import annotations
 
+import hashlib
+import json
 import math
+from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Any
 
@@ -142,6 +145,12 @@ def cost_min_predictions(probabilities: np.ndarray, cost_matrix: Any) -> np.ndar
     return np.argmin(expected_cost, axis=1)
 
 
+def cost_matrix_sha256(cost_matrix: Any) -> str:
+    arr = np.asarray(cost_matrix, dtype=float)
+    payload = json.dumps(arr.tolist(), separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
 def average_test_cost(y_true: np.ndarray, y_pred: np.ndarray, cost_matrix: Any) -> float:
     y_true = np.asarray(y_true, dtype=int)
     y_pred = np.asarray(y_pred, dtype=int)
@@ -167,6 +176,68 @@ def confusion_matrix_np(y_true: np.ndarray, y_pred: np.ndarray, num_classes: int
     for truth, pred in zip(y_true.astype(int), y_pred.astype(int), strict=False):
         cm[truth, pred] += 1
     return cm
+
+
+def cost_weighted_confusion_matrix(y_true: np.ndarray, y_pred: np.ndarray, cost_matrix: Any) -> np.ndarray:
+    num_classes = _infer_num_classes(y_true, y_pred, cost_matrix)
+    counts = confusion_matrix_np(np.asarray(y_true, dtype=int), np.asarray(y_pred, dtype=int), num_classes)
+    costs = CostMatrix.from_config(cost_matrix, num_classes=num_classes).values
+    return counts.astype(float) * costs
+
+
+def quadratic_weighted_kappa_np(y_true: np.ndarray, y_pred: np.ndarray, num_classes: int | None = None) -> float:
+    y_true = np.asarray(y_true, dtype=int)
+    y_pred = np.asarray(y_pred, dtype=int)
+    labels = list(range(num_classes or _infer_num_classes(y_true, y_pred)))
+    try:
+        from sklearn.metrics import cohen_kappa_score
+
+        value = cohen_kappa_score(y_true, y_pred, labels=labels, weights="quadratic")
+        return 0.0 if value is None or math.isnan(float(value)) else float(value)
+    except Exception:
+        return 0.0
+
+
+def _critical_pair_key(true_id: int, pred_id: int, class_names: Sequence[str] | None) -> str:
+    if class_names is None:
+        return f"{true_id}->{pred_id}"
+    return f"{class_names[true_id]}->{class_names[pred_id]}"
+
+
+def critical_pair_errors(
+    y_true: np.ndarray,
+    y_pred: np.ndarray,
+    critical_pairs: Sequence[Sequence[Any]] | Sequence[dict[str, Any]],
+    cost_matrix: Any,
+    class_names: Sequence[str] | None = None,
+) -> dict[str, dict[str, float | int | str]]:
+    labels = np.asarray(y_true, dtype=int)
+    predictions = np.asarray(y_pred, dtype=int)
+    costs = CostMatrix.from_config(cost_matrix, num_classes=_infer_num_classes(labels, predictions, cost_matrix)).values
+    report: dict[str, dict[str, float | int | str]] = {}
+    for pair in critical_pairs:
+        if isinstance(pair, dict):
+            true_id = int(pair.get("true_id", pair.get("true")))
+            pred_id = int(pair.get("pred_id", pair.get("pred")))
+        else:
+            true_id = int(pair[0])
+            pred_id = int(pair[1])
+        mask_true = labels == true_id
+        mask_error = mask_true & (predictions == pred_id)
+        support = int(np.sum(mask_true))
+        errors = int(np.sum(mask_error))
+        cost = float(costs[true_id, pred_id])
+        key = _critical_pair_key(true_id, pred_id, class_names)
+        report[key] = {
+            "true_class_id": true_id,
+            "pred_class_id": pred_id,
+            "support": support,
+            "errors": errors,
+            "error_rate": float(errors / support) if support else 0.0,
+            "cost": cost,
+            "atc_contribution": float(errors * cost / max(labels.size, 1)),
+        }
+    return report
 
 
 def expected_calibration_error(
@@ -252,6 +323,10 @@ def classification_metrics(
     accuracy_floor: float = 0.80,
     selection_accuracy_metric: str = "accuracy",
     baseline_atc: float | None = None,
+    target_class_ids: Sequence[int] | None = None,
+    class_names: Sequence[str] | None = None,
+    critical_pairs: Sequence[Sequence[Any]] | Sequence[dict[str, Any]] | None = None,
+    include_quadratic_weighted_kappa: bool = False,
 ) -> dict[str, Any]:
     """Compute NICME paper-facing metrics for one inference mode."""
     y_true = np.asarray(y_true, dtype=int)
@@ -284,7 +359,18 @@ def classification_metrics(
     macro_f1 = float(np.mean(list(f1s.values()))) if f1s else 0.0
     atc = average_test_cost(y_true, y_pred, spec.values)
     natc = atc / spec.max_off_diagonal_cost if spec.max_off_diagonal_cost > 0 else atc
-    target_recall = recalls.get(int(target_class_id), 0.0)
+    if target_class_ids is None:
+        target_ids = [int(target_class_id)]
+    else:
+        target_ids = [int(class_id) for class_id in target_class_ids]
+        if not target_ids:
+            target_ids = [int(target_class_id)]
+    for class_id in target_ids:
+        if class_id < 0 or class_id >= num_classes:
+            raise ValueError(f"target_class_ids contains out-of-range class id {class_id}")
+    target_recall_values = {idx: recalls.get(idx, 0.0) for idx in target_ids}
+    target_recall = min(target_recall_values.values()) if target_recall_values else recalls.get(int(target_class_id), 0.0)
+    target_recall_macro = float(np.mean(list(target_recall_values.values()))) if target_recall_values else float(target_recall)
     accuracy_metric = str(selection_accuracy_metric or "accuracy").strip().lower()
     if accuracy_metric in {"balanced_accuracy", "balanced_acc", "bacc"}:
         selected_accuracy = balanced_acc
@@ -307,20 +393,36 @@ def classification_metrics(
         "selection_score": score,
         "selection_accuracy_metric": accuracy_metric,
         "selection_accuracy_value": float(selected_accuracy),
-        "target_class_id": int(target_class_id),
+        "target_class_id": int(target_ids[0]),
+        "target_class_ids": [int(idx) for idx in target_ids],
         "target_recall": float(target_recall),
-        "target_precision": precisions.get(int(target_class_id), 0.0),
-        "target_fnr": fnrs.get(int(target_class_id), 0.0),
-        "target_fpr": fprs.get(int(target_class_id), 0.0),
+        "target_recall_min": float(target_recall),
+        "target_recall_macro": target_recall_macro,
+        "target_recall_by_class": {int(idx): float(value) for idx, value in target_recall_values.items()},
+        "target_precision": precisions.get(int(target_ids[0]), 0.0),
+        "target_fnr": fnrs.get(int(target_ids[0]), 0.0),
+        "target_fpr": fprs.get(int(target_ids[0]), 0.0),
         "nll": nll_np(probabilities, y_true),
         "brier": brier_score_np(probabilities, y_true),
         "ece": expected_calibration_error(probabilities, y_true),
         "class_prevalence": class_prevalence(y_true, num_classes),
         "confusion_matrix": cm.tolist(),
+        "cost_weighted_confusion_matrix": (cm.astype(float) * spec.values).tolist(),
         "per_class_recall": recalls,
         "per_class_precision": precisions,
         "per_class_f1": f1s,
+        "cost_matrix_sha256": cost_matrix_sha256(spec.values),
     }
+    if include_quadratic_weighted_kappa:
+        metrics["quadratic_weighted_kappa"] = quadratic_weighted_kappa_np(y_true, y_pred, num_classes=num_classes)
+    if critical_pairs:
+        metrics["critical_pair_errors"] = critical_pair_errors(
+            y_true,
+            y_pred,
+            critical_pairs,
+            spec.values,
+            class_names=class_names,
+        )
     metrics.update(_binary_curve_metrics(probabilities, y_true))
     for key, value in list(metrics.items()):
         if isinstance(value, float) and (math.isnan(value) or math.isinf(value)):

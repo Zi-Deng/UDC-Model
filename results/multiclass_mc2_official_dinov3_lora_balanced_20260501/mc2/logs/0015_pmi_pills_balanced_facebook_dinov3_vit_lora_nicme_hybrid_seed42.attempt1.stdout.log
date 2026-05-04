@@ -1,0 +1,66 @@
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=dinov3_feature type=facebook_dinov3_vit_lora with 20 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '12.42', 'grad_norm': '8.134', 'learning_rate': '3.462e-05', 'epoch': '0.3279'}
+{'loss': '12.47', 'grad_norm': '7.743', 'learning_rate': '4.992e-05', 'epoch': '0.6557'}
+{'loss': '12.3', 'grad_norm': '8.191', 'learning_rate': '4.943e-05', 'epoch': '0.9836'}
+{'eval_loss': '3.054', 'eval_accuracy': '0.07187', 'eval_f1': '0.01666', 'eval_balanced_accuracy': '0.07187', 'eval_macro_f1': '0.01666', 'eval_atc': '0.9844', 'eval_normalized_atc': '0.09844', 'eval_target_recall': '0', 'eval_target_recall_macro': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.869', 'eval_selection_accuracy_value': '0.07187', 'eval_nll': '3.003', 'eval_brier': '0.95', 'eval_ece': '0.02893', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.546', 'eval_samples_per_second': '90.25', 'eval_steps_per_second': '5.641', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571/checkpoint-31/preprocessor_config.json
+{'loss': '11.47', 'grad_norm': '7.327', 'learning_rate': '4.85e-05', 'epoch': '1.295'}
+{'loss': '12.01', 'grad_norm': '6.091', 'learning_rate': '4.716e-05', 'epoch': '1.623'}
+{'loss': '12.02', 'grad_norm': '7.607', 'learning_rate': '4.542e-05', 'epoch': '1.951'}
+{'eval_loss': '2.979', 'eval_accuracy': '0.1281', 'eval_f1': '0.07365', 'eval_balanced_accuracy': '0.1281', 'eval_macro_f1': '0.07365', 'eval_atc': '0.9563', 'eval_normalized_atc': '0.09563', 'eval_target_recall': '0', 'eval_target_recall_macro': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.787', 'eval_selection_accuracy_value': '0.1281', 'eval_nll': '2.941', 'eval_brier': '0.9438', 'eval_ece': '0.06782', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.518', 'eval_samples_per_second': '90.96', 'eval_steps_per_second': '5.685', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571/checkpoint-62/preprocessor_config.json
+{'loss': '11.26', 'grad_norm': '5.588', 'learning_rate': '4.332e-05', 'epoch': '2.262'}
+{'loss': '11.72', 'grad_norm': '5.411', 'learning_rate': '4.088e-05', 'epoch': '2.59'}
+{'loss': '11.73', 'grad_norm': '6.652', 'learning_rate': '3.817e-05', 'epoch': '2.918'}
+{'eval_loss': '2.92', 'eval_accuracy': '0.1938', 'eval_f1': '0.1333', 'eval_balanced_accuracy': '0.1938', 'eval_macro_f1': '0.1333', 'eval_atc': '0.9469', 'eval_normalized_atc': '0.09469', 'eval_target_recall': '0', 'eval_target_recall_macro': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.702', 'eval_selection_accuracy_value': '0.1938', 'eval_nll': '2.886', 'eval_brier': '0.9379', 'eval_ece': '0.1255', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.435', 'eval_samples_per_second': '93.17', 'eval_steps_per_second': '5.823', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571/checkpoint-93/preprocessor_config.json
+{'loss': '11.07', 'grad_norm': '6.713', 'learning_rate': '3.522e-05', 'epoch': '3.23'}
+{'loss': '11.49', 'grad_norm': '5.815', 'learning_rate': '3.209e-05', 'epoch': '3.557'}
+{'loss': '11.54', 'grad_norm': '6.204', 'learning_rate': '2.883e-05', 'epoch': '3.885'}
+{'eval_loss': '2.871', 'eval_accuracy': '0.2219', 'eval_f1': '0.1678', 'eval_balanced_accuracy': '0.2219', 'eval_macro_f1': '0.1678', 'eval_atc': '0.9187', 'eval_normalized_atc': '0.09187', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.01562', 'eval_target_fnr': '1', 'eval_selection_score': '3.666', 'eval_selection_accuracy_value': '0.2219', 'eval_nll': '2.841', 'eval_brier': '0.9329', 'eval_ece': '0.1527', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.561', 'eval_samples_per_second': '89.86', 'eval_steps_per_second': '5.616', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571/checkpoint-124/preprocessor_config.json
+{'train_runtime': '59.06', 'train_samples_per_second': '262.8', 'train_steps_per_second': '4.199', 'train_loss': '11.73', 'epoch': '4'}
+***** train metrics *****
+  epoch                    =        4.0
+  total_flos               =        0GF
+  train_loss               =    11.7329
+  train_runtime            = 0:00:59.05
+  train_samples_per_second =    262.796
+  train_steps_per_second   =      4.199
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/facebook_dinov3_vit_lora_test/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571_05-01_01-40
+Saving run configuration...
+Run configuration saved to: results/facebook_dinov3_vit_lora_test/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571_05-01_01-40/run_configuration_20260501_014031.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/facebook_dinov3_vit_lora_test/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571_05-01_01-40/metrics_20260501_014046_nicme_hybrid.json and results/facebook_dinov3_vit_lora_test/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571_05-01_01-40/metrics_20260501_014046_nicme_hybrid.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '16729-0168', '50111-0434', '53489-0156', '53746-0544', '57664-0377', '62037-0831', '62037-0832', '64380-0803', '65162-0253', '67253-0901', '68382-0008', '68382-0227', '69097-0127', '69097-0128', '69315-0904', '69315-0905']
+Creating confusion matrix visualizations...
+Confusion matrix visualizations (3-panel) saved to: results/facebook_dinov3_vit_lora_test/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571_05-01_01-40/confusion_matrix_20260501_014046_nicme_hybrid.png and results/facebook_dinov3_vit_lora_test/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571_05-01_01-40/confusion_matrix_20260501_014046_nicme_hybrid.pdf
+Detailed confusion matrix saved to: results/facebook_dinov3_vit_lora_test/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571_05-01_01-40/confusion_matrix_detailed_20260501_014046_nicme_hybrid.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/facebook_dinov3_vit_lora_test/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571_05-01_01-40
+Overall Accuracy: 0.0703
+Balanced Accuracy: 0.0703
+Overall F1 Score: 0.0245
+Kappa: 0.0214
+AUC: 0.5102
+Expected Cost: 0.9437
+Loss Function Used: nicme_hybrid
+Total Test Samples: 640
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 16729-0168, 50111-0434, 53489-0156, 53746-0544, 57664-0377, 62037-0831, 62037-0832, 64380-0803, 65162-0253, 67253-0901, 68382-0008, 68382-0227, 69097-0127, 69097-0128, 69315-0904, 69315-0905
+
+Detailed metrics and visualizations saved to: results/facebook_dinov3_vit_lora_test/mc2_pmi_pills_balanced_fb_d3vit_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_639f9571_05-01_01-40
+============================================================

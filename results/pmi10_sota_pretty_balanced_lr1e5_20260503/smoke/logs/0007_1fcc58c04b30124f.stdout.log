@@ -1,0 +1,47 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_sota_convnext_base with 10 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '7.249', 'grad_norm': '21.17', 'learning_rate': '5e-06', 'epoch': '0.6557'}
+{'eval_loss': '1.605', 'eval_accuracy': '0.3613', 'eval_f1': '0.3425', 'eval_balanced_accuracy': '0.3613', 'eval_macro_f1': '0.3425', 'eval_atc': '1.51', 'eval_normalized_atc': '0.151', 'eval_target_recall': '0.06452', 'eval_target_recall_macro': '0.3387', 'eval_target_fnr': '0.7742', 'eval_selection_score': '3.136', 'eval_selection_accuracy_value': '0.3613', 'eval_nll': '2.089', 'eval_brier': '0.8531', 'eval_ece': '0.2191', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.562', 'eval_samples_per_second': '67.96', 'eval_steps_per_second': '4.384', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/smoke_class_balanced_focal_lr1e5_s42/checkpoint-16/preprocessor_config.json
+{'train_runtime': '18.92', 'train_samples_per_second': '51.27', 'train_steps_per_second': '0.846', 'train_loss': '6.631', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     6.6312
+  train_runtime            = 0:00:18.91
+  train_samples_per_second =      51.27
+  train_steps_per_second   =      0.846
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_sota_convnext_base_test/smoke_class_balanced_focal_lr1e5_s42_05-02_21-56
+Saving run configuration...
+Run configuration saved to: results/pmi10_sota_convnext_base_test/smoke_class_balanced_focal_lr1e5_s42_05-02_21-56/run_configuration_20260502_215609.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_sota_convnext_base_test/smoke_class_balanced_focal_lr1e5_s42_05-02_21-56/metrics_20260502_215618_class_balanced_focal.json and results/pmi10_sota_convnext_base_test/smoke_class_balanced_focal_lr1e5_s42_05-02_21-56/metrics_20260502_215618_class_balanced_focal.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_sota_convnext_base_test/smoke_class_balanced_focal_lr1e5_s42_05-02_21-56
+Overall Accuracy: 0.4031
+Balanced Accuracy: 0.4031
+Overall F1 Score: 0.3917
+Kappa: 0.3368
+AUC: 0.7979
+Expected Cost: 1.5750
+Loss Function Used: class_balanced_focal
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/smoke_class_balanced_focal_lr1e5_s42_05-02_21-56
+============================================================

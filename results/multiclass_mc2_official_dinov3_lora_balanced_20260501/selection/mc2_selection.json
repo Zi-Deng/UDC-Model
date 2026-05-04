@@ -1,0 +1,104 @@
+{
+  "eyepacs_dr": {
+    "selected": [
+      {
+        "dataset": "eyepacs_dr",
+        "variant": "balanced",
+        "model_family": "facebook_dinov3_convnext_lora",
+        "method": "ce",
+        "seed": 42,
+        "config_hash": "bd70586d230aa8a5",
+        "config_path": "results/multiclass_mc2_official_dinov3_lora_balanced_20260501/mc2/configs/0006_eyepacs_dr_balanced_facebook_dinov3_convnext_lora_ce_seed42.attempt1.json",
+        "metric_path": "results/facebook_dinov3_convnext_lora_test/mc2_eyepacs_dr_balanced_fb_d3cnx_lora_ce_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_cd8fb9f4_05-01_00-46/metrics_20260501_004727_ce.json",
+        "target_recall": 0.7432432432432432,
+        "normalized_atc": 0.11993243243243243,
+        "balanced_accuracy": 0.4243243243243244,
+        "macro_f1": 0.4019621213629998,
+        "status": "completed"
+      },
+      {
+        "dataset": "eyepacs_dr",
+        "variant": "balanced",
+        "model_family": "facebook_dinov3_convnext_lora",
+        "method": "cs_regularized_ce",
+        "seed": 42,
+        "config_hash": "92031f66d3da02d3",
+        "config_path": "results/multiclass_mc2_official_dinov3_lora_balanced_20260501/mc2/configs/0008_eyepacs_dr_balanced_facebook_dinov3_convnext_lora_cs_regularized_ce_seed42.attempt1.json",
+        "metric_path": "results/facebook_dinov3_convnext_lora_test/mc2_eyepacs_dr_balanced_fb_d3cnx_lora_cs_ce_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_5b3178fa_05-01_01-08/metrics_20260501_010848_cs_regularized_ce.json",
+        "target_recall": 0.7567567567567568,
+        "normalized_atc": 0.11739864864864864,
+        "balanced_accuracy": 0.44324324324324327,
+        "macro_f1": 0.4225588923096401,
+        "status": "completed"
+      },
+      {
+        "dataset": "eyepacs_dr",
+        "variant": "balanced",
+        "model_family": "facebook_dinov3_convnext_lora",
+        "method": "nicme_hybrid",
+        "seed": 42,
+        "config_hash": "1ed4d6c5455dcfc3",
+        "config_path": "results/multiclass_mc2_official_dinov3_lora_balanced_20260501/mc2/configs/0010_eyepacs_dr_balanced_facebook_dinov3_convnext_lora_nicme_hybrid_seed42.attempt1.json",
+        "metric_path": "results/facebook_dinov3_convnext_lora_test/mc2_eyepacs_dr_balanced_fb_d3cnx_lora_nicme_hybrid_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_3483e35e_05-01_01-32/metrics_20260501_013321_nicme_hybrid.json",
+        "target_recall": 0.6891891891891891,
+        "normalized_atc": 0.12246621621621621,
+        "balanced_accuracy": 0.4108108108108108,
+        "macro_f1": 0.40873980186998865,
+        "status": "completed"
+      }
+    ],
+    "completed_count": 10,
+    "failed_count": 0
+  },
+  "pmi_pills": {
+    "selected": [
+      {
+        "dataset": "pmi_pills",
+        "variant": "balanced",
+        "model_family": "facebook_dinov3_convnext_lora",
+        "method": "ce",
+        "seed": 42,
+        "config_hash": "9d6eb4095f661eab",
+        "config_path": "results/multiclass_mc2_official_dinov3_lora_balanced_20260501/mc2/configs/0016_pmi_pills_balanced_facebook_dinov3_convnext_lora_ce_seed42.attempt1.json",
+        "metric_path": "results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_ce_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_9753b4e1_05-01_01-42/metrics_20260501_014301_ce.json",
+        "target_recall": 0.40625,
+        "normalized_atc": 0.05046874999999999,
+        "balanced_accuracy": 0.7078125,
+        "macro_f1": 0.7027147319064071,
+        "status": "completed"
+      },
+      {
+        "dataset": "pmi_pills",
+        "variant": "balanced",
+        "model_family": "facebook_dinov3_convnext_lora",
+        "method": "cs_regularized_ce",
+        "seed": 42,
+        "config_hash": "903d7c10fd0003dd",
+        "config_path": "results/multiclass_mc2_official_dinov3_lora_balanced_20260501/mc2/configs/0018_pmi_pills_balanced_facebook_dinov3_convnext_lora_cs_regularized_ce_seed42.attempt1.json",
+        "metric_path": "results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_cs_ce_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_09d239dd_05-01_01-51/metrics_20260501_015212_cs_regularized_ce.json",
+        "target_recall": 0.40625,
+        "normalized_atc": 0.0503125,
+        "balanced_accuracy": 0.709375,
+        "macro_f1": 0.7038893006866097,
+        "status": "completed"
+      },
+      {
+        "dataset": "pmi_pills",
+        "variant": "balanced",
+        "model_family": "facebook_dinov3_convnext_lora",
+        "method": "nicme_logit_adjustment",
+        "seed": 42,
+        "config_hash": "6c1d9daa3afc558c",
+        "config_path": "results/multiclass_mc2_official_dinov3_lora_balanced_20260501/mc2/configs/0019_pmi_pills_balanced_facebook_dinov3_convnext_lora_nicme_logit_adjustment_seed42.attempt1.json",
+        "metric_path": "results/facebook_dinov3_convnext_lora_test/mc2_pmi_pills_balanced_fb_d3cnx_lora_nicme_logit_s42_multiclass_mc2_official_dinov3_lora_balanced_20260501_mc2_a1_95c4908b_05-01_01-54/metrics_20260501_015442_nicme_logit_adjustment.json",
+        "target_recall": 0.375,
+        "normalized_atc": 0.03484375,
+        "balanced_accuracy": 0.75625,
+        "macro_f1": 0.7512706471006284,
+        "status": "completed"
+      }
+    ],
+    "completed_count": 10,
+    "failed_count": 0
+  }
+}

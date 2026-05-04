@@ -1,0 +1,11 @@
+{
+  "source_nicme_config": "/mnt/storage/github/NICME/results/pmi10_v3_balanced_convnext_base_20260502/hpo-v3/best_config.json",
+  "matched_ce_config": "/mnt/storage/github/NICME/results/pmi10_v3_balanced_convnext_base_20260502/hpo-ce-matched/best_config.json",
+  "copied_non_loss_hyperparameters": true,
+  "loss_fields_reset": {
+    "loss_function": "cross_entropy",
+    "cs_lambda": 0.0,
+    "cs_warmup_epochs": 0,
+    "nicme_logit_cost_scale": 1.0
+  }
+}

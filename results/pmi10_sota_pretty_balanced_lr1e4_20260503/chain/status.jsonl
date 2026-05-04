@@ -1,0 +1,12 @@
+{"time":"2026-05-02T18:11:14-07:00","phase":"chain","status":"started"}
+{"time":"2026-05-02T18:11:20-07:00","phase":"preflight","status":"started"}
+{"time":"2026-05-02T18:11:20-07:00","phase":"preflight","status":"completed"}
+{"time":"2026-05-02T18:11:20-07:00","phase":"dry-run-plan","status":"started"}
+{"time":"2026-05-02T18:11:20-07:00","phase":"dry-run-plan","status":"completed"}
+{"time":"2026-05-02T18:20:15-07:00","phase":"smoke","status":"started"}
+{"time":"2026-05-02T18:28:52-07:00","phase":"smoke","status":"completed"}
+{"time":"2026-05-02T19:08:33-07:00","phase":"long-baseline-chain","status":"started"}
+{"time":"2026-05-02T19:50:40-07:00","phase":"long-baseline-chain","status":"completed"}
+{"time":"2026-05-02T19:50:40-07:00","phase":"analysis","status":"started"}
+{"time":"2026-05-02T19:50:40-07:00","phase":"analysis","status":"completed"}
+{"time":"2026-05-02T19:50:40-07:00","phase":"chain","status":"completed"}

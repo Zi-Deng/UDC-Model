@@ -1,0 +1,16 @@
+Prepared manifest loaded — Train=3578, Val=1181, Calibration=0, Test=1186
+cuda
+Using model backend=timm type=pmi10_convnext_base_fb_in22k_ft_in1k with 10 labels
+Early stopping enabled with patience=4
+Using device: cuda
+{'loss': '9.521', 'grad_norm': '30.56', 'learning_rate': '2.354e-06', 'epoch': '0.1786'}
+{'loss': '9.021', 'grad_norm': '21.92', 'learning_rate': '4.969e-06', 'epoch': '0.3571'}
+{'loss': '8.343', 'grad_norm': '18.07', 'learning_rate': '7.585e-06', 'epoch': '0.5357'}
+{'loss': '7.512', 'grad_norm': '18.82', 'learning_rate': '1.02e-05', 'epoch': '0.7143'}
+{'loss': '6.567', 'grad_norm': '21.58', 'learning_rate': '1.282e-05', 'epoch': '0.8929'}
+{'eval_loss': '1.204', 'eval_accuracy': '0.6816', 'eval_f1': '0.4525', 'eval_balanced_accuracy': '0.4967', 'eval_macro_f1': '0.4525', 'eval_atc': '0.6427', 'eval_normalized_atc': '0.06427', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.3452', 'eval_target_fnr': '0.1709', 'eval_selection_score': '3.368', 'eval_selection_accuracy_value': '0.4967', 'eval_nll': '1.174', 'eval_brier': '0.5398', 'eval_ece': '0.2538', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '11.5', 'eval_samples_per_second': '102.7', 'eval_steps_per_second': '6.437', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/hpo-nicme_convnext_base_fb_in22k_ft_in1k_nicme_hybrid_s42_trial0016/checkpoint-56/preprocessor_config.json
+{'loss': '5.218', 'grad_norm': '26.16', 'learning_rate': '1.543e-05', 'epoch': '1.071'}
+{'loss': '3.648', 'grad_norm': '28.68', 'learning_rate': '1.805e-05', 'epoch': '1.25'}
+{'loss': '3.183', 'grad_norm': '41.96', 'learning_rate': '2.066e-05', 'epoch': '1.429'}
+{'loss': '2.502', 'grad_norm': '38.66', 'learning_rate': '2.328e-05', 'epoch': '1.607'}

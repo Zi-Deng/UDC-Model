@@ -1,0 +1,89 @@
+Prepared manifest loaded — Train=3578, Val=1181, Calibration=0, Test=1186
+cuda
+Using model backend=timm type=pmi10_swin_small_patch4_window7_224_ms_in22k_ft_in1k with 10 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '18.51', 'grad_norm': '33.14', 'learning_rate': '5.028e-08', 'epoch': '0.1786'}
+{'loss': '18.67', 'grad_norm': '33.25', 'learning_rate': '1.061e-07', 'epoch': '0.3571'}
+{'loss': '18.73', 'grad_norm': '30.49', 'learning_rate': '1.62e-07', 'epoch': '0.5357'}
+{'loss': '18.56', 'grad_norm': '32.46', 'learning_rate': '2.179e-07', 'epoch': '0.7143'}
+{'loss': '18.56', 'grad_norm': '35.48', 'learning_rate': '2.738e-07', 'epoch': '0.8929'}
+{'eval_loss': '2.311', 'eval_accuracy': '0.1253', 'eval_f1': '0.06379', 'eval_balanced_accuracy': '0.119', 'eval_macro_f1': '0.06379', 'eval_atc': '0.8747', 'eval_normalized_atc': '0.08747', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.09927', 'eval_target_fnr': '1', 'eval_selection_score': '3.726', 'eval_selection_accuracy_value': '0.119', 'eval_nll': '2.29', 'eval_brier': '0.8966', 'eval_ece': '0.01106', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '10.78', 'eval_samples_per_second': '109.6', 'eval_steps_per_second': '13.73', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001/checkpoint-56/preprocessor_config.json
+{'loss': '18.65', 'grad_norm': '34.51', 'learning_rate': '3.296e-07', 'epoch': '1.071'}
+{'loss': '18.42', 'grad_norm': '36.91', 'learning_rate': '3.855e-07', 'epoch': '1.25'}
+{'loss': '18.5', 'grad_norm': '34.79', 'learning_rate': '4.414e-07', 'epoch': '1.429'}
+{'loss': '18.47', 'grad_norm': '31.71', 'learning_rate': '4.972e-07', 'epoch': '1.607'}
+{'loss': '18.21', 'grad_norm': '29.56', 'learning_rate': '5.531e-07', 'epoch': '1.786'}
+{'loss': '18.45', 'grad_norm': '46.28', 'learning_rate': '6.09e-07', 'epoch': '1.964'}
+{'eval_loss': '2.259', 'eval_accuracy': '0.2371', 'eval_f1': '0.1253', 'eval_balanced_accuracy': '0.1613', 'eval_macro_f1': '0.1253', 'eval_atc': '0.8696', 'eval_normalized_atc': '0.08696', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.01625', 'eval_target_fnr': '1', 'eval_selection_score': '3.674', 'eval_selection_accuracy_value': '0.1613', 'eval_nll': '2.223', 'eval_brier': '0.8832', 'eval_ece': '0.09882', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '10.32', 'eval_samples_per_second': '114.4', 'eval_steps_per_second': '14.34', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001/checkpoint-112/preprocessor_config.json
+{'loss': '18.22', 'grad_norm': '31.37', 'learning_rate': '6.648e-07', 'epoch': '2.143'}
+{'loss': '18.06', 'grad_norm': '37.64', 'learning_rate': '7.207e-07', 'epoch': '2.321'}
+{'loss': '17.92', 'grad_norm': '36.32', 'learning_rate': '7.766e-07', 'epoch': '2.5'}
+{'loss': '17.8', 'grad_norm': '33.26', 'learning_rate': '8.324e-07', 'epoch': '2.679'}
+{'loss': '17.47', 'grad_norm': '36.41', 'learning_rate': '8.883e-07', 'epoch': '2.857'}
+{'eval_loss': '2.139', 'eval_accuracy': '0.2921', 'eval_f1': '0.152', 'eval_balanced_accuracy': '0.1946', 'eval_macro_f1': '0.152', 'eval_atc': '0.9365', 'eval_normalized_atc': '0.09365', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.07376', 'eval_target_fnr': '0.995', 'eval_selection_score': '3.642', 'eval_selection_accuracy_value': '0.1946', 'eval_nll': '2.082', 'eval_brier': '0.8522', 'eval_ece': '0.1305', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '10.57', 'eval_samples_per_second': '111.7', 'eval_steps_per_second': '14', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001/checkpoint-168/preprocessor_config.json
+{'loss': '17.44', 'grad_norm': '38.79', 'learning_rate': '9.442e-07', 'epoch': '3.036'}
+{'loss': '17.25', 'grad_norm': '36.66', 'learning_rate': '1e-06', 'epoch': '3.214'}
+{'loss': '16.97', 'grad_norm': '34.53', 'learning_rate': '1.056e-06', 'epoch': '3.393'}
+{'loss': '16.32', 'grad_norm': '35.65', 'learning_rate': '1.08e-06', 'epoch': '3.571'}
+{'loss': '16.43', 'grad_norm': '38.29', 'learning_rate': '1.073e-06', 'epoch': '3.75'}
+{'loss': '15.99', 'grad_norm': '38.97', 'learning_rate': '1.066e-06', 'epoch': '3.929'}
+{'eval_loss': '1.949', 'eval_accuracy': '0.3895', 'eval_f1': '0.245', 'eval_balanced_accuracy': '0.2596', 'eval_macro_f1': '0.245', 'eval_atc': '0.8747', 'eval_normalized_atc': '0.08747', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.1815', 'eval_target_fnr': '0.8141', 'eval_selection_score': '3.568', 'eval_selection_accuracy_value': '0.2596', 'eval_nll': '1.883', 'eval_brier': '0.8012', 'eval_ece': '0.1923', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '10.94', 'eval_samples_per_second': '107.9', 'eval_steps_per_second': '13.52', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001/checkpoint-224/preprocessor_config.json
+{'loss': '15.7', 'grad_norm': '56.13', 'learning_rate': '1.058e-06', 'epoch': '4.107'}
+{'loss': '15.58', 'grad_norm': '103.2', 'learning_rate': '1.051e-06', 'epoch': '4.286'}
+{'loss': '15.03', 'grad_norm': '38.19', 'learning_rate': '1.044e-06', 'epoch': '4.464'}
+{'loss': '15.26', 'grad_norm': '41.44', 'learning_rate': '1.036e-06', 'epoch': '4.643'}
+{'loss': '14.91', 'grad_norm': '43.68', 'learning_rate': '1.029e-06', 'epoch': '4.821'}
+{'loss': '15', 'grad_norm': '60.11', 'learning_rate': '1.022e-06', 'epoch': '5'}
+{'eval_loss': '1.787', 'eval_accuracy': '0.5436', 'eval_f1': '0.3346', 'eval_balanced_accuracy': '0.3678', 'eval_macro_f1': '0.3346', 'eval_atc': '0.7841', 'eval_normalized_atc': '0.07841', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.2692', 'eval_target_fnr': '0.6633', 'eval_selection_score': '3.464', 'eval_selection_accuracy_value': '0.3678', 'eval_nll': '1.708', 'eval_brier': '0.7463', 'eval_ece': '0.3102', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '10.74', 'eval_samples_per_second': '109.9', 'eval_steps_per_second': '13.78', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001/checkpoint-280/preprocessor_config.json
+{'loss': '14.52', 'grad_norm': '62.12', 'learning_rate': '1.015e-06', 'epoch': '5.179'}
+{'loss': '14.3', 'grad_norm': '45.5', 'learning_rate': '1.007e-06', 'epoch': '5.357'}
+{'loss': '14.41', 'grad_norm': '39.88', 'learning_rate': '1e-06', 'epoch': '5.536'}
+{'loss': '13.91', 'grad_norm': '59.84', 'learning_rate': '9.927e-07', 'epoch': '5.714'}
+{'loss': '13.93', 'grad_norm': '42.97', 'learning_rate': '9.854e-07', 'epoch': '5.893'}
+{'eval_loss': '1.642', 'eval_accuracy': '0.619', 'eval_f1': '0.3787', 'eval_balanced_accuracy': '0.4218', 'eval_macro_f1': '0.3787', 'eval_atc': '0.7578', 'eval_normalized_atc': '0.07578', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.3369', 'eval_target_fnr': '0.5075', 'eval_selection_score': '3.423', 'eval_selection_accuracy_value': '0.4218', 'eval_nll': '1.554', 'eval_brier': '0.691', 'eval_ece': '0.349', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '10.51', 'eval_samples_per_second': '112.3', 'eval_steps_per_second': '14.08', 'epoch': '6'}
+CustomImageProcessor configuration saved to checkpoints/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001/checkpoint-336/preprocessor_config.json
+{'train_runtime': '249.6', 'train_samples_per_second': '430', 'train_steps_per_second': '6.73', 'train_loss': '16.79', 'epoch': '6'}
+***** train metrics *****
+  epoch                    =        6.0
+  total_flos               =        0GF
+  train_loss               =    16.7894
+  train_runtime            = 0:04:09.64
+  train_samples_per_second =    429.979
+  train_steps_per_second   =       6.73
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_swin_small_patch4_window7_224_ms_in22k_ft_in1k_test/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001_05-01_17-55
+Saving run configuration...
+Run configuration saved to: results/pmi10_swin_small_patch4_window7_224_ms_in22k_ft_in1k_test/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001_05-01_17-55/run_configuration_20260501_175557.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_swin_small_patch4_window7_224_ms_in22k_ft_in1k_test/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001_05-01_17-55/metrics_20260501_175619_nicme_hybrid.json and results/pmi10_swin_small_patch4_window7_224_ms_in22k_ft_in1k_test/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001_05-01_17-55/metrics_20260501_175619_nicme_hybrid.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_swin_small_patch4_window7_224_ms_in22k_ft_in1k_test/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001_05-01_17-55
+Overall Accuracy: 0.1189
+Balanced Accuracy: 0.1175
+Overall F1 Score: 0.0578
+Kappa: 0.0073
+AUC: 0.5729
+Expected Cost: 0.8887
+Loss Function Used: nicme_hybrid
+Total Test Samples: 1186
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_swin_small_patch4_window7_224_ms_in22k_ft_in1k_test/hpo-nicme_swin_small_patch4_window7_224_ms_in22k_ft_in1k_nicme_hybrid_s42_trial0001_05-01_17-55
+============================================================

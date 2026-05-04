@@ -1,0 +1,70 @@
+[2026-05-01T12:21:06-07:00] Focused PMI-10 no-calibration long GPU chain launched
+[2026-05-01T12:21:06-07:00] Repo: /mnt/storage/github/NICME
+[2026-05-01T12:21:06-07:00] Results: /mnt/storage/github/NICME/results/pmi10_no_cal_20260501
+[2026-05-01T12:21:06-07:00] CUDA_VISIBLE_DEVICES=0
+Fri May  1 12:21:06 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+[2026-05-01T12:21:19-07:00] Focused PMI-10 no-calibration long GPU chain launched
+[2026-05-01T12:21:19-07:00] Repo: /mnt/storage/github/NICME
+[2026-05-01T12:21:19-07:00] Results: /mnt/storage/github/NICME/results/pmi10_no_cal_20260501
+[2026-05-01T12:21:19-07:00] CUDA_VISIBLE_DEVICES=0
++ log 'Focused PMI-10 no-calibration long GPU chain launched'
+++ date --iso-8601=seconds
++ printf '[%s] %s\n' 2026-05-01T12:21:46-07:00 'Focused PMI-10 no-calibration long GPU chain launched'
+[2026-05-01T12:21:46-07:00] Focused PMI-10 no-calibration long GPU chain launched
++ log 'Repo: /mnt/storage/github/NICME'
+++ date --iso-8601=seconds
++ printf '[%s] %s\n' 2026-05-01T12:21:46-07:00 'Repo: /mnt/storage/github/NICME'
+[2026-05-01T12:21:46-07:00] Repo: /mnt/storage/github/NICME
++ log 'Results: /mnt/storage/github/NICME/results/pmi10_no_cal_20260501'
+++ date --iso-8601=seconds
++ printf '[%s] %s\n' 2026-05-01T12:21:46-07:00 'Results: /mnt/storage/github/NICME/results/pmi10_no_cal_20260501'
+[2026-05-01T12:21:46-07:00] Results: /mnt/storage/github/NICME/results/pmi10_no_cal_20260501
++ log CUDA_VISIBLE_DEVICES=0
+++ date --iso-8601=seconds
++ printf '[%s] %s\n' 2026-05-01T12:21:46-07:00 CUDA_VISIBLE_DEVICES=0
+[2026-05-01T12:21:46-07:00] CUDA_VISIBLE_DEVICES=0
++ nvidia-smi
+Fri May  1 12:21:46 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5090        Off |   00000000:01:00.0 Off |                  N/A |
+|  0%   33C    P8              2W /  575W |     107MiB /  32607MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2237      G   /usr/lib/xorg/Xorg                       65MiB |
+|    0   N/A  N/A            2568      G   /usr/bin/gnome-shell                     11MiB |
++-----------------------------------------------------------------------------------------+
++ run_step smoke micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase smoke --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_20260501 --seed 42 --per-run-timeout-minutes 240 --execute
++ local phase=smoke
++ shift
++ log 'START smoke: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase smoke --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_20260501 --seed 42 --per-run-timeout-minutes 240 --execute'
+++ date --iso-8601=seconds
++ printf '[%s] %s\n' 2026-05-01T12:21:46-07:00 'START smoke: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase smoke --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_20260501 --seed 42 --per-run-timeout-minutes 240 --execute'
+[2026-05-01T12:21:46-07:00] START smoke: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase smoke --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_20260501 --seed 42 --per-run-timeout-minutes 240 --execute
++ record_status smoke started
++ local phase=smoke
++ local status=started
++ python - /mnt/storage/github/NICME/results/pmi10_no_cal_20260501/chain/status.jsonl smoke started
+results/pmi10_no_cal_20260501/launch_long_gpu_jobs.sh: line 26: python: command not found
+[2026-05-01T12:22:06-07:00] Focused PMI-10 no-calibration long GPU chain launched
+[2026-05-01T12:22:06-07:00] Repo: /mnt/storage/github/NICME
+[2026-05-01T12:22:06-07:00] Results: /mnt/storage/github/NICME/results/pmi10_no_cal_20260501
+[2026-05-01T12:22:06-07:00] CUDA_VISIBLE_DEVICES=0

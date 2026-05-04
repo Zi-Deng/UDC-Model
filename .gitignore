@@ -5,12 +5,14 @@ checkpoints/
 weights/
 playground/
 releases
+archives/
 
 # Local assistant/editor files.
 CLAUDE.md
 .claude/
 
 # Tool caches.
+.cache/
 .ruff_cache/
 .pytest_cache/
 

@@ -42,12 +42,12 @@ Access to model facebook/dinov3-vits16-pretrain-lvd1689m is restricted. You must
 The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
-  File "/home/zi/Work/github/UDC-Model/scripts/train.py", line 325, in <module>
+  File "/mnt/storage/github/NICME/scripts/train.py", line 325, in <module>
     main(args)
-  File "/home/zi/Work/github/UDC-Model/scripts/train.py", line 194, in main
+  File "/mnt/storage/github/NICME/scripts/train.py", line 194, in main
     model = build_model(script_args, class_names=class_names)
             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/zi/Work/github/UDC-Model/nicme/modeling.py", line 107, in build_model
+  File "/mnt/storage/github/NICME/nicme/modeling.py", line 107, in build_model
     backbone = AutoModel.from_pretrained(script_args.model)
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 317, in from_pretrained

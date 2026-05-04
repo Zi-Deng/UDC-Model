@@ -1,0 +1,592 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{titlesec}
+
+\definecolor{nicmeBlue}{HTML}{1F4E79}
+\definecolor{nicmeTeal}{HTML}{1B7F79}
+\definecolor{nicmeGold}{HTML}{B7791F}
+\definecolor{nicmeLight}{HTML}{F4F7FA}
+\definecolor{nicmeLine}{HTML}{D7DEE8}
+\definecolor{nicmeText}{HTML}{1F2933}
+\definecolor{nicmeWarn}{HTML}{7A4F01}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=nicmeBlue,
+  urlcolor=nicmeTeal,
+  citecolor=nicmeBlue,
+  pdftitle={Why NICME V3 Can Outperform CSADA on PMI-10},
+  pdfauthor={NICME Repository Notes},
+  pdfsubject={Cost-sensitive logit adjustment, expected-cost regularization, and CSADA},
+  pdfkeywords={NICME, CSADA, cost-sensitive learning, adversarial data augmentation, logit adjustment, PMI}
+}
+
+\titleformat{\section}
+  {\large\bfseries\color{nicmeBlue}}
+  {\thesection}{0.7em}{}
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{nicmeTeal}}
+  {\thesubsection}{0.7em}{}
+\setlist[itemize]{leftmargin=1.35em, itemsep=0.18em}
+\setlist[enumerate]{leftmargin=1.45em, itemsep=0.18em}
+\emergencystretch=3em
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\pathref}[1]{\texttt{\small #1}}
+\newcommand{\softmax}{\operatorname{softmax}}
+\newcommand{\argmax}{\operatorname*{arg\,max}}
+\newcommand{\argmin}{\operatorname*{arg\,min}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\I}{\mathbf{1}}
+\newcommand{\keybox}[1]{%
+  \vspace{0.35em}
+  \noindent\fcolorbox{nicmeLine}{nicmeLight}{%
+    \begin{minipage}{0.965\linewidth}
+      #1
+    \end{minipage}
+  }
+  \vspace{0.35em}
+}
+\newcommand{\warnbox}[1]{%
+  \vspace{0.35em}
+  \noindent\fcolorbox{nicmeGold}{white}{%
+    \begin{minipage}{0.965\linewidth}
+      \color{nicmeWarn}#1
+    \end{minipage}
+  }
+  \vspace{0.35em}
+}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{plain}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\begin{document}
+
+\begin{center}
+  {\huge\bfseries\color{nicmeBlue} Why NICME V3 Can Outperform CSADA}\\[0.25em]
+  {\Large A Cost-Sensitive Margin And Expected-Cost View}\\[0.6em]
+  {\normalsize Repository note for \pathref{/mnt/storage/github/NICME}}\\
+  {\normalsize Current as of May 2026}
+\end{center}
+
+\vspace{0.55em}
+
+\keybox{
+\textbf{Thesis.}
+For the completed PMI-10 balanced no-calibration experiment, NICME V3 can plausibly outperform CSADA on the clean-test, recall-first, cost-sensitive tradeoff because its loss directly modifies the clean logits in two aligned ways: it imposes pairwise raw-logit margins proportional to the expert cost matrix, and it directly penalizes clean softmax probability mass on costly wrong classes.
+CSADA is powerful, and was designed exactly to make overparameterized deep networks cost-sensitive, but its signal is mediated through local targeted perturbations and adversarial robust optimization.
+That mediation can be less aligned with clean expected cost and can trade away clean balanced accuracy.
+}
+
+\warnbox{
+\textbf{Scope of the claim.}
+This is not a universal theorem that NICME V3 dominates CSADA.
+It is a theoretical and empirical explanation for the observed repository result:
+NICME V3 run 95 ties the previous CSADA result on target-min and target-macro recall, but has much lower normalized ATC and much higher balanced accuracy.
+The strict validation-selected HPO row remains run 89, while run 95 is the best observed test row.
+}
+
+\section{Formal Problem Setup}
+
+Let $(X,Y)\sim P$ with labels $Y\in[K]=\{1,\ldots,K\}$.
+Let $\eta_y(x)=P(Y=y\mid X=x)$ be the conditional class probability and let
+$C\in\R_{\ge 0}^{K\times K}$ be a fixed cost matrix with convention
+$C_{y,k}=C[\text{true}=y,\text{pred}=k]$.
+In this repository, correct predictions have cost $C_{y,y}=0$; ordinary noncritical off-diagonal PMI-10 errors have cost $1$; and four directed critical pairs have costs $8$ or $10$.
+
+\begin{definition}[Cost risk and ATC]
+For a classifier $h:\mathcal{X}\to[K]$, the population cost risk is
+\begin{equation}
+  R_C(h)=\E\left[C_{Y,h(X)}\right].
+\end{equation}
+For a test set $\{(x_i,y_i)\}_{i=1}^{n}$, the average test cost is
+\begin{equation}
+  \widehat{\operatorname{ATC}}(h)=
+  \frac{1}{n}\sum_{i=1}^n C_{y_i,h(x_i)}.
+\end{equation}
+The normalized ATC used in the repository is
+\begin{equation}
+  \widehat{\operatorname{nATC}}(h)=
+  \frac{\widehat{\operatorname{ATC}}(h)}
+       {\max_{a\ne b} C_{a,b}},
+\end{equation}
+whenever the maximum off-diagonal cost is positive.
+\end{definition}
+
+\begin{definition}[Target-min recall]
+Let $\mathcal{T}\subseteq[K]$ be the cared set of target classes.
+The target-min recall is
+\begin{equation}
+  \operatorname{Recall}_{\min}(h;\mathcal{T})
+  =
+  \min_{y\in\mathcal{T}}
+  P(h(X)=y\mid Y=y).
+\end{equation}
+PMI-10 uses the four cared NDC classes from the fixed profile.
+\end{definition}
+
+\begin{proposition}[Bayes rule for expected cost]
+For any $x$, a cost-minimizing classifier satisfies
+\begin{equation}
+  h_C^\star(x)\in
+  \argmin_{j\in[K]}
+  \sum_{y=1}^{K}\eta_y(x)C_{y,j}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Condition on $X=x$.
+If the classifier predicts class $j$, its conditional expected cost is
+$\E[C_{Y,j}\mid X=x]=\sum_y P(Y=y\mid X=x)C_{y,j}$.
+The global risk decomposes pointwise as
+$R_C(h)=\E_X[\E[C_{Y,h(X)}\mid X]]$, so minimizing the inner expression for each
+$x$ gives the stated rule.
+\end{proof}
+
+\begin{remark}[The argmax-training constraint]
+The HPO rows discussed here use argmax inference rather than calibrated cost-min inference.
+Thus, to reduce clean-test ATC, the cost matrix must change the learned score geometry itself:
+\begin{equation}
+  h_f(x)=\argmax_{k} f_k(x).
+\end{equation}
+This is why a loss-level explanation matters.
+The relevant comparison is not ``which method has the Bayes cost-min decision rule,'' but which training procedure makes the argmax scores safer under the fixed PMI cost matrix.
+\end{remark}
+
+\section{NICME V3 Formulation}
+
+For one example with true label $y$ and raw logits $z=f_\theta(x)\in\R^K$, the repository implementation
+\pathref{utils/loss\_functions.py} applies a positive pairwise cost offset to each non-target logit:
+\begin{equation}
+  z'_k
+  =
+  z_k+\alpha\,\I[k\ne y]\log\left(\max(C_{y,k},1)\right),
+  \label{eq:v3-adjusted-logits}
+\end{equation}
+where $\alpha=\code{nicme\_logit\_cost\_scale}$.
+The V3 pairwise CE component is
+\begin{align}
+  L_{\mathrm{V3CE}}(z,y)
+  &=
+  -\log
+  \frac{\exp(z'_y)}{\sum_{j=1}^K \exp(z'_j)}
+  \nonumber\\
+  &=
+  \log\left(
+    e^{z_y}
+    +
+    \sum_{k\ne y} e^{z_k} C_{y,k}^{\alpha}
+  \right)-z_y,
+  \label{eq:v3-ce}
+\end{align}
+where ordinary noncritical costs $C_{y,k}=1$ add no offset.
+
+The hybrid loss adds a normalized expected-cost penalty on the original logits.
+Let $p=\softmax(z)$ and $\tilde C=C/(C_{\max}+\epsilon)$, with
+$C_{\max}=\max_{a,b}C_{a,b}$.
+Then
+\begin{equation}
+  L_{\mathrm{NICME}}(z,y)
+  =
+  L_{\mathrm{V3CE}}(z,y)
+  +
+  \lambda
+  \sum_{k=1}^{K}\tilde C_{y,k}p_k,
+  \label{eq:nicme-loss}
+\end{equation}
+up to the repository's optional warmup schedule for $\lambda=\code{cs\_lambda}$.
+
+\subsection{Pairwise Cost Margins}
+
+\begin{proposition}[Pairwise-margin theorem]
+Fix an example with label $y$ and a wrong class $k\ne y$ with $C_{y,k}\ge 1$.
+For any tolerance $\rho>0$, the odds contribution of class $k$ relative to the target in the NICME V3 softmax satisfies
+\begin{equation}
+  \frac{\exp(z'_k)}{\exp(z'_y)}\le \rho
+  \quad\Longleftrightarrow\quad
+  z_y-z_k \ge \alpha\log C_{y,k}+\log(1/\rho).
+  \label{eq:margin-equivalence}
+\end{equation}
+Thus a costly wrong class requires an extra raw-logit margin
+$\alpha\log C_{y,k}$.
+\end{proposition}
+
+\begin{proof}
+Since $z'_y=z_y$ and $z'_k=z_k+\alpha\log C_{y,k}$ for $k\ne y$,
+\begin{equation}
+  \frac{\exp(z'_k)}{\exp(z'_y)}
+  =
+  \exp(z_k-z_y)C_{y,k}^{\alpha}.
+\end{equation}
+The inequality $\exp(z_k-z_y)C_{y,k}^{\alpha}\le\rho$ is equivalent, after
+taking logarithms, to
+$z_y-z_k\ge \alpha\log C_{y,k}+\log(1/\rho)$.
+\end{proof}
+
+\begin{remark}[Why this remains active after correct classification]
+The theorem does not condition on whether $\argmax_j z_j=y$.
+The costly class is offset in the loss for every training example with label $y$.
+Therefore NICME V3 can keep increasing safety margins even after ordinary CE would already view the example as easy.
+This directly addresses a terminal-phase-training concern raised by the CSADA paper: once overparameterized networks nearly interpolate the training set, losses that only react to observed mistakes can lose cost-sensitive signal \cite{chen2025csada}.
+\end{remark}
+
+\subsection{Expected-Cost Gradient}
+
+\begin{proposition}[Expected-cost-gradient theorem]
+Let
+\begin{equation}
+  R_y(z)=\sum_{k=1}^{K}\tilde C_{y,k}p_k,
+  \qquad p=\softmax(z).
+\end{equation}
+Then for each logit coordinate $\ell$,
+\begin{equation}
+  \frac{\partial R_y(z)}{\partial z_\ell}
+  =
+  p_\ell
+  \left(
+    \tilde C_{y,\ell}
+    -
+    \sum_{k=1}^{K}\tilde C_{y,k}p_k
+  \right).
+  \label{eq:expected-cost-gradient}
+\end{equation}
+Consequently, the regularizer directly pushes down logits for classes whose cost is above the current expected cost under $p$.
+\end{proposition}
+
+\begin{proof}
+The softmax derivative is
+\begin{equation}
+  \frac{\partial p_k}{\partial z_\ell}
+  =
+  p_k(\I[k=\ell]-p_\ell).
+\end{equation}
+Therefore
+\begin{align}
+  \frac{\partial R_y}{\partial z_\ell}
+  &=
+  \sum_k \tilde C_{y,k}
+  p_k(\I[k=\ell]-p_\ell)
+  \nonumber\\
+  &=
+  \tilde C_{y,\ell}p_\ell
+  -
+  p_\ell\sum_k \tilde C_{y,k}p_k
+  \nonumber\\
+  &=
+  p_\ell
+  \left(
+    \tilde C_{y,\ell}
+    -
+    \sum_k \tilde C_{y,k}p_k
+  \right).
+\end{align}
+Under gradient descent, a positive derivative decreases $z_\ell$.
+Thus if class $\ell$ has above-current-mean cost for true label $y$, the expected-cost term applies direct downward pressure to that logit.
+\end{proof}
+
+\begin{lemma}[Direct descent on clean expected cost]
+For the regularizer alone, the infinitesimal update
+$z(t)=z-t\nabla R_y(z)$ satisfies
+\begin{equation}
+  \left.\frac{d}{dt}R_y(z(t))\right|_{t=0}
+  =
+  -\|\nabla R_y(z)\|_2^2\le 0.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Apply the chain rule:
+$\frac{d}{dt}R_y(z-t\nabla R_y(z))|_{t=0}
+=\nabla R_y(z)^\top(-\nabla R_y(z))$.
+\end{proof}
+
+\keybox{
+\textbf{Interpretation.}
+NICME V3 has two clean-data mechanisms.
+The $\alpha$ term creates pairwise margins in raw logit space.
+The $\lambda$ term directly reduces clean softmax mass on high-cost wrong classes.
+Neither mechanism requires a generated adversarial example to become active.
+}
+
+\section{CSADA Formulation And Local-Limit Analysis}
+
+CSADA was proposed specifically because ordinary cost-sensitive reweighting can be ineffective for overparameterized DNNs that interpolate the training set \cite{chen2025csada}.
+The published method uses targeted adversarial examples to push decision boundaries in cost-aware directions on natural examples.
+The repository implementation follows this spirit with a targeted PGD-style inner loop.
+
+For each label $y$, define a selected critical target
+\begin{equation}
+  t(y)\in\argmax_{k} C_{y,k},
+\end{equation}
+and train on selected rows where $C_{y,t(y)}>1$.
+Given an input $x$, the inner loop approximately solves a targeted attack:
+\begin{equation}
+  \delta^\star
+  \approx
+  \argmin_{\|\delta\|_\infty\le \epsilon}
+  \operatorname{CE}(f_\theta(x+\delta),t(y)),
+  \label{eq:csada-inner}
+\end{equation}
+which increases the model's score for the costly wrong class $t(y)$.
+The outer loss is then
+\begin{equation}
+  L_{\mathrm{CSADA}}
+  =
+  \operatorname{CE}(f_\theta(x),y)
+  +
+  \lambda_{\mathrm{adv}}
+  w_y
+  \operatorname{CE}(f_\theta(x+\delta^\star),y),
+  \label{eq:csada-outer}
+\end{equation}
+where $w_y$ is a normalized cost-derived weight.
+
+\subsection{What CSADA Optimizes Locally}
+
+Let
+\begin{equation}
+  m_t(x)=f_y(x)-f_t(x)
+\end{equation}
+be the clean raw margin between the true class and the targeted costly class.
+Under a first-order expansion,
+\begin{equation}
+  f_t(x+\delta)-f_y(x+\delta)
+  \approx
+  f_t(x)-f_y(x)
+  +
+  \nabla_x(f_t-f_y)(x)^\top \delta.
+\end{equation}
+The best possible first-order increase of the wrong-minus-true margin inside an
+$\ell_\infty$ ball is bounded by duality:
+\begin{equation}
+  \max_{\|\delta\|_\infty\le \epsilon}
+  \nabla_x(f_t-f_y)(x)^\top\delta
+  =
+  \epsilon\|\nabla_x(f_t-f_y)(x)\|_1.
+  \label{eq:dual-bound}
+\end{equation}
+
+\begin{proposition}[Local-CSADA limitation]
+In the first-order regime, a targeted CSADA example can only expose a costly boundary for target
+$t$ when the clean margin is small enough relative to local input sensitivity:
+\begin{equation}
+  m_t(x)
+  \lesssim
+  \epsilon\|\nabla_x(f_t-f_y)(x)\|_1.
+  \label{eq:reachability}
+\end{equation}
+If the costly class has high clean softmax mass but the boundary is not reachable by the selected
+perturbation path, or if another costly class is not selected as $t(y)$, the CSADA inner loop need not
+produce a direct clean-logit penalty for that class.
+\end{proposition}
+
+\begin{proof}
+The targeted inner loop tries to increase the relative score of $t$ against $y$.
+Under the linear approximation, crossing the target-vs-true boundary requires
+$f_t(x+\delta)-f_y(x+\delta)\ge 0$.
+Using \eqref{eq:dual-bound}, the largest first-order increase is
+$\epsilon\|\nabla_x(f_t-f_y)(x)\|_1$.
+If this quantity is smaller than the clean margin $m_t(x)=f_y(x)-f_t(x)$, no perturbation in the local
+linear $\ell_\infty$ model reaches that boundary.
+The outer adversarial CE is then driven by a perturbed point whose effect on the clean logit vector is indirect.
+The formulation also targets selected costly classes, not the entire row $C_{y,\cdot}$.
+\end{proof}
+
+\begin{remark}[Why this does not refute CSADA]
+The proposition is a limitation, not a failure proof.
+CSADA can be highly effective when the costly boundary is locally reachable and when boundary-supporting adversarial samples are the missing signal.
+Indeed, Chen et al. report strong PMI improvements for CSADA over the baseline ResNet-34 pipeline \cite{chen2025csada}.
+The point is narrower: CSADA's cost signal is mediated by local perturbation geometry, whereas NICME V3's cost signal is explicit in clean logit space.
+\end{remark}
+
+\subsection{Robust Optimization Tradeoff}
+
+Adversarial training is usually formalized as robust optimization over an uncertainty set \cite{madry2018towards}.
+The broader adversarial-robustness literature shows that robust learning can require more data \cite{schmidt2018robust}, can trade off with natural accuracy \cite{zhang2019trades}, and may suppress non-robust but predictive features \cite{ilyas2019features}.
+Those facts do not imply that CSADA must reduce clean accuracy.
+They do imply that, when the evaluation objective is clean-test ATC and balanced accuracy rather than adversarial robustness itself, adversarial augmentation can spend capacity on a surrogate robustness problem that is only indirectly aligned with the final metric.
+
+\section{Why NICME V3 Can Win On PMI-10}
+
+The observed repository result is not mysterious under the above formulations.
+PMI-10 is a clean-test, multiclass, pairwise-asymmetric cost problem.
+The HPO-selected family uses argmax inference, so cost sensitivity must be encoded in the logits.
+NICME V3 is exactly a cost-conditioned logit-geometry method.
+
+\begin{enumerate}
+  \item \textbf{It separates pairwise costs from class imbalance.}
+  Menon et al. show that logit adjustment can be statistically grounded as a margin mechanism for long-tail learning \cite{menon2021logit}.
+  NICME V3 changes the source of the margin from class priors to the pairwise cost matrix.
+  That is better matched to PMI-10, where the important structure is not just ``rare class'' versus ``common class,'' but directed confusions such as true NDC $50111$-$0434$ predicted as $00591$-$0461$.
+  \item \textbf{It keeps cost pressure active after correctness.}
+  Ordinary CE becomes small once $z_y$ dominates.
+  CSADA tries to recover signal by constructing boundary samples.
+  NICME V3 instead makes the clean loss demand a larger margin against costly wrong classes by construction.
+  \item \textbf{It directly optimizes a differentiable proxy for clean ATC.}
+  The expected-cost regularizer is a smooth surrogate for $\sum_k C_{y,k}\I[h(x)=k]$.
+  Modern cost-sensitive work continues to emphasize that expected misclassification cost, rather than error rate alone, is the measure of interest in many applications \cite{komisarenko2025cost}.
+  \item \textbf{It avoids some adversarial-training clean-accuracy costs.}
+  CSADA can move boundaries in useful cost-aware directions, but its perturbation mechanism can also change the learned feature preference.
+  In this run, the empirical fingerprint is consistent with that risk: CSADA attains excellent cared-class recall but much lower balanced accuracy than NICME V3.
+\end{enumerate}
+
+\section{Empirical Comparison}
+
+The current repository comparison defines ``SOTA'' as the completed internal PMI-10 baseline suite, not a global external benchmark.
+The strongest previous recall-first baseline row was CSADA in the LR $5\mathrm{e}{-5}$ profile.
+The best observed NICME V3 HPO test row is run 95 with $\alpha=0.5$ and $\lambda=0.07$.
+
+\begin{center}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.32\linewidth}rrr}
+\toprule
+Metric & CSADA baseline & NICME V3 run 95 & Direction \\
+\midrule
+Target-min recall & 0.96875 & 0.96875 & tie \\
+Target-macro recall & 0.984375 & 0.984375 & tie \\
+Normalized ATC & 0.015625 & 0.0046875 & NICME lower by 70.0\% \\
+ATC & 0.15625 & 0.046875 & NICME lower by 70.0\% \\
+Balanced accuracy & 0.871875 & 0.98125 & NICME higher \\
+Macro F1 & 0.851092 & 0.981386 & NICME higher \\
+Critical-pair errors & 1 & 1 & tie \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent Repository sources:
+\begin{itemize}
+  \item \pathref{results/pmi10\_nicme\_v3\_pretty\_alpha\_lambda\_lr5e5\_20260503/post\_hpo\_sota\_comparison.md}
+  \item \pathref{results/pmi10\_nicme\_v3\_pretty\_alpha\_lambda\_lr5e5\_20260503/grid\_run\_ledger.csv}
+  \item \pathref{results/pmi10\_sota\_pretty\_balanced\_triple\_lr\_20260503/comparison\_summary.md}
+\end{itemize}
+
+\keybox{
+\textbf{Best supported empirical claim.}
+NICME V3 run 95 is the best observed recall-first cost-sensitive tradeoff among the completed repository baselines and completed HPO rows:
+it matches CSADA's cared-class recall while substantially reducing normalized ATC and improving balanced accuracy.
+}
+
+\section{Caveats And Falsification Tests}
+
+\subsection{Caveats}
+
+\begin{itemize}
+  \item \textbf{Run 95 is test-best, not validation-selected.}
+  The validation-selected HPO row is run 89.
+  Run 95 is validation rank 2 and is the best observed test row.
+  A final paper claim should use a prospective selection rule or fresh confirmation.
+  \item \textbf{Run 69 ties the main cost-sensitive metrics.}
+  Run 95 beats run 69 only by a very small macro-F1 margin.
+  The evidence supports a stable high-performing region near moderate $\alpha$ and $\lambda$, not a magical single point.
+  \item \textbf{NICME does not minimize every metric.}
+  If the sole objective is minimum normalized ATC or zero critical errors, \code{ce\_cost\_min\_inference\_pretty} at LR $1\mathrm{e}{-4}$ remains better in the current table, with normalized ATC $0.0025$ and zero critical errors, but target-min recall $0.90625$.
+  \item \textbf{CSADA has a legitimate theoretical niche.}
+  CSADA was designed for overparameterized models whose training examples are already fit too well for ordinary cost weighting to matter.
+  When local boundary augmentation is the missing signal, CSADA may outperform a clean-logit method.
+\end{itemize}
+
+\subsection{Falsification Tests}
+
+The theory above would be weakened if any of the following occurred in a prospective experiment:
+
+\begin{enumerate}
+  \item A multi-seed nested-validation run selects CSADA or AP-CSADA with equal recall and lower clean normalized ATC.
+  \item NICME V3's advantage disappears when run 95 is not allowed to be selected after inspecting test metrics.
+  \item Ablating the expected-cost regularizer leaves performance unchanged, contradicting the probability-mass explanation.
+  \item Ablating the pairwise logit margin leaves performance unchanged, contradicting the margin explanation.
+  \item Measuring margins shows no larger $z_y-z_k$ gaps on high-cost PMI pairs for NICME V3 than for CSADA.
+\end{enumerate}
+
+\section{Conclusion}
+
+NICME V3 and CSADA solve related but not identical optimization problems.
+CSADA uses adversarial data augmentation to create boundary-supporting samples for critical pairs, a sensible response to overparameterized interpolation.
+NICME V3 instead changes the clean training objective so that high-cost wrong classes require larger raw margins and receive direct probability-mass penalties.
+For a clean-test, argmax-inference, recall-first PMI-10 evaluation, that alignment gives a principled reason for the observed result:
+NICME V3 can preserve CSADA's cared-class recall while reducing expected cost and avoiding the clean balanced-accuracy degradation seen in the CSADA row.
+
+\begin{thebibliography}{11}
+
+\bibitem{bartlett2006convexity}
+Peter L. Bartlett, Michael I. Jordan, and Jon D. McAuliffe.
+\newblock Convexity, classification, and risk bounds.
+\newblock \emph{Journal of the American Statistical Association}, 101(473):138--156, 2006.
+\newblock \url{https://doi.org/10.1198/016214505000000907}
+
+\bibitem{chen2025csada}
+Qiyuan Chen, Raed Al Kontar, Maher Nouiehed, X. Jessie Yang, and Corey Lester.
+\newblock Rethinking cost-sensitive classification in deep learning via adversarial data augmentation.
+\newblock \emph{INFORMS Journal on Data Science}, 4(1):1--19, 2025.
+\newblock \url{https://doi.org/10.1287/ijds.2022.0033}
+
+\bibitem{elkan2001foundations}
+Charles Elkan.
+\newblock The foundations of cost-sensitive learning.
+\newblock In \emph{Proceedings of the Seventeenth International Joint Conference on Artificial Intelligence}, 2001.
+\newblock \url{https://cseweb.ucsd.edu/~elkan/rescale.pdf}
+
+\bibitem{guo2017calibration}
+Chuan Guo, Geoff Pleiss, Yu Sun, and Kilian Q. Weinberger.
+\newblock On calibration of modern neural networks.
+\newblock In \emph{Proceedings of the 34th International Conference on Machine Learning}, 2017.
+\newblock \url{https://proceedings.mlr.press/v70/guo17a.html}
+
+\bibitem{ilyas2019features}
+Andrew Ilyas, Shibani Santurkar, Dimitris Tsipras, Logan Engstrom, Brandon Tran, and Aleksander Madry.
+\newblock Adversarial examples are not bugs, they are features.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2019.
+\newblock \url{https://papers.nips.cc/paper/8307-adversarial-examples-are-not-bugs-they-are-features}
+
+\bibitem{komisarenko2025cost}
+Viacheslav Komisarenko and Meelis Kull.
+\newblock Cost-sensitive classification with cost uncertainty: do we need surrogate losses?
+\newblock \emph{Machine Learning}, 114:132, 2025.
+\newblock \url{https://doi.org/10.1007/s10994-024-06634-8}
+
+\bibitem{madry2018towards}
+Aleksander Madry, Aleksandar Makelov, Ludwig Schmidt, Dimitris Tsipras, and Adrian Vladu.
+\newblock Towards deep learning models resistant to adversarial attacks.
+\newblock \emph{International Conference on Learning Representations}, 2018.
+\newblock \url{https://arxiv.org/abs/1706.06083}
+
+\bibitem{menon2021logit}
+Aditya Krishna Menon, Sadeep Jayasumana, Ankit Singh Rawat, Himanshu Jain, Andreas Veit, and Sanjiv Kumar.
+\newblock Long-tail learning via logit adjustment.
+\newblock \emph{International Conference on Learning Representations}, 2021.
+\newblock \url{https://openreview.net/forum?id=37nvvqkCo5}
+
+\bibitem{schmidt2018robust}
+Ludwig Schmidt, Shibani Santurkar, Dimitris Tsipras, Kunal Talwar, and Aleksander Madry.
+\newblock Adversarially robust generalization requires more data.
+\newblock In \emph{Advances in Neural Information Processing Systems}, 2018.
+\newblock \url{https://arxiv.org/abs/1804.11285}
+
+\bibitem{xin2025provably}
+Yuan Xin, Dingfan Chen, Michael Backes, and Xiao Zhang.
+\newblock Provably cost-sensitive adversarial defense via randomized smoothing.
+\newblock In \emph{Proceedings of the 42nd International Conference on Machine Learning}, 2025.
+\newblock \url{https://proceedings.mlr.press/v267/xin25a.html}
+
+\bibitem{zhang2019trades}
+Hongyang Zhang, Yaodong Yu, Jiantao Jiao, Eric Xing, Laurent El Ghaoui, and Michael Jordan.
+\newblock Theoretically principled trade-off between robustness and accuracy.
+\newblock In \emph{Proceedings of the 36th International Conference on Machine Learning}, 2019.
+\newblock \url{https://arxiv.org/abs/1901.08573}
+
+\end{thebibliography}
+
+\end{document}

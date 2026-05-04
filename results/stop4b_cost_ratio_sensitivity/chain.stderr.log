@@ -1,8 +1,8 @@
 Traceback (most recent call last):
-  File "/home/zi/Work/github/UDC-Model/scripts/run_stop4b_cost_ratio.py", line 191, in <module>
+  File "/mnt/storage/github/NICME/scripts/run_stop4b_cost_ratio.py", line 191, in <module>
     main()
-  File "/home/zi/Work/github/UDC-Model/scripts/run_stop4b_cost_ratio.py", line 187, in main
+  File "/mnt/storage/github/NICME/scripts/run_stop4b_cost_ratio.py", line 187, in main
     run_queue(config_paths, output_root, args.cleanup_checkpoints, args.time_budget_hours)
-  File "/home/zi/Work/github/UDC-Model/scripts/run_stop4b_cost_ratio.py", line 163, in run_queue
+  File "/mnt/storage/github/NICME/scripts/run_stop4b_cost_ratio.py", line 163, in run_queue
     raise RuntimeError(f"Stop 4B run failed: {cfg['output_dir']} (see {stderr_log})")
 RuntimeError: Stop 4B run failed: stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_ce_calibrated_cost_min_seed43 (see results/stop4b_cost_ratio_sensitivity/spider_convnext/logs/013_stop4b_cost_ratio_spider_convnext_spider_balanced_costr2_convnext_ce_calibrated_cost_min_seed43.stderr.log)

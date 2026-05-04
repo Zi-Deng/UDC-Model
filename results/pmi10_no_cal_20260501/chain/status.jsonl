@@ -1,0 +1,7 @@
+{"time":"2026-05-01T12:23:03-07:00","phase":"smoke","status":"started"}
+{"time":"2026-05-01T12:36:12-07:00","phase":"smoke","status":"completed"}
+{"time":"2026-05-01T12:36:12-07:00","phase":"screen","status":"started"}
+{"time":"2026-05-01T17:51:01-07:00","phase":"screen","status":"completed"}
+{"time":"2026-05-01T17:51:01-07:00","phase":"select","status":"started"}
+{"time":"2026-05-01T17:51:01-07:00","phase":"select","status":"completed"}
+{"time":"2026-05-01T17:51:01-07:00","phase":"hpo-nicme","status":"started"}

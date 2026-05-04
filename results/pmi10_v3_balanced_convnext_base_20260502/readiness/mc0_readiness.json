@@ -1,0 +1,200 @@
+{
+  "datasets": {
+    "pmi_pills_10_no_cal": {
+      "raw": {
+        "path": "data/raw/pmi",
+        "exists": true,
+        "archive_present": true,
+        "split_dirs_present": true,
+        "download_note": "Deep Blue direct CLI download may return Cloudflare 403; browser or Globus is expected."
+      },
+      "prepared": {
+        "balanced": {
+          "variant": "balanced",
+          "profile_json": "data/prepared/pmi_pills_10_no_cal/profile_balanced.json",
+          "profile_json_present": true,
+          "split_dir": "data/prepared/pmi_pills_10_no_cal/splits/balanced",
+          "required_split_names": [
+            "train",
+            "validation",
+            "test"
+          ],
+          "split_files_present": true,
+          "cost_matrix_sha256": "1160cbf20c4fac24dc7bb84cbbb229a16545259d585ae1ef1c066e0007082e08",
+          "missing_images": 0,
+          "patient_overlap": 0,
+          "ready": true,
+          "audit": {
+            "dataset_profile": "pmi_pills_10_no_cal",
+            "split_dir": "data/prepared/pmi_pills_10_no_cal/splits/balanced",
+            "exists": true,
+            "cost_matrix_convention": "C[true_label][predicted_label]",
+            "cost_matrix_sha256": "1160cbf20c4fac24dc7bb84cbbb229a16545259d585ae1ef1c066e0007082e08",
+            "num_classes": 10,
+            "class_names": [
+              "00378-0208",
+              "00378-3855",
+              "00591-0461",
+              "16729-0020",
+              "50111-0434",
+              "53489-0156",
+              "53746-0544",
+              "62037-0831",
+              "68382-0008",
+              "68382-0227"
+            ],
+            "cared_classes": [
+              "50111-0434",
+              "53489-0156",
+              "53746-0544",
+              "68382-0227"
+            ],
+            "critical_pairs": [
+              {
+                "true": "50111-0434",
+                "pred": "00591-0461",
+                "cost": 10.0
+              },
+              {
+                "true": "53489-0156",
+                "pred": "68382-0227",
+                "cost": 10.0
+              },
+              {
+                "true": "53746-0544",
+                "pred": "00378-0208",
+                "cost": 10.0
+              },
+              {
+                "true": "68382-0227",
+                "pred": "53489-0156",
+                "cost": 8.0
+              }
+            ],
+            "splits": {
+              "train": {
+                "exists": true,
+                "rows": 970,
+                "label_counts": {
+                  "0": 97,
+                  "1": 97,
+                  "2": 97,
+                  "3": 97,
+                  "4": 97,
+                  "5": 97,
+                  "6": 97,
+                  "7": 97,
+                  "8": 97,
+                  "9": 97
+                },
+                "label_name_counts": {
+                  "00378-0208": 97,
+                  "00378-3855": 97,
+                  "00591-0461": 97,
+                  "16729-0020": 97,
+                  "50111-0434": 97,
+                  "53489-0156": 97,
+                  "53746-0544": 97,
+                  "62037-0831": 97,
+                  "68382-0008": 97,
+                  "68382-0227": 97
+                },
+                "missing_images": 0,
+                "cared_class_prevalence": {
+                  "50111-0434": 0.1,
+                  "53489-0156": 0.1,
+                  "53746-0544": 0.1,
+                  "68382-0227": 0.1
+                },
+                "unique_patients": 970
+              },
+              "validation": {
+                "exists": true,
+                "rows": 310,
+                "label_counts": {
+                  "0": 31,
+                  "1": 31,
+                  "2": 31,
+                  "3": 31,
+                  "4": 31,
+                  "5": 31,
+                  "6": 31,
+                  "7": 31,
+                  "8": 31,
+                  "9": 31
+                },
+                "label_name_counts": {
+                  "00378-0208": 31,
+                  "00378-3855": 31,
+                  "00591-0461": 31,
+                  "16729-0020": 31,
+                  "50111-0434": 31,
+                  "53489-0156": 31,
+                  "53746-0544": 31,
+                  "62037-0831": 31,
+                  "68382-0008": 31,
+                  "68382-0227": 31
+                },
+                "missing_images": 0,
+                "cared_class_prevalence": {
+                  "50111-0434": 0.1,
+                  "53489-0156": 0.1,
+                  "53746-0544": 0.1,
+                  "68382-0227": 0.1
+                },
+                "unique_patients": 310
+              },
+              "calibration": {
+                "exists": false
+              },
+              "test": {
+                "exists": true,
+                "rows": 320,
+                "label_counts": {
+                  "0": 32,
+                  "1": 32,
+                  "2": 32,
+                  "3": 32,
+                  "4": 32,
+                  "5": 32,
+                  "6": 32,
+                  "7": 32,
+                  "8": 32,
+                  "9": 32
+                },
+                "label_name_counts": {
+                  "00378-0208": 32,
+                  "00378-3855": 32,
+                  "00591-0461": 32,
+                  "16729-0020": 32,
+                  "50111-0434": 32,
+                  "53489-0156": 32,
+                  "53746-0544": 32,
+                  "62037-0831": 32,
+                  "68382-0008": 32,
+                  "68382-0227": 32
+                },
+                "missing_images": 0,
+                "cared_class_prevalence": {
+                  "50111-0434": 0.1,
+                  "53489-0156": 0.1,
+                  "53746-0544": 0.1,
+                  "68382-0227": 0.1
+                },
+                "unique_patients": 320
+              }
+            },
+            "patient_overlap": {
+              "train__validation": 0,
+              "test__train": 0,
+              "test__validation": 0
+            },
+            "duplicate_image_paths": {}
+          }
+        }
+      },
+      "ready": true
+    }
+  },
+  "all_ready": true
+}

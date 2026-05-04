@@ -1,0 +1,75 @@
+
+[2026-05-02T18:11:14-07:00] START prepare-balanced-split
+[2026-05-02T18:11:14-07:00] CMD micromamba run -n ml python scripts/prepare_data.py --dataset pmi_pills_10_no_cal --input-dir data/raw/pmi --output-dir data/prepared/pmi_pills_10_no_cal --seed 42
+[2026-05-02T18:11:15-07:00] DONE prepare-balanced-split
+
+[2026-05-02T18:11:15-07:00] START readiness
+[2026-05-02T18:11:15-07:00] CMD micromamba run -n ml python scripts/check_multiclass_readiness.py --datasets pmi_pills_10_no_cal --variants balanced --raw-root data/raw --prepared-root data/prepared --output-dir /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_dual_lr_20260503/readiness
+Wrote readiness reports to /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_dual_lr_20260503/readiness/mc0_readiness.json and /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_dual_lr_20260503/readiness/mc0_readiness.md
+[2026-05-02T18:11:16-07:00] DONE readiness
+
+[2026-05-02T18:11:16-07:00] START unit-tests
+[2026-05-02T18:11:16-07:00] CMD micromamba run -n ml pytest -q tests/test_loss_functions.py tests/test_sota_baselines_runner.py tests/test_data_prep.py tests/test_multiclass_readiness.py
+....................................                                     [100%]
+36 passed in 3.17s
+[2026-05-02T18:11:20-07:00] DONE unit-tests
+
+[2026-05-02T18:11:20-07:00] START lr5e5-preflight
+[2026-05-02T18:11:20-07:00] CMD runner_cmd preflight lr5e5 /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr5e5_20260503
+SOTA PMI-10 preflight passed
+[2026-05-02T18:11:20-07:00] DONE lr5e5-preflight
+
+[2026-05-02T18:11:20-07:00] START lr1e4-preflight
+[2026-05-02T18:11:20-07:00] CMD runner_cmd preflight lr1e4 /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr1e4_20260503
+SOTA PMI-10 preflight passed
+[2026-05-02T18:11:20-07:00] DONE lr1e4-preflight
+
+[2026-05-02T18:11:20-07:00] START lr5e5-dry-run-plan
+[2026-05-02T18:11:20-07:00] CMD runner_cmd dry-run lr5e5 /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr5e5_20260503
+Wrote 11 dry-run configs under /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr5e5_20260503/dry-run
+[2026-05-02T18:11:20-07:00] DONE lr5e5-dry-run-plan
+
+[2026-05-02T18:11:20-07:00] START lr1e4-dry-run-plan
+[2026-05-02T18:11:20-07:00] CMD runner_cmd dry-run lr1e4 /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr1e4_20260503
+Wrote 11 dry-run configs under /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr1e4_20260503/dry-run
+[2026-05-02T18:11:20-07:00] DONE lr1e4-dry-run-plan
+
+[2026-05-02T18:11:20-07:00] START lr5e5-smoke
+[2026-05-02T18:11:20-07:00] CMD runner_cmd smoke lr5e5 /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr5e5_20260503 --per-run-timeout-minutes 240
+Completed 11 smoke runs
+[2026-05-02T18:20:15-07:00] DONE lr5e5-smoke
+
+[2026-05-02T18:20:15-07:00] START lr1e4-smoke
+[2026-05-02T18:20:15-07:00] CMD runner_cmd smoke lr1e4 /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr1e4_20260503 --per-run-timeout-minutes 240
+Completed 11 smoke runs
+[2026-05-02T18:28:52-07:00] DONE lr1e4-smoke
+
+[2026-05-02T18:28:52-07:00] START lr5e5-long-baseline-chain
+[2026-05-02T18:28:52-07:00] CMD runner_cmd run lr5e5 /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr5e5_20260503 --per-run-timeout-minutes 960
+Completed 11 long baseline runs
+[2026-05-02T19:08:33-07:00] DONE lr5e5-long-baseline-chain
+
+[2026-05-02T19:08:33-07:00] START lr5e5-analysis
+[2026-05-02T19:08:33-07:00] CMD runner_cmd analyze lr5e5 /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr5e5_20260503
+Wrote comparison table: /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr5e5_20260503/analysis/comparison_table.csv
+Wrote comparison summary: /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr5e5_20260503/analysis/comparison_summary.md
+Wrote hyperparameter summary: /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr5e5_20260503/analysis/method_hyperparameters.md
+[2026-05-02T19:08:33-07:00] DONE lr5e5-analysis
+
+[2026-05-02T19:08:33-07:00] START lr1e4-long-baseline-chain
+[2026-05-02T19:08:33-07:00] CMD runner_cmd run lr1e4 /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr1e4_20260503 --per-run-timeout-minutes 960
+Completed 11 long baseline runs
+[2026-05-02T19:50:40-07:00] DONE lr1e4-long-baseline-chain
+
+[2026-05-02T19:50:40-07:00] START lr1e4-analysis
+[2026-05-02T19:50:40-07:00] CMD runner_cmd analyze lr1e4 /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr1e4_20260503
+Wrote comparison table: /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr1e4_20260503/analysis/comparison_table.csv
+Wrote comparison summary: /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr1e4_20260503/analysis/comparison_summary.md
+Wrote hyperparameter summary: /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr1e4_20260503/analysis/method_hyperparameters.md
+[2026-05-02T19:50:40-07:00] DONE lr1e4-analysis
+
+[2026-05-02T19:50:40-07:00] START combined-analysis
+[2026-05-02T19:50:40-07:00] CMD micromamba run -n ml python scripts/run_pmi10_sota_baselines.py --phase combined-analyze --comparison-profile pretty_balanced --combined-output-root /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_dual_lr_20260503 --lr5e5-output-root /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr5e5_20260503 --lr1e4-output-root /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_lr1e4_20260503
+Wrote combined comparison table: /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_dual_lr_20260503/comparison_table.csv
+Wrote combined comparison summary: /mnt/storage/github/NICME/results/pmi10_sota_pretty_balanced_dual_lr_20260503/comparison_summary.md
+[2026-05-02T19:50:40-07:00] DONE combined-analysis

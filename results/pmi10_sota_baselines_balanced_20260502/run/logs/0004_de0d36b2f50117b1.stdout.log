@@ -1,0 +1,108 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_sota_convnext_base with 10 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '9.24', 'grad_norm': '17.77', 'learning_rate': '1.165e-05', 'epoch': '0.6557'}
+{'eval_loss': '1.859', 'eval_accuracy': '0.5194', 'eval_f1': '0.4806', 'eval_balanced_accuracy': '0.5194', 'eval_macro_f1': '0.4806', 'eval_atc': '1.281', 'eval_normalized_atc': '0.1281', 'eval_target_recall': '0.1613', 'eval_target_recall_macro': '0.4758', 'eval_target_fnr': '0.5806', 'eval_selection_score': '2.39', 'eval_selection_accuracy_value': '0.5194', 'eval_nll': '1.859', 'eval_brier': '0.7791', 'eval_ece': '0.3244', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.627', 'eval_samples_per_second': '66.99', 'eval_steps_per_second': '4.322', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-16/preprocessor_config.json
+{'loss': '7.135', 'grad_norm': '24.42', 'learning_rate': '2.46e-05', 'epoch': '1.262'}
+{'loss': '5.13', 'grad_norm': '26.27', 'learning_rate': '3.755e-05', 'epoch': '1.918'}
+{'eval_loss': '0.8429', 'eval_accuracy': '0.7613', 'eval_f1': '0.7463', 'eval_balanced_accuracy': '0.7613', 'eval_macro_f1': '0.7463', 'eval_atc': '0.8484', 'eval_normalized_atc': '0.08484', 'eval_target_recall': '0.2258', 'eval_target_recall_macro': '0.5726', 'eval_target_fnr': '0.3226', 'eval_selection_score': '1.904', 'eval_selection_accuracy_value': '0.7613', 'eval_nll': '0.8429', 'eval_brier': '0.427', 'eval_ece': '0.2241', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.795', 'eval_samples_per_second': '81.68', 'eval_steps_per_second': '5.27', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-32/preprocessor_config.json
+{'loss': '2.678', 'grad_norm': '18.57', 'learning_rate': '5.05e-05', 'epoch': '2.525'}
+{'eval_loss': '0.4637', 'eval_accuracy': '0.7935', 'eval_f1': '0.7819', 'eval_balanced_accuracy': '0.7935', 'eval_macro_f1': '0.7819', 'eval_atc': '0.6129', 'eval_normalized_atc': '0.06129', 'eval_target_recall': '0.5806', 'eval_target_recall_macro': '0.8548', 'eval_target_fnr': '0', 'eval_selection_score': '0.4693', 'eval_selection_accuracy_value': '0.7935', 'eval_nll': '0.4637', 'eval_brier': '0.2668', 'eval_ece': '0.09406', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '9.133', 'eval_samples_per_second': '33.94', 'eval_steps_per_second': '2.19', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-48/preprocessor_config.json
+{'loss': '1.738', 'grad_norm': '117.4', 'learning_rate': '6.345e-05', 'epoch': '3.131'}
+{'loss': '1.368', 'grad_norm': '119.3', 'learning_rate': '7.381e-05', 'epoch': '3.787'}
+{'eval_loss': '0.2319', 'eval_accuracy': '0.9161', 'eval_f1': '0.9125', 'eval_balanced_accuracy': '0.9161', 'eval_macro_f1': '0.9125', 'eval_atc': '0.4', 'eval_normalized_atc': '0.04', 'eval_target_recall': '0.5161', 'eval_target_recall_macro': '0.8145', 'eval_target_fnr': '0', 'eval_selection_score': '0.6294', 'eval_selection_accuracy_value': '0.9161', 'eval_nll': '0.2319', 'eval_brier': '0.1222', 'eval_ece': '0.0763', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.78', 'eval_samples_per_second': '82', 'eval_steps_per_second': '5.29', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-64/preprocessor_config.json
+{'loss': '0.8507', 'grad_norm': '29.79', 'learning_rate': '7.368e-05', 'epoch': '4.393'}
+{'loss': '0.6808', 'grad_norm': '12.83', 'learning_rate': '7.339e-05', 'epoch': '5'}
+{'eval_loss': '0.1157', 'eval_accuracy': '0.971', 'eval_f1': '0.97', 'eval_balanced_accuracy': '0.971', 'eval_macro_f1': '0.97', 'eval_atc': '0.0871', 'eval_normalized_atc': '0.00871', 'eval_target_recall': '0.7742', 'eval_target_recall_macro': '0.9355', 'eval_target_fnr': '0', 'eval_selection_score': '0.07202', 'eval_selection_accuracy_value': '0.971', 'eval_nll': '0.1157', 'eval_brier': '0.05182', 'eval_ece': '0.0446', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.86', 'eval_samples_per_second': '80.31', 'eval_steps_per_second': '5.181', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-80/preprocessor_config.json
+{'loss': '0.4449', 'grad_norm': '29.06', 'learning_rate': '7.291e-05', 'epoch': '5.656'}
+{'eval_loss': '0.08932', 'eval_accuracy': '0.9645', 'eval_f1': '0.9643', 'eval_balanced_accuracy': '0.9645', 'eval_macro_f1': '0.9643', 'eval_atc': '0.1516', 'eval_normalized_atc': '0.01516', 'eval_target_recall': '0.8387', 'eval_target_recall_macro': '0.9355', 'eval_target_fnr': '0', 'eval_selection_score': '0.03019', 'eval_selection_accuracy_value': '0.9645', 'eval_nll': '0.08932', 'eval_brier': '0.04247', 'eval_ece': '0.03781', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.876', 'eval_samples_per_second': '79.98', 'eval_steps_per_second': '5.16', 'epoch': '6'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-96/preprocessor_config.json
+{'loss': '0.3224', 'grad_norm': '49.78', 'learning_rate': '7.227e-05', 'epoch': '6.262'}
+{'loss': '0.3408', 'grad_norm': '59.17', 'learning_rate': '7.146e-05', 'epoch': '6.918'}
+{'eval_loss': '0.2331', 'eval_accuracy': '0.9194', 'eval_f1': '0.913', 'eval_balanced_accuracy': '0.9194', 'eval_macro_f1': '0.913', 'eval_atc': '0.1677', 'eval_normalized_atc': '0.01677', 'eval_target_recall': '0.4516', 'eval_target_recall_macro': '0.8468', 'eval_target_fnr': '0', 'eval_selection_score': '0.821', 'eval_selection_accuracy_value': '0.9194', 'eval_nll': '0.2331', 'eval_brier': '0.1239', 'eval_ece': '0.03554', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.084', 'eval_samples_per_second': '75.9', 'eval_steps_per_second': '4.897', 'epoch': '7'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-112/preprocessor_config.json
+{'loss': '0.3344', 'grad_norm': '42.52', 'learning_rate': '7.048e-05', 'epoch': '7.525'}
+{'eval_loss': '0.1858', 'eval_accuracy': '0.9129', 'eval_f1': '0.9065', 'eval_balanced_accuracy': '0.9129', 'eval_macro_f1': '0.9065', 'eval_atc': '0.5903', 'eval_normalized_atc': '0.05903', 'eval_target_recall': '0.3226', 'eval_target_recall_macro': '0.8065', 'eval_target_fnr': '0', 'eval_selection_score': '1.393', 'eval_selection_accuracy_value': '0.9129', 'eval_nll': '0.1858', 'eval_brier': '0.1173', 'eval_ece': '0.04511', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.516', 'eval_samples_per_second': '88.16', 'eval_steps_per_second': '5.688', 'epoch': '8'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-128/preprocessor_config.json
+{'loss': '0.2212', 'grad_norm': '39.8', 'learning_rate': '6.934e-05', 'epoch': '8.131'}
+{'loss': '0.2858', 'grad_norm': '31.43', 'learning_rate': '6.805e-05', 'epoch': '8.787'}
+{'eval_loss': '0.07613', 'eval_accuracy': '0.971', 'eval_f1': '0.9708', 'eval_balanced_accuracy': '0.971', 'eval_macro_f1': '0.9708', 'eval_atc': '0.05806', 'eval_normalized_atc': '0.005806', 'eval_target_recall': '0.871', 'eval_target_recall_macro': '0.9597', 'eval_target_fnr': '0', 'eval_selection_score': '0.009178', 'eval_selection_accuracy_value': '0.971', 'eval_nll': '0.07613', 'eval_brier': '0.04429', 'eval_ece': '0.02998', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.753', 'eval_samples_per_second': '82.59', 'eval_steps_per_second': '5.329', 'epoch': '9'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-144/preprocessor_config.json
+{'loss': '0.07539', 'grad_norm': '5.032', 'learning_rate': '6.661e-05', 'epoch': '9.393'}
+{'loss': '0.1886', 'grad_norm': '50.45', 'learning_rate': '6.503e-05', 'epoch': '10'}
+{'eval_loss': '0.0879', 'eval_accuracy': '0.971', 'eval_f1': '0.9708', 'eval_balanced_accuracy': '0.971', 'eval_macro_f1': '0.9708', 'eval_atc': '0.05806', 'eval_normalized_atc': '0.005806', 'eval_target_recall': '0.8387', 'eval_target_recall_macro': '0.9516', 'eval_target_fnr': '0', 'eval_selection_score': '0.02083', 'eval_selection_accuracy_value': '0.971', 'eval_nll': '0.0879', 'eval_brier': '0.04534', 'eval_ece': '0.01821', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.099', 'eval_samples_per_second': '75.62', 'eval_steps_per_second': '4.879', 'epoch': '10'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-160/preprocessor_config.json
+{'loss': '0.06569', 'grad_norm': '12.82', 'learning_rate': '6.332e-05', 'epoch': '10.66'}
+{'eval_loss': '0.05189', 'eval_accuracy': '0.9806', 'eval_f1': '0.9804', 'eval_balanced_accuracy': '0.9806', 'eval_macro_f1': '0.9804', 'eval_atc': '0.01935', 'eval_normalized_atc': '0.001935', 'eval_target_recall': '0.871', 'eval_target_recall_macro': '0.9677', 'eval_target_fnr': '0', 'eval_selection_score': '0.005307', 'eval_selection_accuracy_value': '0.9806', 'eval_nll': '0.05189', 'eval_brier': '0.02879', 'eval_ece': '0.01157', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.029', 'eval_samples_per_second': '76.95', 'eval_steps_per_second': '4.964', 'epoch': '11'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-176/preprocessor_config.json
+{'loss': '0.06066', 'grad_norm': '2.571', 'learning_rate': '6.147e-05', 'epoch': '11.26'}
+{'loss': '0.183', 'grad_norm': '9.392', 'learning_rate': '5.952e-05', 'epoch': '11.92'}
+{'eval_loss': '0.06387', 'eval_accuracy': '0.9806', 'eval_f1': '0.9806', 'eval_balanced_accuracy': '0.9806', 'eval_macro_f1': '0.9806', 'eval_atc': '0.01935', 'eval_normalized_atc': '0.001935', 'eval_target_recall': '0.9032', 'eval_target_recall_macro': '0.9758', 'eval_target_fnr': '0', 'eval_selection_score': '0.001935', 'eval_selection_accuracy_value': '0.9806', 'eval_nll': '0.06387', 'eval_brier': '0.03352', 'eval_ece': '0.01618', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.022', 'eval_samples_per_second': '77.07', 'eval_steps_per_second': '4.972', 'epoch': '12'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-192/preprocessor_config.json
+{'loss': '0.02703', 'grad_norm': '0.444', 'learning_rate': '5.745e-05', 'epoch': '12.52'}
+{'eval_loss': '0.03804', 'eval_accuracy': '0.9871', 'eval_f1': '0.9871', 'eval_balanced_accuracy': '0.9871', 'eval_macro_f1': '0.9871', 'eval_atc': '0.04194', 'eval_normalized_atc': '0.004194', 'eval_target_recall': '0.9355', 'eval_target_recall_macro': '0.9758', 'eval_target_fnr': '0', 'eval_selection_score': '0.004194', 'eval_selection_accuracy_value': '0.9871', 'eval_nll': '0.03804', 'eval_brier': '0.01993', 'eval_ece': '0.01011', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.984', 'eval_samples_per_second': '77.81', 'eval_steps_per_second': '5.02', 'epoch': '13'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-208/preprocessor_config.json
+{'loss': '0.006884', 'grad_norm': '0.4092', 'learning_rate': '5.528e-05', 'epoch': '13.13'}
+{'loss': '0.08859', 'grad_norm': '1.025', 'learning_rate': '5.303e-05', 'epoch': '13.79'}
+{'eval_loss': '0.1164', 'eval_accuracy': '0.9581', 'eval_f1': '0.9582', 'eval_balanced_accuracy': '0.9581', 'eval_macro_f1': '0.9582', 'eval_atc': '0.07097', 'eval_normalized_atc': '0.007097', 'eval_target_recall': '0.9032', 'eval_target_recall_macro': '0.9758', 'eval_target_fnr': '0', 'eval_selection_score': '0.007097', 'eval_selection_accuracy_value': '0.9581', 'eval_nll': '0.1164', 'eval_brier': '0.06319', 'eval_ece': '0.03359', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.085', 'eval_samples_per_second': '75.89', 'eval_steps_per_second': '4.896', 'epoch': '14'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-224/preprocessor_config.json
+{'loss': '0.1064', 'grad_norm': '13.07', 'learning_rate': '5.07e-05', 'epoch': '14.39'}
+{'loss': '0.06047', 'grad_norm': '0.06236', 'learning_rate': '4.831e-05', 'epoch': '15'}
+{'eval_loss': '0.1351', 'eval_accuracy': '0.9645', 'eval_f1': '0.9627', 'eval_balanced_accuracy': '0.9645', 'eval_macro_f1': '0.9627', 'eval_atc': '0.06452', 'eval_normalized_atc': '0.006452', 'eval_target_recall': '0.6774', 'eval_target_recall_macro': '0.9194', 'eval_target_fnr': '0', 'eval_selection_score': '0.2046', 'eval_selection_accuracy_value': '0.9645', 'eval_nll': '0.1351', 'eval_brier': '0.05751', 'eval_ece': '0.02805', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.292', 'eval_samples_per_second': '72.24', 'eval_steps_per_second': '4.66', 'epoch': '15'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-240/preprocessor_config.json
+{'loss': '0.03938', 'grad_norm': '0.05893', 'learning_rate': '4.586e-05', 'epoch': '15.66'}
+{'eval_loss': '0.133', 'eval_accuracy': '0.9645', 'eval_f1': '0.9641', 'eval_balanced_accuracy': '0.9645', 'eval_macro_f1': '0.9641', 'eval_atc': '0.06452', 'eval_normalized_atc': '0.006452', 'eval_target_recall': '0.8065', 'eval_target_recall_macro': '0.9435', 'eval_target_fnr': '0', 'eval_selection_score': '0.04146', 'eval_selection_accuracy_value': '0.9645', 'eval_nll': '0.133', 'eval_brier': '0.06049', 'eval_ece': '0.02839', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.873', 'eval_samples_per_second': '80.04', 'eval_steps_per_second': '5.164', 'epoch': '16'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-256/preprocessor_config.json
+{'loss': '0.01908', 'grad_norm': '6.522', 'learning_rate': '4.337e-05', 'epoch': '16.26'}
+{'loss': '0.02111', 'grad_norm': '5.625', 'learning_rate': '4.085e-05', 'epoch': '16.92'}
+{'eval_loss': '0.104', 'eval_accuracy': '0.9581', 'eval_f1': '0.9574', 'eval_balanced_accuracy': '0.9581', 'eval_macro_f1': '0.9574', 'eval_atc': '0.1', 'eval_normalized_atc': '0.01', 'eval_target_recall': '0.871', 'eval_target_recall_macro': '0.9597', 'eval_target_fnr': '0', 'eval_selection_score': '0.01337', 'eval_selection_accuracy_value': '0.9581', 'eval_nll': '0.104', 'eval_brier': '0.05699', 'eval_ece': '0.02713', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.752', 'eval_samples_per_second': '82.62', 'eval_steps_per_second': '5.33', 'epoch': '17'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-272/preprocessor_config.json
+{'loss': '0.002549', 'grad_norm': '0.151', 'learning_rate': '3.831e-05', 'epoch': '17.52'}
+{'eval_loss': '0.1677', 'eval_accuracy': '0.9581', 'eval_f1': '0.9578', 'eval_balanced_accuracy': '0.9581', 'eval_macro_f1': '0.9578', 'eval_atc': '0.07097', 'eval_normalized_atc': '0.007097', 'eval_target_recall': '0.9032', 'eval_target_recall_macro': '0.9677', 'eval_target_fnr': '0', 'eval_selection_score': '0.007097', 'eval_selection_accuracy_value': '0.9581', 'eval_nll': '0.1677', 'eval_brier': '0.06894', 'eval_ece': '0.03456', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.793', 'eval_samples_per_second': '81.72', 'eval_steps_per_second': '5.272', 'epoch': '18'}
+CustomImageProcessor configuration saved to checkpoints/run_balanced_softmax_s42/checkpoint-288/preprocessor_config.json
+{'train_runtime': '285.4', 'train_samples_per_second': '108.8', 'train_steps_per_second': '1.794', 'train_loss': '1.106', 'epoch': '18'}
+***** train metrics *****
+  epoch                    =       18.0
+  total_flos               =        0GF
+  train_loss               =     1.1058
+  train_runtime            = 0:04:45.40
+  train_samples_per_second =    108.756
+  train_steps_per_second   =      1.794
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_sota_convnext_base_test/run_balanced_softmax_s42_05-02_12-12
+Saving run configuration...
+Run configuration saved to: results/pmi10_sota_convnext_base_test/run_balanced_softmax_s42_05-02_12-12/run_configuration_20260502_121227.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_sota_convnext_base_test/run_balanced_softmax_s42_05-02_12-12/metrics_20260502_121236_balanced_softmax.json and results/pmi10_sota_convnext_base_test/run_balanced_softmax_s42_05-02_12-12/metrics_20260502_121236_balanced_softmax.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_sota_convnext_base_test/run_balanced_softmax_s42_05-02_12-12
+Overall Accuracy: 0.9781
+Balanced Accuracy: 0.9781
+Overall F1 Score: 0.9780
+Kappa: 0.9757
+AUC: 0.9998
+Expected Cost: 0.0781
+Loss Function Used: balanced_softmax
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/run_balanced_softmax_s42_05-02_12-12
+============================================================

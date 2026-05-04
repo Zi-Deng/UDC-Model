@@ -1,0 +1,51 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_convnext_base_fb_in22k_ft_in1k with 10 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '8.384', 'grad_norm': '29.86', 'learning_rate': '4.358e-05', 'epoch': '0.6557'}
+{'eval_loss': '1.259', 'eval_accuracy': '0.6355', 'eval_f1': '0.5956', 'eval_balanced_accuracy': '0.6355', 'eval_macro_f1': '0.5956', 'eval_atc': '0.6871', 'eval_normalized_atc': '0.06871', 'eval_target_recall': '0.4516', 'eval_target_recall_macro': '0.7177', 'eval_target_fnr': '0.03226', 'eval_selection_score': '0.9', 'eval_selection_accuracy_value': '0.6355', 'eval_nll': '1.224', 'eval_brier': '0.5751', 'eval_ece': '0.2701', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.846', 'eval_samples_per_second': '63.97', 'eval_steps_per_second': '4.127', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/smoke_convnext_base_fb_in22k_ft_in1k_nicme_hybrid_s42/checkpoint-16/preprocessor_config.json
+{'loss': '5.235', 'grad_norm': '24.67', 'learning_rate': '1.98e-05', 'epoch': '1.262'}
+{'loss': '4.357', 'grad_norm': '26.11', 'learning_rate': '1.224e-06', 'epoch': '1.918'}
+{'eval_loss': '1.019', 'eval_accuracy': '0.7065', 'eval_f1': '0.691', 'eval_balanced_accuracy': '0.7065', 'eval_macro_f1': '0.691', 'eval_atc': '0.4613', 'eval_normalized_atc': '0.04613', 'eval_target_recall': '0.4194', 'eval_target_recall_macro': '0.7258', 'eval_target_fnr': '0.3226', 'eval_selection_score': '0.979', 'eval_selection_accuracy_value': '0.7065', 'eval_nll': '0.9834', 'eval_brier': '0.4832', 'eval_ece': '0.2162', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.768', 'eval_samples_per_second': '82.27', 'eval_steps_per_second': '5.308', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/smoke_convnext_base_fb_in22k_ft_in1k_nicme_hybrid_s42/checkpoint-32/preprocessor_config.json
+{'train_runtime': '31.77', 'train_samples_per_second': '61.05', 'train_steps_per_second': '1.007', 'train_loss': '5.792', 'epoch': '2'}
+***** train metrics *****
+  epoch                    =        2.0
+  total_flos               =        0GF
+  train_loss               =     5.7917
+  train_runtime            = 0:00:31.77
+  train_samples_per_second =     61.055
+  train_steps_per_second   =      1.007
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_nicme_hybrid_s42_05-02_02-44
+Saving run configuration...
+Run configuration saved to: results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_nicme_hybrid_s42_05-02_02-44/run_configuration_20260502_024454.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_nicme_hybrid_s42_05-02_02-44/metrics_20260502_024503_nicme_hybrid.json and results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_nicme_hybrid_s42_05-02_02-44/metrics_20260502_024503_nicme_hybrid.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_nicme_hybrid_s42_05-02_02-44
+Overall Accuracy: 0.6625
+Balanced Accuracy: 0.6625
+Overall F1 Score: 0.6258
+Kappa: 0.6250
+AUC: 0.9447
+Expected Cost: 0.7219
+Loss Function Used: nicme_hybrid
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_convnext_base_fb_in22k_ft_in1k_test/smoke_convnext_base_fb_in22k_ft_in1k_nicme_hybrid_s42_05-02_02-44
+============================================================

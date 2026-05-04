@@ -1,0 +1,229 @@
+{
+  "dataset_profile": "pmi_pills_10_no_cal",
+  "variant": "natural",
+  "dataset": "pmi_pills_10_no_cal_natural",
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "local_folder_path": "data/prepared/pmi_pills_10_no_cal/splits/natural",
+  "class_names": [
+    "00378-0208",
+    "00378-3855",
+    "00591-0461",
+    "16729-0020",
+    "50111-0434",
+    "53489-0156",
+    "53746-0544",
+    "62037-0831",
+    "68382-0008",
+    "68382-0227"
+  ],
+  "num_labels": 10,
+  "target_recall_class": "50111-0434",
+  "target_recall_classes": [
+    "50111-0434",
+    "53489-0156",
+    "53746-0544",
+    "68382-0227"
+  ],
+  "secondary_target_recall_classes": [],
+  "target_recall_floor": 0.9,
+  "accuracy_floor": 0.75,
+  "selection_accuracy_metric": "balanced_accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    [
+      1.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      10.0,
+      1.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      10.0
+    ],
+    [
+      10.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      1.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      1.0
+    ],
+    [
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      8.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0
+    ]
+  ],
+  "cost_matrix_source": "dataset",
+  "cost_matrix_sha256": "1160cbf20c4fac24dc7bb84cbbb229a16545259d585ae1ef1c066e0007082e08",
+  "metric_profile": "pmi_pills",
+  "critical_pairs": [
+    {
+      "true": "50111-0434",
+      "pred": "00591-0461",
+      "cost": 10.0
+    },
+    {
+      "true": "53489-0156",
+      "pred": "68382-0227",
+      "cost": 10.0
+    },
+    {
+      "true": "53746-0544",
+      "pred": "00378-0208",
+      "cost": 10.0
+    },
+    {
+      "true": "68382-0227",
+      "pred": "53489-0156",
+      "cost": 8.0
+    }
+  ],
+  "model": "timm/swin_tiny_patch4_window7_224.ms_in22k_ft_in1k",
+  "model_backend": "timm",
+  "model_type": "pmi10_swin_tiny_patch4_window7_224_ms_in22k_ft_in1k",
+  "peft_enabled": false,
+  "timm_pretrained": true,
+  "num_train_epochs": 2,
+  "early_stopping_patience": 5,
+  "batch_size": 16,
+  "gradient_accumulation_steps": 4,
+  "learning_rate": 5e-05,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.05,
+  "lr_scheduler_type": "cosine",
+  "wandb": false,
+  "push_to_hub": false,
+  "calibration_enabled": false,
+  "decision_modes": "argmax",
+  "model_selection_metric": "target_recall",
+  "save_total_limit": 1,
+  "skip_visualizations": true,
+  "seed": 42,
+  "output_dir": "smoke_swin_tiny_patch4_window7_224_ms_in22k_ft_in1k_ce_s42",
+  "pmi10_phase": "smoke",
+  "pmi10_backbone": "swin_tiny_patch4_window7_224.ms_in22k_ft_in1k",
+  "pmi10_loss": "ce",
+  "pmi10_output_root": "/mnt/storage/github/NICME/results/pmi10_no_cal_20260501",
+  "timm_data_config": {
+    "input_size": [
+      3,
+      224,
+      224
+    ],
+    "interpolation": "bicubic",
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ],
+    "crop_pct": 0.875,
+    "crop_mode": "center"
+  },
+  "loss_function": "cross_entropy",
+  "cs_lambda": 0.0,
+  "cs_warmup_epochs": 0,
+  "nicme_logit_cost_scale": 1.0
+}

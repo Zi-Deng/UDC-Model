@@ -1,0 +1,9 @@
+{"time":"2026-05-01T22:59:08-07:00","phase":"preflight","status":"started"}
+{"time":"2026-05-01T22:59:10-07:00","phase":"preflight","status":"completed"}
+{"time":"2026-05-01T22:59:10-07:00","phase":"archive-old-hpo","status":"started"}
+{"time":"2026-05-01T22:59:10-07:00","phase":"archive-old-hpo","status":"completed"}
+{"time":"2026-05-01T22:59:10-07:00","phase":"hpo-nicme-plan","status":"started"}
+{"time":"2026-05-01T22:59:12-07:00","phase":"hpo-nicme-plan","status":"completed"}
+{"time":"2026-05-01T22:59:12-07:00","phase":"hpo-nicme-smoke","status":"started"}
+{"time":"2026-05-01T23:06:38-07:00","phase":"hpo-nicme-smoke","status":"completed"}
+{"time":"2026-05-01T23:06:38-07:00","phase":"hpo-nicme","status":"started"}

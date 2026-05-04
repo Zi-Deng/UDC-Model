@@ -1,0 +1,71 @@
+{
+  "phase": "hpo-v3",
+  "loss": "nicme_v3_hybrid",
+  "trials": 64,
+  "hpo_profile": "convnext_base_v3_balanced",
+  "selected_models": [
+    "convnext_base.fb_in22k_ft_in1k"
+  ],
+  "epochs": 32,
+  "search_space": {
+    "fixed": {
+      "image_size": 224,
+      "early_stopping_patience": 5,
+      "batch_size": 16,
+      "gradient_accumulation_steps": 4,
+      "lr_scheduler_type": "cosine",
+      "train_random_resize_crop": true,
+      "train_random_resized_crop_scale_min": 0.8,
+      "train_random_resized_crop_scale_max": 1.0,
+      "train_horizontal_flip": false,
+      "train_random_quarter_turns": true
+    },
+    "search": {
+      "learning_rate": {
+        "type": "float",
+        "low": 1.5e-05,
+        "high": 9e-05,
+        "log": true
+      },
+      "weight_decay": {
+        "type": "float",
+        "low": 0.0,
+        "high": 0.05
+      },
+      "warmup_ratio": {
+        "type": "float",
+        "low": 0.02,
+        "high": 0.12
+      },
+      "train_color_jitter": {
+        "type": "categorical",
+        "choices": [
+          false,
+          true
+        ]
+      },
+      "nicme_logit_cost_scale": {
+        "type": "float",
+        "low": 0.05,
+        "high": 0.7,
+        "log": true
+      },
+      "cs_lambda": {
+        "type": "float",
+        "low": 0.0,
+        "high": 0.25
+      },
+      "cs_warmup_epochs": {
+        "type": "categorical",
+        "choices": [
+          0,
+          1,
+          2,
+          3,
+          5
+        ]
+      }
+    }
+  },
+  "example_config_path": "/mnt/storage/github/NICME/results/pmi10_v3_balanced_convnext_base_20260502/hpo-v3/example_config.json"
+}

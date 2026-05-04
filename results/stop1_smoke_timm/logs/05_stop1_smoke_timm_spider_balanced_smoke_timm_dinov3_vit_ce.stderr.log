@@ -1,9 +1,9 @@
 Traceback (most recent call last):
-  File "/home/zi/Work/github/UDC-Model/scripts/train.py", line 324, in <module>
+  File "/mnt/storage/github/NICME/scripts/train.py", line 324, in <module>
     args = parse_HF_args()
            ^^^^^^^^^^^^^^^
-  File "/home/zi/Work/github/UDC-Model/utils/utils.py", line 282, in parse_HF_args
+  File "/mnt/storage/github/NICME/utils/utils.py", line 282, in parse_HF_args
     validate_training_config(json_args)
-  File "/home/zi/Work/github/UDC-Model/utils/utils.py", line 226, in validate_training_config
+  File "/mnt/storage/github/NICME/utils/utils.py", line 226, in validate_training_config
     raise ValueError(
 ValueError: Unsupported model_backend: timm. Supported backends are 'custom', 'hf_auto', 'hf_backbone', and 'dinov3_feature'.

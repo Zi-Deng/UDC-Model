@@ -10,9 +10,16 @@ Dispatch table (``loss_function()`` method)::
     "cost_matrix_cross_entropy"       → CELossLTV1()
     "logit_adjustment" / "test"       → CELogitAdjustmentV2()
     "logit_adjustment_regularized"    → CELogitAdjustmentRegularized()
+    "nicme_v3_logit_adjustment"       → CELogitAdjustmentV3Pairwise()
+    "nicme_v3_hybrid"                 → CELogitAdjustmentV3Regularized()
+    "cost_weighted_ce"                → CostWeightedCE()
+    "balanced_softmax"                → BalancedSoftmaxCE()
+    "class_balanced_focal"            → ClassBalancedFocal()
+    "ldam_drw"                        → LDAMDRW()
+    "ap_csada"                        → APCSADA()
+    "sosr_cnn"                        → SOSRCNN()
 
-Additional methods (CELossLT_LossMult, CELogitAdjustment, CELogitAdjustmentV3)
-are kept as reference implementations but are **not** in the dispatch table.
+Additional older methods are kept as reference implementations.
 """
 
 from typing import Literal
@@ -40,8 +47,15 @@ class LossFunctions:
         cs_lambda=0.0,
         cs_warmup_epochs=0,
         class_priors=None,
+        class_counts=None,
         logit_adjustment_tau=1.0,
         nicme_logit_cost_scale=1.0,
+        cb_beta=0.9999,
+        focal_gamma=2.0,
+        ldam_max_m=0.5,
+        ldam_scale=30.0,
+        ldam_drw_start_epoch=16,
+        ap_alpha=5.0,
     ):
         self.epsilon = epsilon
         self.device = get_device()
@@ -60,8 +74,19 @@ class LossFunctions:
             self.class_priors = priors / priors.sum().clamp_min(self.epsilon)
         else:
             self.class_priors = None
+        if class_counts is not None:
+            counts = torch.tensor(class_counts, dtype=torch.float32, device=self.device)
+            self.class_counts = counts.clamp_min(1.0)
+        else:
+            self.class_counts = None
         self.logit_adjustment_tau = logit_adjustment_tau
         self.nicme_logit_cost_scale = nicme_logit_cost_scale
+        self.cb_beta = cb_beta
+        self.focal_gamma = focal_gamma
+        self.ldam_max_m = ldam_max_m
+        self.ldam_scale = ldam_scale
+        self.ldam_drw_start_epoch = ldam_drw_start_epoch
+        self.ap_alpha = ap_alpha
 
     def calculate_dynamic_alpha(self, logits: torch.Tensor) -> torch.Tensor:
         """
@@ -107,6 +132,92 @@ class LossFunctions:
             priors = self.class_priors.to(device=logits.device, dtype=logits.dtype)
         adjusted_logits = logits + self.logit_adjustment_tau * torch.log(priors.clamp_min(self.epsilon))
         return F.cross_entropy(adjusted_logits, targets)
+
+    def _class_counts(self, num_classes: int, device, dtype) -> torch.Tensor:
+        if self.class_counts is not None:
+            counts = self.class_counts.to(device=device, dtype=dtype)
+            if counts.numel() == num_classes:
+                return counts.clamp_min(1.0)
+        if self.class_priors is not None:
+            priors = self.class_priors.to(device=device, dtype=dtype)
+            if priors.numel() == num_classes:
+                return (priors / priors.min().clamp_min(self.epsilon)).clamp_min(1.0)
+        return torch.ones(num_classes, dtype=dtype, device=device)
+
+    def _effective_number_weights(self, num_classes: int, device, dtype) -> torch.Tensor:
+        counts = self._class_counts(num_classes, device, dtype)
+        beta = float(self.cb_beta)
+        if beta <= 0.0:
+            weights = torch.ones_like(counts)
+        elif beta >= 1.0:
+            weights = 1.0 / counts.clamp_min(1.0)
+        else:
+            beta_t = torch.tensor(beta, dtype=dtype, device=device)
+            weights = (1.0 - beta_t) / (1.0 - torch.pow(beta_t, counts).clamp_min(self.epsilon))
+        return weights * (num_classes / weights.sum().clamp_min(self.epsilon))
+
+    def _cost_row_weights(self, num_classes: int, device, dtype) -> torch.Tensor:
+        if self.cost_matrix is None:
+            return torch.ones(num_classes, dtype=dtype, device=device)
+        costs = self.cost_matrix.to(device=device, dtype=dtype)
+        if costs.shape != (num_classes, num_classes):
+            raise ValueError(f"cost_matrix shape {tuple(costs.shape)} does not match logits classes={num_classes}")
+        off_diag_mask = ~torch.eye(num_classes, dtype=torch.bool, device=device)
+        row_means = (costs * off_diag_mask).sum(dim=1) / max(num_classes - 1, 1)
+        return row_means / row_means.mean().clamp_min(self.epsilon)
+
+    def CostWeightedCE(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """Classic cost-weighted empirical risk using true-class row mean costs."""
+        weights = self._cost_row_weights(logits.shape[-1], logits.device, logits.dtype)
+        ce = F.cross_entropy(logits, targets, reduction="none")
+        return (ce * weights[targets]).mean()
+
+    def BalancedSoftmaxCE(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """Balanced Softmax baseline from Ren et al.; uniform counts reduce to CE."""
+        counts = self._class_counts(logits.shape[-1], logits.device, logits.dtype)
+        adjusted_logits = logits + torch.log(counts.clamp_min(self.epsilon))
+        return F.cross_entropy(adjusted_logits, targets)
+
+    def ClassBalancedFocal(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """Effective-number class-balanced focal loss from Cui et al."""
+        weights = self._effective_number_weights(logits.shape[-1], logits.device, logits.dtype)
+        ce = F.cross_entropy(logits, targets, reduction="none")
+        pt = torch.exp(-ce).clamp(min=self.epsilon, max=1.0)
+        focal = torch.pow(1.0 - pt, float(self.focal_gamma))
+        return (weights[targets] * focal * ce).mean()
+
+    def LDAMDRW(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """LDAM with deferred reweighting using effective-number weights after DRW starts."""
+        counts = self._class_counts(logits.shape[-1], logits.device, logits.dtype)
+        margins = 1.0 / torch.sqrt(torch.sqrt(counts))
+        margins = margins * (float(self.ldam_max_m) / margins.max().clamp_min(self.epsilon))
+        adjusted_logits = logits.clone()
+        adjusted_logits[torch.arange(logits.shape[0], device=logits.device), targets] -= margins[targets]
+        weights = None
+        if float(self.current_epoch) >= float(self.ldam_drw_start_epoch):
+            weights = self._effective_number_weights(logits.shape[-1], logits.device, logits.dtype)
+        return F.cross_entropy(float(self.ldam_scale) * adjusted_logits, targets, weight=weights)
+
+    def APCSADA(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """Adjusted-penalty CSADA-style baseline: CE plus normalized expected cost."""
+        ce_loss = F.cross_entropy(logits, targets)
+        if self.cost_matrix is None or float(self.ap_alpha) == 0.0:
+            return ce_loss
+        return ce_loss + float(self.ap_alpha) * self._normalized_cs_penalty(logits, targets)
+
+    def SOSRCNN(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """ConvNeXt-compatible CSDNN-family smooth cost-vector regression loss.
+
+        The model outputs are interpreted as estimated costs. Evaluation uses
+        argmin over these estimates rather than argmax over class logits.
+        """
+        if self.cost_matrix is None:
+            target_costs = F.one_hot(targets, num_classes=logits.shape[-1]).to(dtype=logits.dtype, device=logits.device)
+            target_costs = 1.0 - target_costs
+        else:
+            costs = self.cost_matrix.to(device=logits.device, dtype=logits.dtype)
+            target_costs = costs[targets, :]
+        return F.smooth_l1_loss(logits, target_costs)
 
     # NOTE: Not in dispatch — kept as reference implementation.
     def CELossLT_LossMult(self, output_logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
@@ -264,7 +375,7 @@ class LossFunctions:
         diff = torch.abs(max_logits - target_logits)
 
         if self.cost_matrix is not None:
-            cost_values = self.cost_matrix[targets, pred_classes]
+            cost_values = self.cost_matrix[targets, pred_classes] * self.nicme_logit_cost_scale
         else:
             cost_values = torch.ones_like(targets, dtype=torch.float32)
 
@@ -307,6 +418,44 @@ class LossFunctions:
             probs_orig = torch.softmax(logits, dim=-1)
             cs_penalty = (m_norm[targets, :] * probs_orig).sum(dim=-1).mean()
             return ce_loss + effective_lambda * cs_penalty
+        return ce_loss
+
+    def _normalized_cs_penalty(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        m_max = self.cost_matrix.max()
+        m_norm = self.cost_matrix / (m_max + self.epsilon) if m_max > 0 else self.cost_matrix
+        probs_orig = torch.softmax(logits, dim=-1)
+        return (m_norm[targets, :] * probs_orig).sum(dim=-1).mean()
+
+    def _effective_cs_lambda(self) -> float:
+        if self.cs_warmup_epochs > 0 and self.current_epoch < self.cs_warmup_epochs:
+            return float(self.cs_lambda) * (float(self.current_epoch) / float(self.cs_warmup_epochs))
+        return float(self.cs_lambda)
+
+    def _v3_pairwise_adjusted_logits(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """Apply unconditional positive pairwise cost margins to non-target logits."""
+        if self.cost_matrix is None or self.nicme_logit_cost_scale == 0:
+            return logits
+        costs = self.cost_matrix.to(device=logits.device, dtype=logits.dtype)
+        pair_costs = costs[targets, :]
+        margin_offsets = torch.log(torch.clamp(pair_costs, min=1.0))
+        target_mask = F.one_hot(targets, num_classes=logits.shape[-1]).to(dtype=torch.bool, device=logits.device)
+        margin_offsets = margin_offsets.masked_fill(target_mask, 0.0)
+        return logits + float(self.nicme_logit_cost_scale) * margin_offsets
+
+    def CELogitAdjustmentV3Pairwise(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """Unconditional pairwise cost-margin CE.
+
+        For every example, non-target class ``k`` receives a positive additive
+        offset of ``alpha * log(max(M[y, k], 1))`` before CE. High-cost wrong
+        classes therefore need a larger raw-logit margin to become harmless.
+        """
+        return F.cross_entropy(self._v3_pairwise_adjusted_logits(logits, targets), targets)
+
+    def CELogitAdjustmentV3Regularized(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """V3 pairwise cost-margin CE plus normalized expected-cost regularization."""
+        ce_loss = self.CELogitAdjustmentV3Pairwise(logits, targets)
+        if self.cs_lambda > 0 and self.cost_matrix is not None:
+            return ce_loss + self._effective_cs_lambda() * self._normalized_cs_penalty(logits, targets)
         return ce_loss
 
     # NOTE: Not in dispatch — kept as reference implementation.
@@ -468,6 +617,14 @@ class LossFunctions:
             "cost_matrix_cross_entropy"       → CELossLTV1()
             "logit_adjustment" / "test"       → CELogitAdjustmentV2()
             "logit_adjustment_regularized"    → CELogitAdjustmentRegularized()
+            "nicme_v3_logit_adjustment"       → CELogitAdjustmentV3Pairwise()
+            "nicme_v3_hybrid"                 → CELogitAdjustmentV3Regularized()
+            "cost_weighted_ce"                → CostWeightedCE()
+            "balanced_softmax"                → BalancedSoftmaxCE()
+            "class_balanced_focal"            → ClassBalancedFocal()
+            "ldam_drw"                        → LDAMDRW()
+            "ap_csada"                        → APCSADA()
+            "sosr_cnn"                        → SOSRCNN()
 
         Raises:
             ValueError: If *loss_name* is not recognised.
@@ -486,5 +643,23 @@ class LossFunctions:
             return self.CELogitAdjustmentV2
         elif loss_name in ("logit_adjustment_regularized", "nicme_hybrid"):
             return self.CELogitAdjustmentRegularized
+        elif loss_name in ("nicme_v3_logit_adjustment", "logit_adjustment_v3_pairwise"):
+            return self.CELogitAdjustmentV3Pairwise
+        elif loss_name in ("nicme_v3_hybrid", "logit_adjustment_v3_regularized"):
+            return self.CELogitAdjustmentV3Regularized
+        elif loss_name in ("cost_weighted_ce", "row_mean_cost_weighted_ce"):
+            return self.CostWeightedCE
+        elif loss_name == "balanced_softmax":
+            return self.BalancedSoftmaxCE
+        elif loss_name in ("class_balanced_focal", "cb_focal"):
+            return self.ClassBalancedFocal
+        elif loss_name == "ldam_drw":
+            return self.LDAMDRW
+        elif loss_name in ("ap_csada", "adjusted_penalty_csada"):
+            return self.APCSADA
+        elif loss_name in ("sosr_cnn", "csdnn_sosr"):
+            return self.SOSRCNN
+        elif loss_name == "csada":
+            return self.cross_entropy
         else:
             raise ValueError(f"Invalid loss function: {loss_name}")

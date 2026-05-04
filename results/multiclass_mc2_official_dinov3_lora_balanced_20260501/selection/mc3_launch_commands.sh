@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd /mnt/storage/github/NICME
+export PYTHONPATH="${PYTHONPATH:+$PYTHONPATH:}."
+micromamba run -n ml python scripts/run_multiclass_experiments.py --stop mc3 --datasets eyepacs_dr --variants balanced --models facebook_dinov3_convnext_lora --methods ce --output-dir results/multiclass_mc3_selected_official_dinov3_lora_balanced_20260501 --execute --per-run-timeout-minutes 240 --gpu-canary-timeout-seconds 45
+micromamba run -n ml python scripts/run_multiclass_experiments.py --stop mc3 --datasets eyepacs_dr --variants balanced --models facebook_dinov3_convnext_lora --methods cs_regularized_ce --output-dir results/multiclass_mc3_selected_official_dinov3_lora_balanced_20260501 --execute --per-run-timeout-minutes 240 --gpu-canary-timeout-seconds 45
+micromamba run -n ml python scripts/run_multiclass_experiments.py --stop mc3 --datasets eyepacs_dr --variants balanced --models facebook_dinov3_convnext_lora --methods nicme_hybrid --output-dir results/multiclass_mc3_selected_official_dinov3_lora_balanced_20260501 --execute --per-run-timeout-minutes 240 --gpu-canary-timeout-seconds 45
+micromamba run -n ml python scripts/run_multiclass_experiments.py --stop mc3 --datasets pmi_pills --variants balanced --models facebook_dinov3_convnext_lora --methods ce --output-dir results/multiclass_mc3_selected_official_dinov3_lora_balanced_20260501 --execute --per-run-timeout-minutes 240 --gpu-canary-timeout-seconds 45
+micromamba run -n ml python scripts/run_multiclass_experiments.py --stop mc3 --datasets pmi_pills --variants balanced --models facebook_dinov3_convnext_lora --methods cs_regularized_ce --output-dir results/multiclass_mc3_selected_official_dinov3_lora_balanced_20260501 --execute --per-run-timeout-minutes 240 --gpu-canary-timeout-seconds 45
+micromamba run -n ml python scripts/run_multiclass_experiments.py --stop mc3 --datasets pmi_pills --variants balanced --models facebook_dinov3_convnext_lora --methods nicme_logit_adjustment --output-dir results/multiclass_mc3_selected_official_dinov3_lora_balanced_20260501 --execute --per-run-timeout-minutes 240 --gpu-canary-timeout-seconds 45

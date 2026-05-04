@@ -1,0 +1,95 @@
+[2026-05-01T12:23:03-07:00] Focused PMI-10 no-calibration long GPU chain launched
+[2026-05-01T12:23:03-07:00] Repo: /mnt/storage/github/NICME
+[2026-05-01T12:23:03-07:00] Results: /mnt/storage/github/NICME/results/pmi10_no_cal_20260501
+[2026-05-01T12:23:03-07:00] CUDA_VISIBLE_DEVICES=0
+Fri May  1 12:23:03 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5090        Off |   00000000:01:00.0 Off |                  N/A |
+|  0%   33C    P8              3W /  575W |     107MiB /  32607MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2237      G   /usr/lib/xorg/Xorg                       65MiB |
+|    0   N/A  N/A            2568      G   /usr/bin/gnome-shell                     11MiB |
++-----------------------------------------------------------------------------------------+
+[2026-05-01T12:23:03-07:00] START smoke: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase smoke --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_20260501 --seed 42 --per-run-timeout-minutes 240 --execute
+Wrote 6 planned runs under /mnt/storage/github/NICME/results/pmi10_no_cal_20260501/smoke
+[2026-05-01T12:36:12-07:00] DONE smoke
+[2026-05-01T12:36:12-07:00] START screen: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase screen --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_20260501 --seed 42 --per-run-timeout-minutes 480 --execute
+Wrote 30 planned runs under /mnt/storage/github/NICME/results/pmi10_no_cal_20260501/screen
+[2026-05-01T17:51:01-07:00] DONE screen
+[2026-05-01T17:51:01-07:00] START select: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase select --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_20260501 --top-k 3
+Selected backbones: convnext_base.fb_in22k_ft_in1k, swin_small_patch4_window7_224.ms_in22k_ft_in1k, swin_tiny_patch4_window7_224.ms_in22k_ft_in1k
+[2026-05-01T17:51:01-07:00] DONE select
+[2026-05-01T17:51:01-07:00] START hpo-nicme: micromamba run -n ml python scripts/run_pmi10_no_cal_experiments.py --phase hpo-nicme --output-root /mnt/storage/github/NICME/results/pmi10_no_cal_20260501 --seed 42 --trials 100 --per-run-timeout-minutes 720 --execute
+[I 2026-05-01 17:51:01,285] A new study created in memory with name: pmi10_hpo-nicme
+[I 2026-05-01 17:51:06,981] Trial 0 finished with value: -1000000000.0 and parameters: {'backbone': 'swin_small_patch4_window7_224.ms_in22k_ft_in1k', 'learning_rate': 0.00018905402147686385, 'weight_decay': 0.047885403047024266, 'warmup_ratio': 0.028348138089219654, 'lr_scheduler_type': 'linear', 'batch_size': 4, 'gradient_accumulation_steps': 4, 'image_size': 224, 'train_random_resize_crop': False, 'train_horizontal_flip': False, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.13019498689698006, 'cs_lambda': 0.48056506868814663, 'cs_warmup_epochs': 0}. Best is trial 0 with value: -1000000000.0.
+[I 2026-05-01 17:56:20,163] Trial 1 finished with value: -7.6225236404649825 and parameters: {'backbone': 'swin_small_patch4_window7_224.ms_in22k_ft_in1k', 'learning_rate': 1.0838412377859262e-06, 'weight_decay': 0.029068361121619615, 'warmup_ratio': 0.1151372210315357, 'lr_scheduler_type': 'linear', 'batch_size': 8, 'gradient_accumulation_steps': 8, 'image_size': 224, 'train_random_resize_crop': True, 'train_horizontal_flip': True, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.14791034466625663, 'cs_lambda': 0.37709563469813306, 'cs_warmup_epochs': 3}. Best is trial 1 with value: -7.6225236404649825.
+[I 2026-05-01 18:12:45,934] Trial 2 finished with value: 977.9632943052403 and parameters: {'backbone': 'swin_small_patch4_window7_224.ms_in22k_ft_in1k', 'learning_rate': 7.811122924347422e-06, 'weight_decay': 0.09901527440832303, 'warmup_ratio': 0.1944493550949865, 'lr_scheduler_type': 'cosine', 'batch_size': 4, 'gradient_accumulation_steps': 8, 'image_size': 224, 'train_random_resize_crop': True, 'train_horizontal_flip': True, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.4887108376893578, 'cs_lambda': 0.2514857847695479, 'cs_warmup_epochs': 3}. Best is trial 2 with value: 977.9632943052403.
+[I 2026-05-01 18:24:13,820] Trial 3 finished with value: 945.4591487896574 and parameters: {'backbone': 'swin_tiny_patch4_window7_224.ms_in22k_ft_in1k', 'learning_rate': 1.0263933933219209e-05, 'weight_decay': 0.11142273449993799, 'warmup_ratio': 0.1311908877719767, 'lr_scheduler_type': 'linear', 'batch_size': 8, 'gradient_accumulation_steps': 4, 'image_size': 224, 'train_random_resize_crop': False, 'train_horizontal_flip': False, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.1433532277885439, 'cs_lambda': 0.0941124024432522, 'cs_warmup_epochs': 0}. Best is trial 2 with value: 977.9632943052403.
+[I 2026-05-01 18:26:28,060] Trial 4 finished with value: -1000000000.0 and parameters: {'backbone': 'swin_small_patch4_window7_224.ms_in22k_ft_in1k', 'learning_rate': 5.224040389548889e-06, 'weight_decay': 0.007571754571029033, 'warmup_ratio': 0.07204294154945644, 'lr_scheduler_type': 'linear', 'batch_size': 4, 'gradient_accumulation_steps': 4, 'image_size': 224, 'train_random_resize_crop': True, 'train_horizontal_flip': False, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.8975758955806161, 'cs_lambda': 0.08005424429409319, 'cs_warmup_epochs': 2}. Best is trial 2 with value: 977.9632943052403.
+[I 2026-05-01 18:36:47,376] Trial 5 finished with value: 949.9091010076288 and parameters: {'backbone': 'swin_small_patch4_window7_224.ms_in22k_ft_in1k', 'learning_rate': 0.00017598849804360736, 'weight_decay': 0.12189542826131211, 'warmup_ratio': 0.11966569818076152, 'lr_scheduler_type': 'cosine', 'batch_size': 16, 'gradient_accumulation_steps': 8, 'image_size': 224, 'train_random_resize_crop': True, 'train_horizontal_flip': True, 'train_color_jitter': True, 'nicme_logit_cost_scale': 0.10581494551868818, 'cs_lambda': 0.4308019514527637, 'cs_warmup_epochs': 1}. Best is trial 2 with value: 977.9632943052403.
+[I 2026-05-01 18:49:17,547] Trial 6 finished with value: 977.9867415370701 and parameters: {'backbone': 'swin_tiny_patch4_window7_224.ms_in22k_ft_in1k', 'learning_rate': 2.4394924242945036e-05, 'weight_decay': 0.16634409188063254, 'warmup_ratio': 0.053465007385512964, 'lr_scheduler_type': 'linear', 'batch_size': 16, 'gradient_accumulation_steps': 8, 'image_size': 224, 'train_random_resize_crop': True, 'train_horizontal_flip': False, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.10437395200900053, 'cs_lambda': 0.04323086499546125, 'cs_warmup_epochs': 3}. Best is trial 6 with value: 977.9867415370701.
+[I 2026-05-01 18:57:47,105] Trial 7 finished with value: 958.5533302821923 and parameters: {'backbone': 'swin_tiny_patch4_window7_224.ms_in22k_ft_in1k', 'learning_rate': 0.00032556205842318664, 'weight_decay': 0.0856942461049367, 'warmup_ratio': 0.18712173099567533, 'lr_scheduler_type': 'cosine', 'batch_size': 16, 'gradient_accumulation_steps': 8, 'image_size': 224, 'train_random_resize_crop': True, 'train_horizontal_flip': True, 'train_color_jitter': False, 'nicme_logit_cost_scale': 0.5933662963143113, 'cs_lambda': 0.407354271184837, 'cs_warmup_epochs': 1}. Best is trial 6 with value: 977.9867415370701.
+[W 2026-05-01 18:57:47,105] Trial 8 failed with parameters: {'backbone': 'convnext_base.fb_in22k_ft_in1k', 'learning_rate': 1.8298366645436037e-05, 'weight_decay': 0.11463974872299901, 'warmup_ratio': 0.19144406577268358, 'lr_scheduler_type': 'cosine', 'batch_size': 16, 'gradient_accumulation_steps': 8} because of the following error: ValueError('CategoricalDistribution does not support dynamic value space.').
+Traceback (most recent call last):
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/study/_optimize.py", line 206, in _run_trial
+    value_or_values = func(trial)
+                      ^^^^^^^^^^^
+  File "/mnt/storage/github/NICME/scripts/run_pmi10_no_cal_experiments.py", line 551, in objective
+    "image_size": trial.suggest_categorical("image_size", image_size_choices(backbone)),
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/trial/_trial.py", line 408, in suggest_categorical
+    return self._suggest(name, CategoricalDistribution(choices=choices))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/trial/_trial.py", line 643, in _suggest
+    storage.set_trial_param(trial_id, name, param_value_in_internal_repr, distribution)
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/storages/_in_memory.py", line 205, in set_trial_param
+    distributions.check_distribution_compatibility(
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/distributions.py", line 656, in check_distribution_compatibility
+    raise ValueError(
+ValueError: CategoricalDistribution does not support dynamic value space.
+[W 2026-05-01 18:57:47,110] Trial 8 failed with value None.
+Traceback (most recent call last):
+  File "/mnt/storage/github/NICME/scripts/run_pmi10_no_cal_experiments.py", line 656, in <module>
+    main()
+  File "/mnt/storage/github/NICME/scripts/run_pmi10_no_cal_experiments.py", line 634, in main
+    run_hpo(args, "nicme_hybrid")
+  File "/mnt/storage/github/NICME/scripts/run_pmi10_no_cal_experiments.py", line 584, in run_hpo
+    study.optimize(objective, n_trials=int(args.trials))
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/study/study.py", line 490, in optimize
+    _optimize(
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/study/_optimize.py", line 68, in _optimize
+    _optimize_sequential(
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/study/_optimize.py", line 165, in _optimize_sequential
+    frozen_trial_id = _run_trial(study, func, catch)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/study/_optimize.py", line 263, in _run_trial
+    raise func_err
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/study/_optimize.py", line 206, in _run_trial
+    value_or_values = func(trial)
+                      ^^^^^^^^^^^
+  File "/mnt/storage/github/NICME/scripts/run_pmi10_no_cal_experiments.py", line 551, in objective
+    "image_size": trial.suggest_categorical("image_size", image_size_choices(backbone)),
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/trial/_trial.py", line 408, in suggest_categorical
+    return self._suggest(name, CategoricalDistribution(choices=choices))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/trial/_trial.py", line 643, in _suggest
+    storage.set_trial_param(trial_id, name, param_value_in_internal_repr, distribution)
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/storages/_in_memory.py", line 205, in set_trial_param
+    distributions.check_distribution_compatibility(
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/optuna/distributions.py", line 656, in check_distribution_compatibility
+    raise ValueError(
+ValueError: CategoricalDistribution does not support dynamic value space.

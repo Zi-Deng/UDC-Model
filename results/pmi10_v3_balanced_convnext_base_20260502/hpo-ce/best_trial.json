@@ -1,0 +1,14 @@
+{
+  "phase": "hpo-ce",
+  "loss": "ce",
+  "best_run_id": 9,
+  "best_value": 978.5106451612903,
+  "best_metric_path": "results/pmi10_convnext_base_fb_in22k_ft_in1k_test/hpo-ce_convnext_base_fb_in22k_ft_in1k_ce_s42_trial0008_05-02_08-14/metrics_20260502_081430_cross_entropy.json",
+  "best_config_path": "/mnt/storage/github/NICME/results/pmi10_v3_balanced_convnext_base_20260502/hpo-ce/best_config.json",
+  "selected_models": [
+    "convnext_base.fb_in22k_ft_in1k"
+  ],
+  "hpo_profile": "convnext_base_v3_balanced",
+  "attempted_trials": 16,
+  "completed_trials": 16
+}

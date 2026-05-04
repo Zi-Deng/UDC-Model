@@ -1,0 +1,48 @@
+Prepared manifest loaded — Train=2485, Val=335, Calibration=350, Test=370
+cuda
+Using model backend=timm type=timm_dinov3_convnext_lora with 5 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'eval_loss': '1.859', 'eval_accuracy': '0.1812', 'eval_f1': '0.08304', 'eval_balanced_accuracy': '0.1763', 'eval_macro_f1': '0.08304', 'eval_atc': '5.75', 'eval_normalized_atc': '0.3594', 'eval_target_recall': '0.7879', 'eval_target_recall_macro': '0.7879', 'eval_target_fnr': '0.2121', 'eval_selection_score': '0.5493', 'eval_selection_accuracy_value': '0.1763', 'eval_nll': '1.859', 'eval_brier': '0.8919', 'eval_ece': '0.2249', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '9.309', 'eval_samples_per_second': '17.19', 'eval_steps_per_second': '1.074', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/mc1_eyepacs_dr_balanced_d3cnx_lora_ce_s42/checkpoint-5/preprocessor_config.json
+{'train_runtime': '21.97', 'train_samples_per_second': '14.56', 'train_steps_per_second': '0.228', 'train_loss': '7.574', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     7.5743
+  train_runtime            = 0:00:21.97
+  train_samples_per_second =     14.564
+  train_steps_per_second   =      0.228
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/timm_dinov3_convnext_lora_test/mc1_eyepacs_dr_balanced_d3cnx_lora_ce_s42_04-30_07-06
+Saving run configuration...
+Run configuration saved to: results/timm_dinov3_convnext_lora_test/mc1_eyepacs_dr_balanced_d3cnx_lora_ce_s42_04-30_07-06/run_configuration_20260430_070630.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/timm_dinov3_convnext_lora_test/mc1_eyepacs_dr_balanced_d3cnx_lora_ce_s42_04-30_07-06/metrics_20260430_070657_ce.json and results/timm_dinov3_convnext_lora_test/mc1_eyepacs_dr_balanced_d3cnx_lora_ce_s42_04-30_07-06/metrics_20260430_070657_ce.txt
+Creating confusion matrix visualizations...
+Using provided class names: ['DR0', 'DR1', 'DR2', 'DR3', 'DR4']
+Confusion matrix visualizations (3-panel) saved to: results/timm_dinov3_convnext_lora_test/mc1_eyepacs_dr_balanced_d3cnx_lora_ce_s42_04-30_07-06/confusion_matrix_20260430_070657_ce.png and results/timm_dinov3_convnext_lora_test/mc1_eyepacs_dr_balanced_d3cnx_lora_ce_s42_04-30_07-06/confusion_matrix_20260430_070657_ce.pdf
+Detailed confusion matrix saved to: results/timm_dinov3_convnext_lora_test/mc1_eyepacs_dr_balanced_d3cnx_lora_ce_s42_04-30_07-06/confusion_matrix_detailed_20260430_070657_ce.png
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/timm_dinov3_convnext_lora_test/mc1_eyepacs_dr_balanced_d3cnx_lora_ce_s42_04-30_07-06
+Overall Accuracy: 0.1562
+Balanced Accuracy: 0.1668
+Overall F1 Score: 0.0898
+Kappa: -0.0376
+AUC: 0.4435
+Expected Cost: 6.0125
+Loss Function Used: ce
+Total Test Samples: 160
+Classes: DR0, DR1, DR2, DR3, DR4
+
+Detailed metrics and visualizations saved to: results/timm_dinov3_convnext_lora_test/mc1_eyepacs_dr_balanced_d3cnx_lora_ce_s42_04-30_07-06
+============================================================

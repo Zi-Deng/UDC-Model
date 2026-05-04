@@ -1,0 +1,46 @@
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=dinov3_feature type=facebook_dinov3_convnext_lora with 20 labels
+Early stopping enabled with patience=3
+Using device: cuda
+{'eval_loss': '4.301', 'eval_accuracy': '0.05', 'eval_f1': '0.006667', 'eval_balanced_accuracy': '0.04444', 'eval_macro_f1': '0.006667', 'eval_atc': '1.119', 'eval_normalized_atc': '0.1119', 'eval_target_recall': '0', 'eval_target_recall_macro': '0', 'eval_target_fnr': '1', 'eval_selection_score': '3.923', 'eval_selection_accuracy_value': '0.04444', 'eval_nll': '3.312', 'eval_brier': '0.9997', 'eval_ece': '0.153', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '2.445', 'eval_samples_per_second': '65.45', 'eval_steps_per_second': '4.091', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/mc1_pmi_pills_balanced_fb_d3cnx_lora_nicme_hybrid_s42_multiclass_mc_fb1_official_smoke_20260501_mc1_a1_e5fabb61/checkpoint-5/preprocessor_config.json
+{'train_runtime': '5.861', 'train_samples_per_second': '54.6', 'train_steps_per_second': '0.853', 'train_loss': '23.23', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =    23.2251
+  train_runtime            = 0:00:05.86
+  train_samples_per_second =       54.6
+  train_steps_per_second   =      0.853
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/facebook_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_fb_d3cnx_lora_nicme_hybrid_s42_multiclass_mc_fb1_official_smoke_20260501_mc1_a1_e5fabb61_04-30_23-36
+Saving run configuration...
+Run configuration saved to: results/facebook_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_fb_d3cnx_lora_nicme_hybrid_s42_multiclass_mc_fb1_official_smoke_20260501_mc1_a1_e5fabb61_04-30_23-36/run_configuration_20260430_233618.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/facebook_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_fb_d3cnx_lora_nicme_hybrid_s42_multiclass_mc_fb1_official_smoke_20260501_mc1_a1_e5fabb61_04-30_23-36/metrics_20260430_233626_nicme_hybrid.json and results/facebook_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_fb_d3cnx_lora_nicme_hybrid_s42_multiclass_mc_fb1_official_smoke_20260501_mc1_a1_e5fabb61_04-30_23-36/metrics_20260430_233626_nicme_hybrid.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '16729-0168', '50111-0434', '53489-0156', '53746-0544', '57664-0377', '62037-0831', '62037-0832', '64380-0803', '65162-0253', '67253-0901', '68382-0008', '68382-0227', '69097-0127', '69097-0128', '69315-0904', '69315-0905']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/facebook_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_fb_d3cnx_lora_nicme_hybrid_s42_multiclass_mc_fb1_official_smoke_20260501_mc1_a1_e5fabb61_04-30_23-36
+Overall Accuracy: 0.0500
+Balanced Accuracy: 0.0444
+Overall F1 Score: 0.0079
+Kappa: -0.0054
+AUC: 0.5030
+Expected Cost: 1.2312
+Loss Function Used: nicme_hybrid
+Total Test Samples: 160
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 16729-0168, 50111-0434, 53489-0156, 53746-0544, 57664-0377, 62037-0831, 62037-0832, 64380-0803, 65162-0253, 67253-0901, 68382-0008, 68382-0227, 69097-0127, 69097-0128, 69315-0904, 69315-0905
+
+Detailed metrics saved to: results/facebook_dinov3_convnext_lora_test/mc1_pmi_pills_balanced_fb_d3cnx_lora_nicme_hybrid_s42_multiclass_mc_fb1_official_smoke_20260501_mc1_a1_e5fabb61_04-30_23-36
+============================================================

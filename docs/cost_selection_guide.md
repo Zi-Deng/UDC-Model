@@ -1,5 +1,7 @@
 # Cost Matrix Selection Guide for NICME
 
+Status note, 2026-05-04: this is a historical binary-focused guide. It remains useful for intuition about cost ratios and sweep avoidance, but current PMI-10 interpretation should start from `docs/pmi10_hpo_sota_summary.md`, `results/README.md`, and `docs/nicme_v3_vs_csada_theory.pdf`.
+
 **Date:** 2026-01-28
 
 **Goal:** Document principled, cost-efficient approaches for selecting cost matrix values that:

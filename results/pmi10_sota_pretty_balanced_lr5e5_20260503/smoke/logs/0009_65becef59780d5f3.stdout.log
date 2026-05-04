@@ -1,0 +1,48 @@
+Prepared manifest loaded — Train=970, Val=310, Calibration=0, Test=320
+cuda
+Using model backend=timm type=pmi10_sota_convnext_base with 10 labels
+Loaded initial checkpoint: checkpoints/smoke_ce_anchor_pretty_lr5e5_s42/checkpoint-16/model.safetensors
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '7.483', 'grad_norm': '76.15', 'learning_rate': '5e-06', 'epoch': '0.6557'}
+{'eval_loss': '1.762', 'eval_accuracy': '0.5452', 'eval_f1': '0.5003', 'eval_balanced_accuracy': '0.5452', 'eval_macro_f1': '0.5003', 'eval_atc': '0.4839', 'eval_normalized_atc': '0.04839', 'eval_target_recall': '0.2258', 'eval_target_recall_macro': '0.6452', 'eval_target_fnr': '0', 'eval_selection_score': '1.931', 'eval_selection_accuracy_value': '0.5452', 'eval_nll': '1.254', 'eval_brier': '0.5852', 'eval_ece': '0.1472', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.447', 'eval_samples_per_second': '69.72', 'eval_steps_per_second': '4.498', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/smoke_ap_csada_lr5e5_s42/checkpoint-16/preprocessor_config.json
+{'train_runtime': '18.87', 'train_samples_per_second': '51.41', 'train_steps_per_second': '0.848', 'train_loss': '6.94', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     6.9401
+  train_runtime            = 0:00:18.86
+  train_samples_per_second =     51.408
+  train_steps_per_second   =      0.848
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi10_sota_convnext_base_test/smoke_ap_csada_lr5e5_s42_05-02_18-18
+Saving run configuration...
+Run configuration saved to: results/pmi10_sota_convnext_base_test/smoke_ap_csada_lr5e5_s42_05-02_18-18/run_configuration_20260502_181816.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi10_sota_convnext_base_test/smoke_ap_csada_lr5e5_s42_05-02_18-18/metrics_20260502_181825_ap_csada.json and results/pmi10_sota_convnext_base_test/smoke_ap_csada_lr5e5_s42_05-02_18-18/metrics_20260502_181825_ap_csada.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi10_sota_convnext_base_test/smoke_ap_csada_lr5e5_s42_05-02_18-18
+Overall Accuracy: 0.5625
+Balanced Accuracy: 0.5625
+Overall F1 Score: 0.5107
+Kappa: 0.5139
+AUC: 0.9584
+Expected Cost: 0.5156
+Loss Function Used: ap_csada
+Total Test Samples: 320
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
+
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/smoke_ap_csada_lr5e5_s42_05-02_18-18
+============================================================

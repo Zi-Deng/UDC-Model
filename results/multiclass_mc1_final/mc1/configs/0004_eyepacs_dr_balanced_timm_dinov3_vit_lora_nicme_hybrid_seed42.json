@@ -1,0 +1,101 @@
+{
+  "dataset_profile": "eyepacs_dr",
+  "variant": "balanced",
+  "dataset": "eyepacs_dr_balanced",
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "local_folder_path": "data/prepared/eyepacs_dr/splits/balanced",
+  "class_names": [
+    "DR0",
+    "DR1",
+    "DR2",
+    "DR3",
+    "DR4"
+  ],
+  "num_labels": 5,
+  "target_recall_class": "DR4",
+  "target_recall_classes": [
+    "DR4"
+  ],
+  "secondary_target_recall_classes": [
+    "DR3",
+    "DR4"
+  ],
+  "target_recall_floor": 0.9,
+  "accuracy_floor": 0.55,
+  "selection_accuracy_metric": "balanced_accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      1.0,
+      4.0,
+      9.0,
+      16.0
+    ],
+    [
+      1.0,
+      0.0,
+      1.0,
+      4.0,
+      9.0
+    ],
+    [
+      4.0,
+      1.0,
+      0.0,
+      1.0,
+      4.0
+    ],
+    [
+      9.0,
+      4.0,
+      1.0,
+      0.0,
+      1.0
+    ],
+    [
+      16.0,
+      9.0,
+      4.0,
+      1.0,
+      0.0
+    ]
+  ],
+  "cost_matrix_source": "dataset",
+  "cost_matrix_sha256": "2ddb9a77faab698cd29f1475048e7f5438e89d3c7420eaa8607238053746d412",
+  "metric_profile": "diabetic_retinopathy",
+  "critical_pairs": [],
+  "num_train_epochs": 1,
+  "early_stopping_patience": 3,
+  "batch_size": 16,
+  "learning_rate": 5e-05,
+  "weight_decay": 0.01,
+  "warmup_ratio": 0.05,
+  "lr_scheduler_type": "cosine",
+  "wandb": false,
+  "push_to_hub": false,
+  "calibration_enabled": true,
+  "decision_modes": "argmax,calibrated_cost_min",
+  "model_selection_metric": "target_recall",
+  "save_total_limit": 1,
+  "seed": 42,
+  "output_dir": "mc1_eyepacs_dr_balanced_d3vit_lora_nicme_hybrid_s42",
+  "model": "timm/vit_small_patch16_dinov3.lvd1689m",
+  "model_backend": "timm",
+  "model_type": "timm_dinov3_vit_lora",
+  "peft_enabled": true,
+  "peft_r": 8,
+  "peft_alpha": 16,
+  "peft_dropout": 0.1,
+  "peft_target_modules": "qkv",
+  "peft_modules_to_save": "model.head",
+  "timm_pretrained": true,
+  "loss_function": "nicme_hybrid",
+  "cs_lambda": 0.25,
+  "cs_warmup_epochs": 1,
+  "nicme_logit_cost_scale": 0.3,
+  "logit_adjustment_tau": 1.0,
+  "max_train_samples": 320,
+  "max_eval_samples": 160,
+  "max_test_samples": 160
+}

@@ -1,0 +1,3 @@
+Prepared manifest loaded — Train=3578, Val=1181, Calibration=0, Test=1186
+cuda
+Using model backend=timm type=pmi10_swin_small_patch4_window7_224_ms_in22k_ft_in1k with 10 labels

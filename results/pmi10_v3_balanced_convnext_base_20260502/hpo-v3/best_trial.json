@@ -1,0 +1,14 @@
+{
+  "phase": "hpo-v3",
+  "loss": "nicme_v3_hybrid",
+  "best_run_id": 29,
+  "best_value": 1011.1,
+  "best_metric_path": "results/pmi10_convnext_base_fb_in22k_ft_in1k_test/hpo-v3_convnext_base_fb_in22k_ft_in1k_nicme_v3_hybrid_s42_trial0028_05-02_04-56/metrics_20260502_045702_nicme_v3_hybrid.json",
+  "best_config_path": "/mnt/storage/github/NICME/results/pmi10_v3_balanced_convnext_base_20260502/hpo-v3/best_config.json",
+  "selected_models": [
+    "convnext_base.fb_in22k_ft_in1k"
+  ],
+  "hpo_profile": "convnext_base_v3_balanced",
+  "attempted_trials": 64,
+  "completed_trials": 64
+}

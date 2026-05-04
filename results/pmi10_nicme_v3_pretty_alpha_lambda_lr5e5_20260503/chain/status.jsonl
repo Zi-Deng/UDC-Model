@@ -1,0 +1,19 @@
+{"time":"2026-05-03T00:38:47-07:00","phase":"chain","status":"started"}
+{"time":"2026-05-03T00:38:47-07:00","phase":"prepare-balanced-split","status":"started"}
+{"time":"2026-05-03T00:38:48-07:00","phase":"prepare-balanced-split","status":"completed"}
+{"time":"2026-05-03T00:38:48-07:00","phase":"readiness","status":"started"}
+{"time":"2026-05-03T00:38:49-07:00","phase":"readiness","status":"completed"}
+{"time":"2026-05-03T00:38:49-07:00","phase":"unit-tests","status":"started"}
+{"time":"2026-05-03T00:38:53-07:00","phase":"unit-tests","status":"completed"}
+{"time":"2026-05-03T00:38:53-07:00","phase":"preflight","status":"started"}
+{"time":"2026-05-03T00:38:53-07:00","phase":"preflight","status":"completed"}
+{"time":"2026-05-03T00:38:53-07:00","phase":"grid-dry-run","status":"started"}
+{"time":"2026-05-03T00:38:53-07:00","phase":"grid-dry-run","status":"completed"}
+{"time":"2026-05-03T00:38:53-07:00","phase":"grid-smoke","status":"started"}
+{"time":"2026-05-03T00:42:43-07:00","phase":"grid-smoke","status":"completed"}
+{"time":"2026-05-03T00:42:43-07:00","phase":"grid-run","status":"started"}
+{"time":"2026-05-03T08:45:53-07:00","phase":"grid-run","status":"failed"}
+{"time":"2026-05-03T08:45:53-07:00","phase":"chain","status":"failed"}
+{"time":"2026-05-03T17:38:27-07:00","phase":"grid-run-resume","status":"completed","note":"Direct resume completed the alpha/lambda grid; grid_run_ledger.csv has 108/108 completed rows and 0 failed rows."}
+{"time":"2026-05-03T17:38:36-07:00","phase":"grid-analyze-resume","status":"completed","note":"Direct resume wrote validation_ranked_table.csv, selected_config.json, selected_result_summary.md, and alpha_lambda_summary.md."}
+{"time":"2026-05-03T17:38:36-07:00","phase":"chain-resume","status":"completed","note":"The original chain failed at run 103; the resumed grid-run plus grid-analyze completed the HPO."}

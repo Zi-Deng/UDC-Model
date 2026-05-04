@@ -1,0 +1,27 @@
+{
+  "hpo_profile": "convnext_base_fast",
+  "models": [
+    "convnext_base.fb_in22k_ft_in1k"
+  ],
+  "split_dir": "data/prepared/pmi_pills_10_no_cal/splits/natural",
+  "split_counts": {
+    "train": 3578,
+    "validation": 1181,
+    "test": 1186
+  },
+  "expected_split_counts": {
+    "train": 3578,
+    "validation": 1181,
+    "test": 1186
+  },
+  "active_training_processes": [],
+  "cost_matrix_sha256": "1160cbf20c4fac24dc7bb84cbbb229a16545259d585ae1ef1c066e0007082e08",
+  "checks": {
+    "gpu_visible": true,
+    "no_active_training_processes": true,
+    "split_counts_match": true,
+    "config_invariants_ok": true
+  },
+  "invariant_errors": [],
+  "ok": true
+}

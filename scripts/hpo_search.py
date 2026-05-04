@@ -42,7 +42,10 @@ def main():
     script_args = parse_HF_args()
 
     # --- Load dataset ONCE ---
-    image_processor = CustomImageProcessor.from_pretrained(script_args.model)
+    image_processor = CustomImageProcessor.from_pretrained(
+        script_args.model,
+        image_size=getattr(script_args, "image_size", None),
+    )
     class_names = None
 
     if script_args.dataset_host == "huggingface":
@@ -58,7 +61,7 @@ def main():
             )
         elif script_args.local_dataset_format == "manifest":
             train_ds, val_ds, _calibration_ds, test_ds, class_names = preprocess_manifest_dataset(
-                script_args.local_folder_path, script_args.model
+                script_args.local_folder_path, script_args.model, script_args=script_args
             )
         else:
             train_ds, val_ds, test_ds, class_names = preprocess_local_folder_dataset(
@@ -117,6 +120,11 @@ def main():
 
     # --- Objective ---
     def compute_objective(metrics):
+        if script_args.cost_matrix is not None and getattr(script_args, "model_selection_metric", None) == "target_recall":
+            recall = float(metrics.get("eval_target_recall", metrics.get("target_recall", 0.0)))
+            natc = float(metrics.get("eval_normalized_atc", metrics.get("normalized_atc", 0.0)))
+            selected_acc = float(metrics.get("eval_selection_accuracy_value", metrics.get("selection_accuracy_value", 0.0)))
+            return recall - 0.001 * natc + 0.0001 * selected_acc
         if script_args.cost_matrix is not None and "eval_selection_score" in metrics:
             return metrics["eval_selection_score"]
         return metrics.get("eval_accuracy", metrics.get("eval_loss", 0.0))
@@ -128,12 +136,14 @@ def main():
         eval_strategy="epoch",
         save_strategy="epoch",
         num_train_epochs=30,
-        gradient_accumulation_steps=4,
+        gradient_accumulation_steps=getattr(script_args, "gradient_accumulation_steps", 4),
         per_device_eval_batch_size=32,
         logging_steps=10,
         load_best_model_at_end=True,
-        metric_for_best_model="selection_score" if script_args.cost_matrix is not None else "accuracy",
-        greater_is_better=False if script_args.cost_matrix is not None else True,
+        metric_for_best_model=getattr(script_args, "model_selection_metric", None)
+        or ("selection_score" if script_args.cost_matrix is not None else "accuracy"),
+        greater_is_better=getattr(script_args, "model_selection_metric", None) == "target_recall"
+        or script_args.cost_matrix is None,
         save_total_limit=2,
         report_to="none",
     )
@@ -169,7 +179,9 @@ def main():
     print("=" * 60)
 
     best_trial = trainer.hyperparameter_search(
-        direction="minimize" if script_args.cost_matrix is not None else "maximize",
+        direction="maximize"
+        if getattr(script_args, "model_selection_metric", None) == "target_recall" or script_args.cost_matrix is None
+        else "minimize",
         backend="optuna",
         hp_space=optuna_hp_space,
         n_trials=20,
