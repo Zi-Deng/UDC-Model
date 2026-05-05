@@ -10,8 +10,10 @@ Dispatch table (``loss_function()`` method)::
     "cost_matrix_cross_entropy"       → CELossLTV1()
     "logit_adjustment" / "test"       → CELogitAdjustmentV2()
     "logit_adjustment_regularized"    → CELogitAdjustmentRegularized()
-    "nicme_v3_logit_adjustment"       → CELogitAdjustmentV3Pairwise()
-    "nicme_v3_hybrid"                 → CELogitAdjustmentV3Regularized()
+    "legacy_nicme_logit_adjustment"   → CELogitAdjustmentV2()
+    "legacy_nicme_hybrid"             → CELogitAdjustmentRegularized()
+    "nicme_logit_adjustment"          → CELogitAdjustmentV3Pairwise()
+    "nicme_hybrid"                    → CELogitAdjustmentV3Regularized()
     "cost_weighted_ce"                → CostWeightedCE()
     "balanced_softmax"                → BalancedSoftmaxCE()
     "class_balanced_focal"            → ClassBalancedFocal()
@@ -19,6 +21,8 @@ Dispatch table (``loss_function()`` method)::
     "ap_csada"                        → APCSADA()
     "sosr_cnn"                        → SOSRCNN()
 
+Deprecated ``nicme_v3_*`` aliases still resolve to the current NICME loss for
+historical configs, but new configs should use the versionless NICME names.
 Additional older methods are kept as reference implementations.
 """
 
@@ -617,8 +621,10 @@ class LossFunctions:
             "cost_matrix_cross_entropy"       → CELossLTV1()
             "logit_adjustment" / "test"       → CELogitAdjustmentV2()
             "logit_adjustment_regularized"    → CELogitAdjustmentRegularized()
-            "nicme_v3_logit_adjustment"       → CELogitAdjustmentV3Pairwise()
-            "nicme_v3_hybrid"                 → CELogitAdjustmentV3Regularized()
+            "legacy_nicme_logit_adjustment"   → CELogitAdjustmentV2()
+            "legacy_nicme_hybrid"             → CELogitAdjustmentRegularized()
+            "nicme_logit_adjustment"          → CELogitAdjustmentV3Pairwise()
+            "nicme_hybrid"                    → CELogitAdjustmentV3Regularized()
             "cost_weighted_ce"                → CostWeightedCE()
             "balanced_softmax"                → BalancedSoftmaxCE()
             "class_balanced_focal"            → ClassBalancedFocal()
@@ -639,13 +645,13 @@ class LossFunctions:
             return self.seesaw_loss
         elif loss_name == "cost_matrix_cross_entropy":
             return self.CELossLTV1
-        elif loss_name in ("logit_adjustment", "test", "nicme_logit_adjustment"):
+        elif loss_name in ("logit_adjustment", "test", "legacy_nicme_logit_adjustment"):
             return self.CELogitAdjustmentV2
-        elif loss_name in ("logit_adjustment_regularized", "nicme_hybrid"):
+        elif loss_name in ("logit_adjustment_regularized", "legacy_nicme_hybrid"):
             return self.CELogitAdjustmentRegularized
-        elif loss_name in ("nicme_v3_logit_adjustment", "logit_adjustment_v3_pairwise"):
+        elif loss_name in ("nicme_logit_adjustment", "nicme_v3_logit_adjustment", "logit_adjustment_v3_pairwise"):
             return self.CELogitAdjustmentV3Pairwise
-        elif loss_name in ("nicme_v3_hybrid", "logit_adjustment_v3_regularized"):
+        elif loss_name in ("nicme_hybrid", "nicme_v3_hybrid", "logit_adjustment_v3_regularized"):
             return self.CELogitAdjustmentV3Regularized
         elif loss_name in ("cost_weighted_ce", "row_mean_cost_weighted_ce"):
             return self.CostWeightedCE

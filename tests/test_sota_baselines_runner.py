@@ -132,47 +132,37 @@ def test_pretty_builds_nicme_and_baselines_with_unique_output_dirs(tmp_path):
 
 
 def test_pretty_nicme_configs_use_locked_alpha_lambda(tmp_path):
-    v3 = runner.base_config(
+    cfg = runner.base_config(
         "run",
-        "nicme_v3_hybrid_pretty",
-        tmp_path / "splits" / "balanced",
-        tmp_path / "results",
-        comparison_profile="pretty_balanced",
-        learning_rate_profile="lr1e4",
-    )
-    v2 = runner.base_config(
-        "run",
-        "nicme_v2_hybrid_pretty",
+        "nicme_hybrid_pretty",
         tmp_path / "splits" / "balanced",
         tmp_path / "results",
         comparison_profile="pretty_balanced",
         learning_rate_profile="lr1e4",
     )
 
-    assert v3["loss_function"] == "nicme_v3_hybrid"
-    assert v2["loss_function"] == "nicme_hybrid"
-    for cfg in (v3, v2):
-        assert cfg["learning_rate"] == 1e-4
-        assert cfg["nicme_logit_cost_scale"] == 0.4
-        assert cfg["cs_lambda"] == 0.25
-        assert cfg["cs_warmup_epochs"] == 2
+    assert cfg["loss_function"] == "nicme_hybrid"
+    assert cfg["learning_rate"] == 1e-4
+    assert cfg["nicme_logit_cost_scale"] == 0.4
+    assert cfg["cs_lambda"] == 0.25
+    assert cfg["cs_warmup_epochs"] == 2
 
 
 def test_pretty_lr1e5_uses_locked_nicme_values(tmp_path):
-    v3 = runner.base_config(
+    cfg = runner.base_config(
         "run",
-        "nicme_v3_hybrid_pretty",
+        "nicme_hybrid_pretty",
         tmp_path / "splits" / "balanced",
         tmp_path / "results",
         comparison_profile="pretty_balanced",
         learning_rate_profile="lr1e5",
     )
 
-    assert v3["learning_rate"] == 1e-5
-    assert v3["parent_learning_rate"] == 1e-5
-    assert v3["nicme_logit_cost_scale"] == 0.4
-    assert v3["cs_lambda"] == 0.25
-    assert v3["cs_warmup_epochs"] == 2
+    assert cfg["learning_rate"] == 1e-5
+    assert cfg["parent_learning_rate"] == 1e-5
+    assert cfg["nicme_logit_cost_scale"] == 0.4
+    assert cfg["cs_lambda"] == 0.25
+    assert cfg["cs_warmup_epochs"] == 2
 
 
 def test_pretty_adaptation_methods_use_native_lr_and_record_parent_lr(tmp_path):
@@ -214,7 +204,7 @@ def test_pretty_alpha_lambda_grid_has_expected_values_and_invariants(tmp_path):
     assert all(runner.has_one_nonzero_digit(cfg["nicme_logit_cost_scale"]) for cfg in configs)
     assert all(runner.has_one_nonzero_digit(cfg["cs_lambda"]) for cfg in configs)
     assert {cfg["learning_rate"] for cfg in configs} == {5e-5}
-    assert {cfg["loss_function"] for cfg in configs} == {"nicme_v3_hybrid"}
+    assert {cfg["loss_function"] for cfg in configs} == {"nicme_hybrid"}
     assert {cfg["cs_warmup_epochs"] for cfg in configs} == {2}
     assert {cfg["calibration_enabled"] for cfg in configs} == {False}
     assert {cfg["peft_enabled"] for cfg in configs} == {False}

@@ -25,7 +25,7 @@ VARIANT = "balanced"
 MODEL_ID = "convnext_base.fb_in22k_ft_in1k"
 RESULT_ROOT = Path("results/pmi10_sota_baselines_balanced_20260502")
 SPLIT_DIR = Path("data/prepared/pmi_pills_10_no_cal/splits/balanced")
-NICME_V3_ROOT = Path("results/pmi10_v3_balanced_convnext_base_20260502")
+NICME_PHASE3_ROOT = Path("results/pmi10_v3_balanced_convnext_base_20260502")
 PRETTY_RESULT_ROOTS = {
     "lr1e5": Path("results/pmi10_sota_pretty_balanced_lr1e5_20260503"),
     "lr5e5": Path("results/pmi10_sota_pretty_balanced_lr5e5_20260503"),
@@ -33,7 +33,7 @@ PRETTY_RESULT_ROOTS = {
 }
 COMBINED_PRETTY_ROOT = Path("results/pmi10_sota_pretty_balanced_dual_lr_20260503")
 TRIPLE_PRETTY_ROOT = Path("results/pmi10_sota_pretty_balanced_triple_lr_20260503")
-NICME_V3_PRETTY_GRID_ROOT = Path("results/pmi10_nicme_v3_pretty_alpha_lambda_lr5e5_20260503")
+NICME_PRETTY_GRID_ROOT = Path("results/pmi10_nicme_pretty_alpha_lambda_lr5e5_20260503")
 LEARNING_RATE_PROFILES = {"lr1e5": 1e-5, "lr5e5": 5e-5, "lr1e4": 1e-4}
 LEARNING_RATE_LABELS = {
     "lr1e5": "LR 1e-5 (very conservative LR)",
@@ -81,8 +81,7 @@ ADAPTATION_BASELINES = ("ap_csada", "sosr_cnn", "csada")
 ALL_BASELINES = DIRECT_BASELINES + ADAPTATION_BASELINES
 PRETTY_ANCHOR = "ce_anchor_pretty"
 PRETTY_DIRECT_METHODS = (
-    "nicme_v3_hybrid_pretty",
-    "nicme_v2_hybrid_pretty",
+    "nicme_hybrid_pretty",
 ) + DIRECT_BASELINES
 PRETTY_METHODS = (PRETTY_ANCHOR,) + PRETTY_DIRECT_METHODS + ADAPTATION_BASELINES
 PRETTY_GRID_ALPHA_VALUES = (0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6)
@@ -262,12 +261,7 @@ def base_config(
         cfg["loss_function"] = "cross_entropy"
         cfg["decision_modes"] = "argmax,cost_min"
         cfg["sota_role"] = method
-    elif method == "nicme_v3_hybrid_pretty":
-        cfg["loss_function"] = "nicme_v3_hybrid"
-        cfg["nicme_logit_cost_scale"] = 0.4
-        cfg["cs_lambda"] = 0.25
-        cfg["cs_warmup_epochs"] = 2
-    elif method == "nicme_v2_hybrid_pretty":
+    elif method == "nicme_hybrid_pretty":
         cfg["loss_function"] = "nicme_hybrid"
         cfg["nicme_logit_cost_scale"] = 0.4
         cfg["cs_lambda"] = 0.25
@@ -501,7 +495,7 @@ def build_grid_config(
 ) -> dict[str, Any]:
     cfg = base_config(
         phase,
-        "nicme_v3_hybrid_pretty",
+        "nicme_hybrid_pretty",
         split_dir,
         output_root,
         seed,
@@ -512,14 +506,14 @@ def build_grid_config(
     cfg["nicme_logit_cost_scale"] = float(alpha)
     cfg["cs_lambda"] = float(cs_lambda)
     cfg["cs_warmup_epochs"] = 2
-    cfg["sota_method"] = "nicme_v3_hybrid_pretty"
-    cfg["sota_role"] = "nicme_v3_pretty_alpha_lambda_grid"
-    cfg["sota_comparison_profile"] = "nicme_v3_pretty_alpha_lambda_grid"
+    cfg["sota_method"] = "nicme_hybrid_pretty"
+    cfg["sota_role"] = "nicme_pretty_alpha_lambda_grid"
+    cfg["sota_comparison_profile"] = "nicme_pretty_alpha_lambda_grid"
     cfg["alpha_lambda_grid"] = True
     cfg["grid_alpha"] = float(alpha)
     cfg["grid_cs_lambda"] = float(cs_lambda)
     cfg["output_dir"] = (
-        f"{phase}_nicme_v3_hybrid_pretty_a{pretty_numeric_label(alpha)}_"
+        f"{phase}_nicme_hybrid_pretty_a{pretty_numeric_label(alpha)}_"
         f"l{pretty_numeric_label(cs_lambda)}_lr5e5_s{seed}"
     )
     return cfg
@@ -556,8 +550,8 @@ def assert_grid_configs(configs: list[dict[str, Any]]) -> None:
         cs_lambda = float(cfg["cs_lambda"])
         if not has_one_nonzero_digit(alpha) or not has_one_nonzero_digit(cs_lambda):
             raise ValueError(f"Grid value is not pretty: alpha={alpha}, cs_lambda={cs_lambda}")
-        if cfg["loss_function"] != "nicme_v3_hybrid":
-            raise ValueError("Grid must use nicme_v3_hybrid")
+        if cfg["loss_function"] != "nicme_hybrid":
+            raise ValueError("Grid must use nicme_hybrid")
         if float(cfg["learning_rate"]) != 5e-5:
             raise ValueError("Grid must keep learning_rate=5e-5")
         if int(cfg["cs_warmup_epochs"]) != 2:
@@ -699,7 +693,7 @@ def write_grid_analysis(args: argparse.Namespace) -> Path:
     write_grid_csv(output_root / "alpha_lambda_heatmap_data.csv", ranked, heatmap_fields)
 
     lines = [
-        "# NICME V3 Pretty Alpha/Lambda Grid Summary",
+        "# NICME Pretty Alpha/Lambda Grid Summary",
         "",
         f"Generated: {dt.datetime.now().isoformat(timespec='seconds')}",
         "",
@@ -1063,12 +1057,12 @@ def read_ledger(path: Path) -> list[dict[str, str]]:
 
 def collect_previous_nicme_rows() -> list[dict[str, Any]]:
     rows = []
-    for row in read_ledger(NICME_V3_ROOT / "final" / "run_ledger.csv"):
+    for row in read_ledger(NICME_PHASE3_ROOT / "final" / "run_ledger.csv"):
         if row.get("status") != "completed" or not row.get("metric_path"):
             continue
         method = row.get("role") or row.get("loss") or "nicme_reference"
         mode, report = load_metric_report(row["metric_path"], method)
-        rows.append(metric_row(method, method, row["metric_path"], mode or "argmax", report, "nicme_v3_phase3_final"))
+        rows.append(metric_row(method, method, row["metric_path"], mode or "argmax", report, "nicme_phase3_final"))
     return rows
 
 
@@ -1105,7 +1099,7 @@ def write_hyperparameter_summary(path: Path, output_root: Path, rows: list[dict[
         seen.add(key)
         method = row.get("method", "")
         notes = ""
-        if method in {"nicme_v3_hybrid_pretty", "nicme_v2_hybrid_pretty"}:
+        if method == "nicme_hybrid_pretty":
             notes = "`alpha=0.4`, `cs_lambda=0.25`, `cs_warmup_epochs=2`"
         elif method in ADAPTATION_BASELINES:
             notes = "CE-anchor adaptation; native adaptation LR `1e-5`"
@@ -1345,7 +1339,7 @@ def main(argv: list[str] | None = None) -> None:
     if args.comparison_profile == "pretty_balanced" and args.output_root == str(RESULT_ROOT):
         args.output_root = str(PRETTY_RESULT_ROOTS[args.learning_rate_profile])
     if args.phase.startswith("grid-") and args.output_root == str(RESULT_ROOT):
-        args.output_root = str(NICME_V3_PRETTY_GRID_ROOT)
+        args.output_root = str(NICME_PRETTY_GRID_ROOT)
 
     if args.phase == "preflight":
         run_preflight(args)

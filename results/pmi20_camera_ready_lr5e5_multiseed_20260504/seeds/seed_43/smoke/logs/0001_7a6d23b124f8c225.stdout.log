@@ -1,0 +1,49 @@
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=timm type=pmi20_sota_convnext_base with 20 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '10.9', 'grad_norm': '31.41', 'learning_rate': '4.589e-05', 'epoch': '0.3279'}
+{'loss': '7.182', 'grad_norm': '40.46', 'learning_rate': '2.066e-05', 'epoch': '0.6557'}
+{'loss': '5.429', 'grad_norm': '31.55', 'learning_rate': '6.739e-07', 'epoch': '0.9836'}
+{'eval_loss': '1.282', 'eval_accuracy': '0.6719', 'eval_f1': '0.6458', 'eval_balanced_accuracy': '0.6719', 'eval_macro_f1': '0.6458', 'eval_atc': '0.5813', 'eval_normalized_atc': '0.05813', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.6406', 'eval_target_fnr': '0', 'eval_selection_score': '3.315', 'eval_selection_accuracy_value': '0.6719', 'eval_nll': '1.282', 'eval_brier': '0.5633', 'eval_ece': '0.3203', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.897', 'eval_samples_per_second': '82.12', 'eval_steps_per_second': '5.133', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_smoke_ce_anchor_pmi20_lr5e5_s43/checkpoint-31/preprocessor_config.json
+{'train_runtime': '30.02', 'train_samples_per_second': '64.61', 'train_steps_per_second': '1.032', 'train_loss': '7.659', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     7.6586
+  train_runtime            = 0:00:30.02
+  train_samples_per_second =     64.613
+  train_steps_per_second   =      1.032
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_ce_anchor_pmi20_lr5e5_s43_05-04_08-47
+Saving run configuration...
+Run configuration saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_ce_anchor_pmi20_lr5e5_s43_05-04_08-47/run_configuration_20260504_084718.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_ce_anchor_pmi20_lr5e5_s43_05-04_08-47/metrics_20260504_084731_cross_entropy.json and results/pmi20_sota_convnext_base_test/pmi20_smoke_ce_anchor_pmi20_lr5e5_s43_05-04_08-47/metrics_20260504_084731_cross_entropy.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '16729-0168', '50111-0434', '53489-0156', '53746-0544', '57664-0377', '62037-0831', '62037-0832', '64380-0803', '65162-0253', '67253-0901', '68382-0008', '68382-0227', '69097-0127', '69097-0128', '69315-0904', '69315-0905']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi20_sota_convnext_base_test/pmi20_smoke_ce_anchor_pmi20_lr5e5_s43_05-04_08-47
+Overall Accuracy: 0.6891
+Balanced Accuracy: 0.6891
+Overall F1 Score: 0.6692
+Kappa: 0.6727
+AUC: 0.9845
+Expected Cost: 0.5922
+Loss Function Used: cross_entropy
+Total Test Samples: 640
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 16729-0168, 50111-0434, 53489-0156, 53746-0544, 57664-0377, 62037-0831, 62037-0832, 64380-0803, 65162-0253, 67253-0901, 68382-0008, 68382-0227, 69097-0127, 69097-0128, 69315-0904, 69315-0905
+
+Detailed metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_ce_anchor_pmi20_lr5e5_s43_05-04_08-47
+============================================================

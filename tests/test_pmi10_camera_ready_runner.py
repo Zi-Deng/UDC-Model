@@ -39,7 +39,7 @@ def test_primary_nicme_config_is_pilot_best(tmp_path):
         42,
     )
 
-    assert cfg["loss_function"] == "nicme_v3_hybrid"
+    assert cfg["loss_function"] == "nicme_hybrid"
     assert cfg["sota_method"] == camera.NICME_PRIMARY_METHOD
     assert cfg["learning_rate"] == 5e-5
     assert cfg["parent_learning_rate"] == 5e-5
@@ -62,7 +62,6 @@ def test_baseline_hyperparameters_match_existing_lr5e5_profile(tmp_path):
         "ap_csada",
         "sosr_cnn",
         "csada",
-        "nicme_v2_hybrid_pretty",
     ):
         expected = baseline.base_config(
             "run",

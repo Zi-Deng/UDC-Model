@@ -5,7 +5,7 @@ This runner fixes the paper-final comparison protocol:
 * one fixed balanced PMI-10 no-calibration split,
 * one fixed ConvNeXt-base backbone/training recipe,
 * three paired seeds,
-* the pilot-best NICME v3 alpha/lambda setting,
+* the pilot-best NICME alpha/lambda setting,
 * the existing LR 5e-5 SOTA baseline hyperparameters.
 
 The output is intended to feed the NeurIPS table with mean +/- sample
@@ -32,7 +32,7 @@ DEFAULT_OUTPUT_ROOT = Path("results/pmi10_camera_ready_lr5e5_multiseed_20260504"
 DEFAULT_SEEDS = (42, 43, 44)
 LEARNING_RATE_PROFILE = "lr5e5"
 COMPARISON_PROFILE = "pretty_balanced"
-NICME_PRIMARY_METHOD = "nicme_v3_hybrid_pretty_a0p5_l0p07"
+NICME_PRIMARY_METHOD = "nicme_hybrid_pretty_a0p5_l0p07"
 NICME_PRIMARY_ALPHA = 0.5
 NICME_PRIMARY_LAMBDA = 0.07
 TOL = 1e-12
@@ -40,7 +40,6 @@ TOL = 1e-12
 TRAIN_METHODS = (
     base.PRETTY_ANCHOR,
     NICME_PRIMARY_METHOD,
-    "nicme_v2_hybrid_pretty",
     *base.DIRECT_BASELINES,
     *base.ADAPTATION_BASELINES,
 )
@@ -48,7 +47,6 @@ REPORT_METHODS = (
     "ce_anchor_pretty",
     "ce_cost_min_inference_pretty",
     NICME_PRIMARY_METHOD,
-    "nicme_v2_hybrid_pretty",
     *base.DIRECT_BASELINES,
     *base.ADAPTATION_BASELINES,
 )
@@ -90,8 +88,7 @@ def display_name(method: str) -> str:
     names = {
         "ce_anchor_pretty": "CE",
         "ce_cost_min_inference_pretty": "CE + cost-min inference",
-        NICME_PRIMARY_METHOD: "NICME v3 (alpha=0.5, lambda=0.07)",
-        "nicme_v2_hybrid_pretty": "NICME v2 hybrid",
+        NICME_PRIMARY_METHOD: "NICME (alpha=0.5, lambda=0.07)",
         "cost_weighted_ce": "Cost-weighted CE",
         "menon_logit_adjusted": "Menon logit adjustment",
         "balanced_softmax": "Balanced softmax",
@@ -113,7 +110,7 @@ def build_training_config(
     smoke: bool = False,
     anchor_path: str | None = None,
 ) -> dict[str, Any]:
-    base_method = "nicme_v3_hybrid_pretty" if method == NICME_PRIMARY_METHOD else method
+    base_method = "nicme_hybrid_pretty" if method == NICME_PRIMARY_METHOD else method
     cfg = base.base_config(
         phase,
         base_method,
@@ -616,10 +613,10 @@ def write_claim_audit(output_root: Path, winners: list[dict[str, Any]]) -> None:
         endpoint_rows = by_endpoint.get(endpoint, [])
         if any(row["is_nicme_primary"] for row in endpoint_rows):
             verb = "tied for" if len(endpoint_rows) > 1 else "achieved"
-            supported.append(f"- NICME v3 {verb} {claim}.")
+            supported.append(f"- NICME {verb} {claim}.")
         else:
             winners_text = ", ".join(row["display_name"] for row in endpoint_rows) or "none"
-            unsupported.append(f"- NICME v3 did not win {claim}; winner: {winners_text}.")
+            unsupported.append(f"- NICME did not win {claim}; winner: {winners_text}.")
 
     lines = [
         "# Camera-Ready Claim Audit",
@@ -628,7 +625,7 @@ def write_claim_audit(output_root: Path, winners: list[dict[str, Any]]) -> None:
         "",
         "## Supported Claims",
         "",
-        *(supported or ["- No predeclared cost-sensitive endpoint was won by NICME v3 in this aggregate."]),
+        *(supported or ["- No predeclared cost-sensitive endpoint was won by NICME in this aggregate."]),
         "",
         "## Claims Not Supported By This Aggregate",
         "",
@@ -636,7 +633,7 @@ def write_claim_audit(output_root: Path, winners: list[dict[str, Any]]) -> None:
         "",
         "## Guardrail",
         "",
-        "Do not claim universal superiority unless NICME v3 wins every endpoint in the aggregate table.",
+        "Do not claim universal superiority unless NICME wins every endpoint in the aggregate table.",
     ]
     (output_root / "analysis" / "claim_audit.md").write_text("\n".join(lines) + "\n")
 
@@ -695,8 +692,6 @@ def write_method_hyperparameters(output_root: Path, metric_rows: list[dict[str, 
             notes = "Inference-only report from CE anchor"
         elif method in base.ADAPTATION_BASELINES:
             notes = "CE-anchor adaptation; native adaptation LR `1e-5`"
-        elif method == "nicme_v2_hybrid_pretty":
-            notes = "Existing LR 5e-5 baseline hyperparameters"
         lines.append(
             f"| {display_name(method)} | `{row.get('learning_rate', '')}` | `{row.get('parent_learning_rate', '')}` | "
             f"`{row.get('alpha', '')}` | `{row.get('cs_lambda', '')}` | {notes} |"

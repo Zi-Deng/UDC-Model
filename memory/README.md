@@ -6,8 +6,9 @@ For current work, start here:
 
 - [Repository docs index](../docs/README.md)
 - [Current status](../docs/current_status.md)
+- [Paper results summary](../docs/paper_results_summary.md)
 - [Results index](../results/README.md)
-- [PMI-10 HPO and SOTA/baseline summary](../docs/pmi10_hpo_sota_summary.md)
+- [PMI-10 supporting HPO and SOTA/baseline summary](../docs/pmi10_hpo_sota_summary.md)
 - [Binary experiment summary](../docs/binary_experiment_summary.md)
 - [Multiclass experiment summary](../docs/multiclass_experiment_summary.md)
 - [Markdown consolidation index](../archive/markdown_consolidation_20260501/INDEX.md)

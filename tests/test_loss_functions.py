@@ -46,7 +46,7 @@ def test_nicme_hybrid_cost_scale_controls_logit_adjustment_strength():
     )
 
 
-def test_nicme_v3_default_cost_one_matches_ce():
+def test_nicme_default_cost_one_matches_ce():
     loss_functions = LossFunctions(cost_matrix=[[0.0, 1.0], [1.0, 0.0]], nicme_logit_cost_scale=1.0)
     logits = torch.tensor([[3.0, 1.0], [0.5, 2.0]], device=loss_functions.device)
     targets = torch.tensor([0, 1], device=loss_functions.device)
@@ -57,7 +57,7 @@ def test_nicme_v3_default_cost_one_matches_ce():
     )
 
 
-def test_nicme_v3_scale_zero_and_lambda_zero_matches_ce():
+def test_nicme_scale_zero_and_lambda_zero_matches_ce():
     loss_functions = LossFunctions(
         cost_matrix=[[0.0, 10.0], [8.0, 0.0]],
         nicme_logit_cost_scale=0.0,
@@ -72,7 +72,7 @@ def test_nicme_v3_scale_zero_and_lambda_zero_matches_ce():
     )
 
 
-def test_nicme_v3_applies_to_correctly_classified_samples():
+def test_nicme_applies_to_correctly_classified_samples():
     high_cost = LossFunctions(cost_matrix=[[0.0, 10.0], [1.0, 0.0]], nicme_logit_cost_scale=1.0)
     logits = torch.tensor([[3.0, 1.0]], device=high_cost.device)
     targets = torch.tensor([0], device=high_cost.device)
@@ -81,7 +81,7 @@ def test_nicme_v3_applies_to_correctly_classified_samples():
     assert high_cost.CELogitAdjustmentV3Pairwise(logits, targets) > high_cost.cross_entropy(logits, targets)
 
 
-def test_nicme_v3_larger_cost_increases_non_target_gradient_pressure():
+def test_nicme_larger_cost_increases_non_target_gradient_pressure():
     high_cost = LossFunctions(cost_matrix=[[0.0, 10.0], [1.0, 0.0]], nicme_logit_cost_scale=1.0)
     low_cost = LossFunctions(cost_matrix=[[0.0, 1.0], [10.0, 0.0]], nicme_logit_cost_scale=1.0)
     targets = torch.tensor([0], device=high_cost.device)
@@ -97,7 +97,7 @@ def test_nicme_v3_larger_cost_increases_non_target_gradient_pressure():
     assert high_logits.grad[0, 1] > low_logits.grad[0, 1]
 
 
-def test_nicme_v3_hybrid_adds_cs_regularizer_on_original_logits():
+def test_nicme_hybrid_adds_cs_regularizer_on_original_logits():
     loss_functions = LossFunctions(
         cost_matrix=[[0.0, 10.0], [8.0, 0.0]],
         nicme_logit_cost_scale=0.5,
@@ -113,11 +113,25 @@ def test_nicme_v3_hybrid_adds_cs_regularizer_on_original_logits():
     assert torch.allclose(loss_functions.CELogitAdjustmentV3Regularized(logits, targets), expected)
 
 
-def test_loss_dispatcher_accepts_nicme_v3_names():
+def test_loss_dispatcher_uses_versionless_nicme_names():
+    loss_functions = LossFunctions(cost_matrix=[[0.0, 10.0], [8.0, 0.0]])
+
+    assert loss_functions.loss_function("nicme_logit_adjustment") == loss_functions.CELogitAdjustmentV3Pairwise
+    assert loss_functions.loss_function("nicme_hybrid") == loss_functions.CELogitAdjustmentV3Regularized
+
+
+def test_loss_dispatcher_accepts_deprecated_nicme_v3_aliases():
     loss_functions = LossFunctions(cost_matrix=[[0.0, 10.0], [8.0, 0.0]])
 
     assert loss_functions.loss_function("nicme_v3_logit_adjustment") == loss_functions.CELogitAdjustmentV3Pairwise
     assert loss_functions.loss_function("nicme_v3_hybrid") == loss_functions.CELogitAdjustmentV3Regularized
+
+
+def test_loss_dispatcher_accepts_legacy_nicme_names_for_old_formulation():
+    loss_functions = LossFunctions(cost_matrix=[[0.0, 10.0], [8.0, 0.0]])
+
+    assert loss_functions.loss_function("legacy_nicme_logit_adjustment") == loss_functions.CELogitAdjustmentV2
+    assert loss_functions.loss_function("legacy_nicme_hybrid") == loss_functions.CELogitAdjustmentRegularized
 
 
 def test_sota_loss_dispatcher_accepts_baseline_names():

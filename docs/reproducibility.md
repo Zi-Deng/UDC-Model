@@ -22,36 +22,50 @@ micromamba run -n ml <command>
 Required local artifacts include:
 
 - Binary spider data: `data/2_class_black_widows/`
-- PMI-10 balanced split: `data/prepared/pmi_pills_10_no_cal/splits/balanced`
+- PMI-20 balanced split: `data/prepared/pmi_pills/splits/balanced`
+- PMI-10 balanced support split: `data/prepared/pmi_pills_10_no_cal/splits/balanced`
 - Multiclass balanced splits: `data/prepared/eyepacs_dr/splits/balanced`, `data/prepared/pmi_pills/splits/balanced`
 - Pretrained ResNet weights: `weights/pytorch_model.bin`
 - Local checkpoints and raw metrics under `checkpoints/` and `results/`
 
 See [artifact_manifest.md](artifact_manifest.md) for sizes, checksums, and external-artifact policy.
 
-## Current PMI-10 HPO And Baselines
+## Current PMI-20 Paper Result
 
-The completed current PMI-10 NICME v3 HPO is:
+The current paper-facing PMI-20 consolidated result package is:
 
-- Root: `results/pmi10_nicme_v3_pretty_alpha_lambda_lr5e5_20260503/`
-- Ledger: `results/pmi10_nicme_v3_pretty_alpha_lambda_lr5e5_20260503/grid_run_ledger.csv`
-- Validation ranking: `results/pmi10_nicme_v3_pretty_alpha_lambda_lr5e5_20260503/validation_ranked_table.csv`
-- Validation-selected config: `results/pmi10_nicme_v3_pretty_alpha_lambda_lr5e5_20260503/selected_config.json`
-- Post-HPO comparison: `results/pmi10_nicme_v3_pretty_alpha_lambda_lr5e5_20260503/post_hpo_sota_comparison.md`
+- Root: `results/pmi20_nicme_sota_lr5e5_multiseed_20260504/`
+- Main table: `results/pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/pmi20_sota_table.md`
+- Claim audit: `results/pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/claim_audit.md`
+- Hyperparameters: `results/pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/method_hyperparameters.md`
 
-Original chain launcher:
+The completed source suites are:
 
 ```bash
-scripts/launch_pmi10_nicme_v3_pretty_alpha_lambda_lr5e5_chain.sh
+scripts/launch_pmi20_camera_ready_lr5e5_chain.sh
+scripts/launch_pmi20_nicme_alpha_lambda6_lr5e5_chain.sh
 ```
 
-The completed pre-HPO baseline comparison is:
+No new training is required to regenerate the consolidated table from completed outputs.
+
+## Supporting PMI-10 Evidence
+
+The PMI-10 evidence is complete and retained as support, not as the main paper result. Current no-version follow-up runners are:
+
+```bash
+scripts/launch_pmi10_nicme_top5_lr5e5_chain.sh
+scripts/run_pmi10_camera_ready_lr5e5.py
+```
+
+The historical single-seed PMI-10 alpha/lambda HPO remains in `results/` under its generated provenance root. Use [pmi10_hpo_sota_summary.md](pmi10_hpo_sota_summary.md) as the live entry point rather than treating that root as current paper guidance.
+
+The completed older pre-HPO baseline comparison launcher was:
 
 ```bash
 scripts/launch_pmi10_sota_pretty_balanced_lr1e5_chain.sh
 ```
 
-Its current combined summary is `results/pmi10_sota_pretty_balanced_triple_lr_20260503/comparison_summary.md`. The older dual-LR summary is archived because the triple-LR summary plus post-HPO comparison supersede it.
+Its previous combined summary is now historical because the PMI-20 paper table and PMI-10 multi-seed outputs supersede it for paper positioning.
 
 ## Current Binary Evidence
 
