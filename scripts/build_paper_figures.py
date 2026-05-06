@@ -490,6 +490,8 @@ def grid_rows_by_point(rows: list[dict[str, str]]) -> dict[tuple[float, float], 
 
 
 def build_alpha_lambda_validation_heatmap(output_root: Path, source: Path) -> None:
+    from matplotlib.patches import Rectangle
+
     plt = setup_matplotlib()
     rows = read_csv(source)
     alphas = sorted({fnum(row.get("alpha")) for row in rows})
@@ -507,55 +509,132 @@ def build_alpha_lambda_validation_heatmap(output_root: Path, source: Path) -> No
         z_natc.append(natc_row)
         z_recall.append(recall_row)
 
-    fig, ax = plt.subplots(figsize=(5.0, 3.6))
+    fig, ax = plt.subplots(figsize=(5.4, 3.9))
     im = ax.imshow(z_natc, origin="lower", aspect="auto", cmap="viridis_r")
     cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
-    cbar.set_label("Validation normalized ATC (lower is better)")
+    cbar.set_label("Normalized ATC")
     ax.set_xticks(range(len(lambdas)))
     ax.set_xticklabels([f"{value:g}" for value in lambdas])
     ax.set_yticks(range(len(alphas)))
     ax.set_yticklabels([f"{value:g}" for value in alphas])
+    ax.set_xticks([idx - 0.5 for idx in range(len(lambdas) + 1)], minor=True)
+    ax.set_yticks([idx - 0.5 for idx in range(len(alphas) + 1)], minor=True)
+    ax.grid(which="minor", color="white", linestyle="-", linewidth=0.45, alpha=0.55)
+    ax.tick_params(which="minor", bottom=False, left=False)
     ax.set_xlabel("lambda")
     ax.set_ylabel("alpha")
-    ax.set_title("PMI-20 NICME validation sensitivity")
+    ax.set_title("PMI-20 NICME validation heatmap")
+    finite_natc = [value for row in z_natc for value in row if not math.isnan(value)]
+    text_threshold = (min(finite_natc) + max(finite_natc)) / 2 if finite_natc else 0.0
+    main_handle = None
     for y_idx, alpha in enumerate(alphas):
         for x_idx, cs_lambda in enumerate(lambdas):
             recall = z_recall[y_idx][x_idx]
             if not math.isnan(recall):
-                ax.text(x_idx, y_idx, f"{recall:.2f}", ha="center", va="center", fontsize=6.4, color="white")
+                natc = z_natc[y_idx][x_idx]
+                text_color = "black" if not math.isnan(natc) and natc <= text_threshold else "white"
+                ax.text(x_idx, y_idx, f"{recall:.2f}", ha="center", va="center", fontsize=6.4, color=text_color)
             row = by_point.get((alpha, cs_lambda), {})
             if row.get("is_current_main") == "true":
-                ax.scatter(x_idx, y_idx, marker="*", s=95, color="white", edgecolor="black", linewidth=0.55, zorder=3)
-            if row.get("is_validation_selected") == "true":
-                ax.scatter(x_idx, y_idx, marker="o", s=90, facecolor="none", edgecolor="#D55E00", linewidth=1.4, zorder=4)
+                ax.add_patch(
+                    Rectangle(
+                        (x_idx - 0.5, y_idx - 0.5),
+                        1,
+                        1,
+                        fill=False,
+                        edgecolor="black",
+                        linewidth=2.0,
+                        zorder=3,
+                    )
+                )
+                main_handle = ax.scatter(
+                    x_idx,
+                    y_idx,
+                    marker="*",
+                    s=155,
+                    color="white",
+                    edgecolor="black",
+                    linewidth=0.85,
+                    zorder=4,
+                )
+    handles = []
+    labels = []
+    if main_handle is not None:
+        handles.append(main_handle)
+        labels.append("Selected point")
+    if handles:
+        ax.legend(handles, labels, frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.18), ncol=1, fontsize=7)
     save_figure(fig, output_root, "pmi20_alpha_lambda_validation_heatmap")
     plt.close(fig)
 
 
-def build_alpha_lambda_test_tradeoff_from_grid(output_root: Path, source: Path) -> None:
+def build_alpha_lambda_tradeoff_from_grid(output_root: Path, source: Path) -> None:
     plt = setup_matplotlib()
     rows = read_csv(source)
-    fig, ax = plt.subplots(figsize=(4.2, 3.2))
-    ranks = [fnum(row.get("validation_rank")) for row in rows]
-    xs = [fnum(row.get("test_normalized_atc")) for row in rows]
-    ys = [fnum(row.get("test_target_recall_min")) for row in rows]
-    sizes = [35 + 8 * fnum(row.get("test_critical_pair_error_count"), 0.0) for row in rows]
-    scatter = ax.scatter(xs, ys, c=ranks, s=sizes, cmap="viridis_r", alpha=0.78, edgecolor="black", linewidth=0.3)
+    fig, ax = plt.subplots(figsize=(4.8, 3.4))
+    xs = [fnum(row.get("validation_normalized_atc")) for row in rows]
+    ys = [fnum(row.get("validation_target_recall_min")) for row in rows]
+    alphas = [fnum(row.get("alpha")) for row in rows]
+    lambdas = [fnum(row.get("cs_lambda"), 0.0) for row in rows]
+    max_lambda = max(lambdas) if lambdas else 1.0
+
+    def lambda_size(value: float) -> float:
+        return 34 + 125 * (value / max_lambda if max_lambda > 0 else 0.0)
+
+    sizes = [lambda_size(value) for value in lambdas]
+    scatter = ax.scatter(
+        xs,
+        ys,
+        c=alphas,
+        s=sizes,
+        cmap="viridis",
+        alpha=0.78,
+        edgecolor="black",
+        linewidth=0.3,
+    )
     cbar = fig.colorbar(scatter, ax=ax, fraction=0.046, pad=0.04)
-    cbar.set_label("Validation rank")
+    cbar.set_label("alpha")
+
+    legend_lambdas = [0.0, 0.1, 0.3]
+    lambda_handles = [
+        ax.scatter([], [], s=lambda_size(value), color="#0072B2", alpha=0.78, edgecolor="black", linewidth=0.3)
+        for value in legend_lambdas
+    ]
+    lambda_labels = [f"lambda={value:g}" for value in legend_lambdas]
+    lambda_legend = ax.legend(lambda_handles, lambda_labels, frameon=False, loc="lower left", fontsize=7)
+    ax.add_artist(lambda_legend)
+
+    main_labeled = False
     for row, x, y in zip(rows, xs, ys):
-        label = f"({fnum(row.get('alpha'), 0):g},{fnum(row.get('cs_lambda'), 0):g})"
-        if row.get("is_validation_selected") == "true" or row.get("is_current_main") == "true":
-            ax.annotate(label, (x, y), xytext=(4, 3), textcoords="offset points", fontsize=6.5)
         if row.get("is_current_main") == "true":
-            ax.scatter(x, y, marker="*", s=115, color="white", edgecolor="black", linewidth=0.55, zorder=4)
-        if row.get("is_validation_selected") == "true":
-            ax.scatter(x, y, marker="o", s=105, facecolor="none", edgecolor="#D55E00", linewidth=1.4, zorder=5)
-    ax.set_xlabel("Test normalized ATC (lower is better)")
-    ax.set_ylabel("Test target-min recall (higher is better)")
-    ax.set_title("Test audit of validation-ranked grid")
+            label = f"({fnum(row.get('alpha'), 0):g},{fnum(row.get('cs_lambda'), 0):g})"
+            ax.annotate(
+                label,
+                (x, y),
+                xytext=(5, -13 if y >= 0.995 else 4),
+                textcoords="offset points",
+                fontsize=6.5,
+                bbox={"boxstyle": "round,pad=0.12", "facecolor": "white", "edgecolor": "none", "alpha": 0.72},
+            )
+        if row.get("is_current_main") == "true":
+            ax.scatter(
+                x,
+                y,
+                marker="*",
+                s=115,
+                color="white",
+                edgecolor="black",
+                linewidth=0.55,
+                zorder=4,
+                label="Selected point" if not main_labeled else None,
+            )
+            main_labeled = True
+    ax.set_xlabel("Normalized ATC")
+    ax.set_ylabel("Target-min recall")
+    ax.set_title("PMI-20 NICME alpha-lambda tradeoff")
     ax.grid(True, linestyle=":", linewidth=0.4, alpha=0.7)
-    save_figure(fig, output_root, "pmi20_alpha_lambda_test_tradeoff_from_grid")
+    ax.legend(frameon=False, loc="upper right", fontsize=7)
+    save_figure(fig, output_root, "pmi20_alpha_lambda_tradeoff_from_grid")
     plt.close(fig)
 
 
@@ -659,7 +738,7 @@ def build_figures(args: argparse.Namespace) -> None:
     if Path(args.pmi20_alpha_grid).exists():
         build_alpha_lambda_validation_heatmap(output_root, Path(args.pmi20_alpha_grid))
         build_alpha_lambda_test_heatmap(output_root, Path(args.pmi20_alpha_grid))
-        build_alpha_lambda_test_tradeoff_from_grid(output_root, Path(args.pmi20_alpha_grid))
+        build_alpha_lambda_tradeoff_from_grid(output_root, Path(args.pmi20_alpha_grid))
     build_margin_ecdf(output_root, Path(args.margin_csv))
 
 
@@ -686,11 +765,11 @@ def build_summary(args: argparse.Namespace) -> None:
         "",
         "**Figure: PMI-20 alpha-lambda sensitivity.** Six fixed NICME candidates show how expected cost and cared-class recall change with alpha/lambda.",
         "",
-        "**Figure: PMI-20 alpha-lambda validation heatmap.** A single-seed predeclared 7x7 sensitivity surface ranks alpha/lambda values by validation metrics; held-out test metrics are used only for post-selection audit.",
+        "**Figure: PMI-20 alpha-lambda validation heatmap.** A single-seed predeclared 7x7 sensitivity surface over alpha and lambda; cell color is validation normalized ATC, cell text is validation target-min recall, and the starred/outlined cell marks the selected main paper setting.",
         "",
         "**Figure: PMI-20 alpha-lambda test heatmap.** The same 7x7 surface drawn with held-out test metrics; use this for interpretation only, not hyperparameter selection.",
         "",
-        "**Figure: PMI-20 alpha-lambda test audit.** The test-set tradeoff plot shows where validation-ranked grid points land after selection without using test metrics for hyperparameter choice.",
+        "**Figure: PMI-20 alpha-lambda tradeoff.** The 7x7 grid shown as normalized ATC versus target-min recall using validation metrics; color encodes alpha, marker size encodes lambda, and the starred point marks the selected main paper setting.",
         "",
         "**Figure: Critical-pair logit margin distributions.** ECDFs of raw margins `f_y(x)-f_k(x)` on critical pairs; right-shifted curves indicate larger clean margins against high-cost confusions.",
         "",

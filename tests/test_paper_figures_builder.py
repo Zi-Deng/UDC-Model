@@ -251,7 +251,7 @@ def test_builder_writes_tables_figures_and_summary(tmp_path):
         output / "figures" / "pmi20_alpha_lambda_sensitivity.png",
         output / "figures" / "pmi20_alpha_lambda_validation_heatmap.pdf",
         output / "figures" / "pmi20_alpha_lambda_test_heatmap.pdf",
-        output / "figures" / "pmi20_alpha_lambda_test_tradeoff_from_grid.png",
+        output / "figures" / "pmi20_alpha_lambda_tradeoff_from_grid.png",
         output / "figures" / "pmi20_critical_pair_margin_ecdf.pdf",
         output / "README.md",
     ]
