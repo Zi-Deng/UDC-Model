@@ -1,6 +1,7 @@
 artifact,path,exists
 PMI-20 SOTA aggregate,results/pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/aggregate_metrics.csv,true
 PMI-20 alpha/lambda aggregate,results/pmi20_nicme_alpha_lambda6_lr5e5_multiseed_20260504/analysis/aggregate_metrics.csv,true
+PMI-20 alpha/lambda grid7 validation surface,results/pmi20_nicme_alpha_lambda_grid7_lr5e5_seed42_20260506/analysis/validation_grid.csv,true
 Binary aggregate,results/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/analysis/aggregate_metrics.csv,true
 PMI-20 component ablation aggregate,results/pmi20_component_ablation_lr5e5_multiseed_20260506/analysis/aggregate_metrics.csv,true
 PMI-20 critical-pair margins,paper_figures/data/pmi20_critical_pair_margins.csv,true

@@ -18,6 +18,12 @@ This folder contains camera-ready table and figure assets generated from complet
 
 **Figure: PMI-20 alpha-lambda sensitivity.** Six fixed NICME candidates show how expected cost and cared-class recall change with alpha/lambda.
 
+**Figure: PMI-20 alpha-lambda validation heatmap.** A single-seed predeclared 7x7 sensitivity surface ranks alpha/lambda values by validation metrics; held-out test metrics are used only for post-selection audit.
+
+**Figure: PMI-20 alpha-lambda test heatmap.** The same 7x7 surface drawn with held-out test metrics; use this for interpretation only, not hyperparameter selection.
+
+**Figure: PMI-20 alpha-lambda test audit.** The test-set tradeoff plot shows where validation-ranked grid points land after selection without using test metrics for hyperparameter choice.
+
 **Figure: Critical-pair logit margin distributions.** ECDFs of raw margins `f_y(x)-f_k(x)` on critical pairs; right-shifted curves indicate larger clean margins against high-cost confusions.
 
 ## Provenance

@@ -83,6 +83,7 @@ def row(rank, method, display, recall, natc, alpha="", lam="", dataset_key="", d
 def make_inputs(tmp_path):
     pmi20 = tmp_path / "pmi20.csv"
     alpha = tmp_path / "alpha.csv"
+    alpha_grid = tmp_path / "alpha_grid.csv"
     binary = tmp_path / "binary.csv"
     ablation = tmp_path / "ablation.csv"
     margins = tmp_path / "margins.csv"
@@ -103,6 +104,78 @@ def make_inputs(tmp_path):
         ],
         AGG_FIELDS,
     )
+    grid_fields = [
+        "seed",
+        "validation_rank",
+        "test_rank",
+        "method",
+        "display_name",
+        "candidate_order",
+        "source_label",
+        "alpha",
+        "cs_lambda",
+        "loss_function",
+        "learning_rate",
+        "parent_learning_rate",
+        "is_current_main",
+        "is_validation_selected",
+        "validation_target_recall_min",
+        "validation_target_recall_macro",
+        "validation_normalized_atc",
+        "validation_atc",
+        "validation_accuracy",
+        "validation_balanced_accuracy",
+        "validation_macro_f1",
+        "validation_critical_pair_error_count",
+        "test_target_recall_min",
+        "test_target_recall_macro",
+        "test_normalized_atc",
+        "test_atc",
+        "test_accuracy",
+        "test_balanced_accuracy",
+        "test_macro_f1",
+        "test_critical_pair_error_count",
+    ]
+    grid_rows = []
+    rank = 1
+    for alpha_value in (0.0, 0.5):
+        for lambda_value in (0.0, 0.1):
+            grid_rows.append(
+                {
+                    "seed": 42,
+                    "validation_rank": rank,
+                    "test_rank": 5 - rank,
+                    "method": f"grid_{rank}",
+                    "display_name": f"NICME grid {rank}",
+                    "candidate_order": rank,
+                    "source_label": "predeclared 7x7 PMI-20 grid",
+                    "alpha": alpha_value,
+                    "cs_lambda": lambda_value,
+                    "loss_function": "nicme_hybrid",
+                    "learning_rate": 5e-5,
+                    "parent_learning_rate": 5e-5,
+                    "is_current_main": str((alpha_value, lambda_value) == (0.5, 0.1)).lower(),
+                    "is_validation_selected": str(rank == 1).lower(),
+                    "validation_target_recall_min": 0.95 - 0.01 * rank,
+                    "validation_target_recall_macro": 0.95 - 0.01 * rank,
+                    "validation_normalized_atc": 0.003 + 0.001 * rank,
+                    "validation_atc": 0.03 + 0.01 * rank,
+                    "validation_accuracy": 0.9,
+                    "validation_balanced_accuracy": 0.9,
+                    "validation_macro_f1": 0.9,
+                    "validation_critical_pair_error_count": rank,
+                    "test_target_recall_min": 0.9 - 0.01 * rank,
+                    "test_target_recall_macro": 0.9 - 0.01 * rank,
+                    "test_normalized_atc": 0.004 + 0.001 * rank,
+                    "test_atc": 0.04 + 0.01 * rank,
+                    "test_accuracy": 0.88,
+                    "test_balanced_accuracy": 0.88,
+                    "test_macro_f1": 0.88,
+                    "test_critical_pair_error_count": rank,
+                }
+            )
+            rank += 1
+    write_csv(alpha_grid, grid_rows, grid_fields)
     binary_fields = ["dataset_key", "dataset_display", *AGG_FIELDS]
     write_csv(
         binary,
@@ -130,16 +203,17 @@ def make_inputs(tmp_path):
         ],
         ["seed", "method", "display_name", "margin"],
     )
-    return pmi20, alpha, binary, ablation, margins
+    return pmi20, alpha, alpha_grid, binary, ablation, margins
 
 
 def build_args(tmp_path):
-    pmi20, alpha, binary, ablation, margins = make_inputs(tmp_path)
+    pmi20, alpha, alpha_grid, binary, ablation, margins = make_inputs(tmp_path)
     return argparse.Namespace(
         phase="all",
         output_root=str(tmp_path / "paper_figures"),
         pmi20_sota=str(pmi20),
         pmi20_alpha=str(alpha),
+        pmi20_alpha_grid=str(alpha_grid),
         binary_results=str(binary),
         ablation_results=str(ablation),
         margin_csv=str(margins),
@@ -170,10 +244,14 @@ def test_builder_writes_tables_figures_and_summary(tmp_path):
         output / "tables" / "baselines_decision_modes.tex",
         output / "tables" / "pmi20_cost_sensitive_comparison.md",
         output / "tables" / "pmi20_component_ablation.csv",
+        output / "tables" / "pmi20_alpha_lambda_grid7_top10.tex",
         output / "tables" / "binary_cost_sensitive_results.tex",
         output / "tables" / "compute_implementation_cost.csv",
         output / "figures" / "pmi20_recall_cost_tradeoff.pdf",
         output / "figures" / "pmi20_alpha_lambda_sensitivity.png",
+        output / "figures" / "pmi20_alpha_lambda_validation_heatmap.pdf",
+        output / "figures" / "pmi20_alpha_lambda_test_heatmap.pdf",
+        output / "figures" / "pmi20_alpha_lambda_test_tradeoff_from_grid.png",
         output / "figures" / "pmi20_critical_pair_margin_ecdf.pdf",
         output / "README.md",
     ]

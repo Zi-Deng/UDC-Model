@@ -1,0 +1,61 @@
+
+[2026-05-06T04:20:03-07:00] START gpu-check
+[2026-05-06T04:20:03-07:00] CMD nvidia-smi
+Wed May  6 04:20:03 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.09             Driver Version: 580.126.09     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 5090        Off |   00000000:01:00.0 Off |                  N/A |
+|  0%   33C    P8              2W /  575W |     107MiB /  32607MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A            2237      G   /usr/lib/xorg/Xorg                       65MiB |
+|    0   N/A  N/A            2568      G   /usr/bin/gnome-shell                     11MiB |
++-----------------------------------------------------------------------------------------+
+[2026-05-06T04:20:03-07:00] DONE gpu-check
+
+[2026-05-06T04:20:03-07:00] START unit-tests
+[2026-05-06T04:20:03-07:00] CMD micromamba run -n ml pytest -q tests/test_loss_functions.py tests/test_pmi20_camera_ready_runner.py tests/test_pmi20_nicme_alpha_lambda_grid7_runner.py tests/test_paper_figures_builder.py
+................................                                         [100%]
+32 passed in 3.53s
+[2026-05-06T04:20:08-07:00] DONE unit-tests
+
+[2026-05-06T04:20:08-07:00] START preflight
+[2026-05-06T04:20:08-07:00] CMD runner_cmd preflight
+PMI-20 NICME grid7 preflight passed
+[2026-05-06T04:20:08-07:00] DONE preflight
+
+[2026-05-06T04:20:08-07:00] START dry-run
+[2026-05-06T04:20:08-07:00] CMD runner_cmd dry-run
+Wrote 49 PMI-20 grid7 dry-run configs under /mnt/storage/github/NICME/results/pmi20_nicme_alpha_lambda_grid7_lr5e5_seed42_20260506
+[2026-05-06T04:20:08-07:00] DONE dry-run
+
+[2026-05-06T04:20:08-07:00] START smoke
+[2026-05-06T04:20:08-07:00] CMD runner_cmd smoke --per-run-timeout-minutes 240
+Completed 9 PMI-20 grid7 smoke runs
+[2026-05-06T04:30:16-07:00] DONE smoke
+
+[2026-05-06T04:30:16-07:00] START long-pmi20-nicme-alpha-lambda-grid7
+[2026-05-06T04:30:16-07:00] CMD runner_cmd run --per-run-timeout-minutes 960
+Completed 49 PMI-20 grid7 long runs
+[2026-05-06T08:52:43-07:00] DONE long-pmi20-nicme-alpha-lambda-grid7
+
+[2026-05-06T08:52:43-07:00] START analysis
+[2026-05-06T08:52:43-07:00] CMD runner_cmd analyze
+Wrote PMI-20 grid7 analysis under /mnt/storage/github/NICME/results/pmi20_nicme_alpha_lambda_grid7_lr5e5_seed42_20260506/analysis
+[2026-05-06T08:52:43-07:00] DONE analysis
+
+[2026-05-06T08:52:43-07:00] START paper-figures
+[2026-05-06T08:52:43-07:00] CMD micromamba run -n ml python scripts/build_paper_figures.py --phase all --output-root /mnt/storage/github/NICME/paper_figures --pmi20-alpha-grid /mnt/storage/github/NICME/results/pmi20_nicme_alpha_lambda_grid7_lr5e5_seed42_20260506/analysis/validation_grid.csv
+Wrote paper figures under /mnt/storage/github/NICME/paper_figures
+[2026-05-06T08:52:44-07:00] DONE paper-figures

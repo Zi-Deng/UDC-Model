@@ -1,0 +1,95 @@
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=timm type=pmi20_sota_convnext_base with 20 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '12.67', 'grad_norm': '17.98', 'learning_rate': '4.5e-06', 'epoch': '0.3279'}
+{'loss': '12.11', 'grad_norm': '18.7', 'learning_rate': '9.5e-06', 'epoch': '0.6557'}
+{'loss': '10.94', 'grad_norm': '27.49', 'learning_rate': '1.45e-05', 'epoch': '0.9836'}
+{'eval_loss': '2.479', 'eval_accuracy': '0.2875', 'eval_f1': '0.2524', 'eval_balanced_accuracy': '0.2875', 'eval_macro_f1': '0.2524', 'eval_atc': '0.8812', 'eval_normalized_atc': '0.08812', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.2812', 'eval_target_fnr': '0.8125', 'eval_selection_score': '3.591', 'eval_selection_accuracy_value': '0.2875', 'eval_nll': '2.475', 'eval_brier': '0.8804', 'eval_ece': '0.1689', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.747', 'eval_samples_per_second': '85.39', 'eval_steps_per_second': '5.337', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42/checkpoint-31/preprocessor_config.json
+{'loss': '8.745', 'grad_norm': '28.99', 'learning_rate': '1.95e-05', 'epoch': '1.295'}
+{'loss': '6.816', 'grad_norm': '31.03', 'learning_rate': '2.45e-05', 'epoch': '1.623'}
+{'loss': '4.742', 'grad_norm': '30.28', 'learning_rate': '2.95e-05', 'epoch': '1.951'}
+{'eval_loss': '0.8144', 'eval_accuracy': '0.8063', 'eval_f1': '0.7889', 'eval_balanced_accuracy': '0.8063', 'eval_macro_f1': '0.7889', 'eval_atc': '0.3625', 'eval_normalized_atc': '0.03625', 'eval_target_recall': '0.0625', 'eval_target_recall_macro': '0.7031', 'eval_target_fnr': '0.125', 'eval_selection_score': '2.842', 'eval_selection_accuracy_value': '0.8063', 'eval_nll': '0.8075', 'eval_brier': '0.3717', 'eval_ece': '0.2743', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.65', 'eval_samples_per_second': '87.66', 'eval_steps_per_second': '5.479', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42/checkpoint-62/preprocessor_config.json
+{'loss': '2.92', 'grad_norm': '27.04', 'learning_rate': '3.45e-05', 'epoch': '2.262'}
+{'loss': '2.236', 'grad_norm': '25.82', 'learning_rate': '3.95e-05', 'epoch': '2.59'}
+{'loss': '1.668', 'grad_norm': '28.88', 'learning_rate': '4.45e-05', 'epoch': '2.918'}
+{'eval_loss': '0.3404', 'eval_accuracy': '0.8875', 'eval_f1': '0.8848', 'eval_balanced_accuracy': '0.8875', 'eval_macro_f1': '0.8848', 'eval_atc': '0.1344', 'eval_normalized_atc': '0.01344', 'eval_target_recall': '0.75', 'eval_target_recall_macro': '0.9062', 'eval_target_fnr': '0', 'eval_selection_score': '0.1034', 'eval_selection_accuracy_value': '0.8875', 'eval_nll': '0.3359', 'eval_brier': '0.1669', 'eval_ece': '0.1074', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '9.087', 'eval_samples_per_second': '35.22', 'eval_steps_per_second': '2.201', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42/checkpoint-93/preprocessor_config.json
+{'loss': '1.222', 'grad_norm': '25.58', 'learning_rate': '4.95e-05', 'epoch': '3.23'}
+{'loss': '0.8654', 'grad_norm': '33.11', 'learning_rate': '4.999e-05', 'epoch': '3.557'}
+{'loss': '0.7724', 'grad_norm': '17.06', 'learning_rate': '4.994e-05', 'epoch': '3.885'}
+{'eval_loss': '0.2006', 'eval_accuracy': '0.9344', 'eval_f1': '0.933', 'eval_balanced_accuracy': '0.9344', 'eval_macro_f1': '0.933', 'eval_atc': '0.15', 'eval_normalized_atc': '0.015', 'eval_target_recall': '0.8125', 'eval_target_recall_macro': '0.9375', 'eval_target_fnr': '0', 'eval_selection_score': '0.04563', 'eval_selection_accuracy_value': '0.9344', 'eval_nll': '0.1976', 'eval_brier': '0.1014', 'eval_ece': '0.06236', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.966', 'eval_samples_per_second': '80.69', 'eval_steps_per_second': '5.043', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42/checkpoint-124/preprocessor_config.json
+{'loss': '0.6562', 'grad_norm': '45.82', 'learning_rate': '4.987e-05', 'epoch': '4.197'}
+{'loss': '0.621', 'grad_norm': '29.02', 'learning_rate': '4.976e-05', 'epoch': '4.525'}
+{'loss': '0.5243', 'grad_norm': '25.13', 'learning_rate': '4.963e-05', 'epoch': '4.852'}
+{'eval_loss': '0.1345', 'eval_accuracy': '0.9594', 'eval_f1': '0.9584', 'eval_balanced_accuracy': '0.9594', 'eval_macro_f1': '0.9584', 'eval_atc': '0.04063', 'eval_normalized_atc': '0.004063', 'eval_target_recall': '1', 'eval_target_recall_macro': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.004063', 'eval_selection_accuracy_value': '0.9594', 'eval_nll': '0.1332', 'eval_brier': '0.06463', 'eval_ece': '0.03549', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.643', 'eval_samples_per_second': '87.84', 'eval_steps_per_second': '5.49', 'epoch': '5'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42/checkpoint-155/preprocessor_config.json
+{'loss': '0.3644', 'grad_norm': '37.3', 'learning_rate': '4.946e-05', 'epoch': '5.164'}
+{'loss': '0.4698', 'grad_norm': '24.97', 'learning_rate': '4.927e-05', 'epoch': '5.492'}
+{'loss': '0.4242', 'grad_norm': '29.24', 'learning_rate': '4.904e-05', 'epoch': '5.82'}
+{'eval_loss': '0.08661', 'eval_accuracy': '0.9812', 'eval_f1': '0.9812', 'eval_balanced_accuracy': '0.9812', 'eval_macro_f1': '0.9812', 'eval_atc': '0.01875', 'eval_normalized_atc': '0.001875', 'eval_target_recall': '1', 'eval_target_recall_macro': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.001875', 'eval_selection_accuracy_value': '0.9812', 'eval_nll': '0.08495', 'eval_brier': '0.03742', 'eval_ece': '0.04775', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.118', 'eval_samples_per_second': '77.72', 'eval_steps_per_second': '4.857', 'epoch': '6'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42/checkpoint-186/preprocessor_config.json
+{'loss': '0.2026', 'grad_norm': '4.216', 'learning_rate': '4.878e-05', 'epoch': '6.131'}
+{'loss': '0.2876', 'grad_norm': '46.05', 'learning_rate': '4.85e-05', 'epoch': '6.459'}
+{'loss': '0.3532', 'grad_norm': '39.74', 'learning_rate': '4.818e-05', 'epoch': '6.787'}
+{'eval_loss': '0.1289', 'eval_accuracy': '0.9594', 'eval_f1': '0.9574', 'eval_balanced_accuracy': '0.9594', 'eval_macro_f1': '0.9574', 'eval_atc': '0.04063', 'eval_normalized_atc': '0.004063', 'eval_target_recall': '1', 'eval_target_recall_macro': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.004063', 'eval_selection_accuracy_value': '0.9594', 'eval_nll': '0.128', 'eval_brier': '0.0661', 'eval_ece': '0.01524', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.073', 'eval_samples_per_second': '78.58', 'eval_steps_per_second': '4.911', 'epoch': '7'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42/checkpoint-217/preprocessor_config.json
+{'loss': '0.2434', 'grad_norm': '32.48', 'learning_rate': '4.784e-05', 'epoch': '7.098'}
+{'loss': '0.555', 'grad_norm': '55.94', 'learning_rate': '4.746e-05', 'epoch': '7.426'}
+{'loss': '0.2663', 'grad_norm': '27.09', 'learning_rate': '4.706e-05', 'epoch': '7.754'}
+{'eval_loss': '0.07656', 'eval_accuracy': '0.975', 'eval_f1': '0.9749', 'eval_balanced_accuracy': '0.975', 'eval_macro_f1': '0.9749', 'eval_atc': '0.08125', 'eval_normalized_atc': '0.008125', 'eval_target_recall': '0.875', 'eval_target_recall_macro': '0.9688', 'eval_target_fnr': '0.125', 'eval_selection_score': '0.01063', 'eval_selection_accuracy_value': '0.975', 'eval_nll': '0.07464', 'eval_brier': '0.03937', 'eval_ece': '0.0208', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.126', 'eval_samples_per_second': '77.55', 'eval_steps_per_second': '4.847', 'epoch': '8'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42/checkpoint-248/preprocessor_config.json
+{'loss': '0.1415', 'grad_norm': '19.67', 'learning_rate': '4.664e-05', 'epoch': '8.066'}
+{'loss': '0.1208', 'grad_norm': '40.76', 'learning_rate': '4.618e-05', 'epoch': '8.393'}
+{'loss': '0.1745', 'grad_norm': '46.91', 'learning_rate': '4.57e-05', 'epoch': '8.721'}
+{'eval_loss': '0.1382', 'eval_accuracy': '0.95', 'eval_f1': '0.9467', 'eval_balanced_accuracy': '0.95', 'eval_macro_f1': '0.9467', 'eval_atc': '0.1062', 'eval_normalized_atc': '0.01062', 'eval_target_recall': '0.5', 'eval_target_recall_macro': '0.875', 'eval_target_fnr': '0', 'eval_selection_score': '0.6506', 'eval_selection_accuracy_value': '0.95', 'eval_nll': '0.1371', 'eval_brier': '0.06967', 'eval_ece': '0.0264', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.703', 'eval_samples_per_second': '86.42', 'eval_steps_per_second': '5.401', 'epoch': '9'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42/checkpoint-279/preprocessor_config.json
+{'loss': '0.1778', 'grad_norm': '62.21', 'learning_rate': '4.519e-05', 'epoch': '9.033'}
+{'loss': '0.2065', 'grad_norm': '50.79', 'learning_rate': '4.466e-05', 'epoch': '9.361'}
+{'loss': '0.1501', 'grad_norm': '33.01', 'learning_rate': '4.411e-05', 'epoch': '9.689'}
+{'loss': '0.1173', 'grad_norm': '0.7857', 'learning_rate': '4.353e-05', 'epoch': '10'}
+{'eval_loss': '0.05039', 'eval_accuracy': '0.9812', 'eval_f1': '0.9812', 'eval_balanced_accuracy': '0.9812', 'eval_macro_f1': '0.9812', 'eval_atc': '0.01875', 'eval_normalized_atc': '0.001875', 'eval_target_recall': '0.9375', 'eval_target_recall_macro': '0.9844', 'eval_target_fnr': '0', 'eval_selection_score': '0.001875', 'eval_selection_accuracy_value': '0.9812', 'eval_nll': '0.04975', 'eval_brier': '0.02697', 'eval_ece': '0.009148', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.752', 'eval_samples_per_second': '85.29', 'eval_steps_per_second': '5.331', 'epoch': '10'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42/checkpoint-310/preprocessor_config.json
+{'train_runtime': '270', 'train_samples_per_second': '229.9', 'train_steps_per_second': '3.673', 'train_loss': '2.315', 'epoch': '10'}
+***** train metrics *****
+  epoch                    =       10.0
+  total_flos               =        0GF
+  train_loss               =     2.3149
+  train_runtime            = 0:04:30.04
+  train_samples_per_second =    229.886
+  train_steps_per_second   =      3.673
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42_05-06_05-20
+Saving run configuration...
+Run configuration saved to: results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42_05-06_05-20/run_configuration_20260506_052044.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42_05-06_05-20/metrics_20260506_052058_nicme_hybrid.json and results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42_05-06_05-20/metrics_20260506_052058_nicme_hybrid.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '16729-0168', '50111-0434', '53489-0156', '53746-0544', '57664-0377', '62037-0831', '62037-0832', '64380-0803', '65162-0253', '67253-0901', '68382-0008', '68382-0227', '69097-0127', '69097-0128', '69315-0904', '69315-0905']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42_05-06_05-20
+Overall Accuracy: 0.9625
+Balanced Accuracy: 0.9625
+Overall F1 Score: 0.9625
+Kappa: 0.9605
+AUC: 0.9995
+Expected Cost: 0.0797
+Loss Function Used: nicme_hybrid
+Total Test Samples: 640
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 16729-0168, 50111-0434, 53489-0156, 53746-0544, 57664-0377, 62037-0831, 62037-0832, 64380-0803, 65162-0253, 67253-0901, 68382-0008, 68382-0227, 69097-0127, 69097-0128, 69315-0904, 69315-0905
+
+Detailed metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_run_a0p05_l0p05_lr5e5_s42_05-06_05-20
+============================================================

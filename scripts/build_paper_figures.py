@@ -15,6 +15,9 @@ from typing import Any
 DEFAULT_OUTPUT_ROOT = Path("paper_figures")
 DEFAULT_PMI20_SOTA = Path("results/pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/aggregate_metrics.csv")
 DEFAULT_PMI20_ALPHA = Path("results/pmi20_nicme_alpha_lambda6_lr5e5_multiseed_20260504/analysis/aggregate_metrics.csv")
+DEFAULT_PMI20_ALPHA_GRID = Path(
+    "results/pmi20_nicme_alpha_lambda_grid7_lr5e5_seed42_20260506/analysis/validation_grid.csv"
+)
 DEFAULT_BINARY = Path("results/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/analysis/aggregate_metrics.csv")
 DEFAULT_ABLATION = Path("results/pmi20_component_ablation_lr5e5_multiseed_20260506/analysis/aggregate_metrics.csv")
 DEFAULT_MARGINS = Path("paper_figures/data/pmi20_critical_pair_margins.csv")
@@ -354,6 +357,59 @@ def build_compute_table(output_root: Path, pmi20_camera_root: Path = PMI20_CAMER
     tex_table(output_root / "tables" / "compute_implementation_cost.tex", headers, table_rows, "llllrrr")
 
 
+def build_alpha_lambda_grid_top10_table(output_root: Path, source: Path) -> None:
+    rows = sorted(read_csv(source), key=lambda row: int(float(row.get("validation_rank") or 999)))[:10]
+    fields = [
+        "validation_rank",
+        "alpha",
+        "lambda",
+        "validation_target_min",
+        "validation_natc",
+        "validation_balanced_accuracy",
+        "test_target_min",
+        "test_natc",
+        "test_balanced_accuracy",
+        "flags",
+    ]
+    out_rows = []
+    for row in rows:
+        flags = []
+        if row.get("is_validation_selected") == "true":
+            flags.append("selected")
+        if row.get("is_current_main") == "true":
+            flags.append("current main")
+        out_rows.append(
+            {
+                "validation_rank": row.get("validation_rank", ""),
+                "alpha": f"{fnum(row.get('alpha'), 0):g}",
+                "lambda": f"{fnum(row.get('cs_lambda'), 0):g}",
+                "validation_target_min": f"{fnum(row.get('validation_target_recall_min')):.4f}",
+                "validation_natc": f"{fnum(row.get('validation_normalized_atc')):.6f}",
+                "validation_balanced_accuracy": f"{fnum(row.get('validation_balanced_accuracy')):.4f}",
+                "test_target_min": f"{fnum(row.get('test_target_recall_min')):.4f}",
+                "test_natc": f"{fnum(row.get('test_normalized_atc')):.6f}",
+                "test_balanced_accuracy": f"{fnum(row.get('test_balanced_accuracy')):.4f}",
+                "flags": ", ".join(flags),
+            }
+        )
+    write_csv(output_root / "tables" / "pmi20_alpha_lambda_grid7_top10.csv", out_rows, fields)
+    headers = [
+        "Val. Rank",
+        "$\\alpha$",
+        "$\\lambda$",
+        "Val Target-min",
+        "Val nATC",
+        "Val Bal. Acc.",
+        "Test Target-min",
+        "Test nATC",
+        "Test Bal. Acc.",
+        "Flags",
+    ]
+    table_rows = [[row[field] for field in fields] for row in out_rows]
+    markdown_table(output_root / "tables" / "pmi20_alpha_lambda_grid7_top10.md", headers, table_rows)
+    tex_table(output_root / "tables" / "pmi20_alpha_lambda_grid7_top10.tex", headers, table_rows, "rrrrrrrrrl")
+
+
 def setup_matplotlib():
     import matplotlib
 
@@ -429,6 +485,123 @@ def build_alpha_lambda_plot(output_root: Path, source: Path) -> None:
     plt.close(fig)
 
 
+def grid_rows_by_point(rows: list[dict[str, str]]) -> dict[tuple[float, float], dict[str, str]]:
+    return {(fnum(row.get("alpha")), fnum(row.get("cs_lambda"))): row for row in rows}
+
+
+def build_alpha_lambda_validation_heatmap(output_root: Path, source: Path) -> None:
+    plt = setup_matplotlib()
+    rows = read_csv(source)
+    alphas = sorted({fnum(row.get("alpha")) for row in rows})
+    lambdas = sorted({fnum(row.get("cs_lambda")) for row in rows})
+    by_point = grid_rows_by_point(rows)
+    z_natc = []
+    z_recall = []
+    for alpha in alphas:
+        natc_row = []
+        recall_row = []
+        for cs_lambda in lambdas:
+            row = by_point.get((alpha, cs_lambda), {})
+            natc_row.append(fnum(row.get("validation_normalized_atc")))
+            recall_row.append(fnum(row.get("validation_target_recall_min")))
+        z_natc.append(natc_row)
+        z_recall.append(recall_row)
+
+    fig, ax = plt.subplots(figsize=(5.0, 3.6))
+    im = ax.imshow(z_natc, origin="lower", aspect="auto", cmap="viridis_r")
+    cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    cbar.set_label("Validation normalized ATC (lower is better)")
+    ax.set_xticks(range(len(lambdas)))
+    ax.set_xticklabels([f"{value:g}" for value in lambdas])
+    ax.set_yticks(range(len(alphas)))
+    ax.set_yticklabels([f"{value:g}" for value in alphas])
+    ax.set_xlabel("lambda")
+    ax.set_ylabel("alpha")
+    ax.set_title("PMI-20 NICME validation sensitivity")
+    for y_idx, alpha in enumerate(alphas):
+        for x_idx, cs_lambda in enumerate(lambdas):
+            recall = z_recall[y_idx][x_idx]
+            if not math.isnan(recall):
+                ax.text(x_idx, y_idx, f"{recall:.2f}", ha="center", va="center", fontsize=6.4, color="white")
+            row = by_point.get((alpha, cs_lambda), {})
+            if row.get("is_current_main") == "true":
+                ax.scatter(x_idx, y_idx, marker="*", s=95, color="white", edgecolor="black", linewidth=0.55, zorder=3)
+            if row.get("is_validation_selected") == "true":
+                ax.scatter(x_idx, y_idx, marker="o", s=90, facecolor="none", edgecolor="#D55E00", linewidth=1.4, zorder=4)
+    save_figure(fig, output_root, "pmi20_alpha_lambda_validation_heatmap")
+    plt.close(fig)
+
+
+def build_alpha_lambda_test_tradeoff_from_grid(output_root: Path, source: Path) -> None:
+    plt = setup_matplotlib()
+    rows = read_csv(source)
+    fig, ax = plt.subplots(figsize=(4.2, 3.2))
+    ranks = [fnum(row.get("validation_rank")) for row in rows]
+    xs = [fnum(row.get("test_normalized_atc")) for row in rows]
+    ys = [fnum(row.get("test_target_recall_min")) for row in rows]
+    sizes = [35 + 8 * fnum(row.get("test_critical_pair_error_count"), 0.0) for row in rows]
+    scatter = ax.scatter(xs, ys, c=ranks, s=sizes, cmap="viridis_r", alpha=0.78, edgecolor="black", linewidth=0.3)
+    cbar = fig.colorbar(scatter, ax=ax, fraction=0.046, pad=0.04)
+    cbar.set_label("Validation rank")
+    for row, x, y in zip(rows, xs, ys):
+        label = f"({fnum(row.get('alpha'), 0):g},{fnum(row.get('cs_lambda'), 0):g})"
+        if row.get("is_validation_selected") == "true" or row.get("is_current_main") == "true":
+            ax.annotate(label, (x, y), xytext=(4, 3), textcoords="offset points", fontsize=6.5)
+        if row.get("is_current_main") == "true":
+            ax.scatter(x, y, marker="*", s=115, color="white", edgecolor="black", linewidth=0.55, zorder=4)
+        if row.get("is_validation_selected") == "true":
+            ax.scatter(x, y, marker="o", s=105, facecolor="none", edgecolor="#D55E00", linewidth=1.4, zorder=5)
+    ax.set_xlabel("Test normalized ATC (lower is better)")
+    ax.set_ylabel("Test target-min recall (higher is better)")
+    ax.set_title("Test audit of validation-ranked grid")
+    ax.grid(True, linestyle=":", linewidth=0.4, alpha=0.7)
+    save_figure(fig, output_root, "pmi20_alpha_lambda_test_tradeoff_from_grid")
+    plt.close(fig)
+
+
+def build_alpha_lambda_test_heatmap(output_root: Path, source: Path) -> None:
+    plt = setup_matplotlib()
+    rows = read_csv(source)
+    alphas = sorted({fnum(row.get("alpha")) for row in rows})
+    lambdas = sorted({fnum(row.get("cs_lambda")) for row in rows})
+    by_point = grid_rows_by_point(rows)
+    z_natc = []
+    z_recall = []
+    for alpha in alphas:
+        natc_row = []
+        recall_row = []
+        for cs_lambda in lambdas:
+            row = by_point.get((alpha, cs_lambda), {})
+            natc_row.append(fnum(row.get("test_normalized_atc")))
+            recall_row.append(fnum(row.get("test_target_recall_min")))
+        z_natc.append(natc_row)
+        z_recall.append(recall_row)
+
+    fig, ax = plt.subplots(figsize=(5.0, 3.6))
+    im = ax.imshow(z_natc, origin="lower", aspect="auto", cmap="viridis_r")
+    cbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    cbar.set_label("Test normalized ATC (lower is better)")
+    ax.set_xticks(range(len(lambdas)))
+    ax.set_xticklabels([f"{value:g}" for value in lambdas])
+    ax.set_yticks(range(len(alphas)))
+    ax.set_yticklabels([f"{value:g}" for value in alphas])
+    ax.set_xlabel("lambda")
+    ax.set_ylabel("alpha")
+    ax.set_title("PMI-20 NICME test sensitivity")
+    for y_idx, alpha in enumerate(alphas):
+        for x_idx, cs_lambda in enumerate(lambdas):
+            recall = z_recall[y_idx][x_idx]
+            if not math.isnan(recall):
+                ax.text(x_idx, y_idx, f"{recall:.2f}", ha="center", va="center", fontsize=6.4, color="white")
+            row = by_point.get((alpha, cs_lambda), {})
+            if row.get("is_current_main") == "true":
+                ax.scatter(x_idx, y_idx, marker="*", s=95, color="white", edgecolor="black", linewidth=0.55, zorder=3)
+            if str(row.get("test_rank")) == "1":
+                ax.scatter(x_idx, y_idx, marker="o", s=90, facecolor="none", edgecolor="#D55E00", linewidth=1.4, zorder=4)
+    save_figure(fig, output_root, "pmi20_alpha_lambda_test_heatmap")
+    plt.close(fig)
+
+
 def build_margin_ecdf(output_root: Path, source: Path) -> None:
     plt = setup_matplotlib()
     rows = read_csv(source)
@@ -457,6 +630,7 @@ def build_result_inventory(output_root: Path, args: argparse.Namespace) -> None:
     rows = [
         {"artifact": "PMI-20 SOTA aggregate", "path": args.pmi20_sota},
         {"artifact": "PMI-20 alpha/lambda aggregate", "path": args.pmi20_alpha},
+        {"artifact": "PMI-20 alpha/lambda grid7 validation surface", "path": args.pmi20_alpha_grid},
         {"artifact": "Binary aggregate", "path": args.binary_results},
         {"artifact": "PMI-20 component ablation aggregate", "path": args.ablation_results},
         {"artifact": "PMI-20 critical-pair margins", "path": args.margin_csv},
@@ -473,6 +647,8 @@ def build_tables(args: argparse.Namespace) -> None:
     build_ablation_table(output_root, Path(args.ablation_results))
     build_binary_table(output_root, Path(args.binary_results))
     build_compute_table(output_root, Path(args.pmi20_camera_root), Path(args.pmi20_alpha_root))
+    if Path(args.pmi20_alpha_grid).exists():
+        build_alpha_lambda_grid_top10_table(output_root, Path(args.pmi20_alpha_grid))
     build_result_inventory(output_root, args)
 
 
@@ -480,6 +656,10 @@ def build_figures(args: argparse.Namespace) -> None:
     output_root = Path(args.output_root)
     build_recall_cost_tradeoff(output_root, Path(args.pmi20_sota))
     build_alpha_lambda_plot(output_root, Path(args.pmi20_alpha))
+    if Path(args.pmi20_alpha_grid).exists():
+        build_alpha_lambda_validation_heatmap(output_root, Path(args.pmi20_alpha_grid))
+        build_alpha_lambda_test_heatmap(output_root, Path(args.pmi20_alpha_grid))
+        build_alpha_lambda_test_tradeoff_from_grid(output_root, Path(args.pmi20_alpha_grid))
     build_margin_ecdf(output_root, Path(args.margin_csv))
 
 
@@ -506,6 +686,12 @@ def build_summary(args: argparse.Namespace) -> None:
         "",
         "**Figure: PMI-20 alpha-lambda sensitivity.** Six fixed NICME candidates show how expected cost and cared-class recall change with alpha/lambda.",
         "",
+        "**Figure: PMI-20 alpha-lambda validation heatmap.** A single-seed predeclared 7x7 sensitivity surface ranks alpha/lambda values by validation metrics; held-out test metrics are used only for post-selection audit.",
+        "",
+        "**Figure: PMI-20 alpha-lambda test heatmap.** The same 7x7 surface drawn with held-out test metrics; use this for interpretation only, not hyperparameter selection.",
+        "",
+        "**Figure: PMI-20 alpha-lambda test audit.** The test-set tradeoff plot shows where validation-ranked grid points land after selection without using test metrics for hyperparameter choice.",
+        "",
         "**Figure: Critical-pair logit margin distributions.** ECDFs of raw margins `f_y(x)-f_k(x)` on critical pairs; right-shifted curves indicate larger clean margins against high-cost confusions.",
         "",
         "## Provenance",
@@ -522,6 +708,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--output-root", default=str(DEFAULT_OUTPUT_ROOT))
     parser.add_argument("--pmi20-sota", default=str(DEFAULT_PMI20_SOTA))
     parser.add_argument("--pmi20-alpha", default=str(DEFAULT_PMI20_ALPHA))
+    parser.add_argument("--pmi20-alpha-grid", default=str(DEFAULT_PMI20_ALPHA_GRID))
     parser.add_argument("--binary-results", default=str(DEFAULT_BINARY))
     parser.add_argument("--ablation-results", default=str(DEFAULT_ABLATION))
     parser.add_argument("--margin-csv", default=str(DEFAULT_MARGINS))

@@ -1,0 +1,49 @@
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=timm type=pmi20_sota_convnext_base with 20 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '11.44', 'grad_norm': '28.64', 'learning_rate': '4.589e-05', 'epoch': '0.3279'}
+{'loss': '7.718', 'grad_norm': '25.96', 'learning_rate': '2.066e-05', 'epoch': '0.6557'}
+{'loss': '5.872', 'grad_norm': '25.99', 'learning_rate': '6.739e-07', 'epoch': '0.9836'}
+{'eval_loss': '1.383', 'eval_accuracy': '0.7063', 'eval_f1': '0.68', 'eval_balanced_accuracy': '0.7063', 'eval_macro_f1': '0.68', 'eval_atc': '0.3781', 'eval_normalized_atc': '0.03781', 'eval_target_recall': '0.25', 'eval_target_recall_macro': '0.7031', 'eval_target_fnr': '0.25', 'eval_selection_score': '1.737', 'eval_selection_accuracy_value': '0.7063', 'eval_nll': '1.359', 'eval_brier': '0.5893', 'eval_ece': '0.3858', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.949', 'eval_samples_per_second': '81.03', 'eval_steps_per_second': '5.064', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_alpha_lambda_grid7_smoke_a0p3_l0p07_lr5e5_s42/checkpoint-31/preprocessor_config.json
+{'train_runtime': '29.44', 'train_samples_per_second': '65.9', 'train_steps_per_second': '1.053', 'train_loss': '8.158', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     8.1581
+  train_runtime            = 0:00:29.43
+  train_samples_per_second =     65.904
+  train_steps_per_second   =      1.053
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_smoke_a0p3_l0p07_lr5e5_s42_05-06_04-27
+Saving run configuration...
+Run configuration saved to: results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_smoke_a0p3_l0p07_lr5e5_s42_05-06_04-27/run_configuration_20260506_042747.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_smoke_a0p3_l0p07_lr5e5_s42_05-06_04-27/metrics_20260506_042800_nicme_hybrid.json and results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_smoke_a0p3_l0p07_lr5e5_s42_05-06_04-27/metrics_20260506_042800_nicme_hybrid.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '16729-0168', '50111-0434', '53489-0156', '53746-0544', '57664-0377', '62037-0831', '62037-0832', '64380-0803', '65162-0253', '67253-0901', '68382-0008', '68382-0227', '69097-0127', '69097-0128', '69315-0904', '69315-0905']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_smoke_a0p3_l0p07_lr5e5_s42_05-06_04-27
+Overall Accuracy: 0.7172
+Balanced Accuracy: 0.7172
+Overall F1 Score: 0.6938
+Kappa: 0.7023
+AUC: 0.9842
+Expected Cost: 0.4172
+Loss Function Used: nicme_hybrid
+Total Test Samples: 640
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 16729-0168, 50111-0434, 53489-0156, 53746-0544, 57664-0377, 62037-0831, 62037-0832, 64380-0803, 65162-0253, 67253-0901, 68382-0008, 68382-0227, 69097-0127, 69097-0128, 69315-0904, 69315-0905
+
+Detailed metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_alpha_lambda_grid7_smoke_a0p3_l0p07_lr5e5_s42_05-06_04-27
+============================================================
