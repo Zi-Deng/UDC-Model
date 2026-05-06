@@ -1,0 +1,49 @@
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+cuda
+Using model backend=timm type=pmi20_sota_convnext_base with 20 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '11.02', 'grad_norm': '28.14', 'learning_rate': '4.589e-05', 'epoch': '0.3279'}
+{'loss': '7.441', 'grad_norm': '46.52', 'learning_rate': '2.066e-05', 'epoch': '0.6557'}
+{'loss': '5.714', 'grad_norm': '36.81', 'learning_rate': '6.739e-07', 'epoch': '0.9836'}
+{'eval_loss': '1.346', 'eval_accuracy': '0.6562', 'eval_f1': '0.6235', 'eval_balanced_accuracy': '0.6562', 'eval_macro_f1': '0.6235', 'eval_atc': '0.4844', 'eval_normalized_atc': '0.04844', 'eval_target_recall': '0', 'eval_target_recall_macro': '0.6875', 'eval_target_fnr': '0', 'eval_selection_score': '3.309', 'eval_selection_accuracy_value': '0.6562', 'eval_nll': '1.307', 'eval_brier': '0.569', 'eval_ece': '0.3108', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '3.767', 'eval_samples_per_second': '84.95', 'eval_steps_per_second': '5.309', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/pmi20_component_ablation_smoke_nicme_margin_only_a0p5_lr5e5_s43/checkpoint-31/preprocessor_config.json
+{'train_runtime': '29.26', 'train_samples_per_second': '66.3', 'train_steps_per_second': '1.059', 'train_loss': '7.873', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     7.8727
+  train_runtime            = 0:00:29.26
+  train_samples_per_second =     66.297
+  train_steps_per_second   =      1.059
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/pmi20_sota_convnext_base_test/pmi20_component_ablation_smoke_nicme_margin_only_a0p5_lr5e5_s43_05-06_02-15
+Saving run configuration...
+Run configuration saved to: results/pmi20_sota_convnext_base_test/pmi20_component_ablation_smoke_nicme_margin_only_a0p5_lr5e5_s43_05-06_02-15/run_configuration_20260506_021520.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_component_ablation_smoke_nicme_margin_only_a0p5_lr5e5_s43_05-06_02-15/metrics_20260506_021534_nicme_logit_adjustment.json and results/pmi20_sota_convnext_base_test/pmi20_component_ablation_smoke_nicme_margin_only_a0p5_lr5e5_s43_05-06_02-15/metrics_20260506_021534_nicme_logit_adjustment.txt
+Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '16729-0168', '50111-0434', '53489-0156', '53746-0544', '57664-0377', '62037-0831', '62037-0832', '64380-0803', '65162-0253', '67253-0901', '68382-0008', '68382-0227', '69097-0127', '69097-0128', '69315-0904', '69315-0905']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/pmi20_sota_convnext_base_test/pmi20_component_ablation_smoke_nicme_margin_only_a0p5_lr5e5_s43_05-06_02-15
+Overall Accuracy: 0.6734
+Balanced Accuracy: 0.6734
+Overall F1 Score: 0.6512
+Kappa: 0.6562
+AUC: 0.9837
+Expected Cost: 0.4391
+Loss Function Used: nicme_logit_adjustment
+Total Test Samples: 640
+Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 16729-0168, 50111-0434, 53489-0156, 53746-0544, 57664-0377, 62037-0831, 62037-0832, 64380-0803, 65162-0253, 67253-0901, 68382-0008, 68382-0227, 69097-0127, 69097-0128, 69315-0904, 69315-0905
+
+Detailed metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_component_ablation_smoke_nicme_margin_only_a0p5_lr5e5_s43_05-06_02-15
+============================================================

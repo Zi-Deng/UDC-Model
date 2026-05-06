@@ -1,0 +1,58 @@
+
+[2026-05-06T02:11:04-07:00] START prepare-balanced-split
+[2026-05-06T02:11:04-07:00] CMD micromamba run -n ml python scripts/prepare_data.py --dataset pmi_pills --input-dir data/raw/pmi --output-dir data/prepared/pmi_pills --seed 42
+[2026-05-06T02:11:05-07:00] DONE prepare-balanced-split
+
+[2026-05-06T02:11:05-07:00] START readiness
+[2026-05-06T02:11:05-07:00] CMD micromamba run -n ml python scripts/check_multiclass_readiness.py --datasets pmi_pills --variants balanced --raw-root data/raw --prepared-root data/prepared --output-dir /mnt/storage/github/NICME/results/pmi20_component_ablation_lr5e5_multiseed_20260506/readiness
+Wrote readiness reports to /mnt/storage/github/NICME/results/pmi20_component_ablation_lr5e5_multiseed_20260506/readiness/mc0_readiness.json and /mnt/storage/github/NICME/results/pmi20_component_ablation_lr5e5_multiseed_20260506/readiness/mc0_readiness.md
+[2026-05-06T02:11:05-07:00] DONE readiness
+
+[2026-05-06T02:11:05-07:00] START unit-tests
+[2026-05-06T02:11:05-07:00] CMD micromamba run -n ml pytest -q tests/test_loss_functions.py tests/test_pmi20_camera_ready_runner.py tests/test_pmi20_component_ablation_runner.py tests/test_paper_figures_builder.py tests/test_pmi20_margin_export.py
+.................................                                        [100%]
+33 passed in 3.70s
+[2026-05-06T02:11:10-07:00] DONE unit-tests
+
+[2026-05-06T02:11:10-07:00] START preflight
+[2026-05-06T02:11:10-07:00] CMD runner_cmd preflight
+PMI-20 component ablation preflight passed
+[2026-05-06T02:11:10-07:00] DONE preflight
+
+[2026-05-06T02:11:10-07:00] START dry-run
+[2026-05-06T02:11:10-07:00] CMD runner_cmd dry-run
+Wrote 6 dry-run ablation configs under /mnt/storage/github/NICME/results/pmi20_component_ablation_lr5e5_multiseed_20260506
+[2026-05-06T02:11:10-07:00] DONE dry-run
+
+[2026-05-06T02:11:10-07:00] START smoke
+[2026-05-06T02:11:10-07:00] CMD runner_cmd smoke --per-run-timeout-minutes 240
+Completed 6 smoke ablation runs
+[2026-05-06T02:17:47-07:00] DONE smoke
+
+[2026-05-06T02:17:47-07:00] START long-pmi20-component-ablation-chain
+[2026-05-06T02:17:47-07:00] CMD runner_cmd run --per-run-timeout-minutes 960
+Completed 6 long ablation runs
+[2026-05-06T02:54:34-07:00] DONE long-pmi20-component-ablation-chain
+
+[2026-05-06T02:54:34-07:00] START analysis
+[2026-05-06T02:54:34-07:00] CMD runner_cmd analyze
+Wrote PMI-20 component ablation analysis under /mnt/storage/github/NICME/results/pmi20_component_ablation_lr5e5_multiseed_20260506/analysis
+[2026-05-06T02:54:34-07:00] DONE analysis
+
+[2026-05-06T02:54:34-07:00] START margin-export
+[2026-05-06T02:54:34-07:00] CMD micromamba run -n ml python scripts/export_pmi20_margin_distributions.py --output /mnt/storage/github/NICME/paper_figures/data/pmi20_critical_pair_margins.csv --seeds 42\,43\,44
+Prepared manifest loaded — Train=1940, Val=320, Calibration=300, Test=640
+Traceback (most recent call last):
+  File "/mnt/storage/github/NICME/scripts/export_pmi20_margin_distributions.py", line 203, in <module>
+    main()
+  File "/mnt/storage/github/NICME/scripts/export_pmi20_margin_distributions.py", line 195, in main
+    rows = export_margins(args)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/storage/github/NICME/scripts/export_pmi20_margin_distributions.py", line 164, in export_margins
+    all_rows.extend(export_for_row(row, batch_size=args.batch_size, max_batches=args.max_batches))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/storage/github/NICME/scripts/export_pmi20_margin_distributions.py", line 125, in export_for_row
+    load_initial_checkpoint(model, row["checkpoint_path"])
+                                   ~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'checkpoint_path'
+[2026-05-06T02:54:38-07:00] FAILED margin-export rc=1

@@ -1,0 +1,6 @@
+| Method | Cost use | Adv. loop | Wall-time min | Rel. CE | Checkpoint MB | Runs |
+|---|---|---|---|---|---|---|
+| CE | none | no | 5.93 | 1.00 | 334.2 | 3 |
+| cost-sensitive regularized CE | expected-cost regularizer | no | 2.94 | 0.50 | 334.2 | 3 |
+| CSADA | cost-targeted adversarial augmentation | yes | 4.41 | 0.74 | 334.2 | 3 |
+| NICME | pairwise margin + expected-cost regularizer | no | 0.00 | 0.00 | 0.0 | 0 |
