@@ -43,7 +43,7 @@ TRAIN_METHODS = (
     NICME_METHOD,
     "menon_logit_adjusted",
     "cost_weighted_ce",
-    "ap_csada",
+    "cost_sensitive_regularized_ce",
     "csada",
 )
 REPORT_METHODS = (
@@ -52,10 +52,10 @@ REPORT_METHODS = (
     NICME_METHOD,
     "menon_logit_adjusted",
     "cost_weighted_ce",
-    "ap_csada",
+    "cost_sensitive_regularized_ce",
     "csada",
 )
-ADAPTATION_METHODS = ("ap_csada", "csada")
+ADAPTATION_METHODS = ("cost_sensitive_regularized_ce", "csada")
 METRICS = camera.METRICS
 HIGHER_IS_BETTER = camera.HIGHER_IS_BETTER
 LOWER_IS_BETTER = camera.LOWER_IS_BETTER
@@ -77,7 +77,7 @@ def display_name(method: str) -> str:
         NICME_METHOD: "NICME (alpha=0.5, lambda=0.1)",
         "menon_logit_adjusted": "Menon logit adjustment",
         "cost_weighted_ce": "Cost-weighted CE",
-        "ap_csada": "AP-CSADA",
+        "cost_sensitive_regularized_ce": "cost-sensitive regularized CE",
         "csada": "CSADA",
     }
     return names.get(method, method)
@@ -180,8 +180,8 @@ def base_config(
         cfg["logit_adjustment_tau"] = 1.0
     elif method == "cost_weighted_ce":
         cfg["loss_function"] = "cost_weighted_ce"
-    elif method == "ap_csada":
-        cfg["loss_function"] = "ap_csada"
+    elif method == "cost_sensitive_regularized_ce":
+        cfg["loss_function"] = "cost_sensitive_regularized_ce"
         cfg["num_train_epochs"] = int(epochs if epochs is not None else 10)
         cfg["early_stopping_patience"] = 3
         cfg["learning_rate"] = 1e-5

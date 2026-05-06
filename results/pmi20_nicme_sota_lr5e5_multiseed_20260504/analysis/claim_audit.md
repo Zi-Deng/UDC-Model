@@ -13,7 +13,7 @@ Primary NICME config: alpha `0.5`, lambda `0.1`, LR `5e-5`, selected as the pape
 ## Claims Requiring Caveats
 
 - Critical-confusion control: NICME has the lowest critical-pair error count among argmax trained-model rows, but CE + cost-min inference has the lowest count overall while sacrificing target-min recall.
-- Balanced accuracy and macro-F1: AP-CSADA remains slightly higher than NICME on both metrics in this aggregate.
+- Balanced accuracy and macro-F1: cost-sensitive regularized CE remains slightly higher than NICME on both metrics in this aggregate.
 
 ## Unsupported Claims
 

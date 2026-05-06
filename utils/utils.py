@@ -516,6 +516,10 @@ class ScriptTrainingArguments:
     wandb: str = field(default="False", metadata={"help": "Wandb upload ('True' or 'False' as strings)"})
     push_to_hub: str = field(default="False", metadata={"help": "Push to hub ('True' or 'False' as strings)"})
     output_dir: str = field(default="convnext", metadata={"help": "Output directory for model checkpoints"})
+    checkpoint_root: str = field(
+        default="checkpoints",
+        metadata={"help": "Root directory for model checkpoints; output_dir is created under this path"},
+    )
     dataset_host: str = field(default="huggingface", metadata={"help": "Dataset host"})
     local_dataset_name: str = field(default=None, metadata={"help": "Name of local dataset"})
     local_folder_path: str = field(
@@ -599,6 +603,10 @@ class ScriptTrainingArguments:
     disable_cudnn: bool = field(default=False, metadata={"help": "Disable cuDNN for native Conv2d stability"})
     skip_visualizations: bool = field(default=False, metadata={"help": "Skip optional confusion-matrix figures"})
     save_total_limit: int = field(default=1, metadata={"help": "Maximum checkpoints to retain per run"})
+    save_only_model: bool = field(
+        default=False,
+        metadata={"help": "Save only model weights in checkpoints, omitting optimizer/scheduler state"},
+    )
     train_random_resize_crop: bool = field(default=True, metadata={"help": "Use RandomResizedCrop for training"})
     train_horizontal_flip: bool = field(default=True, metadata={"help": "Use random horizontal flips for training"})
     train_color_jitter: bool = field(default=False, metadata={"help": "Use light ColorJitter augmentation for training"})
@@ -623,7 +631,10 @@ class ScriptTrainingArguments:
     ldam_max_m: float = field(default=0.5, metadata={"help": "LDAM maximum margin"})
     ldam_scale: float = field(default=30.0, metadata={"help": "LDAM logit scale"})
     ldam_drw_start_epoch: int = field(default=16, metadata={"help": "Epoch at which LDAM deferred reweighting starts"})
-    ap_alpha: float = field(default=5.0, metadata={"help": "Adjusted-penalty expected-cost weight"})
+    cost_regularization_alpha: float = field(
+        default=5.0,
+        metadata={"help": "Cost-sensitive regularized CE expected-cost weight"},
+    )
     csada_lambda: float = field(default=2.0, metadata={"help": "CSADA adversarial CE weight"})
     csada_attack_steps: int = field(default=5, metadata={"help": "CSADA targeted PGD steps"})
     csada_epsilon: float = field(default=2.0 / 255.0, metadata={"help": "CSADA epsilon in input pixel units"})
@@ -1829,7 +1840,7 @@ def save_run_configuration(script_args, output_dir, dataset_name=None):
             "ldam_max_m": getattr(script_args, "ldam_max_m", 0.5),
             "ldam_scale": getattr(script_args, "ldam_scale", 30.0),
             "ldam_drw_start_epoch": getattr(script_args, "ldam_drw_start_epoch", 16),
-            "ap_alpha": getattr(script_args, "ap_alpha", 5.0),
+            "cost_regularization_alpha": getattr(script_args, "cost_regularization_alpha", 5.0),
             "csada_lambda": getattr(script_args, "csada_lambda", 2.0),
             "csada_attack_steps": getattr(script_args, "csada_attack_steps", 5),
             "csada_epsilon": getattr(script_args, "csada_epsilon", 2.0 / 255.0),

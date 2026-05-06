@@ -1,0 +1,49 @@
+Prepared manifest loaded — Train=2098, Val=300, Calibration=300, Test=300
+cuda
+Using model backend=timm type=binary_sota_convnext_base with 2 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '2.073', 'grad_norm': '10.44', 'learning_rate': '4.642e-05', 'epoch': '0.303'}
+{'loss': '1.043', 'grad_norm': '10.46', 'learning_rate': '2.365e-05', 'epoch': '0.6061'}
+{'loss': '0.8611', 'grad_norm': '7.08', 'learning_rate': '2.311e-06', 'epoch': '0.9091'}
+{'eval_loss': '0.2079', 'eval_accuracy': '0.6167', 'eval_f1': '0.5506', 'eval_balanced_accuracy': '0.6167', 'eval_macro_f1': '0.5506', 'eval_atc': '0.3833', 'eval_normalized_atc': '0.04792', 'eval_target_recall': '1', 'eval_target_recall_macro': '1', 'eval_target_fnr': '0', 'eval_selection_score': '0.08153', 'eval_selection_accuracy_value': '0.6167', 'eval_nll': '0.7232', 'eval_brier': '0.5013', 'eval_ece': '0.2279', 'eval_auroc': '0.9294', 'eval_auprc': '0.9314', 'eval_runtime': '3.134', 'eval_samples_per_second': '95.73', 'eval_steps_per_second': '6.063', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/binary_spider_smoke_cost_weighted_ce_lr5e5_s42/checkpoint-33/preprocessor_config.json
+{'train_runtime': '20.31', 'train_samples_per_second': '103.3', 'train_steps_per_second': '1.625', 'train_loss': '1.276', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     1.2765
+  train_runtime            = 0:00:20.30
+  train_samples_per_second =    103.301
+  train_steps_per_second   =      1.625
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/binary_sota_convnext_base_test/binary_spider_smoke_cost_weighted_ce_lr5e5_s42_05-05_01-16
+Saving run configuration...
+Run configuration saved to: results/binary_sota_convnext_base_test/binary_spider_smoke_cost_weighted_ce_lr5e5_s42_05-05_01-16/run_configuration_20260505_011621.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/binary_sota_convnext_base_test/binary_spider_smoke_cost_weighted_ce_lr5e5_s42_05-05_01-16/metrics_20260505_011627_cost_weighted_ce.json and results/binary_sota_convnext_base_test/binary_spider_smoke_cost_weighted_ce_lr5e5_s42_05-05_01-16/metrics_20260505_011627_cost_weighted_ce.txt
+Using provided class names: ['black_widow', 'false_widow']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/binary_sota_convnext_base_test/binary_spider_smoke_cost_weighted_ce_lr5e5_s42_05-05_01-16
+Overall Accuracy: 0.6233
+Balanced Accuracy: 0.6233
+Overall F1 Score: 0.5611
+Kappa: 0.2467
+AUC: 0.9496
+Expected Cost: 0.3767
+Loss Function Used: cost_weighted_ce
+Total Test Samples: 300
+Classes: black_widow, false_widow
+
+Detailed metrics saved to: results/binary_sota_convnext_base_test/binary_spider_smoke_cost_weighted_ce_lr5e5_s42_05-05_01-16
+============================================================

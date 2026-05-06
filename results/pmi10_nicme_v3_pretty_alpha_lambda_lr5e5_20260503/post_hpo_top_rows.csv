@@ -4,4 +4,4 @@ rank,source,method_or_run,learning_rate,alpha,cs_lambda,decision,target_recall_m
 3,previous_baseline,csada_lr5e5_profile,1e-05,,,argmax,0.96875,0.984375,0.015625,0.15625,0.871875,0.8510916703395954,1,previous recall-first baseline winner
 4,hpo_lr5e5,nicme_v3_run_20,5e-05,0.06,0.03,argmax,0.9375,0.9765625,0.0046875,0.046875,0.98125,0.9813385874877809,1,top sub-0.96875 HPO row
 5,hpo_lr5e5,nicme_v3_run_50,5e-05,0.09,0.07,argmax,0.9375,0.9765625,0.0046875,0.046875,0.98125,0.9813385874877809,1,tied top sub-0.96875 HPO row
-6,previous_baseline,ap_csada_lr1e4_profile,1e-05,,,argmax,0.9375,0.9765625,0.005,0.05,0.978125,0.9783492053939213,1,previous strong non-HPO baseline
+6,previous_baseline,cost_sensitive_regularized_ce_lr1e4_profile,1e-05,,,argmax,0.9375,0.9765625,0.005,0.05,0.978125,0.9783492053939213,1,previous strong non-HPO baseline

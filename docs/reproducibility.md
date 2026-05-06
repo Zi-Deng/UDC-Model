@@ -69,7 +69,21 @@ Its previous combined summary is now historical because the PMI-20 paper table a
 
 ## Current Binary Evidence
 
-The final binary evidence is summarized in [binary_experiment_summary.md](binary_experiment_summary.md). The live result roots are:
+The final binary evidence is summarized in [binary_experiment_summary.md](binary_experiment_summary.md). The binary cost matrices are justified in [binary_cost_matrix_justification.md](binary_cost_matrix_justification.md) and validated in `results/binary_cost_matrix_validation_20260504/`.
+
+Primary matrices:
+
+```text
+Spider, C[true][pred], black_widow/false_widow:
+[[0, 8],
+ [1, 0]]
+
+BreaKHis, C[true][pred], benign/malignant:
+[[0, 1],
+ [7, 0]]
+```
+
+The live result roots are:
 
 - `results/stop3a_balanced_primary/`
 - `results/stop3b_imbalance_decoupling/`
@@ -83,6 +97,16 @@ Key machine-readable summaries:
 - `results/stop4a_backbone_ablation/stop4a_backbone_ablation_ranked_summary.csv`
 - `results/stop4b_cost_ratio_sensitivity/spider_convnext/stop4b_spider_cost_ratio_ranked_summary.csv`
 - `results/stop4b_cost_ratio_sensitivity/breakhis_dinov3_convnext_lora/stop4b_breakhis_cost_ratio_ranked_summary.csv`
+- `results/binary_cost_matrix_validation_20260504/analysis/sensitivity_summary.csv`
+- `results/binary_cost_matrix_validation_20260504/analysis/claim_audit.md`
+- `results/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/`
+
+Current binary camera-ready launcher:
+
+```bash
+nohup bash scripts/launch_binary_camera_ready_cost8_7_lr5e5_chain.sh \
+  > results/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/chain/launcher.nohup.log 2>&1 &
+```
 
 ## Current Multiclass State
 

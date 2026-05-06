@@ -28,6 +28,6 @@ Status note, 2026-05-04: this is a source suite for the canonical paper table, n
 
 ## Current Composite Leader
 
-- Rank 1: `AP-CSADA`
+- Rank 1: `cost-sensitive regularized CE`
 
 Error bars are sample standard deviations over training seeds on one fixed split.

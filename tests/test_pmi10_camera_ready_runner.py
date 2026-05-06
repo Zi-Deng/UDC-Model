@@ -59,7 +59,7 @@ def test_baseline_hyperparameters_match_existing_lr5e5_profile(tmp_path):
         "balanced_softmax",
         "class_balanced_focal",
         "ldam_drw",
-        "ap_csada",
+        "cost_sensitive_regularized_ce",
         "sosr_cnn",
         "csada",
     ):
@@ -84,6 +84,7 @@ def test_baseline_hyperparameters_match_existing_lr5e5_profile(tmp_path):
         assert {k: v for k, v in actual.items() if k not in ignored} == {
             k: v for k, v in expected.items() if k not in ignored
         }
+    assert camera.display_name("cost_sensitive_regularized_ce") == "cost-sensitive regularized CE"
 
 
 def test_aggregation_uses_sample_standard_deviation():

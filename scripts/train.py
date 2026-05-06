@@ -128,7 +128,7 @@ class CustomTrainer(Trainer):
         ldam_max_m=0.5,
         ldam_scale=30.0,
         ldam_drw_start_epoch=16,
-        ap_alpha=5.0,
+        cost_regularization_alpha=5.0,
         csada_lambda=2.0,
         csada_attack_steps=5,
         csada_epsilon=2.0 / 255.0,
@@ -151,7 +151,7 @@ class CustomTrainer(Trainer):
             ldam_max_m=ldam_max_m,
             ldam_scale=ldam_scale,
             ldam_drw_start_epoch=ldam_drw_start_epoch,
-            ap_alpha=ap_alpha,
+            cost_regularization_alpha=cost_regularization_alpha,
         )
         self.loss_fxn = loss_fxn
         self.csada_lambda = float(csada_lambda)
@@ -390,12 +390,14 @@ def main(script_args):
         metric_for_best = "selection_score" if script_args.cost_matrix is not None else "accuracy"
     greater_is_better = metric_for_best not in {"selection_score", "normalized_atc", "atc", "loss"}
 
+    checkpoint_root = Path(getattr(script_args, "checkpoint_root", None) or "checkpoints")
     training_args = TrainingArguments(
-        output_dir=f"checkpoints/{script_args.output_dir}",
+        output_dir=str(checkpoint_root / script_args.output_dir),
         remove_unused_columns=False,
         eval_strategy="epoch",
         save_strategy="epoch",
         save_total_limit=script_args.save_total_limit,
+        save_only_model=bool(getattr(script_args, "save_only_model", False)),
         learning_rate=script_args.learning_rate,
         weight_decay=script_args.weight_decay,
         per_device_train_batch_size=script_args.batch_size,
@@ -447,7 +449,7 @@ def main(script_args):
         ldam_max_m=getattr(script_args, "ldam_max_m", 0.5),
         ldam_scale=getattr(script_args, "ldam_scale", 30.0),
         ldam_drw_start_epoch=getattr(script_args, "ldam_drw_start_epoch", 16),
-        ap_alpha=getattr(script_args, "ap_alpha", 5.0),
+        cost_regularization_alpha=getattr(script_args, "cost_regularization_alpha", 5.0),
         csada_lambda=getattr(script_args, "csada_lambda", 2.0),
         csada_attack_steps=getattr(script_args, "csada_attack_steps", 5),
         csada_epsilon=getattr(script_args, "csada_epsilon", 2.0 / 255.0),
@@ -491,7 +493,7 @@ def main(script_args):
         ldam_max_m=getattr(script_args, "ldam_max_m", 0.5),
         ldam_scale=getattr(script_args, "ldam_scale", 30.0),
         ldam_drw_start_epoch=getattr(script_args, "ldam_drw_start_epoch", 16),
-        ap_alpha=getattr(script_args, "ap_alpha", 5.0),
+        cost_regularization_alpha=getattr(script_args, "cost_regularization_alpha", 5.0),
         csada_lambda=getattr(script_args, "csada_lambda", 2.0),
         csada_attack_steps=getattr(script_args, "csada_attack_steps", 5),
         csada_epsilon=getattr(script_args, "csada_epsilon", 2.0 / 255.0),

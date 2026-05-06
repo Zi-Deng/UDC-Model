@@ -18,7 +18,7 @@ Dispatch table (``loss_function()`` method)::
     "balanced_softmax"                → BalancedSoftmaxCE()
     "class_balanced_focal"            → ClassBalancedFocal()
     "ldam_drw"                        → LDAMDRW()
-    "ap_csada"                        → APCSADA()
+    "cost_sensitive_regularized_ce"   → CostSensitiveRegularizedCE()
     "sosr_cnn"                        → SOSRCNN()
 
 Deprecated ``nicme_v3_*`` aliases still resolve to the current NICME loss for
@@ -59,7 +59,7 @@ class LossFunctions:
         ldam_max_m=0.5,
         ldam_scale=30.0,
         ldam_drw_start_epoch=16,
-        ap_alpha=5.0,
+        cost_regularization_alpha=5.0,
     ):
         self.epsilon = epsilon
         self.device = get_device()
@@ -90,7 +90,7 @@ class LossFunctions:
         self.ldam_max_m = ldam_max_m
         self.ldam_scale = ldam_scale
         self.ldam_drw_start_epoch = ldam_drw_start_epoch
-        self.ap_alpha = ap_alpha
+        self.cost_regularization_alpha = cost_regularization_alpha
 
     def calculate_dynamic_alpha(self, logits: torch.Tensor) -> torch.Tensor:
         """
@@ -202,12 +202,12 @@ class LossFunctions:
             weights = self._effective_number_weights(logits.shape[-1], logits.device, logits.dtype)
         return F.cross_entropy(float(self.ldam_scale) * adjusted_logits, targets, weight=weights)
 
-    def APCSADA(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
-        """Adjusted-penalty CSADA-style baseline: CE plus normalized expected cost."""
+    def CostSensitiveRegularizedCE(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """Cost-sensitive regularized CE: CE plus normalized expected cost."""
         ce_loss = F.cross_entropy(logits, targets)
-        if self.cost_matrix is None or float(self.ap_alpha) == 0.0:
+        if self.cost_matrix is None or float(self.cost_regularization_alpha) == 0.0:
             return ce_loss
-        return ce_loss + float(self.ap_alpha) * self._normalized_cs_penalty(logits, targets)
+        return ce_loss + float(self.cost_regularization_alpha) * self._normalized_cs_penalty(logits, targets)
 
     def SOSRCNN(self, logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
         """ConvNeXt-compatible CSDNN-family smooth cost-vector regression loss.
@@ -629,7 +629,7 @@ class LossFunctions:
             "balanced_softmax"                → BalancedSoftmaxCE()
             "class_balanced_focal"            → ClassBalancedFocal()
             "ldam_drw"                        → LDAMDRW()
-            "ap_csada"                        → APCSADA()
+            "cost_sensitive_regularized_ce"   → CostSensitiveRegularizedCE()
             "sosr_cnn"                        → SOSRCNN()
 
         Raises:
@@ -661,8 +661,8 @@ class LossFunctions:
             return self.ClassBalancedFocal
         elif loss_name == "ldam_drw":
             return self.LDAMDRW
-        elif loss_name in ("ap_csada", "adjusted_penalty_csada"):
-            return self.APCSADA
+        elif loss_name == "cost_sensitive_regularized_ce":
+            return self.CostSensitiveRegularizedCE
         elif loss_name in ("sosr_cnn", "csdnn_sosr"):
             return self.SOSRCNN
         elif loss_name == "csada":

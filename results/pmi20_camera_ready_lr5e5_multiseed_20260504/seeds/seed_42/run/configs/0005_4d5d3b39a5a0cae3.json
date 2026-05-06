@@ -521,8 +521,8 @@
   "skip_visualizations": true,
   "seed": 42,
   "sota_phase": "run",
-  "sota_method": "ap_csada",
-  "sota_role": "ap_csada",
+  "sota_method": "cost_sensitive_regularized_ce",
+  "sota_role": "cost_sensitive_regularized_ce",
   "sota_comparison_profile": "pmi20_camera_ready_lr5e5_multiseed",
   "learning_rate_profile": "lr5e5",
   "parent_learning_rate": 5e-05,
@@ -542,7 +542,7 @@
   "train_horizontal_flip": false,
   "train_random_quarter_turns": true,
   "train_color_jitter": false,
-  "loss_function": "ap_csada",
+  "loss_function": "cost_sensitive_regularized_ce",
   "initial_checkpoint_path": "checkpoints/pmi20_run_ce_anchor_pmi20_lr5e5_s42",
-  "output_dir": "pmi20_run_ap_csada_lr5e5_s42"
+  "output_dir": "pmi20_run_cost_sensitive_regularized_ce_lr5e5_s42"
 }

@@ -80,7 +80,7 @@ def test_selected_method_set_matches_plan():
         pmi20.NICME_METHOD,
         "menon_logit_adjusted",
         "cost_weighted_ce",
-        "ap_csada",
+        "cost_sensitive_regularized_ce",
         "csada",
     )
     assert pmi20.REPORT_METHODS == (
@@ -89,9 +89,10 @@ def test_selected_method_set_matches_plan():
         pmi20.NICME_METHOD,
         "menon_logit_adjusted",
         "cost_weighted_ce",
-        "ap_csada",
+        "cost_sensitive_regularized_ce",
         "csada",
     )
+    assert pmi20.display_name("cost_sensitive_regularized_ce") == "cost-sensitive regularized CE"
 
 
 def test_shared_training_defaults_match_camera_ready_protocol(tmp_path):

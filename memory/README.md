@@ -10,6 +10,7 @@ For current work, start here:
 - [Results index](../results/README.md)
 - [PMI-10 supporting HPO and SOTA/baseline summary](../docs/pmi10_hpo_sota_summary.md)
 - [Binary experiment summary](../docs/binary_experiment_summary.md)
+- [Binary cost matrix justification](../docs/binary_cost_matrix_justification.md)
 - [Multiclass experiment summary](../docs/multiclass_experiment_summary.md)
 - [Markdown consolidation index](../archive/markdown_consolidation_20260501/INDEX.md)
 - [Results/docs cleanup archive](../archive/results_docs_cleanup_20260504/MANIFEST.md)

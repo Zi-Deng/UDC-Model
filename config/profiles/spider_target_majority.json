@@ -13,7 +13,7 @@
   },
   "target_recall_class": "black_widow",
   "cost_matrix": [
-    [0.0, 10.0],
+    [0.0, 8.0],
     [1.0, 0.0]
   ],
   "selection": {
@@ -22,5 +22,10 @@
     "accuracy_metric": "balanced_accuracy"
   },
   "selection_accuracy_metric": "balanced_accuracy",
-  "cost_matrix_convention": "C[true_label][predicted_label]"
+  "cost_matrix_convention": "C[true_label][predicted_label]",
+  "critical_pairs": [
+    {"true": "black_widow", "pred": "false_widow", "cost": 8.0}
+  ],
+  "cost_matrix_source": "binary_cost_matrix_review_integer_20260505",
+  "cost_reference": "docs/binary_cost_matrix_justification.md"
 }

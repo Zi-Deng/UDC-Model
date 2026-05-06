@@ -1,0 +1,44 @@
+warmup_ratio is deprecated and will be removed in v5.2. Use `warmup_steps` instead.
+  0%|          | 0/33 [00:00<?, ?it/s]  3%|▎         | 1/33 [00:01<01:01,  1.93s/it]  6%|▌         | 2/33 [00:02<00:32,  1.04s/it]  9%|▉         | 3/33 [00:02<00:23,  1.29it/s] 12%|█▏        | 4/33 [00:03<00:18,  1.58it/s] 15%|█▌        | 5/33 [00:03<00:15,  1.79it/s] 18%|█▊        | 6/33 [00:04<00:13,  1.95it/s] 21%|██        | 7/33 [00:04<00:12,  2.07it/s] 24%|██▍       | 8/33 [00:04<00:11,  2.15it/s] 27%|██▋       | 9/33 [00:05<00:10,  2.21it/s] 30%|███       | 10/33 [00:05<00:10,  2.26it/s]                                                30%|███       | 10/33 [00:05<00:10,  2.26it/s] 33%|███▎      | 11/33 [00:06<00:09,  2.30it/s] 36%|███▋      | 12/33 [00:06<00:09,  2.32it/s] 39%|███▉      | 13/33 [00:07<00:08,  2.33it/s] 42%|████▏     | 14/33 [00:07<00:08,  2.34it/s] 45%|████▌     | 15/33 [00:07<00:07,  2.33it/s] 48%|████▊     | 16/33 [00:08<00:07,  2.34it/s] 52%|█████▏    | 17/33 [00:08<00:06,  2.34it/s] 55%|█████▍    | 18/33 [00:09<00:06,  2.35it/s] 58%|█████▊    | 19/33 [00:09<00:05,  2.36it/s] 61%|██████    | 20/33 [00:10<00:05,  2.36it/s]                                                61%|██████    | 20/33 [00:10<00:05,  2.36it/s] 64%|██████▎   | 21/33 [00:10<00:05,  2.27it/s] 67%|██████▋   | 22/33 [00:10<00:04,  2.24it/s] 70%|██████▉   | 23/33 [00:11<00:04,  2.25it/s] 73%|███████▎  | 24/33 [00:11<00:04,  2.24it/s] 76%|███████▌  | 25/33 [00:12<00:03,  2.26it/s] 79%|███████▉  | 26/33 [00:12<00:03,  2.27it/s] 82%|████████▏ | 27/33 [00:13<00:02,  2.26it/s] 85%|████████▍ | 28/33 [00:13<00:02,  2.29it/s] 88%|████████▊ | 29/33 [00:13<00:01,  2.32it/s] 91%|█████████ | 30/33 [00:14<00:01,  2.33it/s]                                                91%|█████████ | 30/33 [00:14<00:01,  2.33it/s] 94%|█████████▍| 31/33 [00:14<00:00,  2.35it/s] 97%|█████████▋| 32/33 [00:15<00:00,  2.35it/s]100%|██████████| 33/33 [00:16<00:00,  1.26it/s]
+  0%|          | 0/19 [00:00<?, ?it/s][A
+ 21%|██        | 4/19 [00:00<00:00, 28.87it/s][A
+ 37%|███▋      | 7/19 [00:00<00:00, 24.60it/s][A
+ 53%|█████▎    | 10/19 [00:00<00:00, 23.19it/s][A
+ 68%|██████▊   | 13/19 [00:00<00:00, 22.47it/s][A
+ 84%|████████▍ | 16/19 [00:00<00:00, 21.78it/s][A
+100%|██████████| 19/19 [00:01<00:00,  8.20it/s][A                                               
+                                               [A100%|██████████| 33/33 [00:19<00:00,  1.26it/s]
+100%|██████████| 19/19 [00:02<00:00,  8.20it/s][A
+                                               [ATraceback (most recent call last):
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/torch/serialization.py", line 977, in save
+    _save(
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/torch/serialization.py", line 1286, in _save
+    zip_file.write_record(name, storage, num_bytes)
+RuntimeError: basic_ios::clear: iostream error
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/storage/github/NICME/scripts/train.py", line 519, in <module>
+    main(args)
+  File "/mnt/storage/github/NICME/scripts/train.py", line 459, in main
+    train_results = trainer.train()
+                    ^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/transformers/trainer.py", line 2174, in train
+    return inner_training_loop(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/transformers/trainer.py", line 2641, in _inner_training_loop
+    self._maybe_log_save_evaluate(
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/transformers/trainer.py", line 3027, in _maybe_log_save_evaluate
+    self._save_checkpoint(model, trial)
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/transformers/trainer.py", line 3145, in _save_checkpoint
+    self._save_optimizer_and_scheduler(output_dir)
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/transformers/trainer.py", line 3272, in _save_optimizer_and_scheduler
+    torch.save(self.optimizer.state_dict(), os.path.join(output_dir, OPTIMIZER_NAME))
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/torch/serialization.py", line 976, in save
+    with _open_zipfile_writer(f) as opened_zipfile:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/zi/micromamba/envs/ml/lib/python3.12/site-packages/torch/serialization.py", line 808, in __exit__
+    self.file_like.write_end_of_file()
+RuntimeError: [enforce fail at inline_container.cc:668] . unexpected pos 259561536 vs 259561428
+100%|██████████| 33/33 [00:20<00:00,  1.62it/s]

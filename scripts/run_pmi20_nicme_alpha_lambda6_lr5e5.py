@@ -621,7 +621,7 @@ def write_claim_audit(output_root: Path, winners: list[dict[str, Any]], aggregat
         "# PMI-20 NICME Six-Candidate Claim Audit",
         "",
         "This analysis compares only six fixed NICME alpha/lambda candidates on PMI-20.",
-        "Use the separate PMI-20 SOTA table for comparisons against CE, Menon, CSADA, AP-CSADA, and cost-weighted CE.",
+        "Use the separate PMI-20 SOTA table for comparisons against CE, Menon, CSADA, cost-sensitive regularized CE, and cost-weighted CE.",
         "",
         "## Aggregate Leader",
         "",

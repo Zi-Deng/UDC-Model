@@ -6,7 +6,7 @@ Early stopping enabled with patience=3
 Using device: cuda
 {'loss': '6.727', 'grad_norm': '38.68', 'learning_rate': '5e-06', 'epoch': '0.6557'}
 {'eval_loss': '1.582', 'eval_accuracy': '0.6484', 'eval_f1': '0.5984', 'eval_balanced_accuracy': '0.6484', 'eval_macro_f1': '0.5984', 'eval_atc': '0.4968', 'eval_normalized_atc': '0.04968', 'eval_target_recall': '0.06452', 'eval_target_recall_macro': '0.629', 'eval_target_fnr': '0', 'eval_selection_score': '2.865', 'eval_selection_accuracy_value': '0.6484', 'eval_nll': '1.106', 'eval_brier': '0.5243', 'eval_ece': '0.178', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.721', 'eval_samples_per_second': '65.66', 'eval_steps_per_second': '4.236', 'epoch': '1'}
-CustomImageProcessor configuration saved to checkpoints/camera_ready_smoke_ap_csada_lr5e5_s44/checkpoint-16/preprocessor_config.json
+CustomImageProcessor configuration saved to checkpoints/camera_ready_smoke_cost_sensitive_regularized_ce_lr5e5_s44/checkpoint-16/preprocessor_config.json
 {'train_runtime': '19.09', 'train_samples_per_second': '50.82', 'train_steps_per_second': '0.838', 'train_loss': '6.237', 'epoch': '1'}
 ***** train metrics *****
   epoch                    =        1.0
@@ -20,29 +20,29 @@ Using device: cuda
 ============================================================
 PERFORMING COMPREHENSIVE EVALUATION
 ============================================================
-Results will be saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_ap_csada_lr5e5_s44_05-03_20-50
+Results will be saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-03_20-50
 Saving run configuration...
-Run configuration saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_ap_csada_lr5e5_s44_05-03_20-50/run_configuration_20260503_205043.json
+Run configuration saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-03_20-50/run_configuration_20260503_205043.json
 Running model evaluation...
 Computing detailed metrics...
 Saving metrics to files...
-Metrics saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_ap_csada_lr5e5_s44_05-03_20-50/metrics_20260503_205052_ap_csada.json and results/pmi10_sota_convnext_base_test/camera_ready_smoke_ap_csada_lr5e5_s44_05-03_20-50/metrics_20260503_205052_ap_csada.txt
+Metrics saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-03_20-50/metrics_20260503_205052_cost_sensitive_regularized_ce.json and results/pmi10_sota_convnext_base_test/camera_ready_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-03_20-50/metrics_20260503_205052_cost_sensitive_regularized_ce.txt
 Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '50111-0434', '53489-0156', '53746-0544', '62037-0831', '68382-0008', '68382-0227']
 Skipping confusion matrix visualizations by configuration.
 
 ============================================================
 TRAINING COMPLETED - RESULTS SUMMARY
 ============================================================
-Output Directory: results/pmi10_sota_convnext_base_test/camera_ready_smoke_ap_csada_lr5e5_s44_05-03_20-50
+Output Directory: results/pmi10_sota_convnext_base_test/camera_ready_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-03_20-50
 Overall Accuracy: 0.6594
 Balanced Accuracy: 0.6594
 Overall F1 Score: 0.6020
 Kappa: 0.6215
 AUC: 0.9829
 Expected Cost: 0.4250
-Loss Function Used: ap_csada
+Loss Function Used: cost_sensitive_regularized_ce
 Total Test Samples: 320
 Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 50111-0434, 53489-0156, 53746-0544, 62037-0831, 68382-0008, 68382-0227
 
-Detailed metrics saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_ap_csada_lr5e5_s44_05-03_20-50
+Detailed metrics saved to: results/pmi10_sota_convnext_base_test/camera_ready_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-03_20-50
 ============================================================

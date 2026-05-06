@@ -94,7 +94,7 @@ def display_name(method: str) -> str:
         "balanced_softmax": "Balanced softmax",
         "class_balanced_focal": "Class-balanced focal",
         "ldam_drw": "LDAM-DRW",
-        "ap_csada": "AP-CSADA",
+        "cost_sensitive_regularized_ce": "cost-sensitive regularized CE",
         "csada": "CSADA",
         "sosr_cnn": "SOSR-CNN",
     }

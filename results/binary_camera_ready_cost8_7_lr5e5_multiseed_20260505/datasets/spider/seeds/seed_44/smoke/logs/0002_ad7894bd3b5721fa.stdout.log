@@ -1,0 +1,49 @@
+Prepared manifest loaded — Train=2098, Val=300, Calibration=300, Test=300
+cuda
+Using model backend=timm type=binary_sota_convnext_base with 2 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '3.853', 'grad_norm': '35.22', 'learning_rate': '4.642e-05', 'epoch': '0.303'}
+{'loss': '1.821', 'grad_norm': '24.27', 'learning_rate': '2.365e-05', 'epoch': '0.6061'}
+{'loss': '1.49', 'grad_norm': '28.45', 'learning_rate': '2.311e-06', 'epoch': '0.9091'}
+{'eval_loss': '0.3169', 'eval_accuracy': '0.8933', 'eval_f1': '0.8932', 'eval_balanced_accuracy': '0.8933', 'eval_macro_f1': '0.8932', 'eval_atc': '0.34', 'eval_normalized_atc': '0.0425', 'eval_target_recall': '0.9333', 'eval_target_recall_macro': '0.9333', 'eval_target_fnr': '0.06667', 'eval_selection_score': '0.04361', 'eval_selection_accuracy_value': '0.8933', 'eval_nll': '0.2377', 'eval_brier': '0.1448', 'eval_ece': '0.0486', 'eval_auroc': '0.972', 'eval_auprc': '0.9716', 'eval_runtime': '3.311', 'eval_samples_per_second': '90.61', 'eval_steps_per_second': '5.739', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/binary_spider_smoke_nicme_a0p5_l0p1_binary_lr5e5_s44/checkpoint-33/preprocessor_config.json
+{'train_runtime': '20.46', 'train_samples_per_second': '102.6', 'train_steps_per_second': '1.613', 'train_loss': '2.269', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     2.2691
+  train_runtime            = 0:00:20.45
+  train_samples_per_second =    102.559
+  train_steps_per_second   =      1.613
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/binary_sota_convnext_base_test/binary_spider_smoke_nicme_a0p5_l0p1_binary_lr5e5_s44_05-05_01-40
+Saving run configuration...
+Run configuration saved to: results/binary_sota_convnext_base_test/binary_spider_smoke_nicme_a0p5_l0p1_binary_lr5e5_s44_05-05_01-40/run_configuration_20260505_014059.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/binary_sota_convnext_base_test/binary_spider_smoke_nicme_a0p5_l0p1_binary_lr5e5_s44_05-05_01-40/metrics_20260505_014105_nicme_hybrid.json and results/binary_sota_convnext_base_test/binary_spider_smoke_nicme_a0p5_l0p1_binary_lr5e5_s44_05-05_01-40/metrics_20260505_014105_nicme_hybrid.txt
+Using provided class names: ['black_widow', 'false_widow']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/binary_sota_convnext_base_test/binary_spider_smoke_nicme_a0p5_l0p1_binary_lr5e5_s44_05-05_01-40
+Overall Accuracy: 0.9067
+Balanced Accuracy: 0.9067
+Overall F1 Score: 0.9065
+Kappa: 0.8133
+AUC: 0.9700
+Expected Cost: 0.2567
+Loss Function Used: nicme_hybrid
+Total Test Samples: 300
+Classes: black_widow, false_widow
+
+Detailed metrics saved to: results/binary_sota_convnext_base_test/binary_spider_smoke_nicme_a0p5_l0p1_binary_lr5e5_s44_05-05_01-40
+============================================================

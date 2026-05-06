@@ -20,7 +20,7 @@ Updated: 2026-05-04
 
 ## Experiment State
 
-- Binary Spider/BreaKHis Stop 3 and Stop 4 experiments are complete. See [binary_experiment_summary.md](binary_experiment_summary.md).
+- Binary Spider/BreaKHis Stop 3 and Stop 4 experiments are complete as historical broad-ratio evidence. The current primary integer matrices are Spider `R=8` and BreaKHis `R=7`; the new camera-ready binary suite is `results/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/`. See [binary_experiment_summary.md](binary_experiment_summary.md) and [binary_cost_matrix_justification.md](binary_cost_matrix_justification.md).
 - The previous multiclass EyePACS DR and 20-class PMI Pills MC plans are shelved for now. MC3 remains paused after partial progress. See [multiclass_experiment_summary.md](multiclass_experiment_summary.md).
 - The current paper-facing result is the PMI-20 balanced LR 5e-5 consolidated NICME SOTA table. NICME alpha `0.5`, lambda `0.1` ranks first under the recall-first cost-sensitive composite. See [paper_results_summary.md](paper_results_summary.md).
 - The focused PMI-10 no-calibration track is complete and now serves as supporting sensitivity/robustness evidence. See [pmi10_hpo_sota_summary.md](pmi10_hpo_sota_summary.md).
@@ -31,6 +31,8 @@ Updated: 2026-05-04
 - Paper results summary: `docs/paper_results_summary.md`
 - Canonical PMI-20 paper table: `results/pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/pmi20_sota_table.md`
 - Canonical PMI-20 claim audit: `results/pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/claim_audit.md`
+- Binary cost matrix justification: `docs/binary_cost_matrix_justification.md`
+- Binary cost matrix validation: `results/binary_cost_matrix_validation_20260504/analysis/claim_audit.md`
 - PMI-20 balanced split: `data/prepared/pmi_pills/splits/balanced`
 - Supporting PMI-10 balanced split: `data/prepared/pmi_pills_10_no_cal/splits/balanced`
 - Supporting PMI-10 HPO: retained as historical single-seed provenance; use [pmi10_hpo_sota_summary.md](pmi10_hpo_sota_summary.md) as the entry point.

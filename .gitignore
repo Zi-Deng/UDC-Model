@@ -1,5 +1,7 @@
 # Local artifact directories kept out of new commits unless intentionally forced.
-data/
+data/*
+!data/cost_matrix_evidence/
+!data/cost_matrix_evidence/*.csv
 wandb/
 checkpoints/
 weights/

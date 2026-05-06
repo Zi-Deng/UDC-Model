@@ -8,7 +8,7 @@ This is the canonical paper-facing PMI-20 result package. It consolidates the co
 
 - NICME is ranked #1 by the predeclared recall-first cost-sensitive composite.
 - NICME ties best target-min recall and wins target-macro recall, normalized ATC, and ATC.
-- AP-CSADA remains slightly higher on balanced accuracy and macro-F1.
+- cost-sensitive regularized CE remains slightly higher on balanced accuracy and macro-F1.
 - CE + cost-min inference has fewer total critical-pair errors, but with much lower target-min recall.
 
 ## Files

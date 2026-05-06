@@ -13,5 +13,5 @@ Generated: 2026-05-04T10:33:40
 | NICME v3 (alpha=0.09, lambda=0.07) | `5e-05` | `5e-05` | `0.09` | `0.07` | PMI-10 run-50 alpha/lambda reused; no PMI-20 HPO |
 | Menon logit adjustment | `5e-05` | `5e-05` | `` | `` |  |
 | Cost-weighted CE | `5e-05` | `5e-05` | `` | `` |  |
-| AP-CSADA | `1e-05` | `5e-05` | `` | `` | CE-anchor adaptation; native adaptation LR `1e-5` |
+| cost-sensitive regularized CE | `1e-05` | `5e-05` | `` | `` | CE-anchor adaptation; native adaptation LR `1e-5` |
 | CSADA | `1e-05` | `5e-05` | `` | `` | CE-anchor adaptation; native adaptation LR `1e-5` |

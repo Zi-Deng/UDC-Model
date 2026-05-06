@@ -75,26 +75,32 @@ SPIDER_PROFILE = DatasetProfile(
     name="spider",
     class_names=("black_widow", "false_widow"),
     target_recall_class="black_widow",
-    cost_matrix=((0.0, 10.0), (1.0, 0.0)),
+    cost_matrix=((0.0, 8.0), (1.0, 0.0)),
     balanced_selection=SelectionDefaults(target_recall_floor=0.95, accuracy_floor=0.80),
     natural_selection=SelectionDefaults(
         target_recall_floor=0.95,
         accuracy_floor=0.75,
         accuracy_metric="balanced_accuracy",
     ),
+    cost_matrix_source="binary_cost_matrix_review_integer_20260505",
+    critical_pairs=(("black_widow", "false_widow", 8.0),),
+    cost_reference="docs/binary_cost_matrix_justification.md; sensitivity in results/binary_cost_matrix_validation_20260504",
 )
 
 BREAKHIS_PROFILE = DatasetProfile(
     name="breakhis",
     class_names=("benign", "malignant"),
     target_recall_class="malignant",
-    cost_matrix=((0.0, 1.0), (10.0, 0.0)),
+    cost_matrix=((0.0, 1.0), (7.0, 0.0)),
     balanced_selection=SelectionDefaults(target_recall_floor=0.97, accuracy_floor=0.85),
     natural_selection=SelectionDefaults(
         target_recall_floor=0.97,
         accuracy_floor=0.80,
         accuracy_metric="balanced_accuracy",
     ),
+    cost_matrix_source="binary_cost_matrix_review_integer_20260505",
+    critical_pairs=(("malignant", "benign", 7.0),),
+    cost_reference="docs/binary_cost_matrix_justification.md; sensitivity in results/binary_cost_matrix_validation_20260504",
 )
 
 

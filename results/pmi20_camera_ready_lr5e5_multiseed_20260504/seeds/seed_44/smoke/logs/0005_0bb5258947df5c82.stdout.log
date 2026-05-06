@@ -8,7 +8,7 @@ Using device: cuda
 {'loss': '6.26', 'grad_norm': '27.74', 'learning_rate': '4.132e-06', 'epoch': '0.6557'}
 {'loss': '6.015', 'grad_norm': '35.51', 'learning_rate': '1.348e-07', 'epoch': '0.9836'}
 {'eval_loss': '1.453', 'eval_accuracy': '0.7063', 'eval_f1': '0.6826', 'eval_balanced_accuracy': '0.7063', 'eval_macro_f1': '0.6826', 'eval_atc': '0.35', 'eval_normalized_atc': '0.035', 'eval_target_recall': '0.125', 'eval_target_recall_macro': '0.6875', 'eval_target_fnr': '0', 'eval_selection_score': '2.446', 'eval_selection_accuracy_value': '0.7063', 'eval_nll': '1.084', 'eval_brier': '0.4818', 'eval_ece': '0.2525', 'eval_auroc': '0', 'eval_auprc': '0', 'eval_runtime': '4.195', 'eval_samples_per_second': '76.28', 'eval_steps_per_second': '4.768', 'epoch': '1'}
-CustomImageProcessor configuration saved to checkpoints/pmi20_smoke_ap_csada_lr5e5_s44/checkpoint-31/preprocessor_config.json
+CustomImageProcessor configuration saved to checkpoints/pmi20_smoke_cost_sensitive_regularized_ce_lr5e5_s44/checkpoint-31/preprocessor_config.json
 {'train_runtime': '29.55', 'train_samples_per_second': '65.65', 'train_steps_per_second': '1.049', 'train_loss': '6.272', 'epoch': '1'}
 ***** train metrics *****
   epoch                    =        1.0
@@ -22,29 +22,29 @@ Using device: cuda
 ============================================================
 PERFORMING COMPREHENSIVE EVALUATION
 ============================================================
-Results will be saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_ap_csada_lr5e5_s44_05-04_08-58
+Results will be saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-04_08-58
 Saving run configuration...
-Run configuration saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_ap_csada_lr5e5_s44_05-04_08-58/run_configuration_20260504_085850.json
+Run configuration saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-04_08-58/run_configuration_20260504_085850.json
 Running model evaluation...
 Computing detailed metrics...
 Saving metrics to files...
-Metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_ap_csada_lr5e5_s44_05-04_08-58/metrics_20260504_085904_ap_csada.json and results/pmi20_sota_convnext_base_test/pmi20_smoke_ap_csada_lr5e5_s44_05-04_08-58/metrics_20260504_085904_ap_csada.txt
+Metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-04_08-58/metrics_20260504_085904_cost_sensitive_regularized_ce.json and results/pmi20_sota_convnext_base_test/pmi20_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-04_08-58/metrics_20260504_085904_cost_sensitive_regularized_ce.txt
 Using provided class names: ['00378-0208', '00378-3855', '00591-0461', '16729-0020', '16729-0168', '50111-0434', '53489-0156', '53746-0544', '57664-0377', '62037-0831', '62037-0832', '64380-0803', '65162-0253', '67253-0901', '68382-0008', '68382-0227', '69097-0127', '69097-0128', '69315-0904', '69315-0905']
 Skipping confusion matrix visualizations by configuration.
 
 ============================================================
 TRAINING COMPLETED - RESULTS SUMMARY
 ============================================================
-Output Directory: results/pmi20_sota_convnext_base_test/pmi20_smoke_ap_csada_lr5e5_s44_05-04_08-58
+Output Directory: results/pmi20_sota_convnext_base_test/pmi20_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-04_08-58
 Overall Accuracy: 0.7125
 Balanced Accuracy: 0.7125
 Overall F1 Score: 0.6910
 Kappa: 0.6974
 AUC: 0.9858
 Expected Cost: 0.3297
-Loss Function Used: ap_csada
+Loss Function Used: cost_sensitive_regularized_ce
 Total Test Samples: 640
 Classes: 00378-0208, 00378-3855, 00591-0461, 16729-0020, 16729-0168, 50111-0434, 53489-0156, 53746-0544, 57664-0377, 62037-0831, 62037-0832, 64380-0803, 65162-0253, 67253-0901, 68382-0008, 68382-0227, 69097-0127, 69097-0128, 69315-0904, 69315-0905
 
-Detailed metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_ap_csada_lr5e5_s44_05-04_08-58
+Detailed metrics saved to: results/pmi20_sota_convnext_base_test/pmi20_smoke_cost_sensitive_regularized_ce_lr5e5_s44_05-04_08-58
 ============================================================

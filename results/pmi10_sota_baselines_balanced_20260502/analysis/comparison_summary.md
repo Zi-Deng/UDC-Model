@@ -4,7 +4,7 @@ Generated: 2026-05-02T12:26:43
 
 | Rank | Method | Decision | Target-Min Recall | Norm. ATC | Balanced Acc. | Critical Errors |
 |---:|---|---|---:|---:|---:|---:|
-| 1 | ap_csada | argmax | 0.9375 | 0.005000 | 0.9781 | 1 |
+| 1 | cost_sensitive_regularized_ce | argmax | 0.9375 | 0.005000 | 0.9781 | 1 |
 | 2 | ce | argmax | 0.9375 | 0.005938 | 0.9688 | 1 |
 | 3 | class_balanced_focal | argmax | 0.9375 | 0.006563 | 0.9625 | 1 |
 | 4 | menon_logit_adjusted | argmax | 0.9375 | 0.008125 | 0.9750 | 2 |

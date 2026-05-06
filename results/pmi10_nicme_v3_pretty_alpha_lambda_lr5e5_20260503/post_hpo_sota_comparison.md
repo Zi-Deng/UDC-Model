@@ -31,7 +31,7 @@ This comparison consolidates the completed HPO with the previous PMI-10 balanced
 | 3 | Previous baseline | CSADA, LR 5e-5 profile | 1e-05 | n/a | n/a | argmax | 0.9688 | 0.9844 | 0.015625 | 0.156250 | 0.8719 | 0.851092 | 1 |
 | 4 | HPO LR 5e-5 | NICME v3 run 20 | 5e-05 | 0.06 | 0.03 | argmax | 0.9375 | 0.9766 | 0.004688 | 0.046875 | 0.9812 | 0.981339 | 1 |
 | 5 | HPO LR 5e-5 | NICME v3 run 50 | 5e-05 | 0.09 | 0.07 | argmax | 0.9375 | 0.9766 | 0.004688 | 0.046875 | 0.9812 | 0.981339 | 1 |
-| 6 | Previous baseline | AP-CSADA, LR 1e-4 profile | 1e-05 | n/a | n/a | argmax | 0.9375 | 0.9766 | 0.005000 | 0.050000 | 0.9781 | 0.978349 | 1 |
+| 6 | Previous baseline | cost-sensitive regularized CE, LR 1e-4 profile | 1e-05 | n/a | n/a | argmax | 0.9375 | 0.9766 | 0.005000 | 0.050000 | 0.9781 | 0.978349 | 1 |
 
 ## Previous Best Baseline Versus HPO Run 95
 

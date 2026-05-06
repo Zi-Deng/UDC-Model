@@ -6,7 +6,7 @@ All endpoint winners are reported; non-NICME wins are not hidden.
 |---|---|---|---:|---|
 | composite_recall_first_cost_sensitive_rank | lower | NICME (alpha=0.5, lambda=0.1) | 1.000000 | yes |
 | target_recall_min | higher | NICME (alpha=0.5, lambda=0.1) | 0.916667 | yes |
-| target_recall_min | higher | AP-CSADA | 0.916667 | no |
+| target_recall_min | higher | cost-sensitive regularized CE | 0.916667 | no |
 | target_recall_min | higher | Menon logit adjustment | 0.916667 | no |
 | target_recall_min | higher | CE | 0.916667 | no |
 | target_recall_min | higher | Cost-weighted CE | 0.916667 | no |

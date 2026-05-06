@@ -1,0 +1,10 @@
+dataset,search_date,search_source,search_string_or_seed,records_identified,records_screened,records_extracted,notes
+spider,2026-05-04,PubMed/NCBI,"Latrodectus envenomation National Poison Data System review",4,3,2,"Seeded registry and clinical-review search; Monte NPDS and StatPearls retained."
+spider,2026-05-04,PubMed/NCBI,"Steatoda grossa envenomation false widow bite clinical severity",4,2,1,"Graudins et al. retained; non-primary summaries excluded."
+spider,2026-05-04,Official clinical/public health web,"black widow spider toxicity clinical management antivenom hospitalization",5,3,2,"Merck and StatPearls retained as clinical context."
+spider,2026-05-04,Official extension/public guidance,"black widow false widow medical significance extension guidance",7,4,3,"UC IPM and MSU Extension retained; social/open-edit sources excluded."
+breakhis,2026-05-04,Dataset-primary/DOI search,"BreaKHis breast cancer histopathological database DOI 10.1109/TBME.2015.2496264",5,3,2,"Primary paper and official dataset page retained."
+breakhis,2026-05-04,NCI/official public health web,"breast cancer screening false positives false negatives interval cancers NCI",6,4,2,"NCI PDQ and interval-cancer summary retained as secondary proxy evidence."
+breakhis,2026-05-04,PubMed/NCBI,"USPSTF harms breast cancer screening false positive biopsy anxiety",4,3,1,"USPSTF harms review retained for false-positive burden."
+breakhis,2026-05-04,PubMed/NCBI,"breast biopsy diagnostic concordance pathologists JAMA",4,2,1,"Elmore et al. retained as pathology-specific diagnostic variability source."
+breakhis,2026-05-04,PubMed/PMC,"breast biopsy false negative missed cancer diagnostic delay pathology",5,3,2,"Core biopsy false-negative studies retained as pathology-adjacent missed-cancer delay evidence."

@@ -1,0 +1,81 @@
+{
+  "dataset_profile": "breakhis",
+  "variant": "balanced",
+  "dataset": "breakhis_balanced",
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "local_folder_path": "data/prepared/breakhis/splits/balanced",
+  "class_names": [
+    "benign",
+    "malignant"
+  ],
+  "num_labels": 2,
+  "target_recall_class": "malignant",
+  "target_recall_classes": [
+    "malignant"
+  ],
+  "secondary_target_recall_classes": [],
+  "target_recall_floor": 0.97,
+  "accuracy_floor": 0.85,
+  "selection_accuracy_metric": "accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      1.0
+    ],
+    [
+      7.0,
+      0.0
+    ]
+  ],
+  "cost_matrix_source": "binary_cost_matrix_review_integer_20260505",
+  "cost_matrix_sha256": "2a349b00571563d87c41c05572ebc2ce0b2446142bc29da08f302ae4229af11b",
+  "metric_profile": "binary",
+  "critical_pairs": [
+    {
+      "true": "malignant",
+      "pred": "benign",
+      "cost": 7.0
+    }
+  ],
+  "model": "timm/convnext_base.fb_in22k_ft_in1k",
+  "model_backend": "timm",
+  "model_type": "binary_sota_convnext_base",
+  "peft_enabled": false,
+  "timm_pretrained": true,
+  "wandb": false,
+  "push_to_hub": false,
+  "calibration_enabled": false,
+  "decision_modes": "argmax,cost_min",
+  "prediction_mode": "argmax",
+  "model_selection_metric": "target_recall",
+  "checkpoint_root": "checkpoints/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505",
+  "save_total_limit": 1,
+  "save_only_model": true,
+  "skip_visualizations": true,
+  "seed": 43,
+  "sota_phase": "dry-run",
+  "sota_method": "cost_sensitive_regularized_ce",
+  "sota_role": "cost_sensitive_regularized_ce",
+  "sota_comparison_profile": "binary_camera_ready_cost8_7_lr5e5_multiseed",
+  "learning_rate_profile": "lr5e5",
+  "parent_learning_rate": 5e-05,
+  "sota_output_root": "/mnt/storage/github/NICME/results/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/datasets/breakhis/seeds/seed_43",
+  "num_train_epochs": 10,
+  "early_stopping_patience": 3,
+  "batch_size": 16,
+  "gradient_accumulation_steps": 4,
+  "lr_scheduler_type": "cosine",
+  "learning_rate": 1e-05,
+  "weight_decay": 0.005,
+  "warmup_ratio": 0.1,
+  "image_size": 224,
+  "train_random_resize_crop": true,
+  "train_random_resized_crop_scale_min": 0.8,
+  "train_random_resized_crop_scale_max": 1.0,
+  "train_horizontal_flip": false,
+  "train_random_quarter_turns": true,
+  "train_color_jitter": false,
+  "loss_function": "cost_sensitive_regularized_ce",
+  "output_dir": "binary_breakhis_dry-run_cost_sensitive_regularized_ce_lr5e5_s43"
+}

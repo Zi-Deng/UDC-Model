@@ -25,6 +25,12 @@ This repository remains self-contained for now. Large artifacts are intentionall
 | `results/pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/aggregate_metrics.csv` | `c16a6aef221e1cb4d493be270250f720330b0d2f42f8a6e446577d13eeb84358` |
 | `results/pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/pmi20_sota_table.md` | `764b8e19663a085f7a4751abf0dfe22aefd82e2c653c72a27940ea5e0f631089` |
 | `results/pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/claim_audit.md` | `b27b4e1c58ed03287c08bbc399ce90cb187bd4fd07c3b0451e9625a53d08adf6` |
+| `docs/binary_cost_matrix_review_protocol.md` | `81990b057f927e7527ea8009c6ec6b85d9acab1bdd62da00a22e25563b685368` |
+| `docs/binary_cost_matrix_justification.md` | `7470ce6adab291558853d7521ba6dd2d5f3fe78ce903e03f34ddd054d64e6b6b` |
+| `data/cost_matrix_evidence/search_log.csv` | `ea23dd8939b17b66975608727fb1ef1c7c5deed68256f6b954602125d2b0b8af` |
+| `data/cost_matrix_evidence/harm_scoring.csv` | `06cb191f5dd54314a293f3d593249e8c96201d1bf4f4167a30bc80cb57744f96` |
+| `results/binary_cost_matrix_validation_20260504/analysis/sensitivity_summary.csv` | `0e5684e1509ac54102c2fdd7403847c2b164e5c43e7f60771f0738b64ef594dd` |
+| `results/binary_cost_matrix_validation_20260504/analysis/claim_audit.md` | `6e9b5e3b09497901b305c642ec55cdab2a18f4a60e15af0f18eccebf2ece2098` |
 | `docs/nicme_vs_csada_theory.pdf` | `636d0612c41f24b1f9000d2b2098e4e072ca5b01134d9e1ad80fad5c018f64f8` |
 | `docs/nicme_hyperparameters.pdf` | `dbdf44abe91b335f019bf55b9507c7b4118ee3b0d86de8e331b269bdf317b8b7` |
 
@@ -39,6 +45,8 @@ This repository remains self-contained for now. Large artifacts are intentionall
 | PMI-10 supporting multi-seed suite | `results/pmi10_camera_ready_lr5e5_multiseed_20260504/` |
 | PMI-10 supporting alpha/lambda suite | `results/pmi10_nicme_top5_alpha_lambda_lr5e5_multiseed_20260504/` |
 | Binary final summaries | `results/stop3a_balanced_primary/`, `results/stop3b_imbalance_decoupling/`, `results/stop4a_backbone_ablation/`, `results/stop4b_cost_ratio_sensitivity/` |
+| Binary cost matrix review and validation | `docs/binary_cost_matrix_review_protocol.md`, `docs/binary_cost_matrix_justification.md`, `data/cost_matrix_evidence/`, `results/binary_cost_matrix_validation_20260504/` |
+| Binary camera-ready cost 8/7 suite | `results/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/` |
 | Multiclass active state | `results/multiclass_mc2_official_dinov3_lora_balanced_20260501/`, `results/multiclass_mc3_selected_official_dinov3_lora_balanced_20260501/` |
 | Theory memo | `docs/nicme_vs_csada_theory.tex`, `docs/nicme_vs_csada_theory.pdf` |
 | Hyperparameter memo | `docs/nicme_hyperparameters.tex`, `docs/nicme_hyperparameters.pdf` |

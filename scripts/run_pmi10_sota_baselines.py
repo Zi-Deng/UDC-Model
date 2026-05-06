@@ -77,7 +77,7 @@ DIRECT_BASELINES = (
     "class_balanced_focal",
     "ldam_drw",
 )
-ADAPTATION_BASELINES = ("ap_csada", "sosr_cnn", "csada")
+ADAPTATION_BASELINES = ("cost_sensitive_regularized_ce", "sosr_cnn", "csada")
 ALL_BASELINES = DIRECT_BASELINES + ADAPTATION_BASELINES
 PRETTY_ANCHOR = "ce_anchor_pretty"
 PRETTY_DIRECT_METHODS = (
@@ -279,9 +279,9 @@ def base_config(
         cfg["ldam_scale"] = 30.0
         cfg["ldam_drw_start_epoch"] = 16
         cfg["cb_beta"] = 0.9999
-    elif method == "ap_csada":
-        cfg["loss_function"] = "ap_csada"
-        cfg["ap_alpha"] = 5.0
+    elif method == "cost_sensitive_regularized_ce":
+        cfg["loss_function"] = "cost_sensitive_regularized_ce"
+        cfg["cost_regularization_alpha"] = 5.0
         cfg["num_train_epochs"] = int(epochs if epochs is not None else 10)
         cfg["early_stopping_patience"] = 3
         cfg["learning_rate"] = 1e-5
@@ -313,7 +313,7 @@ def base_config(
 
 
 def checkpoint_parent(cfg: dict[str, Any]) -> Path:
-    return Path("checkpoints") / str(cfg["output_dir"])
+    return Path(str(cfg.get("checkpoint_root", "checkpoints"))) / str(cfg["output_dir"])
 
 
 def find_metric_path(cfg: dict[str, Any]) -> str:

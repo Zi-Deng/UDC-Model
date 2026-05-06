@@ -1,6 +1,6 @@
 # Binary Experiment Summary
 
-Updated: 2026-05-01
+Updated: 2026-05-04
 
 The binary-first NICME extension tested cost-sensitive learning on Spider and BreaKHis classification. The final completed sequence is Stop 3A, Stop 3B, Stop 4A, and Stop 4B.
 
@@ -18,9 +18,11 @@ Total: 306 successful final planned runs and 918 exported decision rows.
 
 ## Main Scientific Read
 
-The strongest supported binary claim is that, on balanced Spider and balanced BreaKHis, where class-frequency imbalance is removed, NICME-family methods produced the cleanest strict all-seed recall and average-test-cost tradeoffs at the original 10:1 cost setting after backbone selection.
+The strongest historical Stop 3/4 binary claim is that, on balanced Spider and balanced BreaKHis, where class-frequency imbalance is removed, NICME-family methods produced strong strict all-seed recall and average-test-cost tradeoffs across the broad cost-ratio grid.
 
-Primary balanced 10:1 rows:
+The current primary integer matrices are Spider `[[0,8],[1,0]]` and BreaKHis `[[0,1],[7,0]]`. They are documented as public-evidence-derived decision-context matrices, not arbitrary assumptions and not uniquely true utilities. See [binary_cost_matrix_review_protocol.md](binary_cost_matrix_review_protocol.md), [binary_cost_matrix_justification.md](binary_cost_matrix_justification.md), and [results/binary_cost_matrix_validation_20260504](../results/binary_cost_matrix_validation_20260504/).
+
+Historical balanced 10:1 Stop 3/4 rows:
 
 | Dataset | Row | Selection | Normalized ATC | Target recall | Accuracy |
 |---|---|---:|---:|---:|---:|
@@ -31,8 +33,10 @@ Important caveats:
 
 - Do not claim `nicme_hybrid` is universally best.
 - Do not claim NICME dominates every baseline.
+- Do not claim the primary integer ratios are exact empirical truth; report the broad interval `{2,5,10,20}` and symmetric-control `R=1`.
 - Menon-style logit adjustment remains a strong class-prior baseline on controlled imbalanced Spider.
 - CE calibrated cost-min is a strong baseline and should stay in comparisons.
+- Stop 4B sensitivity shows winner flips at some ratios; use that honestly as evidence that cost-matrix specification matters.
 
 ## Archived Source Material
 

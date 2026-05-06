@@ -1,0 +1,10 @@
+Prepared manifest loaded — Train=2098, Val=300, Calibration=300, Test=300
+cuda
+Using model backend=timm type=binary_sota_convnext_base with 2 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '2.25', 'grad_norm': '17.94', 'learning_rate': '4.642e-05', 'epoch': '0.303'}
+{'loss': '1.221', 'grad_norm': '36.95', 'learning_rate': '2.365e-05', 'epoch': '0.6061'}
+{'loss': '1.145', 'grad_norm': '14.14', 'learning_rate': '2.311e-06', 'epoch': '0.9091'}
+{'eval_loss': '0.2576', 'eval_accuracy': '0.89', 'eval_f1': '0.8898', 'eval_balanced_accuracy': '0.89', 'eval_macro_f1': '0.8898', 'eval_atc': '0.3433', 'eval_normalized_atc': '0.04292', 'eval_target_recall': '0.9333', 'eval_target_recall_macro': '0.9333', 'eval_target_fnr': '0.06667', 'eval_selection_score': '0.04403', 'eval_selection_accuracy_value': '0.89', 'eval_nll': '0.2576', 'eval_brier': '0.1494', 'eval_ece': '0.04235', 'eval_auroc': '0.9645', 'eval_auprc': '0.9707', 'eval_runtime': '3.019', 'eval_samples_per_second': '99.36', 'eval_steps_per_second': '6.292', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/binary_spider_smoke_ce_anchor_binary_lr5e5_s43/checkpoint-33/preprocessor_config.json

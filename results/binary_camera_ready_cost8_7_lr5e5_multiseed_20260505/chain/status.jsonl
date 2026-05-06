@@ -1,0 +1,16 @@
+{"time":"2026-05-05T01:30:38-07:00","phase":"chain","status":"started"}
+{"time":"2026-05-05T01:30:38-07:00","phase":"gpu-check","status":"started"}
+{"time":"2026-05-05T01:30:38-07:00","phase":"gpu-check","status":"completed"}
+{"time":"2026-05-05T01:30:38-07:00","phase":"unit-tests","status":"started"}
+{"time":"2026-05-05T01:30:42-07:00","phase":"unit-tests","status":"completed"}
+{"time":"2026-05-05T01:30:42-07:00","phase":"preflight","status":"started"}
+{"time":"2026-05-05T01:30:42-07:00","phase":"preflight","status":"completed"}
+{"time":"2026-05-05T01:30:42-07:00","phase":"dry-run","status":"started"}
+{"time":"2026-05-05T01:30:43-07:00","phase":"dry-run","status":"completed"}
+{"time":"2026-05-05T01:30:43-07:00","phase":"smoke","status":"started"}
+{"time":"2026-05-05T02:14:45-07:00","phase":"smoke","status":"completed"}
+{"time":"2026-05-05T02:14:45-07:00","phase":"long-binary-camera-ready-chain","status":"started"}
+{"time":"2026-05-05T04:48:28-07:00","phase":"long-binary-camera-ready-chain","status":"completed"}
+{"time":"2026-05-05T04:48:28-07:00","phase":"analysis","status":"started"}
+{"time":"2026-05-05T04:48:28-07:00","phase":"analysis","status":"completed"}
+{"time":"2026-05-05T04:48:28-07:00","phase":"chain","status":"completed"}

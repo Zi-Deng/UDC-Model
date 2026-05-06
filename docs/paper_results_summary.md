@@ -19,7 +19,7 @@ Under the predeclared recall-first cost-sensitive composite, NICME ranks first i
 | Method | Target-min recall | Target-macro recall | Normalized ATC | ATC | Balanced accuracy | Macro-F1 | Critical errors |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | NICME, alpha 0.5, lambda 0.1 | 0.9167 +/- 0.0180 | 0.9740 +/- 0.0090 | 0.003698 +/- 0.000955 | 0.036979 +/- 0.009547 | 0.9771 +/- 0.0106 | 0.9771 +/- 0.0106 | 1.0000 +/- 1.0000, total 3 |
-| AP-CSADA | 0.9167 +/- 0.0180 | 0.9661 +/- 0.0090 | 0.005052 +/- 0.001811 | 0.050521 +/- 0.018110 | 0.9802 +/- 0.0033 | 0.9803 +/- 0.0032 | 2.3333 +/- 1.1547, total 7 |
+| cost-sensitive regularized CE | 0.9167 +/- 0.0180 | 0.9661 +/- 0.0090 | 0.005052 +/- 0.001811 | 0.050521 +/- 0.018110 | 0.9802 +/- 0.0033 | 0.9803 +/- 0.0032 | 2.3333 +/- 1.1547, total 7 |
 
 Supported claims from this table:
 
@@ -30,7 +30,7 @@ Supported claims from this table:
 
 Caveats to keep in the paper:
 
-- AP-CSADA remains slightly higher on balanced accuracy and macro-F1.
+- cost-sensitive regularized CE remains slightly higher on balanced accuracy and macro-F1.
 - CE + cost-min inference has fewer total critical-pair errors, but with much lower target-min recall.
 - The table is a fixed-protocol repository SOTA/baseline comparison, not an external global SOTA claim.
 - Error bars are sample standard deviations over three training seeds on one fixed split, not uncertainty over new dataset resamples.
@@ -44,6 +44,17 @@ PMI-10 now serves as supporting sensitivity and robustness evidence rather than 
 - Historical single-seed PMI-10 HPO: retained as provenance under its generated result root; use it only as supporting evidence.
 
 The PMI-10 roots retain historical generated names where rewriting would damage provenance. Current docs and future runners should use **NICME** without a version suffix.
+
+## Binary Cost Matrix Evidence
+
+Spider and BreaKHis are supporting binary experiments. Their current primary matrices are evidence-derived integer decision-context matrices rather than arbitrary defaults: Spider `[[0,8],[1,0]]`; BreaKHis `[[0,1],[7,0]]`.
+
+- Review protocol: `docs/binary_cost_matrix_review_protocol.md`
+- Justification: `docs/binary_cost_matrix_justification.md`
+- Source extraction: `data/cost_matrix_evidence/`
+- Sensitivity validation: `results/binary_cost_matrix_validation_20260504/`
+
+Paper wording should state that no validated public matrices exist for these datasets, so the matrices were constructed from public toxicology, clinical, dataset, and public-health evidence, evaluated at their primary integer ratios, and stress-tested with broad sensitivity ratios plus `R=1` as a symmetric-cost control.
 
 ## Theory And Hyperparameter Memos
 

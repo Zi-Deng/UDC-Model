@@ -1,0 +1,66 @@
+Prepared manifest loaded — Train=2098, Val=300, Calibration=300, Test=300
+cuda
+Using model backend=timm type=binary_sota_convnext_base with 2 labels
+Loaded initial checkpoint: checkpoints/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/binary_spider_run_ce_anchor_binary_lr5e5_s44/checkpoint-330/model.safetensors
+Early stopping enabled with patience=3
+Using device: cuda
+{'loss': '0.09509', 'grad_norm': '5.241', 'learning_rate': '2.727e-06', 'epoch': '0.303'}
+{'loss': '0.04974', 'grad_norm': '0.1193', 'learning_rate': '5.758e-06', 'epoch': '0.6061'}
+{'loss': '0.04721', 'grad_norm': '0.9082', 'learning_rate': '8.788e-06', 'epoch': '0.9091'}
+{'eval_loss': '0.2815', 'eval_accuracy': '0.9667', 'eval_f1': '0.9667', 'eval_balanced_accuracy': '0.9667', 'eval_macro_f1': '0.9667', 'eval_atc': '0.1267', 'eval_normalized_atc': '0.01583', 'eval_target_recall': '0.9733', 'eval_target_recall_macro': '0.9733', 'eval_target_fnr': '0.02667', 'eval_selection_score': '0.01583', 'eval_selection_accuracy_value': '0.9667', 'eval_nll': '0.1954', 'eval_brier': '0.06424', 'eval_ece': '0.03471', 'eval_auroc': '0.9925', 'eval_auprc': '0.9937', 'eval_runtime': '3.306', 'eval_samples_per_second': '90.73', 'eval_steps_per_second': '5.747', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/binary_spider_run_cost_sensitive_regularized_ce_lr5e5_s44/checkpoint-33/preprocessor_config.json
+{'loss': '0.01943', 'grad_norm': '0.03735', 'learning_rate': '9.99e-06', 'epoch': '1.212'}
+{'loss': '0.04879', 'grad_norm': '170.1', 'learning_rate': '9.929e-06', 'epoch': '1.515'}
+{'loss': '0.002805', 'grad_norm': '1.679', 'learning_rate': '9.812e-06', 'epoch': '1.818'}
+{'eval_loss': '0.2935', 'eval_accuracy': '0.9733', 'eval_f1': '0.9733', 'eval_balanced_accuracy': '0.9733', 'eval_macro_f1': '0.9733', 'eval_atc': '0.12', 'eval_normalized_atc': '0.015', 'eval_target_recall': '0.9733', 'eval_target_recall_macro': '0.9733', 'eval_target_fnr': '0.02667', 'eval_selection_score': '0.015', 'eval_selection_accuracy_value': '0.9733', 'eval_nll': '0.1999', 'eval_brier': '0.05647', 'eval_ece': '0.0321', 'eval_auroc': '0.9925', 'eval_auprc': '0.9935', 'eval_runtime': '2.661', 'eval_samples_per_second': '112.7', 'eval_steps_per_second': '7.141', 'epoch': '2'}
+CustomImageProcessor configuration saved to checkpoints/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/binary_spider_run_cost_sensitive_regularized_ce_lr5e5_s44/checkpoint-66/preprocessor_config.json
+{'loss': '0.003061', 'grad_norm': '0.04064', 'learning_rate': '9.642e-06', 'epoch': '2.121'}
+{'loss': '0.001523', 'grad_norm': '0.02481', 'learning_rate': '9.42e-06', 'epoch': '2.424'}
+{'loss': '0.001396', 'grad_norm': '0.02247', 'learning_rate': '9.148e-06', 'epoch': '2.727'}
+{'eval_loss': '0.3012', 'eval_accuracy': '0.9667', 'eval_f1': '0.9667', 'eval_balanced_accuracy': '0.9667', 'eval_macro_f1': '0.9667', 'eval_atc': '0.1267', 'eval_normalized_atc': '0.01583', 'eval_target_recall': '0.9733', 'eval_target_recall_macro': '0.9733', 'eval_target_fnr': '0.02667', 'eval_selection_score': '0.01583', 'eval_selection_accuracy_value': '0.9667', 'eval_nll': '0.2095', 'eval_brier': '0.06105', 'eval_ece': '0.03021', 'eval_auroc': '0.9928', 'eval_auprc': '0.9939', 'eval_runtime': '2.551', 'eval_samples_per_second': '117.6', 'eval_steps_per_second': '7.447', 'epoch': '3'}
+CustomImageProcessor configuration saved to checkpoints/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/binary_spider_run_cost_sensitive_regularized_ce_lr5e5_s44/checkpoint-99/preprocessor_config.json
+{'loss': '0.01702', 'grad_norm': '240.4', 'learning_rate': '8.83e-06', 'epoch': '3.03'}
+{'loss': '0.0001652', 'grad_norm': '0.08222', 'learning_rate': '8.469e-06', 'epoch': '3.333'}
+{'loss': '0.0003388', 'grad_norm': '0.02802', 'learning_rate': '8.07e-06', 'epoch': '3.636'}
+{'loss': '0.0002514', 'grad_norm': '0.009253', 'learning_rate': '7.636e-06', 'epoch': '3.939'}
+{'eval_loss': '0.3227', 'eval_accuracy': '0.96', 'eval_f1': '0.96', 'eval_balanced_accuracy': '0.96', 'eval_macro_f1': '0.96', 'eval_atc': '0.1333', 'eval_normalized_atc': '0.01667', 'eval_target_recall': '0.9733', 'eval_target_recall_macro': '0.9733', 'eval_target_fnr': '0.02667', 'eval_selection_score': '0.01667', 'eval_selection_accuracy_value': '0.96', 'eval_nll': '0.2412', 'eval_brier': '0.0739', 'eval_ece': '0.03877', 'eval_auroc': '0.9918', 'eval_auprc': '0.9931', 'eval_runtime': '2.39', 'eval_samples_per_second': '125.5', 'eval_steps_per_second': '7.949', 'epoch': '4'}
+CustomImageProcessor configuration saved to checkpoints/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/binary_spider_run_cost_sensitive_regularized_ce_lr5e5_s44/checkpoint-132/preprocessor_config.json
+{'train_runtime': '70.94', 'train_samples_per_second': '295.7', 'train_steps_per_second': '4.652', 'train_loss': '0.02173', 'epoch': '4'}
+***** train metrics *****
+  epoch                    =        4.0
+  total_flos               =        0GF
+  train_loss               =     0.0217
+  train_runtime            = 0:01:10.94
+  train_samples_per_second =    295.733
+  train_steps_per_second   =      4.652
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/binary_sota_convnext_base_test/binary_spider_run_cost_sensitive_regularized_ce_lr5e5_s44_05-05_03-04
+Saving run configuration...
+Run configuration saved to: results/binary_sota_convnext_base_test/binary_spider_run_cost_sensitive_regularized_ce_lr5e5_s44_05-05_03-04/run_configuration_20260505_030435.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/binary_sota_convnext_base_test/binary_spider_run_cost_sensitive_regularized_ce_lr5e5_s44_05-05_03-04/metrics_20260505_030440_cost_sensitive_regularized_ce.json and results/binary_sota_convnext_base_test/binary_spider_run_cost_sensitive_regularized_ce_lr5e5_s44_05-05_03-04/metrics_20260505_030440_cost_sensitive_regularized_ce.txt
+Using provided class names: ['black_widow', 'false_widow']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/binary_sota_convnext_base_test/binary_spider_run_cost_sensitive_regularized_ce_lr5e5_s44_05-05_03-04
+Overall Accuracy: 0.9633
+Balanced Accuracy: 0.9633
+Overall F1 Score: 0.9633
+Kappa: 0.9267
+AUC: 0.9937
+Expected Cost: 0.1300
+Loss Function Used: cost_sensitive_regularized_ce
+Total Test Samples: 300
+Classes: black_widow, false_widow
+
+Detailed metrics saved to: results/binary_sota_convnext_base_test/binary_spider_run_cost_sensitive_regularized_ce_lr5e5_s44_05-05_03-04
+============================================================

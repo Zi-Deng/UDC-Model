@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="360" viewBox="0 0 680 360">
+<rect width="100%" height="100%" fill="white"/>
+<text x="340.0" y="28" text-anchor="middle" font-family="Arial" font-size="18">NICME normalized ATC across cost-ratio sensitivity</text>
+<line x1="55" y1="305" x2="625" y2="305" stroke="#333"/>
+<line x1="55" y1="55" x2="55" y2="305" stroke="#333"/>
+<line x1="55.0" y1="305" x2="55.0" y2="310" stroke="#333"/>
+<text x="55.0" y="327" text-anchor="middle" font-family="Arial" font-size="12">1</text>
+<line x1="186.9" y1="305" x2="186.9" y2="310" stroke="#333"/>
+<text x="186.9" y="327" text-anchor="middle" font-family="Arial" font-size="12">2</text>
+<line x1="361.2" y1="305" x2="361.2" y2="310" stroke="#333"/>
+<text x="361.2" y="327" text-anchor="middle" font-family="Arial" font-size="12">5</text>
+<line x1="493.1" y1="305" x2="493.1" y2="310" stroke="#333"/>
+<text x="493.1" y="327" text-anchor="middle" font-family="Arial" font-size="12">10</text>
+<line x1="625.0" y1="305" x2="625.0" y2="310" stroke="#333"/>
+<text x="625.0" y="327" text-anchor="middle" font-family="Arial" font-size="12">20</text>
+<line x1="50" y1="305.0" x2="55" y2="305.0" stroke="#333"/>
+<text x="47" y="309.0" text-anchor="end" font-family="Arial" font-size="11">0.000</text>
+<line x1="50" y1="242.5" x2="55" y2="242.5" stroke="#333"/>
+<text x="47" y="246.5" text-anchor="end" font-family="Arial" font-size="11">0.029</text>
+<line x1="50" y1="180.0" x2="55" y2="180.0" stroke="#333"/>
+<text x="47" y="184.0" text-anchor="end" font-family="Arial" font-size="11">0.059</text>
+<line x1="50" y1="117.5" x2="55" y2="117.5" stroke="#333"/>
+<text x="47" y="121.5" text-anchor="end" font-family="Arial" font-size="11">0.088</text>
+<line x1="50" y1="55.0" x2="55" y2="55.0" stroke="#333"/>
+<text x="47" y="59.0" text-anchor="end" font-family="Arial" font-size="11">0.118</text>
+<path d="M55.0,179.8 L186.9,211.7 L361.2,249.7 L493.1,263.9 L625.0,252.3" fill="none" stroke="#1f77b4" stroke-width="2.5"/>
+<circle cx="55.0" cy="179.8" r="4" fill="#1f77b4"/>
+<circle cx="186.9" cy="211.7" r="4" fill="#1f77b4"/>
+<circle cx="361.2" cy="249.7" r="4" fill="#1f77b4"/>
+<circle cx="493.1" cy="263.9" r="4" fill="#1f77b4"/>
+<circle cx="625.0" cy="252.3" r="4" fill="#1f77b4"/>
+<text x="530" y="55" font-family="Arial" font-size="13" fill="#1f77b4">spider</text>
+<path d="M55.0,87.6 L186.9,221.4 L361.2,243.7 L493.1,274.2 L625.0,274.7" fill="none" stroke="#d62728" stroke-width="2.5"/>
+<circle cx="55.0" cy="87.6" r="4" fill="#d62728"/>
+<circle cx="186.9" cy="221.4" r="4" fill="#d62728"/>
+<circle cx="361.2" cy="243.7" r="4" fill="#d62728"/>
+<circle cx="493.1" cy="274.2" r="4" fill="#d62728"/>
+<circle cx="625.0" cy="274.7" r="4" fill="#d62728"/>
+<text x="530" y="75" font-family="Arial" font-size="13" fill="#d62728">breakhis</text>
+<text x="340.0" y="352" text-anchor="middle" font-family="Arial" font-size="12">Cost ratio R</text>
+</svg>

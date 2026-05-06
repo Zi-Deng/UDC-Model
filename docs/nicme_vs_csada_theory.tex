@@ -504,7 +504,7 @@ it matches CSADA's cared-class recall while substantially reducing normalized AT
 The theory above would be weakened if any of the following occurred in a prospective experiment:
 
 \begin{enumerate}
-  \item A multi-seed nested-validation run selects CSADA or AP-CSADA with equal recall and lower clean normalized ATC.
+  \item A multi-seed nested-validation run selects CSADA or cost-sensitive regularized CE with equal recall and lower clean normalized ATC.
   \item NICME's advantage disappears when run 95 is not allowed to be selected after inspecting test metrics.
   \item Ablating the expected-cost regularizer leaves performance unchanged, contradicting the probability-mass explanation.
   \item Ablating the pairwise logit margin leaves performance unchanged, contradicting the margin explanation.

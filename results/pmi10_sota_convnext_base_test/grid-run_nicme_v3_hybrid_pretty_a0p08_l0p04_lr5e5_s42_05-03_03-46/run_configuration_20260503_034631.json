@@ -35,7 +35,7 @@
     "ldam_max_m": 0.5,
     "ldam_scale": 30.0,
     "ldam_drw_start_epoch": 16,
-    "ap_alpha": 5.0,
+    "cost_regularization_alpha": 5.0,
     "csada_lambda": 2.0,
     "csada_attack_steps": 5,
     "csada_epsilon": 0.00784313725490196,

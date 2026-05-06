@@ -13,6 +13,8 @@ This file is the live index for `results/`. It separates current evidence from r
 | PMI-10 NICME HPO and multi-seed support | Complete, supporting sensitivity/robustness evidence | `pmi10_camera_ready_lr5e5_multiseed_20260504/`, `pmi10_nicme_top5_alpha_lambda_lr5e5_multiseed_20260504/`, historical single-seed HPO result root |
 | PMI-10 baseline raw metrics | Retained because comparison ledgers point here | `pmi10_sota_convnext_base_test/` |
 | Binary Stop 3/4 evidence | Complete final binary experiment sequence | `stop3a_balanced_primary/`, `stop3b_imbalance_decoupling/`, `stop4a_backbone_ablation/`, `stop4b_cost_ratio_sensitivity/` |
+| Binary cost matrix validation | Complete evidence-derived matrix and sensitivity audit | `binary_cost_matrix_validation_20260504/README.md`, `binary_cost_matrix_validation_20260504/analysis/claim_audit.md` |
+| Binary camera-ready SOTA | Launching/active, current Spider `R=8` and BreaKHis `R=7` comparison | `binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/` |
 | Multiclass MC2/MC3 | MC2 complete, MC3 paused | `multiclass_mc2_official_dinov3_lora_balanced_20260501/`, `multiclass_mc3_selected_official_dinov3_lora_balanced_20260501/` |
 | Official DINOv3 multiclass raw metrics | Retained because MC2/MC3 and smoke ledgers point here | `facebook_dinov3_vit_lora_test/`, `facebook_dinov3_convnext_lora_test/` |
 
@@ -45,4 +47,6 @@ For current interpretation, start with:
 3. `pmi20_nicme_sota_lr5e5_multiseed_20260504/analysis/pmi20_sota_table.md`
 4. `../docs/pmi10_hpo_sota_summary.md`
 5. `../docs/binary_experiment_summary.md`
-6. `../docs/multiclass_experiment_summary.md`
+6. `../docs/binary_cost_matrix_justification.md`
+7. `binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/`
+8. `../docs/multiclass_experiment_summary.md`

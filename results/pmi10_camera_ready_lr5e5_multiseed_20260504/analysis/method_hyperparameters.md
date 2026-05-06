@@ -17,6 +17,6 @@ Generated: 2026-05-03T23:45:54
 | Balanced softmax | `5e-05` | `5e-05` | `` | `` |  |
 | Class-balanced focal | `5e-05` | `5e-05` | `` | `` |  |
 | LDAM-DRW | `5e-05` | `5e-05` | `` | `` |  |
-| AP-CSADA | `1e-05` | `5e-05` | `` | `` | CE-anchor adaptation; native adaptation LR `1e-5` |
+| cost-sensitive regularized CE | `1e-05` | `5e-05` | `` | `` | CE-anchor adaptation; native adaptation LR `1e-5` |
 | SOSR-CNN | `1e-05` | `5e-05` | `` | `` | CE-anchor adaptation; native adaptation LR `1e-5` |
 | CSADA | `1e-05` | `5e-05` | `` | `` | CE-anchor adaptation; native adaptation LR `1e-5` |

@@ -141,7 +141,7 @@ def test_sota_loss_dispatcher_accepts_baseline_names():
     assert loss_functions.loss_function("balanced_softmax") == loss_functions.BalancedSoftmaxCE
     assert loss_functions.loss_function("class_balanced_focal") == loss_functions.ClassBalancedFocal
     assert loss_functions.loss_function("ldam_drw") == loss_functions.LDAMDRW
-    assert loss_functions.loss_function("ap_csada") == loss_functions.APCSADA
+    assert loss_functions.loss_function("cost_sensitive_regularized_ce") == loss_functions.CostSensitiveRegularizedCE
     assert loss_functions.loss_function("sosr_cnn") == loss_functions.SOSRCNN
 
 
@@ -168,13 +168,13 @@ def test_cost_weighted_ce_uses_true_class_row_costs():
     assert high_row0.CostWeightedCE(logits, targets) > high_row1.CostWeightedCE(logits, targets)
 
 
-def test_ap_csada_loss_increases_when_probability_mass_moves_to_costly_wrong_class():
-    loss_functions = LossFunctions(cost_matrix=[[0.0, 10.0], [1.0, 0.0]], ap_alpha=5.0)
+def test_cost_sensitive_regularized_ce_loss_increases_when_probability_mass_moves_to_costly_wrong_class():
+    loss_functions = LossFunctions(cost_matrix=[[0.0, 10.0], [1.0, 0.0]], cost_regularization_alpha=5.0)
     targets = torch.tensor([0], device=loss_functions.device)
     costly_logits = torch.tensor([[0.0, 2.0]], device=loss_functions.device)
     safe_logits = torch.tensor([[2.0, 0.0]], device=loss_functions.device)
 
-    assert loss_functions.APCSADA(costly_logits, targets) > loss_functions.APCSADA(safe_logits, targets)
+    assert loss_functions.CostSensitiveRegularizedCE(costly_logits, targets) > loss_functions.CostSensitiveRegularizedCE(safe_logits, targets)
 
 
 def test_sosr_trains_against_cost_vectors_and_predicts_by_argmin():

@@ -1,0 +1,82 @@
+{
+  "dataset_profile": "spider",
+  "variant": "balanced",
+  "dataset": "spider_balanced",
+  "dataset_host": "local_folder",
+  "local_dataset_format": "manifest",
+  "local_folder_path": "data/prepared/spider/splits/balanced",
+  "class_names": [
+    "black_widow",
+    "false_widow"
+  ],
+  "num_labels": 2,
+  "target_recall_class": "black_widow",
+  "target_recall_classes": [
+    "black_widow"
+  ],
+  "secondary_target_recall_classes": [],
+  "target_recall_floor": 0.95,
+  "accuracy_floor": 0.8,
+  "selection_accuracy_metric": "accuracy",
+  "cost_matrix": [
+    [
+      0.0,
+      8.0
+    ],
+    [
+      1.0,
+      0.0
+    ]
+  ],
+  "cost_matrix_source": "binary_cost_matrix_review_integer_20260505",
+  "cost_matrix_sha256": "8e2443d43cadb3596d502d689ff24e73b9f5663f409c5ddd43e48cc70442b753",
+  "metric_profile": "binary",
+  "critical_pairs": [
+    {
+      "true": "black_widow",
+      "pred": "false_widow",
+      "cost": 8.0
+    }
+  ],
+  "model": "timm/convnext_base.fb_in22k_ft_in1k",
+  "model_backend": "timm",
+  "model_type": "binary_sota_convnext_base",
+  "peft_enabled": false,
+  "timm_pretrained": true,
+  "wandb": false,
+  "push_to_hub": false,
+  "calibration_enabled": false,
+  "decision_modes": "argmax,cost_min",
+  "prediction_mode": "argmax",
+  "model_selection_metric": "target_recall",
+  "checkpoint_root": "checkpoints/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505",
+  "save_total_limit": 1,
+  "save_only_model": true,
+  "skip_visualizations": true,
+  "seed": 43,
+  "sota_phase": "dry-run",
+  "sota_method": "menon_logit_adjusted",
+  "sota_role": "menon_logit_adjusted",
+  "sota_comparison_profile": "binary_camera_ready_cost8_7_lr5e5_multiseed",
+  "learning_rate_profile": "lr5e5",
+  "parent_learning_rate": 5e-05,
+  "sota_output_root": "/mnt/storage/github/NICME/results/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/datasets/spider/seeds/seed_43",
+  "num_train_epochs": 32,
+  "early_stopping_patience": 5,
+  "batch_size": 16,
+  "gradient_accumulation_steps": 4,
+  "lr_scheduler_type": "cosine",
+  "learning_rate": 5e-05,
+  "weight_decay": 0.005,
+  "warmup_ratio": 0.1,
+  "image_size": 224,
+  "train_random_resize_crop": true,
+  "train_random_resized_crop_scale_min": 0.8,
+  "train_random_resized_crop_scale_max": 1.0,
+  "train_horizontal_flip": false,
+  "train_random_quarter_turns": true,
+  "train_color_jitter": false,
+  "loss_function": "menon_logit_adjusted",
+  "logit_adjustment_tau": 1.0,
+  "output_dir": "binary_spider_dry-run_menon_logit_adjusted_lr5e5_s43"
+}

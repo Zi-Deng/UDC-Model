@@ -14,7 +14,7 @@
   "target_recall_class": "malignant",
   "cost_matrix": [
     [0.0, 1.0],
-    [10.0, 0.0]
+    [7.0, 0.0]
   ],
   "selection": {
     "target_recall_floor": 0.97,
@@ -22,5 +22,10 @@
     "accuracy_metric": "accuracy"
   },
   "selection_accuracy_metric": "accuracy",
-  "cost_matrix_convention": "C[true_label][predicted_label]"
+  "cost_matrix_convention": "C[true_label][predicted_label]",
+  "critical_pairs": [
+    {"true": "malignant", "pred": "benign", "cost": 7.0}
+  ],
+  "cost_matrix_source": "binary_cost_matrix_review_integer_20260505",
+  "cost_reference": "docs/binary_cost_matrix_justification.md"
 }

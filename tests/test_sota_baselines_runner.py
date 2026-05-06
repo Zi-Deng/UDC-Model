@@ -468,6 +468,13 @@ def test_checkpoint_parent_points_to_trainer_output_dir(tmp_path):
     assert runner.checkpoint_parent(cfg) == Path("checkpoints") / cfg["output_dir"]
 
 
+def test_checkpoint_parent_honors_checkpoint_root(tmp_path):
+    cfg = runner.base_config("run", "ce_anchor", tmp_path / "splits" / "balanced", tmp_path / "results")
+    cfg["checkpoint_root"] = str(tmp_path / "scratch_checkpoints")
+
+    assert runner.checkpoint_parent(cfg) == tmp_path / "scratch_checkpoints" / cfg["output_dir"]
+
+
 def test_initial_checkpoint_loader_loads_weights(tmp_path):
     from scripts.train import load_initial_checkpoint
 

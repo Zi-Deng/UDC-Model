@@ -1,0 +1,93 @@
+{
+  "run_info": {
+    "timestamp": "20260505_013508",
+    "output_directory": "results/binary_sota_convnext_base_test/binary_spider_smoke_csada_lr5e5_s42_05-05_01-35"
+  },
+  "model_configuration": {
+    "model": "timm/convnext_base.fb_in22k_ft_in1k",
+    "model_backend": "timm",
+    "model_type": "binary_sota_convnext_base",
+    "weights": null,
+    "num_labels": 2,
+    "peft_enabled": false
+  },
+  "dataset_configuration": {
+    "dataset_profile": "spider",
+    "dataset_host": "local_folder",
+    "dataset": "spider_balanced",
+    "dataset_location": "data/prepared/spider/splits/balanced",
+    "local_dataset_name": null,
+    "local_folder_path": "data/prepared/spider/splits/balanced",
+    "local_dataset_format": "manifest"
+  },
+  "training_parameters": {
+    "batch_size": 16,
+    "learning_rate": 1e-05,
+    "num_train_epochs": 1,
+    "loss_function": "csada",
+    "cs_lambda": 0.0,
+    "cs_warmup_epochs": 0,
+    "nicme_logit_cost_scale": 1.0,
+    "prediction_mode": "argmax",
+    "initial_checkpoint_path": "checkpoints/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/binary_spider_smoke_ce_anchor_binary_lr5e5_s42",
+    "cb_beta": 0.9999,
+    "focal_gamma": 2.0,
+    "ldam_max_m": 0.5,
+    "ldam_scale": 30.0,
+    "ldam_drw_start_epoch": 16,
+    "cost_regularization_alpha": 5.0,
+    "csada_lambda": 2.0,
+    "csada_attack_steps": 5,
+    "csada_epsilon": 0.00784313725490196,
+    "csada_step_size": 0.00392156862745098,
+    "csada_cost_temperature": 3.0,
+    "seed": 42,
+    "augmentations": {
+      "train_random_resize_crop": "True",
+      "train_random_resized_crop_scale_min": 0.8,
+      "train_random_resized_crop_scale_max": 1.0,
+      "train_horizontal_flip": "False",
+      "train_color_jitter": "False",
+      "train_random_quarter_turns": "True"
+    }
+  },
+  "cost_matrix_configuration": {
+    "cost_matrix": [
+      [
+        0.0,
+        8.0
+      ],
+      [
+        1.0,
+        0.0
+      ]
+    ],
+    "cost_matrix_source": "binary_cost_matrix_review_integer_20260505",
+    "cost_matrix_sha256": "8e2443d43cadb3596d502d689ff24e73b9f5663f409c5ddd43e48cc70442b753",
+    "cost_matrix_convention": "C[true_label][predicted_label]",
+    "target_recall_class": "black_widow",
+    "target_recall_classes": [
+      "black_widow"
+    ],
+    "secondary_target_recall_classes": [],
+    "target_recall_floor": 0.95,
+    "accuracy_floor": 0.8,
+    "selection_accuracy_metric": "accuracy",
+    "metric_profile": "binary",
+    "critical_pairs": [
+      {
+        "true": "black_widow",
+        "pred": "false_widow",
+        "cost": 8.0
+      }
+    ],
+    "sweep_mode": false,
+    "sweep_cost_value": null,
+    "sweep_matrix_row": null,
+    "sweep_matrix_col": null
+  },
+  "other_settings": {
+    "wandb_enabled": false,
+    "push_to_hub": false
+  }
+}

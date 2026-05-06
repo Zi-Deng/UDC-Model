@@ -1,0 +1,51 @@
+Prepared manifest loaded — Train=3448, Val=410, Calibration=538, Test=564
+cuda
+Using model backend=timm type=binary_sota_convnext_base with 2 labels
+Early stopping enabled with patience=5
+Using device: cuda
+{'loss': '2.642', 'grad_norm': '22.28', 'learning_rate': '4.952e-05', 'epoch': '0.1852'}
+{'loss': '1.659', 'grad_norm': '72.8', 'learning_rate': '4.148e-05', 'epoch': '0.3704'}
+{'loss': '1.085', 'grad_norm': '30.63', 'learning_rate': '2.664e-05', 'epoch': '0.5556'}
+{'loss': '1.011', 'grad_norm': '45.33', 'learning_rate': '1.111e-05', 'epoch': '0.7407'}
+{'loss': '0.7452', 'grad_norm': '46.83', 'learning_rate': '1.327e-06', 'epoch': '0.9259'}
+{'eval_loss': '0.4994', 'eval_accuracy': '0.8512', 'eval_f1': '0.8487', 'eval_balanced_accuracy': '0.8512', 'eval_macro_f1': '0.8487', 'eval_atc': '0.2073', 'eval_normalized_atc': '0.02962', 'eval_target_recall': '0.9805', 'eval_target_recall_macro': '0.9805', 'eval_target_fnr': '0.01951', 'eval_selection_score': '0.02962', 'eval_selection_accuracy_value': '0.8512', 'eval_nll': '0.4994', 'eval_brier': '0.2571', 'eval_ece': '0.1029', 'eval_auroc': '0.9152', 'eval_auprc': '0.9008', 'eval_runtime': '5.044', 'eval_samples_per_second': '81.28', 'eval_steps_per_second': '5.154', 'epoch': '1'}
+CustomImageProcessor configuration saved to checkpoints/binary_camera_ready_cost8_7_lr5e5_multiseed_20260505/binary_breakhis_smoke_ce_anchor_binary_lr5e5_s44/checkpoint-54/preprocessor_config.json
+{'train_runtime': '45.67', 'train_samples_per_second': '75.5', 'train_steps_per_second': '1.182', 'train_loss': '1.38', 'epoch': '1'}
+***** train metrics *****
+  epoch                    =        1.0
+  total_flos               =        0GF
+  train_loss               =     1.3804
+  train_runtime            = 0:00:45.67
+  train_samples_per_second =     75.495
+  train_steps_per_second   =      1.182
+Using device: cuda
+
+============================================================
+PERFORMING COMPREHENSIVE EVALUATION
+============================================================
+Results will be saved to: results/binary_sota_convnext_base_test/binary_breakhis_smoke_ce_anchor_binary_lr5e5_s44_05-05_02-05
+Saving run configuration...
+Run configuration saved to: results/binary_sota_convnext_base_test/binary_breakhis_smoke_ce_anchor_binary_lr5e5_s44_05-05_02-05/run_configuration_20260505_020557.json
+Running model evaluation...
+Computing detailed metrics...
+Saving metrics to files...
+Metrics saved to: results/binary_sota_convnext_base_test/binary_breakhis_smoke_ce_anchor_binary_lr5e5_s44_05-05_02-05/metrics_20260505_020609_cross_entropy.json and results/binary_sota_convnext_base_test/binary_breakhis_smoke_ce_anchor_binary_lr5e5_s44_05-05_02-05/metrics_20260505_020609_cross_entropy.txt
+Using provided class names: ['benign', 'malignant']
+Skipping confusion matrix visualizations by configuration.
+
+============================================================
+TRAINING COMPLETED - RESULTS SUMMARY
+============================================================
+Output Directory: results/binary_sota_convnext_base_test/binary_breakhis_smoke_ce_anchor_binary_lr5e5_s44_05-05_02-05
+Overall Accuracy: 0.9291
+Balanced Accuracy: 0.9291
+Overall F1 Score: 0.9290
+Kappa: 0.8582
+AUC: 0.9796
+Expected Cost: 0.3688
+Loss Function Used: cross_entropy
+Total Test Samples: 564
+Classes: benign, malignant
+
+Detailed metrics saved to: results/binary_sota_convnext_base_test/binary_breakhis_smoke_ce_anchor_binary_lr5e5_s44_05-05_02-05
+============================================================

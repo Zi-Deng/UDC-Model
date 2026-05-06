@@ -8,6 +8,7 @@ This directory is the current live documentation surface for the repository. His
 - [Paper results summary](paper_results_summary.md): current PMI-20 paper result and supported claims.
 - [Results index](../results/README.md): current, retained historical, and archived result folders.
 - [Binary experiment summary](binary_experiment_summary.md): completed Spider/BreaKHis Stop 3 and Stop 4 evidence.
+- [Binary cost matrix justification](binary_cost_matrix_justification.md): evidence-derived Spider/BreaKHis matrices and sensitivity audit.
 - [Multiclass experiment summary](multiclass_experiment_summary.md): EyePACS DR and PMI Pills MC0 through paused MC3 state.
 - [PMI-10 HPO and SOTA/baseline summary](pmi10_hpo_sota_summary.md): completed PMI-10 NICME alpha/lambda HPO and supporting comparison evidence.
 
@@ -15,6 +16,7 @@ This directory is the current live documentation surface for the repository. His
 
 - [NICME hyperparameters memo](nicme_hyperparameters.pdf) and [LaTeX source](nicme_hyperparameters.tex).
 - [NICME vs CSADA theory memo](nicme_vs_csada_theory.pdf) and [LaTeX source](nicme_vs_csada_theory.tex).
+- [Binary cost matrix review protocol](binary_cost_matrix_review_protocol.md) and [justification](binary_cost_matrix_justification.md).
 
 ## Reference Docs
 
